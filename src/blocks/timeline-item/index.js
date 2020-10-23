@@ -62,7 +62,7 @@ registerBlockType(name, {
 							<ArkheIcon icon={icon} className={`${blockName}__icon`} />
 						</span>
 						<RichText
-							placeholder={__('Title', 'arkhe-blocks') + '...'}
+							placeholder={__('Enter text', 'arkhe-blocks') + '...'}
 							className={`${blockName}__label`}
 							tagName='span'
 							value={label}
@@ -70,7 +70,7 @@ registerBlockType(name, {
 						/>
 					</div>
 					<RichText
-						placeholder={__('Title', 'arkhe-blocks') + '...'}
+						placeholder={__('Enter text', 'arkhe-blocks') + '...'}
 						className={`${blockName}__title`}
 						tagName='div'
 						value={title}

@@ -31,8 +31,8 @@ const { name, category, keywords, supports } = metadata;
  * 通知ブロック
  */
 registerBlockType(name, {
-	title: __('Notice', 'arkhe-blocks'), // 通知
-	description: __('Notify users by emphasizing content.', 'arkhe-blocks'),
+	title: __('Notice', 'arkhe-blocks'),
+	description: __('Create content that is prominently emphasized.', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
 		src: blockIcon,
@@ -42,8 +42,8 @@ registerBlockType(name, {
 	supports,
 	styles: [
 		{ name: 'default', label: __('Default', 'arkhe-blocks'), isDefault: true },
-		{ name: 'big', label: __('Big', 'arkhe-blocks') },
-		{ name: 'left', label: '左アイコン' },
+		{ name: 'stronger', label: __('Stronger', 'arkhe-blocks') },
+		{ name: 'simple', label: __('Simple', 'arkhe-blocks') },
 	],
 	attributes: {
 		title: {

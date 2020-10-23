@@ -1,9 +1,8 @@
 const exampleItem = {
 	name: 'arkhe-blocks/timeline-item',
 	attributes: {
-		title: 'Step Title.',
-		timelineLabel: 'STEP',
-		className: 'is-style-default',
+		title: 'Timeline title.',
+		label: 'YYYY.MM.DD',
 	},
 	innerBlocks: [
 		{

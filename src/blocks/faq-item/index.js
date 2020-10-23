@@ -3,19 +3,13 @@
  */
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
-import {
-	RichText,
-	InnerBlocks,
-	InspectorControls,
-	__experimentalBlock as Block,
-} from '@wordpress/block-editor';
+import { RichText, InnerBlocks, __experimentalBlock as Block } from '@wordpress/block-editor';
 
 /**
  * @Internal dependencies
  */
 import metadata from './block.json';
 import blockIcon from './_icon';
-import example from './_example';
 import { iconColor } from '@blocks/config';
 
 /**

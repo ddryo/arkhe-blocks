@@ -6,68 +6,36 @@ import { BaseControl, ButtonGroup, Button } from '@wordpress/components';
 import { ArkheIcon } from '@components/ArkheIcon';
 
 /**
- * アイコンリスト
- */
-const icons = [
-	'arkb-svg-point',
-	'arkb-svg-alert',
-	'arkb-svg-warning',
-	'arkb-svg-check',
-	'arkb-svg-pen',
-	// 'arkb-svg-plus',
-	// 'arkb-svg-minus',
-	'arkhe-icon-comment',
-	'arkhe-icon-posted',
-	'arkhe-icon-tag',
-	'arkhe-icon-folder',
-	'arkhe-icon-home',
-	'arkhe-icon-link',
-
-	// 'fas fa-pen',
-	// 'fas fa-exclamation-circle',
-	// 'fas fa-exclamation-triangle',
-
-	// 'arkhe-icon-quill',
-	// 'arkhe-icon-pen',
-	// 'arkhe-icon-hatena',
-	// 'arkhe-icon-batsu',
-	// 'arkhe-icon-light-bulb',
-	// 'arkhe-icon-megaphone',
-	// 'arkhe-icon-alert',
-	// 'arkhe-icon-info',
-	// 'arkhe-icon-blocked',
-	// 'arkhe-icon-thumb_up',
-	// 'arkhe-icon-thumb_down',
-	// 'arkhe-icon-star-full',
-	// 'arkhe-icon-heart',
-	// 'arkhe-icon-bookmarks',
-	// 'arkhe-icon-cart',
-	// 'arkhe-icon-mail',
-	// 'arkhe-icon-person',
-	// 'arkhe-icon-bubble',
-	// 'arkhe-icon-settings',
-	// 'arkhe-icon-phone',
-	// 'arkhe-icon-book',
-	// 'arkhe-icon-flag',
-	// 'arkhe-icon-posted',
-];
-
-/**
  * タブ
  */
 function ArkheIconPicker(props) {
 	const { icon, onClick } = props;
 
-	// Arkheテーマ
-	if (!window.arkheTheme) {
-		return (
-			<div className='ark-blocks-help'>
-				{__(
-					'Arkheテーマを利用している場合は、Arkheに用意されているアイコンも選べるようになります。',
-					'arkhe-blocks'
-				)}
-			</div>
-		);
+	// アイコンリスト
+	let icons = [
+		'arkb-svg-point',
+		'arkb-svg-alert',
+		'arkb-svg-warning',
+		'arkb-svg-check',
+		'arkb-svg-pen',
+		'arkb-svg-megaphone',
+		'arkb-svg-mail',
+		'arkb-svg-cart',
+		'arkb-svg-thumb_down',
+		'arkb-svg-thumb_up',
+		// 'arkb-svg-plus',
+		// 'arkb-svg-minus',
+	];
+
+	if (window.arkheTheme) {
+		icons = icons.concat([
+			'arkhe-icon-comment',
+			'arkhe-icon-posted',
+			'arkhe-icon-tag',
+			'arkhe-icon-folder',
+			'arkhe-icon-home',
+			'arkhe-icon-link',
+		]);
 	}
 
 	return (
@@ -89,6 +57,14 @@ function ArkheIconPicker(props) {
 					);
 				})}
 			</ButtonGroup>
+			{!window.arkheTheme && (
+				<div className='ark-blocks-help'>
+					{__(
+						'If you use "Arkhe", you will be able to select the icons provided in the theme itself.',
+						'arkhe-blocks'
+					)}
+				</div>
+			)}
 		</BaseControl>
 	);
 }

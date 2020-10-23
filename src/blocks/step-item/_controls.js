@@ -8,20 +8,20 @@ import { PanelBody, TextControl, BaseControl, CheckboxControl } from '@wordpress
 
 export default function (props) {
 	const { attributes, setAttributes } = props;
-	const { numColor, stepLabel, theLabel, theNum, isHideNum, isHideLabel } = attributes;
+	const { numColor, theLabel, theNum, isHideNum, isHideLabel } = attributes;
 
 	return (
 		<InspectorControls>
-			<PanelBody title='STEPテキストの上書き設定'>
+			<PanelBody title={__('Text settings', 'arkhe-blocks')}>
 				<BaseControl>
 					<CheckboxControl
-						label='番号を非表示にする'
+						label={__('Hide the number', 'arkhe-blocks')}
 						checked={isHideNum}
 						onChange={(val) => setAttributes({ isHideNum: val })}
 					/>
 				</BaseControl>
 				<TextControl
-					label={`番号部分のテキスト`}
+					label={__('Number part text', 'arkhe-blocks')}
 					value={theNum}
 					onChange={(val) => {
 						setAttributes({ theNum: val });
@@ -29,13 +29,13 @@ export default function (props) {
 				/>
 				<BaseControl>
 					<CheckboxControl
-						label='テキストを非表示にする'
+						label={__('Hide the text', 'arkhe-blocks')}
 						checked={isHideLabel}
 						onChange={(val) => setAttributes({ isHideLabel: val })}
 					/>
 				</BaseControl>
 				<TextControl
-					label={`「${stepLabel}」部分のテキスト`}
+					label={__('Text of "STEP" part', 'arkhe-blocks')}
 					value={theLabel}
 					onChange={(val) => {
 						setAttributes({ theLabel: val });
@@ -43,12 +43,12 @@ export default function (props) {
 				/>
 			</PanelBody>
 			<PanelColorSettings
-				title='ステップ番号のカラー設定'
+				title={__('Color settings', 'arkhe-blocks')}
 				initialOpen={true}
 				colorSettings={[
 					{
 						value: numColor,
-						label: '色',
+						label: __('Color', 'arkhe-blocks'),
 						onChange: (value) => {
 							setAttributes({ numColor: value });
 						},

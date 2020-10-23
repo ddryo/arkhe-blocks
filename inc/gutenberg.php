@@ -36,10 +36,6 @@ function register_blocks() {
 		'accordion-item',
 		'faq',
 		'faq-item',
-		'step',
-		'step-item',
-		'timeline',
-		'timeline-item',
 		'dl',
 		'dl-dt',
 		'dl-dd',
@@ -49,6 +45,10 @@ function register_blocks() {
 	if ( \Arkhe_Blocks::IS_PRO ) {
 		$arkhe_blocks_pro = [
 			'notice',
+			'step',
+			'step-item',
+			'timeline',
+			'timeline-item',
 		];
 
 		$arkhe_blocks = array_merge( $arkhe_blocks, $arkhe_blocks_pro );

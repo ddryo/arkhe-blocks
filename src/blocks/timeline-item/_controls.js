@@ -31,21 +31,21 @@ export default function (props) {
 
 	return (
 		<InspectorControls>
-			<PanelBody title='シェイプの設定'>
+			<PanelBody title={__('Shape settings', 'arkhe-blocks')}>
 				<BaseControl>
 					<CheckboxControl
-						label='シェイプを塗りつぶす'
+						label={__('Fill the shape', 'arkhe-blocks')}
 						checked={isFill}
 						onChange={(val) => setAttributes({ isFill: val })}
 					/>
 				</BaseControl>
 				<PanelColorSettings
-					title='カラー設定'
+					title={__('Color settings', 'arkhe-blocks')}
 					initialOpen={true}
 					colorSettings={[
 						{
 							value: color,
-							label: '色',
+							label: __('Color', 'arkhe-blocks'),
 							onChange: (value) => {
 								setAttributes({ color: value });
 							},
@@ -53,7 +53,7 @@ export default function (props) {
 					]}
 				></PanelColorSettings>
 			</PanelBody>
-			<PanelBody title='アイコン設定'>
+			<PanelBody title={__('Icon settings', 'arkhe-blocks')}>
 				<ArkheIconPicker
 					icon={icon}
 					onClick={(val, isSelected) => {
@@ -67,7 +67,7 @@ export default function (props) {
 					}}
 				/>
 				<TextControl
-					label={`アイコン`}
+					label={__('Icon', 'arkhe-blocks')}
 					value={icon}
 					help={faNote}
 					onChange={(val) => {

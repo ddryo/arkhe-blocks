@@ -1,6 +1,6 @@
 export default {
 	attributes: {
-		content: 'Notice Block',
+		title: 'Notice title.',
 	},
 	innerBlocks: [
 		{

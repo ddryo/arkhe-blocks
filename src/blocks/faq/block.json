@@ -12,12 +12,7 @@
         "className": false,
         "lightBlockWrapper": true
     },
-    "attributes": {
-        "iconRadius": {
-            "type": "string",
-            "default": ""
-        }
-    },
+    "attributes": {},
     "editorScript": "file:../../../dist/blocks/faq/index.js",
     "textdomain": "arkhe-blocks"
 }

@@ -68,7 +68,7 @@ registerBlockType(name, {
 							) : null}
 						</div>
 						<RichText
-							placeholder={__('Title', 'arkhe-blocks') + '...'}
+							placeholder={__('Enter text', 'arkhe-blocks') + '...'}
 							className={`${blockName}__title`}
 							tagName='div'
 							value={title}

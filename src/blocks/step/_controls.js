@@ -21,9 +21,9 @@ export default function (props) {
 
 	return (
 		<InspectorControls>
-			<PanelBody title={__('ステップ設定', 'arkhe-blocks')}>
+			<PanelBody title={__('Step settings', 'arkhe-blocks')}>
 				<TextControl
-					label={__('「STEP」の文字', 'arkhe-blocks')}
+					label={__('Text of "STEP" part', 'arkhe-blocks')}
 					value={stepLabel}
 					onChange={(val) => {
 						setAttributes({ stepLabel: val });
@@ -38,7 +38,7 @@ export default function (props) {
 				/>
 
 				<TextControl
-					label={__('始まりの番号', 'arkhe-blocks')}
+					label={__('Start number', 'arkhe-blocks')}
 					value={startNum}
 					type='number'
 					onChange={(val) => {

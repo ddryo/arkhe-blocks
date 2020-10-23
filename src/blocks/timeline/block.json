@@ -11,20 +11,7 @@
         "className": false,
         "lightBlockWrapper": true
     },
-    "attributes": {
-        "startNum": {
-            "type": "number",
-            "default": 1
-        },
-        "stepLabel": {
-            "type": "string",
-            "default": "STEP"
-        },
-        "stepClass": {
-            "type": "string",
-            "default": "default"
-        }
-    },
+    "attributes": {},
     "editorScript": "file:../../../dist/blocks/timeline/index.js",
     "textdomain": "arkhe-blocks"
 }

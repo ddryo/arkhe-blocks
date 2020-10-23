@@ -36,7 +36,7 @@ registerBlockType(name, {
 	description: __('Create content that can be expanded with a click.', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
-		src: blockIcon.accordion,
+		src: blockIcon,
 	},
 	category,
 	keywords,

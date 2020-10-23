@@ -19,10 +19,6 @@
         "stepLabel": {
             "type": "string",
             "default": "STEP"
-        },
-        "stepClass": {
-            "type": "string",
-            "default": "default"
         }
     },
     "editorScript": "file:../../../dist/blocks/step/index.js",

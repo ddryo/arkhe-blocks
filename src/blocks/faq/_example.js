@@ -1,8 +1,7 @@
 const exampleItem = {
-	name: 'loos/faq-item',
+	name: 'arkhe-blocks/faq-item',
 	attributes: {
-		contentQ: 'Question ?',
-		// isPreview: true,
+		textQ: 'Question title',
 	},
 	innerBlocks: [
 		{
@@ -15,9 +14,5 @@ const exampleItem = {
 	],
 };
 export default {
-	attributes: {
-		qIconStyle: 'fill-custom',
-		aIconStyle: 'fill-custom',
-	},
 	innerBlocks: [exampleItem, exampleItem],
 };

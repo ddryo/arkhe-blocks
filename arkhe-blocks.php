@@ -3,7 +3,7 @@
  * Plugin Name: Arkhe Blocks
  * Plugin URI: https://arkhe-theme.com
  * Description: A plugin that extends Gutenberg, optimized for the "Arkhe" theme.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: LOOS,Inc.
  * Author URI: https://twitter.com/ddryo_loos
  * License: GPL2 or later
@@ -34,7 +34,7 @@ if ( ! class_exists( 'Arkhe_Blocks' ) ) {
 			// if ( 'Arkhe' !== $theme_name && 'arkhe' !== $theme_template ) return;
 
 			// 定数定義
-			define( 'ARKHE_BLOCKS_VERSION', ( defined( 'WP_DEBUG' ) && WP_DEBUG ) ? date_i18n( 'mdGis' ) : '1.0.0' );
+			define( 'ARKHE_BLOCKS_VERSION', ( defined( 'WP_DEBUG' ) && WP_DEBUG ) ? date_i18n( 'mdGis' ) : '1.0.1' );
 			define( 'ARKHE_BLOCKS_URL', plugins_url( '/', __FILE__ ) );
 			define( 'ARKHE_BLOCKS_PATH', plugin_dir_path( __FILE__ ) );
 

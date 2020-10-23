@@ -30,7 +30,7 @@ const { name, category, keywords, supports } = metadata;
  */
 registerBlockType(name, {
 	title: __('Step', 'arkhe-blocks'),
-	description: __('ステップ形式で流れを説明できます。', 'arkhe-blocks'),
+	description: __('Create step-by-step content.', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
 		src: blockIcon,

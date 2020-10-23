@@ -4,7 +4,7 @@
  * エディターのみで読み込むCSS
  */
 @import "mixin/**";
-@import "icon";
+// @import "icon";
 @import "../blocks/**/_common.scss";
 @import "../blocks/**/_editor.scss";
 
@@ -72,14 +72,5 @@ $color_guide: rgba(123, 134, 162, .3);//#b8c7da;
 			left: -8px !important;
 		}
 	}
-
-	// [data-type="loos/balloon"],
-	// [data-type="loos/step-item"] {
-
-	// 	&::after {
-	// 		top: -4px !important;
-	// 		bottom: -4px !important;
-	// 	}
-	// }
 
 }

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Arkhe Blocks\n"
-"POT-Creation-Date: 2020-10-22 17:52+0900\n"
-"PO-Revision-Date: 2020-10-22 17:52+0900\n"
+"POT-Creation-Date: 2020-10-23 21:54+0900\n"
+"PO-Revision-Date: 2020-10-23 22:28+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -24,28 +24,14 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-2: node_modules\n"
 "X-Poedit-SearchPathExcluded-3: inc/update\n"
 
-#: src/blocks/__step/_panels.js:47
-msgid "ステップ番号の並び"
-msgstr ""
-
-#: src/blocks/__step/_panels.js:74
-msgid "ステップ番号の形"
-msgstr ""
-
-#: src/blocks/__step/index-child.js:228
-msgid "Title"
-msgstr ""
-
-#: src/blocks/__step/index-parent.js:28
-msgid "ステップ形式で流れを説明できます。"
-msgstr ""
-
-#: src/blocks/accordion-item/index.js:31
+#: src/blocks/accordion-item/index.js:32
 msgid "Accordion item"
 msgstr "アコーディオン項目"
 
-#: src/blocks/accordion-item/index.js:53 src/blocks/dl-dt/index.js:50
-#: src/blocks/faq-item/index.js:54 src/blocks/notice/index.js:119
+#: src/blocks/accordion-item/index.js:54 src/blocks/dl-dt/index.js:50
+#: src/blocks/faq-item/index.js:54 src/blocks/notice/index.js:83
+#: src/blocks/step-item/index.js:71 src/blocks/timeline-item/index.js:65
+#: src/blocks/timeline-item/index.js:73
 msgid "Enter text"
 msgstr "テキストを入力"
 
@@ -85,40 +71,126 @@ msgstr "Q&A項目"
 msgid "Create Q & A format content."
 msgstr "Q&A形式のコンテンツを作成します。"
 
-#: src/blocks/notice/_controls.js:53
+#: src/blocks/notice/_controls.js:54 src/blocks/timeline-item/_controls.js:20
+msgid "The <a>Font Awesome icon</a> is also available. (Output with svg)"
+msgstr "<a>Font Awesome のアイコン</a>も利用可能です。(svgで出力されます)"
+
+#: src/blocks/notice/_controls.js:69
 msgid "Notification type"
 msgstr "通知タイプ"
 
-#: src/blocks/notice/_controls.js:74
+#: src/blocks/notice/_controls.js:92 src/blocks/timeline-item/_controls.js:56
 msgid "Icon settings"
 msgstr "アイコン設定"
 
-#: src/blocks/notice/_controls.js:89
+#: src/blocks/notice/_controls.js:107
 msgid "Icon class"
 msgstr "アイコンクラス"
 
-#: src/blocks/notice/_controls.js:91
-msgid "The Font Awesome icon is also available. (Output with svg)"
-msgstr "Font Awesome のアイコンも利用可能です。(svgで出力されます)"
-
-#: src/blocks/notice/index.js:59
+#: src/blocks/notice/index.js:34
 msgid "Notice"
 msgstr "通知"
 
-#: src/blocks/notice/index.js:60
-msgid "Notify users by emphasizing content."
-msgstr "コンテンツを強調してユーザーに通知します。"
+#: src/blocks/notice/index.js:35
+msgid "Create content that is prominently emphasized."
+msgstr "目立つように強調されたコンテンツを作成します。"
 
-#: src/blocks/notice/index.js:69
+#: src/blocks/notice/index.js:44
 msgid "Default"
 msgstr "デフォルト"
 
-#: src/blocks/notice/index.js:70
-msgid "Big"
-msgstr "大"
+#: src/blocks/notice/index.js:45
+msgid "Stronger"
+msgstr "強調"
+
+#: src/blocks/notice/index.js:46
+msgid "Simple"
+msgstr "シンプル"
+
+#: src/blocks/step-item/_controls.js:15
+msgid "Text settings"
+msgstr "テキスト設定"
+
+#: src/blocks/step-item/_controls.js:18
+msgid "Hide the number"
+msgstr "番号を非表示にする"
+
+#: src/blocks/step-item/_controls.js:24
+msgid "Number part text"
+msgstr "番号部分のテキスト"
+
+#: src/blocks/step-item/_controls.js:32
+msgid "Hide the text"
+msgstr "テキストを非表示にする"
+
+#: src/blocks/step-item/_controls.js:38 src/blocks/step/_controls.js:26
+msgid "Text of \"STEP\" part"
+msgstr "「STEP」部分のテキスト"
+
+#: src/blocks/step-item/_controls.js:46
+#: src/blocks/timeline-item/_controls.js:43
+msgid "Color settings"
+msgstr "カラー設定"
+
+#: src/blocks/step-item/_controls.js:51
+#: src/blocks/timeline-item/_controls.js:48
+msgid "Color"
+msgstr "色"
+
+#: src/blocks/step-item/index.js:31
+msgid "Step item"
+msgstr "ステップ項目"
+
+#: src/blocks/step/_controls.js:24
+msgid "Step settings"
+msgstr "ステップ設定"
+
+#: src/blocks/step/_controls.js:41
+msgid "Start number"
+msgstr "スタート番号"
+
+#: src/blocks/step/index.js:32
+msgid "Step"
+msgstr "ステップ"
+
+#: src/blocks/step/index.js:33
+msgid "Create step-by-step content."
+msgstr "ステップ形式のコンテンツを作成します。"
+
+#: src/blocks/timeline-item/_controls.js:34
+msgid "Shape settings"
+msgstr "シェイプ設定"
+
+#: src/blocks/timeline-item/_controls.js:37
+msgid "Fill the shape"
+msgstr "シェイプを塗りつぶす"
+
+#: src/blocks/timeline-item/_controls.js:70
+msgid "Icon"
+msgstr "アイコン"
+
+#: src/blocks/timeline-item/index.js:32
+msgid "Timeline item"
+msgstr "タイムライン項目"
+
+#: src/blocks/timeline/index.js:31
+msgid "Timeline"
+msgstr "タイムライン"
+
+#: src/blocks/timeline/index.js:32
+msgid "Create timeline format content."
+msgstr "タイムライン形式のコンテンツを作成します。"
+
+#: src/components/ArkheIconPicker.js:63
+msgid ""
+"If you use \"Arkhe\", you will be able to select the icons provided in the "
+"theme itself."
+msgstr ""
+"“Arkhe”を利用すれば、テーマ本体に用意されているアイコンも選べるようになりま"
+"す。"
 
 #. Plugin Name of the plugin/theme
-#: inc/gutenberg.php:67
+#: inc/gutenberg.php:73
 msgid "Arkhe Blocks"
 msgstr ""
 
@@ -145,3 +217,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "https://twitter.com/ddryo_loos"
 msgstr ""
+
+#~ msgid "Big"
+#~ msgstr "大"
+
+#~ msgid "Notify users by emphasizing content."
+#~ msgstr "コンテンツを強調してユーザーに通知します。"
