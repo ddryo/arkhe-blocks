@@ -1,0 +1,20 @@
+@charset "utf-8";
+
+// mixin
+@import "mixin/**";
+@import "icon";
+@import "../blocks/**/_common.scss";
+@import "../blocks/**/_front.scss";
+
+.ark-keep-mt--s {
+
+	& > * {
+		margin-top: var(--ark-mt_s, 1rem);
+		margin-bottom: 0;
+	}
+
+	& > :first-child {
+		margin-top: 0;
+	}
+
+}

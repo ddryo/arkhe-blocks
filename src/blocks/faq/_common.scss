@@ -1,0 +1,46 @@
+// FAQ
+// .ark-block-faq {}
+
+.ark-block-faq__item + .ark-block-faq__item {
+	margin-top: 1.25em;
+	padding-top: 1.25em;
+	border-top: solid 1px var(--ark-color_border, rgba(200, 200, 200, .5));
+}
+
+.ark-block-faq__q,
+.ark-block-faq__a {
+	position: relative;
+	padding: 1em 1em 1em 3em;
+	line-height: 1.6;
+}
+
+.ark-block-faq__q {
+	font-weight: 700;
+
+
+	&::before {
+		content: "Q";
+	}
+}
+
+.ark-block-faq__a {
+
+	&::before {
+		content: "A";
+	}
+}
+
+.ark-block-faq__q::before,
+.ark-block-faq__a::before {
+	position: absolute;
+	top: .75em;
+	left: 0;
+	display: block;
+	width: 2em;
+	font-weight: normal;
+	font-family: Arial, sans-serif;
+	line-height: 2;
+	text-align: center;
+	border: solid 1px;
+	border-radius: 4px;
+}

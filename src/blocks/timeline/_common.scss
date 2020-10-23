@@ -1,0 +1,39 @@
+.ark-block-timeline {
+
+}
+
+.ark-block-timeline__item {
+	position: relative;
+	padding: 0 0 2em 24px;
+
+	&::before {
+		position: absolute;
+		top: 18px;
+		left: 7px;
+		display: block;
+		height: calc(100% - 20px);
+		border-left: 2px solid $color_border;
+		// width: 0;
+
+
+		content: "";
+	}
+}
+
+.ark-block-timeline__shape {
+	box-sizing: border-box; //エディター用
+	width: 16px;
+	height: 16px;
+	margin-right: 8px;
+	border: solid 2px currentColor;
+
+}
+
+.ark-block-timeline__title {
+	margin-top: .25em;
+	font-weight: bold;
+}
+
+.ark-block-timeline__body {
+	margin-top: 1em;
+}

@@ -1,0 +1,16 @@
+{
+    "name": "arkhe-blocks/dl-dd",
+    "title": "Description",
+    "category": "arkhe-blocks",
+    "supports": {
+        "className": false,
+        "lightBlockWrapper": true
+    },
+    "parent": [
+        "arkhe-blocks/dl",
+        "arkhe-blocks/dl-div"
+    ],
+    "attributes": {},
+    "editorScript": "file:../../../dist/blocks/dl-dd/index.js",
+    "textdomain": "arkhe-blocks"
+}

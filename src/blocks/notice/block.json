@@ -1,0 +1,26 @@
+{
+    "name": "arkhe-blocks/notice",
+    "title": "Notice",
+    "category": "arkhe-blocks",
+    "keywords": [
+        "arkhe",
+        "notice"
+    ],
+    "supports": {
+        "anchor": true,
+        "className": false,
+        "lightBlockWrapper": true
+    },
+    "attributes": {
+        "iconOpened": {
+            "type": "string",
+            "default": "arrow_drop_up"
+        },
+        "iconClosed": {
+            "type": "string",
+            "default": "arrow_drop_down"
+        }
+    },
+    "editorScript": "file:../../../dist/blocks/notice/index.js",
+    "textdomain": "arkhe-blocks"
+}

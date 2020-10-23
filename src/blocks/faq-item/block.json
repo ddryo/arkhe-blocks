@@ -1,0 +1,23 @@
+{
+    "name": "arkhe-blocks/faq-item",
+    "title": "Q&A Item",
+    "category": "arkhe-blocks",
+    "supports": {
+        "anchor": true,
+        "className": false,
+        "lightBlockWrapper": true
+    },
+    "parent": [
+        "arkhe-blocks/faq-item"
+    ],
+    "attributes": {
+        "textQ": {
+            "type": "array",
+            "source": "children",
+            "selector": "dt",
+            "default": ""
+        }
+    },
+    "editorScript": "file:../../../dist/blocks/faq-item/index.js",
+    "textdomain": "arkhe-blocks"
+}

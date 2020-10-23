@@ -1,0 +1,23 @@
+{
+    "name": "arkhe-blocks/faq",
+    "title": "Q&A",
+    "category": "arkhe-blocks",
+    "keywords": [
+        "arkhe",
+        "faq",
+        "qa"
+    ],
+    "supports": {
+        "anchor": true,
+        "className": false,
+        "lightBlockWrapper": true
+    },
+    "attributes": {
+        "iconRadius": {
+            "type": "string",
+            "default": ""
+        }
+    },
+    "editorScript": "file:../../../dist/blocks/faq/index.js",
+    "textdomain": "arkhe-blocks"
+}

@@ -1,0 +1,30 @@
+{
+    "name": "arkhe-blocks/step",
+    "title": "Step",
+    "category": "arkhe-blocks",
+    "keywords": [
+        "arkhe",
+        "step"
+    ],
+    "supports": {
+        "anchor": true,
+        "className": false,
+        "lightBlockWrapper": true
+    },
+    "attributes": {
+        "startNum": {
+            "type": "number",
+            "default": 1
+        },
+        "stepLabel": {
+            "type": "string",
+            "default": "STEP"
+        },
+        "stepClass": {
+            "type": "string",
+            "default": "default"
+        }
+    },
+    "editorScript": "file:../../../dist/blocks/step/index.js",
+    "textdomain": "arkhe-blocks"
+}

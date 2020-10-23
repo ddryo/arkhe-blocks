@@ -1,0 +1,35 @@
+//------------------------------------------
+// Media Query用
+//------------------------------------------
+
+// Mobileサイズ
+@mixin mobile {
+
+	@media screen and (max-width: 599px) {
+		@content;
+	}
+}
+
+// Tabの縦向き以上
+@mixin tab {
+
+	@media screen and (min-width: 600px) {
+		@content;
+	}
+}
+
+//pc以上
+@mixin pc {
+
+	@media (min-width: 1000px) {
+		@content;
+	}
+}
+
+// PC未満
+@mixin sp {
+
+	@media (max-width: 999px) {
+		@content;
+	}
+}
