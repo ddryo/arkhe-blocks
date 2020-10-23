@@ -9,7 +9,7 @@ import { InnerBlocks, __experimentalBlock as Block } from '@wordpress/block-edit
  * @Internal dependencies
  */
 import { iconColor } from '@blocks/config';
-import BlockControls from './_controls';
+// import BlockControls from './_controls';
 import blockIcon from './_icon';
 import example from './_example';
 import metadata from './block.json';
@@ -51,7 +51,7 @@ registerBlockType(name, {
 
 		return (
 			<>
-				<BlockControls {...props} />
+				{/* <BlockControls {...props} /> */}
 				<Block.div className={`${blockName} ark-has-guide`}>
 					<InnerBlocks
 						allowedBlocks={['arkhe-blocks/timeline-item']}

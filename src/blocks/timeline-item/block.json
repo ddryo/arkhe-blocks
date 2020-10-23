@@ -28,6 +28,10 @@
         "icon": {
             "type": "string",
             "default": ""
+        },
+        "color": {
+            "type": "string",
+            "default": ""
         }
     },
     "editorScript": "file:../../../dist/blocks/timeline-item/index.js",

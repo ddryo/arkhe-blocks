@@ -3,6 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { InspectorControls } from '@wordpress/block-editor';
+import { createInterpolateElement } from '@wordpress/element';
 import {
 	PanelBody,
 	BaseControl,
@@ -16,6 +17,7 @@ import {
  * @Internal dependencies
  */
 import ArkheIconPicker from '@components/ArkheIconPicker';
+import { ArkheSVG } from '@components/ArkheSVG';
 
 /**
  * キャプションブロック
@@ -26,37 +28,52 @@ export default function (props) {
 
 	const types = [
 		{
-			value: 'memo',
-			icon: 'fas fa-pen',
-		},
-		{
 			value: 'point',
-			icon: 'fas fa-lightbulb',
-		},
-		{
-			value: 'ok',
-			icon: 'fas fa-check',
+			icon: 'arkb-svg-point',
 		},
 		{
 			value: 'alert',
-			icon: 'fas fa-exclamation-triangle',
+			icon: 'arkb-svg-alert',
 		},
 		{
 			value: 'warning',
-			icon: 'fas fa-exclamation-circle',
+			icon: 'arkb-svg-warning',
+		},
+		{
+			value: 'ok',
+			icon: 'arkb-svg-check',
+		},
+		{
+			value: 'memo',
+			icon: 'arkb-svg-pen',
 		},
 	];
+
+	/* eslint jsx-a11y/anchor-has-content: 0 */
+	const faNote = createInterpolateElement(
+		__('The <a>Font Awesome icon</a> is also available. (Output with svg)'),
+		{
+			a: (
+				<a
+					href='https://fontawesome.com/icons?d=gallery'
+					target='_blank'
+					rel='noopener noreferrer'
+				/>
+			),
+		}
+	);
 
 	// パネル生成
 	return (
 		<InspectorControls>
 			<PanelBody title={__('Notification type', 'arkhe-blocks')} initialOpen={true}>
-				<ButtonGroup>
+				<ButtonGroup className='ark-notice-btns'>
 					{types.map((data) => {
 						return (
 							<Button
 								isPrimary={type === data.value}
 								key={`ark-${data.value}`}
+								className={`ark-block-notice -${data.value}`}
 								onClick={() => {
 									// if (!isPro) return;
 									setAttributes({
@@ -65,7 +82,8 @@ export default function (props) {
 									});
 								}}
 							>
-								{data.value}
+								{/* {data.value} */}
+								<ArkheSVG icon={data.icon} />
 							</Button>
 						);
 					})}
@@ -87,10 +105,7 @@ export default function (props) {
 				<BaseControl>
 					<TextControl
 						label={__('Icon class', 'arkhe-blocks')}
-						help={
-							'※ ' + __('The Font Awesome icon is also available. (Output with svg)')
-						}
-						// type='url'
+						help={faNote}
 						value={icon}
 						onChange={(val) => {
 							setAttributes({ icon: val });

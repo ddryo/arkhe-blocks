@@ -8,9 +8,42 @@
 @import "../blocks/**/_common.scss";
 @import "../blocks/**/_editor.scss";
 
+.ark-iconPicker {
+
+	display: flex;
+	flex-wrap: wrap;
+
+	button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 20%;
+		margin: -1px -1px 0 0 !important;
+		padding: 8px;
+		border-radius: 0;
+	}
+
+	svg {
+		width: 16px;
+		height: 16px;
+	}
+
+	i {
+		font-size: 16px;
+	}
+}
+
+.ark-blocks-help {
+	margin: 16px 0;
+
+	.components-panel__body-title + & {
+		margin-top: 0;
+	}
+
+}
+
 // 余白を小さくするエリア。
 // の中 / 全幅じゃないカラムブロックメディアと文章ブロックの中 / 通常幅のカバー・グループブロックの中
-
 .ark-keep-mt--s {
 
 	& > .block-editor-block-list__block {

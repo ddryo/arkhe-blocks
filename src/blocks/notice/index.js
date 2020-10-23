@@ -14,37 +14,12 @@ import metadata from './block.json';
 import blockIcon from './_icon';
 import BlockControls from './_controls';
 import example from './_example';
+import { ArkheIcon } from '@components/ArkheIcon';
 
 /**
  * @others dependencies
  */
 import classnames from 'classnames';
-
-/**
- * @FontAwesome dependencies
- */
-import { library, dom } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-library.add(fas);
-dom.watch();
-
-/**
- * 普通のアイコンと fontawesome を分けるための関数
- */
-const sliceIconData = (iconClass) => {
-	let iconData;
-
-	// FAだったら配列が返される
-	if (null !== iconClass.match(/fas |fab |far /)) {
-		iconData = iconClass.split(' ');
-		iconData[1] = iconData[1].replace('fa-', '');
-		return iconData;
-	}
-
-	// FA以外は普通に文字列のまま
-	return iconClass;
-};
 
 /**
  * metadata
@@ -96,23 +71,12 @@ registerBlockType(name, {
 			blockClass = classnames(blockClass, '-' + type);
 		}
 
-		// アイコン
-		let iconSrc = null;
-		if (icon) {
-			const iconData = sliceIconData(icon);
-			if (typeof iconData === 'string') {
-				iconSrc = <i className={`${blockName}__icon ${icon}`}></i>;
-			} else {
-				iconSrc = <FontAwesomeIcon icon={iconData} className={`${blockName}__icon`} />;
-			}
-		}
-
 		return (
 			<>
 				<BlockControls {...props} />
 				<Block.div className={blockClass}>
 					<div className={`${blockName}__head`}>
-						{iconSrc}
+						<ArkheIcon icon={icon} className={`${blockName}__icon`} />
 						<RichText
 							tagName='span'
 							className={`${blockName}__title`}
@@ -135,27 +99,17 @@ registerBlockType(name, {
 	},
 
 	save: ({ attributes }) => {
+		const { icon, title, type } = attributes;
+
 		let blockClass = blockName;
 		if (type) {
 			blockClass = classnames(blockClass, '-' + type);
-		}
-		const { icon, title, type } = attributes;
-
-		// アイコン
-		let iconSrc = null;
-		if (icon) {
-			const iconData = sliceIconData(icon);
-			if (typeof iconData === 'string') {
-				iconSrc = <i className={`${blockName}__icon ${icon}`}></i>;
-			} else {
-				iconSrc = <FontAwesomeIcon icon={iconData} className={`${blockName}__icon`} />;
-			}
 		}
 
 		return (
 			<div className={blockClass}>
 				<div className={`${blockName}__head`}>
-					{iconSrc}
+					<ArkheIcon icon={icon} className={`${blockName}__icon`} />
 					<RichText.Content
 						tagName='span'
 						className={`${blockName}__title`}

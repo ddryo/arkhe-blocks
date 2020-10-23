@@ -1,43 +1,55 @@
 /**
  * @WordPress dependencies
  */
-// import { __ } from '@wordpress/i18n';
+import { __ } from '@wordpress/i18n';
 import { BaseControl, ButtonGroup, Button } from '@wordpress/components';
+import { ArkheIcon } from '@components/ArkheIcon';
 
 /**
  * アイコンリスト
  */
 const icons = [
-	'arkb-icon-add',
-	'arkb-icon-remove',
-	'fas fa-pen',
-	'fas fa-exclamation-circle',
-	'fas fa-exclamation-triangle',
-	// 'icon-check',
-	// 'icon-quill',
-	// 'icon-pen',
-	// 'icon-hatena',
-	// 'icon-batsu',
-	// 'icon-light-bulb',
-	// 'icon-megaphone',
-	// 'icon-alert',
-	// 'icon-info',
-	// 'icon-blocked',
-	// 'icon-thumb_up',
-	// 'icon-thumb_down',
-	// 'icon-star-full',
-	// 'icon-heart',
-	// 'icon-bookmarks',
-	// 'icon-cart',
-	// 'icon-mail',
-	// 'icon-person',
-	// 'icon-bubble',
-	// 'icon-settings',
-	// 'icon-phone',
-	// 'icon-book',
-	// 'icon-flag',
-	// 'icon-posted',
-	// 'icon-swell',
+	'arkb-svg-point',
+	'arkb-svg-alert',
+	'arkb-svg-warning',
+	'arkb-svg-check',
+	'arkb-svg-pen',
+	// 'arkb-svg-plus',
+	// 'arkb-svg-minus',
+	'arkhe-icon-comment',
+	'arkhe-icon-posted',
+	'arkhe-icon-tag',
+	'arkhe-icon-folder',
+	'arkhe-icon-home',
+	'arkhe-icon-link',
+
+	// 'fas fa-pen',
+	// 'fas fa-exclamation-circle',
+	// 'fas fa-exclamation-triangle',
+
+	// 'arkhe-icon-quill',
+	// 'arkhe-icon-pen',
+	// 'arkhe-icon-hatena',
+	// 'arkhe-icon-batsu',
+	// 'arkhe-icon-light-bulb',
+	// 'arkhe-icon-megaphone',
+	// 'arkhe-icon-alert',
+	// 'arkhe-icon-info',
+	// 'arkhe-icon-blocked',
+	// 'arkhe-icon-thumb_up',
+	// 'arkhe-icon-thumb_down',
+	// 'arkhe-icon-star-full',
+	// 'arkhe-icon-heart',
+	// 'arkhe-icon-bookmarks',
+	// 'arkhe-icon-cart',
+	// 'arkhe-icon-mail',
+	// 'arkhe-icon-person',
+	// 'arkhe-icon-bubble',
+	// 'arkhe-icon-settings',
+	// 'arkhe-icon-phone',
+	// 'arkhe-icon-book',
+	// 'arkhe-icon-flag',
+	// 'arkhe-icon-posted',
 ];
 
 /**
@@ -46,9 +58,21 @@ const icons = [
 function ArkheIconPicker(props) {
 	const { icon, onClick } = props;
 
+	// Arkheテーマ
+	if (!window.arkheTheme) {
+		return (
+			<div className='ark-blocks-help'>
+				{__(
+					'Arkheテーマを利用している場合は、Arkheに用意されているアイコンも選べるようになります。',
+					'arkhe-blocks'
+				)}
+			</div>
+		);
+	}
+
 	return (
 		<BaseControl>
-			<ButtonGroup className='ark-btns--icons'>
+			<ButtonGroup className='ark-iconPicker'>
 				{icons.map((iconName) => {
 					const isSelected = iconName === icon;
 					return (
@@ -59,7 +83,8 @@ function ArkheIconPicker(props) {
 								onClick(iconName, isSelected);
 							}}
 						>
-							<i className='arkhe-blocks-icon' data-icon={iconName}></i>
+							<ArkheIcon icon={iconName} />
+							{/* <i className='arkhe-blocks-icon' data-icon={iconName}></i> */}
 						</Button>
 					);
 				})}

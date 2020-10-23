@@ -9,6 +9,7 @@ import { RichText, InnerBlocks, __experimentalBlock as Block } from '@wordpress/
 /**
  * @Internal dependencies
  */
+import { ArkheSVG } from '@components/ArkheSVG';
 import { iconColor } from '@blocks/config';
 import metadata from './block.json';
 import blockIcon from './_icon';
@@ -55,8 +56,12 @@ registerBlockType(name, {
 						onChange={(title) => setAttributes({ title })}
 					/>
 					<span className={`${blockName}__icon`} aria-hidden='false' data-opened='true'>
-						<i className='__icon--closed arkb-icon'></i>
-						<i className='__icon--opened arkb-icon'></i>
+						<span className='__closed'>
+							<ArkheSVG icon='arkb-svg-plus' />
+						</span>
+						<span className='__opened'>
+							<ArkheSVG icon='arkb-svg-minus' />
+						</span>
 					</span>
 				</div>
 				<div className={`${blockName}__body`}>
@@ -80,8 +85,12 @@ registerBlockType(name, {
 						<RichText.Content value={title} />
 					</span>
 					<span className={`${blockName}__icon`} aria-hidden='true' data-opened='false'>
-						<i className='__icon--closed arkb-icon'></i>
-						<i className='__icon--opened arkb-icon'></i>
+						<span className='__closed'>
+							<ArkheSVG icon='arkb-svg-plus' />
+						</span>
+						<span className='__opened'>
+							<ArkheSVG icon='arkb-svg-minus' />
+						</span>
 					</span>
 				</div>
 

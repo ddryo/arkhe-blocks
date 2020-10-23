@@ -1,39 +1,100 @@
 .ark-block-timeline {
 
+	// アイコン利用でシェイプが大きくなってもいいように
+	padding-left: 6px;
 }
 
 .ark-block-timeline__item {
 	position: relative;
-	padding: 0 0 2em 24px;
+	padding: .5rem 0 1rem 32px;
 
 	&::before {
 		position: absolute;
-		top: 18px;
+		top: 0;
 		left: 7px;
 		display: block;
-		height: calc(100% - 20px);
-		border-left: 2px solid $color_border;
-		// width: 0;
-
-
+		height: calc(100%);
+		border-left: 2px solid var(--ark-color_border, rgba(200, 200, 200, .5));
 		content: "";
 	}
 }
 
+.ark-block-timeline__head {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	align-items: center;
+	margin-left: -32px;
+}
+
 .ark-block-timeline__shape {
-	box-sizing: border-box; //エディター用
+	display: block;
+	box-sizing: border-box; // エディター用
 	width: 16px;
 	height: 16px;
-	margin-right: 8px;
+	margin-right: 16px;
+	color: var(--ark-color_main, inherit);
+	background-color: #fff;
 	border: solid 2px currentColor;
+	border-radius: 50%;
 
+	&.-is-fill {
+		background-color: currentColor;
+	}
+
+	&.-has-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 28px;
+		height: 28px;
+		margin-left: -6px;
+	}
+
+	// svg {
+	// 	width: 16px;
+	// 	height: 16px;
+	// }
+
+	// i {
+	// 	font-size: 16px;
+	// }
+}
+
+.ark-block-timeline__icon {
+	width: 16px !important; // font awesomeのクラス詳細度に負けないように
+	height: 16px !important; // font awesomeのクラス詳細度に負けないように
+	color: inherit;
+	font-size: 16px;
+	line-height: 1;
+	fill: currentColor;
+
+
+	path {
+		fill: inherit;
+	}
+
+	.-is-fill & {
+		color: #fff;
+	}
+}
+
+.ark-block-timeline__label {
+	font-size: .85em;
+	opacity: .8;
 }
 
 .ark-block-timeline__title {
-	margin-top: .25em;
+	margin-top: 1rem;
 	font-weight: bold;
+	font-size: 1.05em;
+
+	&:empty {
+		display: none;
+	}
 }
 
 .ark-block-timeline__body {
-	margin-top: 1em;
+	margin-top: 1rem;
+	font-size: .95em;
 }

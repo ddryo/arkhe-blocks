@@ -1,0 +1,34 @@
+.components-button-group.ark-notice-btns {
+	display: flex;
+}
+
+.components-button.ark-block-notice {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 20%;
+	height: auto;
+	margin: 0 -1px 0 0 !important;
+	padding: 12px 8px;
+	background: none;
+	border: none;
+
+	svg {
+		width: 16px;
+		height: 16px;
+		fill: var(--arkb-notice_icon);
+
+		path {
+			fill: inherit;
+		}
+	}
+
+	&.is-primary {
+
+		background: var(--arkb-notice_icon) !important;
+
+		svg {
+			fill: #fff;
+		}
+	}
+}

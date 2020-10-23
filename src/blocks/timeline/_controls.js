@@ -19,34 +19,5 @@ export default function (props) {
 		[clientId]
 	);
 
-	return (
-		<InspectorControls>
-			<PanelBody title={__('ステップ設定', 'arkhe-blocks')}>
-				<TextControl
-					label={__('「STEP」の文字', 'arkhe-blocks')}
-					value={stepLabel}
-					onChange={(val) => {
-						setAttributes({ stepLabel: val });
-
-						// 子ブロックにも反映
-						stepBlocksData.innerBlocks.forEach((block) => {
-							updateBlockAttributes(block.clientId, {
-								stepLabel: val,
-							});
-						});
-					}}
-				/>
-
-				<TextControl
-					label={__('始まりの番号', 'arkhe-blocks')}
-					value={startNum}
-					type='number'
-					onChange={(val) => {
-						// typeがnumberなので、intに変換してから保存！
-						setAttributes({ startNum: parseInt(val) });
-					}}
-				/>
-			</PanelBody>
-		</InspectorControls>
-	);
+	return <InspectorControls></InspectorControls>;
 }

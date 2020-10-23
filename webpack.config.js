@@ -4,10 +4,10 @@ const path = require('path');
 const srcDir = './src/blocks';
 
 const entries = {};
-entries.index = './src/blocks/index.js';
+// entries.index = './src/blocks/index.js';
 
 const blocks = [
-	// 'notice',
+	'notice',
 	// 'accordion',
 	// 'accordion-item',
 	// 'faq',
@@ -17,7 +17,7 @@ const blocks = [
 	// 'dl-dd',
 	// 'dl-div',
 	// 'step',
-	'step-item',
+	// 'step-item',
 	'timeline',
 	'timeline-item',
 
@@ -59,6 +59,7 @@ module.exports = {
 		alias: {
 			'@blocks': path.resolve(__dirname, 'src/blocks/'),
 			'@components': path.resolve(__dirname, 'src/components/'),
+			'@helper': path.resolve(__dirname, 'src/helper/'),
 		},
 	},
 };
