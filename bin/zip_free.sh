@@ -9,13 +9,13 @@ version=$1
 cd ..
 
 #zプラグインファイルをip化
-zip -r arkhe-blocks.zip arkhe-blocks -x "*/.*" "*/__*" "*bin*" "*node_modules*" "*vendor*" "*/src/blocks/*.js" "*/src/components*" "*phpcs.xml" "*gulpfile.js" "*README.md"
+zip -r arkhe-blocks.zip arkhe-blocks-pro -x "*/.*" "*/__*" "*/bin*" "*/node_modules*" "*/vendor*" "*/src/blocks/*.js" "*/src/components*" "*phpcs.xml" "*gulpfile.js" "*README.md"
 
 #設定ファイル系削除
-zip --delete arkhe-blocks.zip  "arkhe-blocks/composer*" "arkhe-blocks/webpack*" "arkhe-blocks/package*"
+zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/composer*" "arkhe-blocks-pro/webpack*" "arkhe-blocks-pro/package*"
 
 #PROブロック & アップデート系 削除
-zip --delete arkhe-blocks.zip  "arkhe-blocks/inc/update*" "arkhe-blocks/*/blocks/notice*" "arkhe-blocks/*/blocks/step*" "arkhe-blocks/*/blocks/timeline*"
+zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/inc/update*" "arkhe-blocks-pro/*/blocks/notice*" "arkhe-blocks-pro/*/blocks/step*" "arkhe-blocks-pro/*/blocks/timeline*"
 
 #zipファイルを移動
 mv arkhe-blocks.zip ./arkhe-blocks-free/arkhe-blocks.zip
@@ -25,6 +25,11 @@ rm -rf arkhe-blocks
 # 一度解答
 unzip arkhe-blocks.zip
 rm arkhe-blocks.zip
+
+#名前変更
+mv arkhe-blocks-pro arkhe-blocks
+mv arkhe-blocks/arkhe-blocks-pro.php arkhe-blocks/arkhe-blocks.php
+sed -i '' -e "s/Arkhe Blocks Pro/Arkhe Blocks/g" arkhe-blocks/arkhe-blocks.php
 
 #IS_PROのセットミスを防止する
 sed -i '' -e "s/IS_PRO = true/IS_PRO = false/g" arkhe-blocks/arkhe-blocks.php

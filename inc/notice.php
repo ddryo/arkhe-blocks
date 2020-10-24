@@ -8,6 +8,13 @@ defined( 'ABSPATH' ) || exit;
  */
 add_action( 'admin_notices', function() {
 
+	// if ( ! IS_ARKHE_THEME ) {
+	// 	echo '<div class="notice notice-warning"><p>' .
+	// 		esc_html__( 'Arkhe Blocks is recommended for use with the "Arkhe" theme.', 'arkhe-blocks' ) .
+	// 		'<br>' .
+	// 		esc_html__( 'If you are using a different theme, the block design may be corrupted.', 'arkhe-blocks' ) .
+	// 	'</p></div>';
+	// }
 	if ( \Arkhe_Blocks::IS_PRO ) {
 		\Arkhe_Blocks\both_check();
 	}
