@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Arkhe Blocks\n"
-"POT-Creation-Date: 2020-10-24 18:55+0900\n"
-"PO-Revision-Date: 2020-10-24 18:56+0900\n"
+"POT-Creation-Date: 2020-10-28 16:44+0900\n"
+"PO-Revision-Date: 2020-10-28 16:45+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -189,6 +189,14 @@ msgstr ""
 "“Arkhe”を利用すれば、テーマ本体に用意されているアイコンも選べるようになりま"
 "す。"
 
+#: src/extension/headbar.js:36
+msgid "View Post"
+msgstr "投稿を表示"
+
+#: src/extension/headbar.js:38
+msgid "View Page"
+msgstr "ページを表示"
+
 #: inc/admin_toolbar.php:18
 msgid "Get license"
 msgstr "ライセンス取得"
@@ -201,11 +209,11 @@ msgstr "ライセンスキー登録"
 msgid "Arkhe Blocks"
 msgstr ""
 
-#: inc/notice.php:41
+#: inc/notice.php:48
 msgid "Both the free and PRO versions of Arkhe Blocks are running."
 msgstr "Arkhe Blocksの無料版とPRO版の両方が有効化されています。"
 
-#: inc/notice.php:43
+#: inc/notice.php:50
 msgid "If you are using the PRO version, please disable the free version."
 msgstr "PRO版をご利用の方は、無料版は無効化してご利用ください。"
 
@@ -228,6 +236,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "https://loos.co.jp/"
 msgstr ""
+
+#~ msgid "投稿を表示"
+#~ msgstr "View post"
 
 #~ msgid "Big"
 #~ msgstr "大"

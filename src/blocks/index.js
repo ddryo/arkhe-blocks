@@ -1,4 +1,9 @@
 /**
+ * extension
+ */
+import '@src/extension/headbar.js';
+
+/**
  * @FontAwesome dependencies
  */
 import { library, dom } from '@fortawesome/fontawesome-svg-core';

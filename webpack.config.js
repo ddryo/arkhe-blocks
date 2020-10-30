@@ -7,20 +7,21 @@ const entries = {};
 // entries.index = './src/blocks/index.js';
 
 const blocks = [
-	'notice',
-	'accordion',
-	'accordion-item',
-	'faq',
-	'faq-item',
-	'dl',
-	'dl-dt',
-	'dl-dd',
-	'dl-div',
-	'step',
-	'step-item',
-	'timeline',
-	'timeline-item',
-
+	// 'notice',
+	// 'accordion',
+	// 'accordion-item',
+	// 'faq',
+	// 'faq-item',
+	// 'dl',
+	// 'dl-dt',
+	// 'dl-dd',
+	// 'dl-div',
+	// 'step',
+	// 'step-item',
+	// 'timeline',
+	// 'timeline-item',
+	'post-list',
+	//
 	// 'button',
 	// 'tab',
 ];
@@ -60,6 +61,7 @@ module.exports = {
 			'@blocks': path.resolve(__dirname, 'src/blocks/'),
 			'@components': path.resolve(__dirname, 'src/components/'),
 			'@helper': path.resolve(__dirname, 'src/helper/'),
+			'@src': path.resolve(__dirname, 'src/'),
 		},
 	},
 };

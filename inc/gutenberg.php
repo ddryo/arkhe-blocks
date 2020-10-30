@@ -55,11 +55,21 @@ function register_blocks() {
 	}
 
 	foreach ( $arkhe_blocks as $block_name ) {
-
 		register_block_type_from_metadata(
 			ARKHE_BLOCKS_PATH . 'src/blocks/' . $block_name
 		);
 	}
+
+	if ( ! \Arkhe_Blocks::IS_PRO ) return;
+
+	// ダイナミックブロックの読み込み
+	$dynamic_blocks = [
+		'post-list',
+	];
+	foreach ( $dynamic_blocks as $block_name ) {
+		require_once __DIR__ . '/blocks/' . $block_name . '.php';
+	}
+
 }
 
 
