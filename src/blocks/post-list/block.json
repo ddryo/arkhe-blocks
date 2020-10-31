@@ -60,7 +60,11 @@
             "type": "string",
             "default": ""
         },
-        "listCount": {
+        "listCountPC": {
+            "type": "number",
+            "default": 3
+        },
+        "listCountSP": {
             "type": "number",
             "default": 3
         },
@@ -79,14 +83,6 @@
         "showAuthor": {
             "type": "boolean",
             "default": false
-        },
-        "moreText": {
-            "type": "string",
-            "default": ""
-        },
-        "moreUrl": {
-            "type": "string",
-            "default": ""
         },
         "excerptLength": {
             "type": "number"

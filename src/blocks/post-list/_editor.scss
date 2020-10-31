@@ -3,9 +3,22 @@
 	.p-postList {
 		padding: 0;
 		list-style: none !important;
+
+		// コアの ul へのCSS上書き
+		&:not(.-type-card) {
+			margin-right: 0;
+			margin-left: 0;
+		}
 	}
 
 	a {
 		pointer-events: none;
+	}
+}
+
+.ark-ctrl-toggles {
+
+	.components-base-control {
+		margin-bottom: 12px;
 	}
 }

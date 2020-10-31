@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import {
 	PanelBody,
-	TextControl,
+	// TextControl,
 	BaseControl,
 	// CheckboxControl,
 	RadioControl,
@@ -22,7 +22,8 @@ export default function (props) {
 
 	const {
 		listType,
-		listCount,
+		listCountPC,
+		listCountSP,
 		showDate,
 		showModified,
 		showAuthor,
@@ -30,8 +31,8 @@ export default function (props) {
 		order,
 		orderby,
 		hTag,
-		moreText,
-		moreUrl,
+		// moreText,
+		// moreUrl,
 		excerptLength,
 	} = attributes;
 
@@ -124,16 +125,25 @@ export default function (props) {
 		<>
 			<PanelBody title='表示設定' initialOpen={true}>
 				<RangeControl
-					label='表示する投稿数'
-					value={listCount}
+					label={'表示する投稿数' + '(PC)'}
+					value={listCountPC}
 					onChange={(val) => {
-						setAttributes({ listCount: val });
+						setAttributes({ listCountPC: val });
 					}}
 					min={1}
-					max={12}
+					max={24}
+				/>
+				<RangeControl
+					label={'表示する投稿数' + '(SP)'}
+					value={listCountSP}
+					onChange={(val) => {
+						setAttributes({ listCountSP: val });
+					}}
+					min={1}
+					max={24}
 				/>
 				<RadioControl
-					label='レイアウトを選択'
+					label='リストのレイアウト'
 					selected={listType}
 					options={listTypeOptions}
 					onChange={(val) => {
@@ -141,7 +151,7 @@ export default function (props) {
 					}}
 				/>
 
-				<BaseControl className='toggle_group'>
+				<BaseControl className='ark-ctrl-toggles'>
 					<BaseControl.VisualLabel>
 						{__('各種表示設定', 'arkhe-blocks')}
 					</BaseControl.VisualLabel>
@@ -159,7 +169,6 @@ export default function (props) {
 						return (
 							<ToggleControl
 								label={label}
-								// help={(<small>{toggle.description}</small>)}
 								checked={toggle.value}
 								onChange={(val) => {
 									setAttributes({ [toggle.name]: val });
@@ -169,43 +178,39 @@ export default function (props) {
 						);
 					})}
 				</BaseControl>
-
-				{/* <BaseControl> */}
-				<RangeControl
-					label={__('抜粋文の文字数', 'arkhe-blocks')}
-					value={excerptLength}
-					onChange={(val) => {
-						setAttributes({ excerptLength: val });
-					}}
-					min={0}
-					max={320}
-				/>
-				{/* </BaseControl> */}
-
 				{'simple' !== listType && (
-					<BaseControl>
-						<BaseControl.VisualLabel>
-							{__('タイトルのHTMLタグ', 'arkhe-blocks')}
-						</BaseControl.VisualLabel>
-						<ButtonGroup className='ark-btns--minWidth'>
-							{hTags.map((btn) => {
-								const isSlected = btn.val === hTag;
-								return (
-									<Button
-										// isSecondary={ ! isSlected }
-										isPrimary={isSlected}
-										onClick={() => {
-											setAttributes({ hTag: btn.val });
-										}}
-										key={`hTag_${btn.val}`}
-									>
-										{btn.label}
-									</Button>
-								);
-							})}
-						</ButtonGroup>
-					</BaseControl>
+					<RangeControl
+						label={__('抜粋文の文字数', 'arkhe-blocks')}
+						value={excerptLength}
+						onChange={(val) => {
+							setAttributes({ excerptLength: val });
+						}}
+						min={0}
+						max={320}
+					/>
 				)}
+				<BaseControl>
+					<BaseControl.VisualLabel>
+						{__('タイトルのHTMLタグ', 'arkhe-blocks')}
+					</BaseControl.VisualLabel>
+					<ButtonGroup className='ark-btns--minWidth'>
+						{hTags.map((btn) => {
+							const isSlected = btn.val === hTag;
+							return (
+								<Button
+									// isSecondary={ ! isSlected }
+									isPrimary={isSlected}
+									onClick={() => {
+										setAttributes({ hTag: btn.val });
+									}}
+									key={`hTag_${btn.val}`}
+								>
+									{btn.label}
+								</Button>
+							);
+						})}
+					</ButtonGroup>
+				</BaseControl>
 			</PanelBody>
 			<PanelBody title={__('並び順の設定', 'arkhe-blocks')} initialOpen={true}>
 				<RadioControl
@@ -223,20 +228,6 @@ export default function (props) {
 					onChange={(val) => {
 						setAttributes({ order: val });
 					}}
-				/>
-			</PanelBody>
-			<PanelBody title={__('リスト下のリンク', 'arkhe-blocks')} initialOpen={true}>
-				<TextControl
-					label={__('表示テキスト', 'arkhe-blocks')}
-					value={moreText}
-					placeholder={__('See more', 'arkhe-blocks')}
-					onChange={(val) => setAttributes({ moreText: val })}
-				/>
-
-				<TextControl
-					label={__('リンクのURL', 'arkhe-blocks')}
-					value={moreUrl}
-					onChange={(val) => setAttributes({ moreUrl: val })}
 				/>
 			</PanelBody>
 		</>

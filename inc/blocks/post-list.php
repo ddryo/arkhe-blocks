@@ -19,6 +19,9 @@ register_block_type_from_metadata(
 function cb_post_list( $attrs, $content ) {
 	// ここでは defined('REST_REQUEST')  = true になる //サーバーサイドレンダー？
 
+	$list_count_pc = $attrs['listCountPC'];
+	$list_count_sp = $attrs['listCountSP'];
+
 	// リスト表示用データ
 	$list_args = [
 		'list_type'      => $attrs['listType'],
@@ -27,6 +30,8 @@ function cb_post_list( $attrs, $content ) {
 		'show_modified'  => $attrs['showModified'],
 		'show_author'    => $attrs['showAuthor'],
 		'h_tag'          => $attrs['hTag'],
+		'list_count_pc'  => $list_count_pc,
+		'list_count_sp'  => $list_count_sp,
 	];
 
 	// クエリ生成用データ
@@ -34,12 +39,12 @@ function cb_post_list( $attrs, $content ) {
 		'post_type'      => $attrs['postType'],
 		'order'          => $attrs['order'],
 		'orderby'        => $attrs['orderby'],
-		'posts_per_page' => (int) $attrs['listCount'],
+		'posts_per_page' => max( $list_count_pc, $list_count_sp ),
 		'no_found_rows'  => true,
 	];
 
-	$more_url  = $attrs['moreUrl'];
-	$more_text = $attrs['moreText'];
+	// $more_url  = $attrs['moreUrl'];
+	// $more_text = $attrs['moreText'];
 
 	if ( $attrs['postID'] ) {
 
@@ -65,8 +70,6 @@ function cb_post_list( $attrs, $content ) {
 				'operator'         => $attrs['catRelation'],
 				'include_children' => ! $attrs['exCatChildren'],
 			];
-
-			// $more_url = $more_url ?: get_category_link( $cat_array[0] ); // moreURLなければ自動取得
 		}
 
 		// タグの指定
@@ -81,8 +84,6 @@ function cb_post_list( $attrs, $content ) {
 				'operator'         => $attrs['tagRelation'],
 				'include_children' => false,
 			];
-
-			// $more_url = $more_url ?: get_tag_link( $tag_array[0] ); // moreURLなければ自動取得
 		}
 
 		// タクソノミーの指定
@@ -98,8 +99,6 @@ function cb_post_list( $attrs, $content ) {
 				'terms'    => $term_array,
 				'operator' => $attrs['termRelation'],
 			];
-
-			// $more_url = $more_url ?: get_term_link( $term_array[0], $taxonomy ); // moreURLなければ自動取得
 		}
 
 		// tax_query あればさらに追加
@@ -142,17 +141,17 @@ function cb_post_list( $attrs, $content ) {
 	] );
 
 	// MOREボタン (テキストがあれば表示)
-	if ( '' !== $more_text && '' !== $more_url ) {
+	// if ( '' !== $more_text && '' !== $more_url ) {
 
-		// 相対URLの時
-		if ( strpos( $more_url, '://' ) === false ) {
-			$more_url = home_url( $more_url );
-		}
+	// 	// 相対URLの時
+	// 	if ( strpos( $more_url, '://' ) === false ) {
+	// 		$more_url = home_url( $more_url );
+	// 	}
 
-		echo '<div class="is-style-more_btn">' .
-			'<a href="' . esc_url( $more_url ) . '" class="btn_text">' . esc_html( $more_text ) . '</a>' .
-		'</div>';
-	}
+	// 	echo '<div class="is-style-more_btn">' .
+	// 		'<a href="' . esc_url( $more_url ) . '" class="btn_text">' . esc_html( $more_text ) . '</a>' .
+	// 	'</div>';
+	// }
 
 	echo '</div>';
 	return ob_get_clean();
