@@ -25,3 +25,27 @@
 	}
 }
 
+
+[data-type="arkhe-blocks/dl-dt"] {
+
+	.rich-text {
+		display: block;
+		width: 100%;
+		min-width: 4em;
+	}
+}
+
+[data-type="arkhe-blocks/dl-div"] {
+
+	&.has-child-selected {
+
+		[data-type="arkhe-blocks/dl-dd"] {
+			min-width: 20%;
+			// margin-right: 1em;
+		}
+
+		// .rich-text {
+		// 	min-width: 4em;
+		// }
+	}
+}

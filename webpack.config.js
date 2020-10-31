@@ -20,7 +20,8 @@ const blocks = [
 	// 'step-item',
 	// 'timeline',
 	// 'timeline-item',
-	'post-list',
+	// 'post-list',
+	'rss',
 	//
 	// 'button',
 	// 'tab',

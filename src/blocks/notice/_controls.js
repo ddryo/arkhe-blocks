@@ -102,16 +102,14 @@ export default function (props) {
 						}
 					}}
 				/>
-				<BaseControl>
-					<TextControl
-						label={__('Icon class', 'arkhe-blocks')}
-						help={faNote}
-						value={icon}
-						onChange={(val) => {
-							setAttributes({ icon: val });
-						}}
-					/>
-				</BaseControl>
+				<TextControl
+					label={__('Icon class', 'arkhe-blocks')}
+					help={faNote}
+					value={icon}
+					onChange={(val) => {
+						setAttributes({ icon: val });
+					}}
+				/>
 			</PanelBody>
 		</InspectorControls>
 	);

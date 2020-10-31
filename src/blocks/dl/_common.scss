@@ -28,6 +28,14 @@
 		border-top: none;
 	}
 
+	.ark-block-dl__dt,
+	.ark-block-dl__dd {
+
+		min-width: 1em;
+		margin: 0;
+		padding: 0;
+	}
+
 	.ark-block-dl__dt {
 		flex: 1 1 auto;
 		margin-right: 1em;
@@ -39,13 +47,7 @@
 		flex: 0 1 auto;
 	}
 
-	.ark-block-dl__dt,
-	.ark-block-dl__dd {
 
-		min-width: 1em;
-		margin: 0;
-		padding: 0;
-	}
 }
 
 // .is-style-float {
