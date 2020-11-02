@@ -11,6 +11,7 @@ import {
 	SelectControl,
 	ButtonGroup,
 	Button,
+	RadioControl,
 	TreeSelect,
 } from '@wordpress/components';
 
@@ -65,7 +66,7 @@ export default function (props) {
 
 	const postTypeList = [
 		{
-			label: __('All', 'swell'),
+			label: __('All', 'arkhe-blocks'),
 			value: 'any',
 		},
 	];
@@ -74,7 +75,10 @@ export default function (props) {
 			// publicな投稿タイプかどうか
 			const isViewable = pt.viewable;
 
+			// 表示しない投稿タイプ
 			const ignoreTypes = ['attachment', 'lp'];
+
+			//配列につっこむ
 			if (isViewable && ignoreTypes.indexOf(pt.slug) === -1) {
 				postTypeList.push({
 					label: pt.name,
@@ -89,32 +93,34 @@ export default function (props) {
 	authors.forEach((author) => {
 		authorsArray.push({ label: author.name, value: author.id });
 	});
+
+	// タームの関係性
 	const getTermBtnGroup = (IDs, relation, attrName) => {
 		return (
-			<ButtonGroup className='ark-btns--small'>
+			<ButtonGroup className='arkb-btns--small'>
 				{1 < IDs.length ? (
 					<>
 						<Button
 							isSecondary={'IN' !== relation}
 							isPrimary={'IN' === relation}
 							onClick={() => {
-								props.setAttributes({
+								setAttributes({
 									[attrName]: 'IN',
 								});
 							}}
 						>
-							1つでも含む
+							{__('Having at least one', 'arkhe-blocks')}
 						</Button>
 						<Button
 							isSecondary={'AND' !== relation}
 							isPrimary={'AND' === relation}
 							onClick={() => {
-								props.setAttributes({
+								setAttributes({
 									[attrName]: 'AND',
 								});
 							}}
 						>
-							全て含む
+							{__('Having all', 'arkhe-blocks')}
 						</Button>
 					</>
 				) : (
@@ -122,24 +128,24 @@ export default function (props) {
 						isSecondary={'NOT IN' === relation}
 						isPrimary={'NOT IN' !== relation}
 						onClick={() => {
-							props.setAttributes({
+							setAttributes({
 								[attrName]: 'IN',
 							});
 						}}
 					>
-						含む
+						{__('Having', 'arkhe-blocks')}
 					</Button>
 				)}
 				<Button
 					isSecondary={'NOT IN' !== relation}
 					isPrimary={'NOT IN' === relation}
 					onClick={() => {
-						props.setAttributes({
+						setAttributes({
 							[attrName]: 'NOT IN',
 						});
 					}}
 				>
-					含まない
+					{__('Not having', 'arkhe-blocks')}
 				</Button>
 			</ButtonGroup>
 		);
@@ -147,15 +153,14 @@ export default function (props) {
 
 	return (
 		<>
-			<PanelBody
-				title='投稿IDで絞り込む'
-				initialOpen={true}
-				className='swell-panel-postList--postid'
-			>
+			<PanelBody title={__('Narrow down by post ID', 'arkhe-blocks')} initialOpen={true}>
 				<TextControl
-					label='投稿IDを直接指定'
+					label={__('Specify the post ID directly', 'arkhe-blocks')}
 					placeholder='ex) 8,120,272'
-					help='※ 複数の場合は , 区切りで入力して下さい。'
+					help={
+						'※ ' +
+						__('If there are multiple, enter them separated by ",".', 'arkhe-blocks')
+					}
 					value={postID || ''}
 					onChange={(value) => {
 						setAttributes({
@@ -164,9 +169,12 @@ export default function (props) {
 					}}
 				/>
 				<TextControl
-					label='除外する投稿ID'
+					label={__('Post ID to exclude', 'arkhe-blocks')}
 					placeholder='ex) 6,112,264'
-					help='※ 複数の場合は , 区切りで入力して下さい。'
+					help={
+						'※ ' +
+						__('If there are multiple, enter them separated by ",".', 'arkhe-blocks')
+					}
 					value={excID || ''}
 					onChange={(value) => {
 						setAttributes({
@@ -179,9 +187,8 @@ export default function (props) {
 			{!postID && (
 				<>
 					<PanelBody
-						title='投稿タイプで絞り込む'
+						title={__('Narrow down by post type', 'arkhe-blocks')}
 						initialOpen={true}
-						className='swell-panel-postList--postType'
 					>
 						<SelectControl
 							value={postType}
@@ -192,48 +199,39 @@ export default function (props) {
 						/>
 					</PanelBody>
 					<PanelBody
-						title='タクソノミーの条件設定'
+						title={__('Taxonomy condition setting', 'arkhe-blocks')}
 						initialOpen={true}
-						className='swell-panel-postList--pickup'
+						className='arkb-panel--pickupTax'
 					>
-						<BaseControl>
-							<div className='u-mb-5'>以下の各タクソノミーの条件に...</div>
-							<ButtonGroup>
-								<Button
-									isSecondary={'OR' !== queryRelation}
-									isPrimary={'OR' === queryRelation}
-									onClick={() => {
-										props.setAttributes({
-											queryRelation: 'OR',
-										});
-									}}
-								>
-									1つでも
-								</Button>
-								<Button
-									isSecondary={'AND' !== queryRelation}
-									isPrimary={'AND' === queryRelation}
-									onClick={() => {
-										props.setAttributes({
-											queryRelation: 'AND',
-										});
-									}}
-								>
-									全てに
-								</Button>
-							</ButtonGroup>
-							<div className='u-mt-5'>該当する投稿を表示する</div>
+						<RadioControl
+							label={__('For the following taxonomy conditions,', 'arkhe-blocks')}
+							selected={queryRelation}
+							options={[
+								{
+									label: __('Whether at least one is true', 'arkhe-blocks'),
+									value: 'OR',
+								},
+								{
+									label: __('Whether all is true', 'arkhe-blocks'),
+									value: 'AND',
+								},
+							]}
+							onChange={(val) => {
+								setAttributes({ queryRelation: val });
+							}}
+						/>
 
-							<hr />
-						</BaseControl>
-						<div className='u-mb-20 u-fz-s'>
-							以下、<code>command(Ctrl)</code>
-							キーを押しながらクリックすると複数選択できます。
+						<hr />
+
+						<div className='u-mb-20'>
+							{__(
+								'You can select multiple categories and tags by holding down the "command" key on Mac and the "ctrl" key on Windows.',
+								'arkhe-blocks'
+							)}
 						</div>
 						<TreeSelect
-							label='カテゴリー'
-							// help='command(Ctrl)キーを押しながらクリックすると複数選択できます。'
-							className='-category'
+							label={__('Categories', 'arkhe-blocks')}
+							className='arkb-select--category'
 							noOptionLabel='----'
 							onChange={(val) => {
 								setAttributes({ catID: val.join(',') });
@@ -244,8 +242,8 @@ export default function (props) {
 						/>
 
 						<CheckboxControl
-							className='-exCatChildren'
-							label='子カテゴリのみの記事を除外'
+							className='arkb-check--exCatChild'
+							label={__('Exclude articles in child categories only', 'arkhe-blocks')}
 							checked={exCatChildren}
 							onChange={(checked) => {
 								setAttributes({ exCatChildren: checked });
@@ -254,9 +252,9 @@ export default function (props) {
 
 						{catID && (
 							<>
-								<BaseControl className='swell-control-catRelation'>
+								<BaseControl className='arkb-btns--relation'>
 									<BaseControl.VisualLabel>
-										{__('選択したカテゴリーを…', 'swell')}
+										{__('Relationship of selected categories', 'arkhe-blocks')}
 									</BaseControl.VisualLabel>
 									{getTermBtnGroup(catIDs, catRelation, 'catRelation')}
 								</BaseControl>
@@ -264,9 +262,8 @@ export default function (props) {
 						)}
 
 						<TreeSelect
-							label='タグ'
-							// help='command(Ctrl)キーを押しながらクリックすると複数選択できます。'
-							className='-tag'
+							label={__('Tags', 'arkhe-blocks')}
+							className='arkb-select--tag'
 							noOptionLabel='----'
 							onChange={(val) => setAttributes({ tagID: val.join(',') })}
 							selectedId={tagIDs}
@@ -274,18 +271,17 @@ export default function (props) {
 							multiple
 						/>
 						{tagID && (
-							<BaseControl className='swell-control-tagRelation'>
+							<BaseControl className='arkb-btns--relation'>
 								<BaseControl.VisualLabel>
-									{__('選択したタグを…', 'swell')}
+									{__('Relationship of selected tags', 'arkhe-blocks')}
 								</BaseControl.VisualLabel>
 								{getTermBtnGroup(tagIDs, tagRelation, 'tagRelation')}
 							</BaseControl>
 						)}
 
 						<TextControl
-							label='任意のタクソノミー'
-							placeholder='タクソノミー名（slug）を入力'
-							// help='※ 複数の場合は , 区切りで入力して下さい。'
+							label={__('Taxonomy', 'arkhe-blocks')}
+							placeholder={__('Enter the taxonomy name (slug)', 'arkhe-blocks')}
 							value={taxName || ''}
 							onChange={(value) => {
 								setAttributes({
@@ -301,9 +297,8 @@ export default function (props) {
 						{taxName && (
 							<>
 								<TreeSelect
-									label='ターム'
-									// help='command(Ctrl)キーを押しながらクリックすると複数選択できます。'
-									className='-term'
+									label={__('Terms', 'arkhe-blocks')}
+									className='arkb-select--term'
 									noOptionLabel='----'
 									onChange={(val) => {
 										setAttributes({
@@ -315,9 +310,9 @@ export default function (props) {
 									multiple
 								/>
 								{termID && (
-									<BaseControl className='swell-control-termRelation'>
+									<BaseControl className='arkb-btns--relation'>
 										<BaseControl.VisualLabel>
-											{__('選択したタームを…', 'swell')}
+											{__('Relationship of selected terms', 'arkhe-blocks')}
 										</BaseControl.VisualLabel>
 										{getTermBtnGroup(termIDs, termRelation, 'termRelation')}
 									</BaseControl>
@@ -328,12 +323,11 @@ export default function (props) {
 				</>
 			)}
 			<PanelBody
-				title='著者で絞り込む'
+				title={__('Narrowing down by author', 'arkhe-blocks')}
 				initialOpen={true}
-				className='swell-panel-postList--author'
+				className='arkb-panel-postList--author'
 			>
 				<SelectControl
-					// label='著者'
 					value={authorID}
 					options={authorsArray}
 					onChange={(val) => {

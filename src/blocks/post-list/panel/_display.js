@@ -31,8 +31,6 @@ export default function (props) {
 		order,
 		orderby,
 		hTag,
-		// moreText,
-		// moreUrl,
 		excerptLength,
 	} = attributes;
 
@@ -40,24 +38,24 @@ export default function (props) {
 	const toggleData = [
 		{
 			name: 'showDate',
-			label: '公開日を表示する',
+			label: __('Show release date', 'arkhe-blocks'),
 			description: '',
 			value: showDate,
 		},
 		{
 			name: 'showModified',
-			label: '更新日を表示する',
+			label: __('Show update date', 'arkhe-blocks'),
 			description: '',
 			value: showModified,
 		},
 		{
 			name: 'showCat',
-			label: 'カテゴリーを表示する',
+			label: __('Show category', 'arkhe-blocks'),
 			value: showCat,
 		},
 		{
 			name: 'showAuthor',
-			label: '著者を表示する',
+			label: __('Show author', 'arkhe-blocks'),
 			value: showAuthor,
 		},
 	];
@@ -65,15 +63,15 @@ export default function (props) {
 	// リストタイプ
 	const listTypeOptions = [
 		{
-			label: 'カード型',
+			label: __('Card type', 'arkhe-blocks'),
 			value: 'card',
 		},
 		{
-			label: 'リスト型',
+			label: __('List type', 'arkhe-blocks'),
 			value: 'list',
 		},
 		{
-			label: 'テキスト型',
+			label: __('Text type', 'arkhe-blocks'),
 			value: 'simple',
 		},
 	];
@@ -81,26 +79,26 @@ export default function (props) {
 	// 何を基準に並べるか
 	const orderbyOptions = [
 		{
-			label: '新着順',
+			label: __('Release date', 'arkhe-blocks'),
 			value: 'date',
 		},
 		{
-			label: '更新日',
+			label: __('Update date', 'arkhe-blocks'),
 			value: 'modified',
 		},
 		{
-			label: 'ランダム',
+			label: __('Random', 'arkhe-blocks'),
 			value: 'rand',
 		},
 	];
 
 	const orderOptions = [
 		{
-			label: '降順',
+			label: __('Descending order', 'arkhe-blocks'),
 			value: 'DESC',
 		},
 		{
-			label: '昇順',
+			label: __('Ascending order', 'arkhe-blocks'),
 			value: 'ASC',
 		},
 	];
@@ -123,9 +121,9 @@ export default function (props) {
 	// パネル生成
 	return (
 		<>
-			<PanelBody title='表示設定' initialOpen={true}>
+			<PanelBody title={__('Display settings', 'arkhe-blocks')} initialOpen={true}>
 				<RangeControl
-					label={'表示する投稿数' + '(PC)'}
+					label={__('Number of posts to display', 'arkhe-blocks') + '(PC)'}
 					value={listCountPC}
 					onChange={(val) => {
 						setAttributes({ listCountPC: val });
@@ -134,7 +132,7 @@ export default function (props) {
 					max={24}
 				/>
 				<RangeControl
-					label={'表示する投稿数' + '(SP)'}
+					label={__('Number of posts to display', 'arkhe-blocks') + '(SP)'}
 					value={listCountSP}
 					onChange={(val) => {
 						setAttributes({ listCountSP: val });
@@ -143,7 +141,7 @@ export default function (props) {
 					max={24}
 				/>
 				<RadioControl
-					label='リストのレイアウト'
+					label={__('List layout', 'arkhe-blocks')}
 					selected={listType}
 					options={listTypeOptions}
 					onChange={(val) => {
@@ -151,9 +149,9 @@ export default function (props) {
 					}}
 				/>
 
-				<BaseControl className='ark-ctrl-toggles'>
+				<BaseControl className='arkb-toggles'>
 					<BaseControl.VisualLabel>
-						{__('各種表示設定', 'arkhe-blocks')}
+						{__('What to display', 'arkhe-blocks')}
 					</BaseControl.VisualLabel>
 					{toggleData.map((toggle) => {
 						const label =
@@ -180,7 +178,7 @@ export default function (props) {
 				</BaseControl>
 				{'simple' !== listType && (
 					<RangeControl
-						label={__('抜粋文の文字数', 'arkhe-blocks')}
+						label={__('Number of characters in the excerpt', 'arkhe-blocks')}
 						value={excerptLength}
 						onChange={(val) => {
 							setAttributes({ excerptLength: val });
@@ -191,7 +189,7 @@ export default function (props) {
 				)}
 				<BaseControl>
 					<BaseControl.VisualLabel>
-						{__('タイトルのHTMLタグ', 'arkhe-blocks')}
+						{__('HTML tag for title', 'arkhe-blocks')}
 					</BaseControl.VisualLabel>
 					<ButtonGroup className='ark-btns--minWidth'>
 						{hTags.map((btn) => {
@@ -212,9 +210,9 @@ export default function (props) {
 					</ButtonGroup>
 				</BaseControl>
 			</PanelBody>
-			<PanelBody title={__('並び順の設定', 'arkhe-blocks')} initialOpen={true}>
+			<PanelBody title={__('Sorting order setting', 'arkhe-blocks')} initialOpen={true}>
 				<RadioControl
-					label='投稿の表示順序'
+					label={__('What to arrange based on', 'arkhe-blocks')} //'何を基準に並べるか'
 					selected={orderby}
 					options={orderbyOptions}
 					onChange={(val) => {
@@ -222,7 +220,7 @@ export default function (props) {
 					}}
 				/>
 				<RadioControl
-					label='降順か昇順か'
+					label={__('Descending or Ascending', 'arkhe-blocks')} // '降順か昇順か'
 					selected={order}
 					options={orderOptions}
 					onChange={(val) => {

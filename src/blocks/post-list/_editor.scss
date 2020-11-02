@@ -17,9 +17,25 @@
 	}
 }
 
-.ark-ctrl-toggles {
+.arkb-panel--pickupTax {
 
-	.components-base-control {
-		margin-bottom: 12px;
+	.components-select-control__input[multiple] {
+		min-height: 8em;
+		padding: 8px;
+	}
+
+	.arkb-btns--relation {
+		margin-top: -16px;
+	}
+
+	.arkb-select--term {
+		margin-top: -16px;
+	}
+
+	// .-exCatChildren {
+	.arkb-check--exCatChild {
+		margin-top: -16px;
+		margin-bottom: 16px;
+		padding-bottom: 4px;
 	}
 }

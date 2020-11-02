@@ -80,3 +80,39 @@ $color_guide: rgba(123, 134, 162, .3);//#b8c7da;
 	align-self: center;
 	margin-left: 12px;
 }
+
+
+// サイドバーのタブパネル
+.arkb-tabPanel {
+
+	.components-tab-panel__tabs {
+
+		.components-button {
+			display: flex;
+			flex-basis: 50%;
+			justify-content: center;
+
+			i {
+				margin-right: 4px;
+			}
+		}
+	}
+}
+
+// トグルコントロールが集まったエリア
+.arkb-toggles {
+
+	.components-base-control {
+		margin-bottom: 12px;
+	}
+}
+
+// 小さく表示したいボタン ( isSmall だと小さくなりすぎる時用)
+.arkb-btns--small {
+
+	.components-button {
+		height: 32px;
+		padding: 6px 8px;
+		font-size: 12px;
+	}
+}

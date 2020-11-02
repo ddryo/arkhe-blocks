@@ -47,6 +47,10 @@
             "type": "boolean",
             "default": false
         },
+        "showThumb": {
+            "type": "boolean",
+            "default": true
+        },
         "useCache": {
             "type": "boolean",
             "default": true

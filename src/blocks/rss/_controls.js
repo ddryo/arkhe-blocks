@@ -39,6 +39,7 @@ export default function (props) {
 		showDate,
 		showAuthor,
 		showSite,
+		showThumb,
 		hTag,
 
 		// excerptLength,
@@ -48,40 +49,42 @@ export default function (props) {
 	const toggleData = [
 		{
 			name: 'showSite',
-			label: 'サイト名を表示する',
+			label: __('Show page name of site', 'arkhe-blocks'),
 			value: showSite,
 		},
 		{
 			name: 'showDate',
-			label: '公開日を表示する',
+			label: __('Show release date', 'arkhe-blocks'),
 			description: '',
 			value: showDate,
 		},
-		// {
-		// 	name: 'showModified',
-		// 	label: '更新日を表示する',
-		// 	description: '',
-		// 	value: showModified,
-		// },
 		{
 			name: 'showAuthor',
-			label: '著者を表示する',
+			label: __('Show author', 'arkhe-blocks'),
 			value: showAuthor,
 		},
 	];
 
+	if ('simple' !== listType) {
+		toggleData.push({
+			name: 'showThumb',
+			label: __('Show thumbnail', 'arkhe-blocks'),
+			value: showThumb,
+		});
+	}
+
 	// リストタイプ
 	const listTypeOptions = [
 		{
-			label: 'カード型',
+			label: __('Card type', 'arkhe-blocks'),
 			value: 'card',
 		},
 		{
-			label: 'リスト型',
+			label: __('List type', 'arkhe-blocks'),
 			value: 'list',
 		},
 		{
-			label: 'テキスト型',
+			label: __('Text type', 'arkhe-blocks'),
 			value: 'simple',
 		},
 	];
@@ -103,25 +106,25 @@ export default function (props) {
 
 	return (
 		<InspectorControls>
-			<PanelBody title='RSS設定' initialOpen={true}>
+			<PanelBody title={__('RSS settings', 'arkhe-blocks')} initialOpen={true}>
 				<TextControl
-					label={__('RSSフィードのURL', 'arkhe-blocks')}
+					label={__('RSS feed URL', 'arkhe-blocks')}
 					value={rssUrl}
 					onChange={(val) => {
 						setAttributes({ rssUrl: val });
 					}}
 				/>
 				<TextControl
-					label={__('RSSフィードのページ名', 'arkhe-blocks')}
+					label={__('RSS feed page name', 'arkhe-blocks')}
 					value={pageName}
 					onChange={(val) => {
 						setAttributes({ pageName: val });
 					}}
 				/>
 				<ToggleControl
-					label={__('キャッシュを利用する', 'arkhe-blocks')}
+					label={__('Use the cache', 'arkhe-blocks')}
 					help={__(
-						'キャッシュを削除したい時、一度だけオフにしてください。',
+						'If you want to clear the cache, turn it off only once.',
 						'arkhe-blocks'
 					)}
 					checked={useCache}
@@ -131,9 +134,9 @@ export default function (props) {
 				/>
 			</PanelBody>
 
-			<PanelBody title='表示設定' initialOpen={true}>
+			<PanelBody title={__('Display settings', 'arkhe-blocks')} initialOpen={true}>
 				<RangeControl
-					label={'表示する投稿数' + '(PC)'}
+					label={__('Number of posts to display', 'arkhe-blocks') + '(PC)'}
 					value={listCountPC}
 					onChange={(val) => {
 						setAttributes({ listCountPC: val });
@@ -142,7 +145,7 @@ export default function (props) {
 					max={10}
 				/>
 				<RangeControl
-					label={'表示する投稿数' + '(SP)'}
+					label={__('Number of posts to display', 'arkhe-blocks') + '(SP)'}
 					value={listCountSP}
 					onChange={(val) => {
 						setAttributes({ listCountSP: val });
@@ -151,7 +154,7 @@ export default function (props) {
 					max={10}
 				/>
 				<RadioControl
-					label='リストのレイアウト'
+					label={__('List layout', 'arkhe-blocks')}
 					selected={listType}
 					options={listTypeOptions}
 					onChange={(val) => {
@@ -159,9 +162,9 @@ export default function (props) {
 					}}
 				/>
 
-				<BaseControl className='ark-ctrl-toggles'>
+				<BaseControl className='arkb-toggles'>
 					<BaseControl.VisualLabel>
-						{__('各種表示設定', 'arkhe-blocks')}
+						{__('What to display', 'arkhe-blocks')}
 					</BaseControl.VisualLabel>
 					{toggleData.map((toggle) => {
 						const label =
@@ -188,7 +191,7 @@ export default function (props) {
 				</BaseControl>
 				<BaseControl>
 					<BaseControl.VisualLabel>
-						{__('タイトルのHTMLタグ', 'arkhe-blocks')}
+						{__('HTML tag for title', 'arkhe-blocks')}
 					</BaseControl.VisualLabel>
 					<ButtonGroup className='ark-btns--minWidth'>
 						{hTags.map((btn) => {

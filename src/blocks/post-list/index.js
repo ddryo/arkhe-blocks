@@ -11,7 +11,6 @@ import ServerSideRender from '@wordpress/server-side-render';
  */
 import BlockControls from './_controls';
 import { iconColor } from '@blocks/config';
-// import blockIcon from './_icon';
 import example from './_example';
 import metadata from './block.json';
 
@@ -30,8 +29,8 @@ const { name, category, keywords, supports } = metadata;
  *
  */
 registerBlockType(name, {
-	title: __('投稿リスト', 'arkhe-blocks'),
-	description: __('投稿リストを呼び出すことができます。', 'arkhe-blocks'),
+	title: __('Post list', 'arkhe-blocks'),
+	description: __('Create a post list with the specified conditions.', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
 		src: 'screenoptions',

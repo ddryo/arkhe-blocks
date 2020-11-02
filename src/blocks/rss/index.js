@@ -31,7 +31,7 @@ const { name, category, keywords, supports } = metadata;
  */
 registerBlockType(name, {
 	title: __('RSS', 'arkhe-blocks'),
-	description: __('RSSフィードを読みこみます。', 'arkhe-blocks'),
+	description: __('Create a list of RSS feeds.', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
 		src: 'rss',

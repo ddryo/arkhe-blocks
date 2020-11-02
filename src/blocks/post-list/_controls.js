@@ -1,7 +1,7 @@
 /**
  * @WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __, _x } from '@wordpress/i18n';
 import { InspectorControls } from '@wordpress/block-editor';
 
 import { TabPanel } from '@wordpress/components';
@@ -27,7 +27,7 @@ export default function (props) {
 	return (
 		<InspectorControls>
 			<TabPanel
-				className='swell-tab-panel -postList'
+				className='arkb-tabPanel'
 				activeClass='is-active'
 				// onSelect={(tabName) => {console.log('Selecting tab', tabName);}}
 				tabs={[
@@ -36,7 +36,8 @@ export default function (props) {
 						title: (
 							<>
 								<i className='dashicons-before dashicons-admin-settings'></i>
-								Settings
+
+								{_x('Settings', 'tab-panel', 'arkhe-blocks')}
 							</>
 						),
 						className: '__display',
@@ -46,7 +47,7 @@ export default function (props) {
 						title: (
 							<>
 								<i className='dashicons-before dashicons-post-status'></i>
-								Pickup
+								{_x('Pickup', 'tab-panel', 'arkhe-blocks')}
 							</>
 						),
 						className: '__pickup',

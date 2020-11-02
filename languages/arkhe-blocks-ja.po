@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Arkhe Blocks\n"
-"POT-Creation-Date: 2020-10-28 16:44+0900\n"
-"PO-Revision-Date: 2020-10-28 16:45+0900\n"
+"POT-Creation-Date: 2020-11-02 22:58+0900\n"
+"PO-Revision-Date: 2020-11-02 22:58+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -83,7 +83,7 @@ msgstr "通知タイプ"
 msgid "Icon settings"
 msgstr "アイコン設定"
 
-#: src/blocks/notice/_controls.js:107
+#: src/blocks/notice/_controls.js:106
 msgid "Icon class"
 msgstr "アイコンクラス"
 
@@ -106,6 +106,251 @@ msgstr "強調"
 #: src/blocks/notice/index.js:46
 msgid "Simple"
 msgstr "シンプル"
+
+#: src/blocks/post-list/_controls.js:40
+msgctxt "tab-panel"
+msgid "Settings"
+msgstr "表示設定"
+
+#: src/blocks/post-list/_controls.js:50
+msgctxt "tab-panel"
+msgid "Pickup"
+msgstr "絞り込み"
+
+#: src/blocks/post-list/index.js:32
+msgid "Post list"
+msgstr "投稿リスト"
+
+#: src/blocks/post-list/index.js:33
+msgid "Create a post list with the specified conditions."
+msgstr "指定した条件で投稿リストを作成します。"
+
+#: src/blocks/post-list/panel/_display.js:41 src/blocks/rss/_controls.js:57
+msgid "Show release date"
+msgstr "公開日を表示する"
+
+#: src/blocks/post-list/panel/_display.js:47
+msgid "Show update date"
+msgstr "更新日を表示する"
+
+#: src/blocks/post-list/panel/_display.js:53
+msgid "Show category"
+msgstr "カテゴリーを表示する"
+
+#: src/blocks/post-list/panel/_display.js:58 src/blocks/rss/_controls.js:63
+msgid "Show author"
+msgstr "著者を表示する"
+
+#: src/blocks/post-list/panel/_display.js:66 src/blocks/rss/_controls.js:79
+msgid "Card type"
+msgstr "カード型"
+
+#: src/blocks/post-list/panel/_display.js:70 src/blocks/rss/_controls.js:83
+msgid "List type"
+msgstr "リスト型"
+
+#: src/blocks/post-list/panel/_display.js:74 src/blocks/rss/_controls.js:87
+msgid "Text type"
+msgstr "テキスト型"
+
+#: src/blocks/post-list/panel/_display.js:82
+msgid "Release date"
+msgstr "公開日"
+
+#: src/blocks/post-list/panel/_display.js:86
+msgid "Update date"
+msgstr "更新日"
+
+#: src/blocks/post-list/panel/_display.js:90
+msgid "Random"
+msgstr "ランダム"
+
+#: src/blocks/post-list/panel/_display.js:97
+msgid "Descending order"
+msgstr "降順"
+
+#: src/blocks/post-list/panel/_display.js:101
+msgid "Ascending order"
+msgstr "昇順"
+
+#: src/blocks/post-list/panel/_display.js:124 src/blocks/rss/_controls.js:137
+msgid "Display settings"
+msgstr "表示設定"
+
+#: src/blocks/post-list/panel/_display.js:126
+#: src/blocks/post-list/panel/_display.js:135 src/blocks/rss/_controls.js:139
+#: src/blocks/rss/_controls.js:148
+msgid "Number of posts to display"
+msgstr "表示する投稿数"
+
+#: src/blocks/post-list/panel/_display.js:144 src/blocks/rss/_controls.js:157
+msgid "List layout"
+msgstr "リストレイアウト"
+
+#: src/blocks/post-list/panel/_display.js:154 src/blocks/rss/_controls.js:167
+msgid "What to display"
+msgstr "何を表示するか"
+
+#: src/blocks/post-list/panel/_display.js:181
+msgid "Number of characters in the excerpt"
+msgstr "抜粋文の文字数"
+
+#: src/blocks/post-list/panel/_display.js:192 src/blocks/rss/_controls.js:194
+msgid "HTML tag for title"
+msgstr "タイトルのHTMLタグ"
+
+#: src/blocks/post-list/panel/_display.js:213
+msgid "Sorting order setting"
+msgstr "並び順の設定"
+
+#: src/blocks/post-list/panel/_display.js:215
+msgid "What to arrange based on"
+msgstr "何を基準に並べるか"
+
+#: src/blocks/post-list/panel/_display.js:223
+msgid "Descending or Ascending"
+msgstr "降順か昇順か"
+
+#: src/blocks/post-list/panel/_pickup.js:69
+msgid "All"
+msgstr "全て"
+
+#: src/blocks/post-list/panel/_pickup.js:112
+msgid "Having at least one"
+msgstr "1つでも含む"
+
+#: src/blocks/post-list/panel/_pickup.js:123
+msgid "Having all"
+msgstr "全て含む"
+
+#: src/blocks/post-list/panel/_pickup.js:136
+msgid "Having"
+msgstr "含む"
+
+#: src/blocks/post-list/panel/_pickup.js:148
+msgid "Not having"
+msgstr "含まない"
+
+#: src/blocks/post-list/panel/_pickup.js:156
+msgid "Narrow down by post ID"
+msgstr "投稿IDでの絞り込み"
+
+#: src/blocks/post-list/panel/_pickup.js:158
+msgid "Specify the post ID directly"
+msgstr "投稿IDを直接指定する"
+
+#: src/blocks/post-list/panel/_pickup.js:162
+#: src/blocks/post-list/panel/_pickup.js:176
+msgid "If there are multiple, enter them separated by \",\"."
+msgstr "複数の場合は「,」区切りで入力して下さい。"
+
+#: src/blocks/post-list/panel/_pickup.js:172
+msgid "Post ID to exclude"
+msgstr "除外する投稿ID"
+
+#: src/blocks/post-list/panel/_pickup.js:190
+msgid "Narrow down by post type"
+msgstr "投稿タイプでの絞り込み"
+
+#: src/blocks/post-list/panel/_pickup.js:202
+msgid "Taxonomy condition setting"
+msgstr "タクソノミーの条件設定"
+
+#: src/blocks/post-list/panel/_pickup.js:207
+msgid "For the following taxonomy conditions,"
+msgstr "以下のタクソノミー条件に対して、"
+
+#: src/blocks/post-list/panel/_pickup.js:211
+msgid "Whether at least one is true"
+msgstr "少なくとも１つ当てはまるかどうか"
+
+#: src/blocks/post-list/panel/_pickup.js:215
+msgid "Whether all is true"
+msgstr "全てに当てはまるかどうか"
+
+#: src/blocks/post-list/panel/_pickup.js:228
+msgid ""
+"You can select multiple categories and tags by holding down the \"command\" "
+"key on Mac and the \"ctrl\" key on Windows."
+msgstr ""
+"カテゴリーやタグは、Macなら”command”キー、Windowsなら”ctrl”キーを押しながら"
+"クリックすると複数選択できます。"
+
+#: src/blocks/post-list/panel/_pickup.js:233
+msgid "Categories"
+msgstr "カテゴリー"
+
+#: src/blocks/post-list/panel/_pickup.js:246
+msgid "Exclude articles in child categories only"
+msgstr "子カテゴリのみの記事を除外"
+
+#: src/blocks/post-list/panel/_pickup.js:257
+msgid "Relationship of selected categories"
+msgstr "選択したカテゴリーの関係"
+
+#: src/blocks/post-list/panel/_pickup.js:265
+msgid "Tags"
+msgstr "タグ"
+
+#: src/blocks/post-list/panel/_pickup.js:276
+msgid "Relationship of selected tags"
+msgstr "選択したタグの関係"
+
+#: src/blocks/post-list/panel/_pickup.js:283
+msgid "Taxonomy"
+msgstr "タクソノミー"
+
+#: src/blocks/post-list/panel/_pickup.js:284
+msgid "Enter the taxonomy name (slug)"
+msgstr "タクソノミー名（slug）を入力"
+
+#: src/blocks/post-list/panel/_pickup.js:300
+msgid "Terms"
+msgstr "ターム"
+
+#: src/blocks/post-list/panel/_pickup.js:315
+msgid "Relationship of selected terms"
+msgstr "選択したタームの関係"
+
+#: src/blocks/post-list/panel/_pickup.js:326
+msgid "Narrowing down by author"
+msgstr "著者での絞り込み"
+
+#: src/blocks/rss/_controls.js:52
+msgid "Show page name of site"
+msgstr "サイトのページ名を表示する"
+
+#: src/blocks/rss/_controls.js:71
+msgid "Show thumbnail"
+msgstr "サムネイルを表示する"
+
+#: src/blocks/rss/_controls.js:109
+msgid "RSS settings"
+msgstr "RSS設定"
+
+#: src/blocks/rss/_controls.js:111
+msgid "RSS feed URL"
+msgstr "RSSフィードのURL"
+
+#: src/blocks/rss/_controls.js:118
+msgid "RSS feed page name"
+msgstr "RSSフィードのページ名"
+
+#: src/blocks/rss/_controls.js:125
+msgid "Use the cache"
+msgstr "キャッシュを利用する"
+
+#: src/blocks/rss/_controls.js:127
+msgid "If you want to clear the cache, turn it off only once."
+msgstr "キャッシュを削除したい時、一度だけオフにしてください。"
+
+#: src/blocks/rss/index.js:33
+msgid "RSS"
+msgstr ""
+
+#: src/blocks/rss/index.js:34
+msgid "Create a list of RSS feeds."
+msgstr "RSSフィードのリストを作成します。"
 
 #: src/blocks/step-item/_controls.js:15
 msgid "Text settings"
@@ -189,11 +434,11 @@ msgstr ""
 "“Arkhe”を利用すれば、テーマ本体に用意されているアイコンも選べるようになりま"
 "す。"
 
-#: src/extension/headbar.js:36
+#: src/extension/headbar.js:35
 msgid "View Post"
 msgstr "投稿を表示"
 
-#: src/extension/headbar.js:38
+#: src/extension/headbar.js:37
 msgid "View Page"
 msgstr "ページを表示"
 
@@ -205,7 +450,19 @@ msgstr "ライセンス取得"
 msgid "License key registration"
 msgstr "ライセンスキー登録"
 
-#: inc/gutenberg.php:73
+#: inc/blocks/rss.php:27
+msgid "Please enter the URL of the RSS feed."
+msgstr ""
+
+#: inc/blocks/rss.php:52
+msgid "RSS feed is not found."
+msgstr ""
+
+#: inc/blocks/rss.php:123
+msgid "記事が見つかりませんでした。"
+msgstr ""
+
+#: inc/gutenberg.php:84
 msgid "Arkhe Blocks"
 msgstr ""
 
@@ -236,6 +493,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "https://loos.co.jp/"
 msgstr ""
+
+#~ msgid "Tag"
+#~ msgstr "タグ"
 
 #~ msgid "投稿を表示"
 #~ msgstr "View post"

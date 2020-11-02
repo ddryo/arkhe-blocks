@@ -58,6 +58,8 @@ function cb_rss( $attrs, $content ) {
 		'show_site'      => $attrs['showSite'],
 		'show_date'      => $attrs['showDate'],
 		'show_author'    => $attrs['showAuthor'],
+		'show_thumb'     => $attrs['showThumb'],
+
 		// 'show_modified'  => $attrs['showModified'],
 
 		'h_tag'          => $attrs['hTag'],
