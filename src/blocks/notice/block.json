@@ -12,13 +12,19 @@
         "lightBlockWrapper": true
     },
     "attributes": {
-        "iconOpened": {
-            "type": "string",
-            "default": "arrow_drop_up"
+        "title": {
+            "type": "array",
+            "source": "children",
+            "selector": ".ark-block-notice__title",
+            "default": ""
         },
-        "iconClosed": {
+        "type": {
             "type": "string",
-            "default": "arrow_drop_down"
+            "default": "point"
+        },
+        "icon": {
+            "type": "string",
+            "default": "arkb-svg-point"
         }
     },
     "editorScript": "file:../../../dist/blocks/notice/index.js",

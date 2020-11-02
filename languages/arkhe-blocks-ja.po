@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Arkhe Blocks\n"
-"POT-Creation-Date: 2020-11-02 22:58+0900\n"
-"PO-Revision-Date: 2020-11-02 22:58+0900\n"
+"POT-Creation-Date: 2020-11-02 23:28+0900\n"
+"PO-Revision-Date: 2020-11-02 23:28+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -29,7 +29,7 @@ msgid "Accordion item"
 msgstr "アコーディオン項目"
 
 #: src/blocks/accordion-item/index.js:54 src/blocks/dl-dt/index.js:50
-#: src/blocks/faq-item/index.js:48 src/blocks/notice/index.js:83
+#: src/blocks/faq-item/index.js:48 src/blocks/notice/index.js:68
 #: src/blocks/step-item/index.js:71 src/blocks/timeline-item/index.js:65
 #: src/blocks/timeline-item/index.js:73
 msgid "Enter text"
@@ -452,15 +452,19 @@ msgstr "ライセンスキー登録"
 
 #: inc/blocks/rss.php:27
 msgid "Please enter the URL of the RSS feed."
-msgstr ""
+msgstr "RSSフィードのURLを入力してください。"
 
 #: inc/blocks/rss.php:52
 msgid "RSS feed is not found."
-msgstr ""
+msgstr "RSSフィードが見つかりませんでした。"
+
+#: inc/blocks/rss.php:108
+msgid "The URL of the RSS feed is incorrect."
+msgstr "RSSフィードのURLが正しくありません。"
 
 #: inc/blocks/rss.php:123
-msgid "記事が見つかりませんでした。"
-msgstr ""
+msgid "The article was not found."
+msgstr "記事が見つかりませんでした。"
 
 #: inc/gutenberg.php:84
 msgid "Arkhe Blocks"

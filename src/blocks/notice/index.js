@@ -45,22 +45,7 @@ registerBlockType(name, {
 		{ name: 'stronger', label: __('Stronger', 'arkhe-blocks') },
 		{ name: 'simple', label: __('Simple', 'arkhe-blocks') },
 	],
-	attributes: {
-		title: {
-			type: 'array',
-			source: 'children',
-			selector: '.ark-block-notice__title',
-			default: '',
-		},
-		type: {
-			type: 'string',
-			default: 'memo',
-		},
-		icon: {
-			type: 'string',
-			default: 'fas fa-pen',
-		},
-	},
+	attributes: metadata.attributes,
 	example,
 	edit: (props) => {
 		const { attributes, className, setAttributes } = props;

@@ -6,7 +6,7 @@ import { InspectorControls } from '@wordpress/block-editor';
 import { createInterpolateElement } from '@wordpress/element';
 import {
 	PanelBody,
-	BaseControl,
+	// BaseControl,
 	// ColorPalette,
 	ButtonGroup,
 	Button,

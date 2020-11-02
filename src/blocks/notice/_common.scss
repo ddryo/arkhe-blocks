@@ -89,6 +89,10 @@
 	padding: 0;
 	background: none !important;
 	border: none;
+
+	&:empty {
+		display: none;
+	}
 }
 
 

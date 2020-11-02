@@ -8,8 +8,8 @@ const entries = {};
 
 const blocks = [
 	// 'notice',
-	// 'accordion',
-	// 'accordion-item',
+	'accordion',
+	'accordion-item',
 	// 'faq',
 	// 'faq-item',
 	// 'dl',
@@ -21,7 +21,7 @@ const blocks = [
 	// 'timeline',
 	// 'timeline-item',
 	// 'post-list',
-	'rss',
+	// 'rss',
 	//
 	// 'button',
 	// 'tab',

@@ -105,7 +105,7 @@ function get_rss( $rss_url = '' ) {
 	if ( is_wp_error( $rss ) ) {
 		return [
 			'error'   => 1,
-			'message' => 'RSS フィードの URL が正しくありません。',
+			'message' => __( 'The URL of the RSS feed is incorrect.', 'arkhe-blocks' ),
 		];
 	}
 
@@ -120,7 +120,7 @@ function get_rss( $rss_url = '' ) {
 	if ( 0 === $maxitems ) {
 		return [
 			'error'   => 1,
-			'message' => __( '記事が見つかりませんでした。', 'arkhe-blocks' ),
+			'message' => __( 'The article was not found.', 'arkhe-blocks' ),
 		];
 	}
 
