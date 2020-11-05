@@ -63,10 +63,13 @@ function register_blocks() {
 	if ( ! \Arkhe_Blocks::IS_PRO ) return;
 
 	// ダイナミックブロックの読み込み
-	$dynamic_blocks = [
-		'post-list',
-		'rss',
-	];
+	$dynamic_blocks = [];
+
+	if ( IS_ARKHE_THEME ) {
+		$dynamic_blocks[] = 'post-list';
+		$dynamic_blocks[] = 'rss';
+	}
+
 	foreach ( $dynamic_blocks as $block_name ) {
 		require_once __DIR__ . '/blocks/' . $block_name . '.php';
 	}
@@ -80,7 +83,7 @@ function register_blocks() {
 function add_block_categories( $categories ) {
 	$my_category = [
 		[
-			'slug'  => 'arkhe-blocks',  // ブロックカテゴリーのスラッグ -> arkhe-blocks
+			'slug'  => 'arkhe-blocks',
 			'title' => __( 'Arkhe Blocks', 'arkhe-blocks' ),
 			'icon'  => null,
 		],

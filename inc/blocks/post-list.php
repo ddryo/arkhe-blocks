@@ -135,7 +135,7 @@ function cb_post_list( $attrs, $content ) {
 	echo '<div class="' . esc_attr( $list_wrapper_class ) . '">';
 
 	// 投稿リスト
-	\Arkhe::get_parts( 'post_list/sub_query', [
+	\Arkhe::get_part( 'post_list/sub_query', [
 		'query_args' => $query_args,
 		'list_args'  => $list_args,
 	] );

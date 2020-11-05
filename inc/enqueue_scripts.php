@@ -10,6 +10,7 @@ defined( 'ABSPATH' ) || exit;
 add_action( 'wp_enqueue_scripts', '\Arkhe_Blocks\hook_wp_enqueue_scripts', 20 );
 // add_action( 'admin_enqueue_scripts', '\Arkhe_Blocks\hook_admin_enqueue_scripts', 20 );
 add_action( 'enqueue_block_editor_assets', '\Arkhe_Blocks\hook_enqueue_block_editor_assets', 20 );
+add_action( 'admin_head', '\Arkhe_Blocks\hook_admin_head', 20 );
 
 
 /**
@@ -24,16 +25,7 @@ function hook_wp_enqueue_scripts() {
 /**
  * 管理画面で読み込むファイル
  */
-function hook_admin_enqueue_scripts( $hook_suffix ) {
-
-	// 管理画面側で読み込むスクリプト
-	// wp_enqueue_script( 'arkhe-blocks-admin', ARKHE_BLOCKS_URL . 'dist/js/admin.js', ['jquery' ], ARKHE_BLOCKS_VERSION, true );
-	// wp_enqueue_style( 'arkhe-blocks-admin', ARKHE_BLOCKS_URL . 'dist/css/admin.css', [], ARKHE_BLOCKS_VERSION );
-
-	// ページの種類で分岐
-	// if ( 'post.php' === $hook_suffix || 'post-new.php' === $hook_suffix ) {
-	// }
-}
+// function hook_admin_enqueue_scripts( $hook_suffix ) {}
 
 
 /**
@@ -55,4 +47,38 @@ function hook_enqueue_block_editor_assets( $hook_suffix ) {
 		$asset['version'],
 		true
 	);
+}
+
+
+/**
+ * ページテンプレートの情報などをhtmlタグに。
+ */
+function hook_admin_head() {
+
+	if ( ! class_exists( 'Arkhe' ) ) return;
+
+	global $post_id; // 新規追加時は null
+	global $post_type;
+
+	$front_id      = (int) get_option( 'page_on_front' );
+	$page_template = basename( get_page_template_slug() ) ?: '';
+
+	if ( false !== strpos( $page_template, 'one-column' ) ) {
+		$show_sidebar = 'off';
+	} elseif ( 'two-column.php' === $page_template ) {
+		$show_sidebar = 'on';
+	} else {
+		// デフォルトテンプレート時
+		if ( $front_id === $post_id ) {
+			$side_key = 'show_sidebar_top';
+		} elseif ( 'page' === $post_type ) {
+			$side_key = 'show_sidebar_page';
+		} else {
+			$side_key = 'show_sidebar_post';
+		}
+		$show_sidebar = \Arkhe::get_setting( $side_key ) ? 'on' : 'off';
+	}
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo '<script>document.documentElement.setAttribute("data-sidebar", "' . $show_sidebar . '");</script>';
+
 }
