@@ -12,13 +12,13 @@
     ],
     "attributes": {
         "title": {
-            "type": "array",
-            "source": "children",
+            "type": "string",
+            "source": "html",
             "selector": ".ark-block-timeline__title"
         },
         "label": {
-            "type": "array",
-            "source": "children",
+            "type": "string",
+            "source": "html",
             "selector": ".ark-block-timeline__label"
         },
         "isFill": {

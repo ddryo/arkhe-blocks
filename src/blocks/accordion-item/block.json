@@ -12,8 +12,8 @@
     ],
     "attributes": {
         "title": {
-            "type": "array",
-            "source": "children",
+            "type": "string",
+            "source": "html",
             "selector": ".ark-block-accordion__label",
             "default": ""
         }

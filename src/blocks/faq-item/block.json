@@ -12,8 +12,8 @@
     ],
     "attributes": {
         "textQ": {
-            "type": "array",
-            "source": "children",
+            "type": "string",
+            "source": "html",
             "selector": "dt",
             "default": ""
         }

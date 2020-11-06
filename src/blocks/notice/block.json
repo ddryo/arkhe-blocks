@@ -13,8 +13,8 @@
     },
     "attributes": {
         "title": {
-            "type": "array",
-            "source": "children",
+            "type": "string",
+            "source": "html",
             "selector": ".ark-block-notice__title",
             "default": ""
         },

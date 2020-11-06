@@ -8,8 +8,8 @@ const entries = {};
 
 const blocks = [
 	// 'notice',
-	'accordion',
-	'accordion-item',
+	// 'accordion',
+	// 'accordion-item',
 	// 'faq',
 	// 'faq-item',
 	// 'dl',
@@ -18,8 +18,8 @@ const blocks = [
 	// 'dl-div',
 	// 'step',
 	// 'step-item',
-	// 'timeline',
-	// 'timeline-item',
+	'timeline',
+	'timeline-item',
 	// 'post-list',
 	// 'rss',
 	//
