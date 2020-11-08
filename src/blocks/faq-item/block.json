@@ -5,7 +5,8 @@
     "supports": {
         "anchor": true,
         "className": false,
-        "lightBlockWrapper": true
+        "lightBlockWrapper": true,
+        "reusable": false
     },
     "parent": [
         "arkhe-blocks/faq-item"

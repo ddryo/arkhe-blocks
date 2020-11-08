@@ -70,12 +70,12 @@ function cb_rss( $attrs, $content ) {
 	];
 
 	// 抜粋文の文字数
-	if ( isset( $attrs['excerptLength'] ) ) {
-		$list_args['excerpt_length'] = $attrs['excerptLength'];
-	}
+	// if ( isset( $attrs['excerptLength'] ) ) {
+	// 	$list_args['excerpt_length'] = $attrs['excerptLength'];
+	// }
 
 	// リストを囲むクラス名
-	$list_wrapper_class = 'ark-block-postList';
+	$list_wrapper_class = 'ark-block-rss';
 	if ( $attrs['className'] ) {
 		$list_wrapper_class .= ' ' . $attrs['className'];
 	}
