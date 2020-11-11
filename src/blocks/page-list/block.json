@@ -1,0 +1,66 @@
+{
+    "name": "arkhe-blocks/page-list",
+    "title": "Page list",
+    "category": "arkhe-blocks",
+    "keywords": [
+        "arkhe",
+        "page",
+        "list"
+    ],
+    "supports": {
+        "anchor": true,
+        "className": false
+    },
+    "attributes": {
+        "className": {
+            "type": "string",
+            "default": ""
+        },
+        "rssUrl": {
+            "type": "string",
+            "default": ""
+        },
+        "pageName": {
+            "type": "string",
+            "default": ""
+        },
+        "listType": {
+            "type": "string",
+            "default": "card"
+        },
+        "listCountPC": {
+            "type": "number",
+            "default": 3
+        },
+        "listCountSP": {
+            "type": "number",
+            "default": 3
+        },
+        "showSite": {
+            "type": "boolean",
+            "default": true
+        },
+        "showDate": {
+            "type": "boolean",
+            "default": true
+        },
+        "showAuthor": {
+            "type": "boolean",
+            "default": false
+        },
+        "showThumb": {
+            "type": "boolean",
+            "default": true
+        },
+        "useCache": {
+            "type": "boolean",
+            "default": true
+        },
+        "hTag": {
+            "type": "string",
+            "default": "h2"
+        }
+    },
+    "editorScript": "file:../../../dist/blocks/page-list/index.js",
+    "textdomain": "arkhe-blocks"
+}

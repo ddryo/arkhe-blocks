@@ -1,0 +1,88 @@
+{
+    "name": "arkhe-blocks/box-link",
+    "title": "Box link",
+    "category": "arkhe-blocks",
+    "keywords": [
+        "arkhe",
+        "box-link"
+    ],
+    "supports": {
+        "anchor": true,
+        "className": false,
+        "lightBlockWrapper": true,
+        "reusable": false
+    },
+    "parent": [
+        "arkhe-blocks/box-links"
+    ],
+    "attributes": {
+        "layout": {
+            "type": "string",
+            "default": "vertical"
+        },
+        "imgId": {
+            "type": "number",
+            "default": 0
+        },
+        "imgUrl": {
+            "type": "string",
+            "default": ""
+        },
+        "imgSize": {
+            "type": "string",
+            "default": "full"
+        },
+        "imgW": {
+            "type": "number"
+        },
+        "imgH": {
+            "type": "number"
+        },
+        "imgAlt": {
+            "type": "string",
+            "source": "attribute",
+            "selector": "img.c-boxLink__img",
+            "attribute": "alt",
+            "default": ""
+        },
+        "ratio": {
+            "type": "number"
+        },
+        "fixRatio": {
+            "type": "boolean",
+            "default": false
+        },
+        "href": {
+            "type": "string",
+            "source": "attribute",
+            "selector": "a.c-boxLink__inner",
+            "attribute": "href"
+        },
+        "linkTarget": {
+            "type": "string",
+            "source": "attribute",
+            "selector": "a.c-boxLink__inner",
+            "attribute": "target"
+        },
+        "rel": {
+            "type": "string",
+            "source": "attribute",
+            "selector": "a.c-boxLink__inner",
+            "attribute": "rel"
+        },
+        "title": {
+            "type": "string",
+            "default": ""
+        },
+        "more": {
+            "type": "string",
+            "default": "READ MORE"
+        },
+        "showMoreArrow": {
+            "type": "boolean",
+            "default": true
+        }
+    },
+    "editorScript": "file:../../../dist/blocks/box-link/index.js",
+    "textdomain": "arkhe-blocks"
+}

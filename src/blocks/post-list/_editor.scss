@@ -1,4 +1,5 @@
 [data-type="arkhe-blocks/post-list"],
+[data-type="arkhe-blocks/page-list"],
 [data-type="arkhe-blocks/rss"] {
 
 	.p-postList {
@@ -9,6 +10,13 @@
 		&:not(.-type-card) {
 			margin-right: 0;
 			margin-left: 0;
+		}
+	}
+
+	.p-postList__excerpt {
+
+		p {
+			margin: 0 !important;
 		}
 	}
 

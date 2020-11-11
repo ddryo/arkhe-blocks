@@ -1,0 +1,39 @@
+{
+    "name": "arkhe-blocks/box-links",
+    "title": "Box links",
+    "category": "arkhe-blocks",
+    "keywords": [
+        "arkhe",
+        "box-links"
+    ],
+    "supports": {
+        "anchor": true,
+        "className": false,
+        "lightBlockWrapper": true
+    },
+    "attributes": {
+        "colPC": {
+            "type": "string",
+            "source": "attribute",
+            "selector": ".ark-block-boxLinks",
+            "attribute": "data-pc-column",
+            "default": "3"
+        },
+        "colTab": {
+            "type": "string",
+            "source": "attribute",
+            "selector": ".ark-block-boxLinks",
+            "attribute": "data-tab-column",
+            "default": "2"
+        },
+        "colMobile": {
+            "type": "string",
+            "source": "attribute",
+            "selector": ".ark-block-boxLinks",
+            "attribute": "data-column",
+            "default": "1"
+        }
+    },
+    "editorScript": "file:../../../dist/blocks/box-links/index.js",
+    "textdomain": "arkhe-blocks"
+}

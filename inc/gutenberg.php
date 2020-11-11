@@ -44,6 +44,8 @@ function register_blocks() {
 
 	if ( \Arkhe_Blocks::IS_PRO ) {
 		$arkhe_blocks_pro = [
+			'box-link',
+			'box-links',
 			'notice',
 			'step',
 			'step-item',
@@ -63,7 +65,9 @@ function register_blocks() {
 	if ( ! \Arkhe_Blocks::IS_PRO ) return;
 
 	// ダイナミックブロックの読み込み
-	$dynamic_blocks = [];
+	$dynamic_blocks = [
+		'page-list',
+	];
 
 	if ( IS_ARKHE_THEME ) {
 		$dynamic_blocks[] = 'post-list';
