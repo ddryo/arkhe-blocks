@@ -7,7 +7,6 @@ const entries = {};
 // entries.index = './src/blocks/index.js';
 
 const blocks = [
-	// 'notice',
 	// 'accordion',
 	// 'accordion-item',
 	'box-link',
@@ -18,11 +17,12 @@ const blocks = [
 	// 'dl-dt',
 	// 'dl-dd',
 	// 'dl-div',
+	// 'notice',
 	// 'step',
 	// 'step-item',
 	// 'timeline',
 	// 'timeline-item',
-	'page-list',
+	// 'page-list',
 	// 'post-list',
 	// 'rss',
 	//

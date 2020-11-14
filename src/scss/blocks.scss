@@ -116,3 +116,17 @@ $color_guide: rgba(123, 134, 162, .3);//#b8c7da;
 		font-size: 12px;
 	}
 }
+
+
+.arkb-range--useReset {
+
+	.components-range-control__root {
+		flex-wrap: wrap;
+	}
+
+	.css-uojzqi-ActionRightWrapper {
+		width: 100%;
+		margin-top: 8px;
+		text-align: right;
+	}
+}

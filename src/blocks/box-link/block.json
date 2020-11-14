@@ -16,6 +16,25 @@
         "arkhe-blocks/box-links"
     ],
     "attributes": {
+        "align": {
+            "type": "string"
+        },
+        "useIcon": {
+            "type": "boolean",
+            "default": false
+        },
+        "iconHtml": {
+            "type": "string",
+            "source": "html",
+            "selector": ".c-boxLink__figure.-html"
+        },
+        "icon": {
+            "type": "string",
+            "default": ""
+        },
+        "iconSize": {
+            "type": "number"
+        },
         "layout": {
             "type": "string",
             "default": "vertical"
@@ -26,7 +45,15 @@
         },
         "imgUrl": {
             "type": "string",
-            "default": ""
+            "source": "attribute",
+            "selector": "img.c-boxLink__img",
+            "attribute": "src"
+        },
+        "imgAlt": {
+            "type": "string",
+            "source": "attribute",
+            "selector": "img.c-boxLink__img",
+            "attribute": "alt"
         },
         "imgSize": {
             "type": "string",
@@ -37,13 +64,6 @@
         },
         "imgH": {
             "type": "number"
-        },
-        "imgAlt": {
-            "type": "string",
-            "source": "attribute",
-            "selector": "img.c-boxLink__img",
-            "attribute": "alt",
-            "default": ""
         },
         "ratio": {
             "type": "number"
@@ -58,11 +78,9 @@
             "selector": "a.c-boxLink__inner",
             "attribute": "href"
         },
-        "linkTarget": {
-            "type": "string",
-            "source": "attribute",
-            "selector": "a.c-boxLink__inner",
-            "attribute": "target"
+        "isNewTab": {
+            "type": "boolean",
+            "default": false
         },
         "rel": {
             "type": "string",
@@ -72,7 +90,12 @@
         },
         "title": {
             "type": "string",
-            "default": ""
+            "source": "html",
+            "selector": ".c-boxLink__title"
+        },
+        "htag": {
+            "type": "string",
+            "default": "div"
         },
         "more": {
             "type": "string",

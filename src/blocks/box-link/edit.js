@@ -2,35 +2,35 @@
  * @WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { memo, useMemo, useCallback } from '@wordpress/element';
+import { memo, useMemo, useCallback, useState, RawHTML } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
+
 import {
-	BlockControls,
-	InspectorControls,
-	MediaReplaceFlow,
+	// BlockControls,
+	// InspectorControls,
+	// MediaReplaceFlow,
 	RichText,
 	InnerBlocks,
 	__experimentalBlock as Block,
 } from '@wordpress/block-editor';
-import {
-	PanelBody,
-	IconButton,
-	Toolbar,
-	SelectControl,
-	TextControl,
-	BaseControl,
-	RadioControl,
-	ButtonGroup,
-	Button,
-	ToggleControl,
-	RangeControl,
-} from '@wordpress/components';
+// import {
+// 	ToggleControl,
+// 	RangeControl,
+// 	ToolbarButton,
+// 	ToolbarGroup,
+// 	Popover,
+// } from '@wordpress/components';
+// import { link } from '@wordpress/icons';
 
 /**
  * @Internal dependencies
  */
 import { Figure } from '@components/Figure';
+import { ArkheIcon } from '@components/ArkheIcon';
 import getResizedImages from '@helper/getResizedImages';
+// import getNewLinkRel from '@helper/getNewLinkRel';
+import ThisControls from './_controls';
+
 // import ImageSizeSelectControl from '@components/ImageSizeSelectControl';
 
 /**
@@ -40,8 +40,13 @@ import classnames from 'classnames';
 
 const blockName = 'ark-block-boxLink';
 export default function (props) {
-	const { className, attributes, setAttributes, isSelected } = props;
+	const { className, attributes, setAttributes } = props;
 	const {
+		align,
+		useIcon,
+		icon,
+		iconSize,
+		iconHtml,
 		layout,
 		imgId,
 		imgUrl,
@@ -53,18 +58,23 @@ export default function (props) {
 		more,
 		showMoreArrow,
 	} = attributes;
-	const blockClass = classnames(className, blockName, 'c-boxLink', '-' + layout);
 
-	// 画像削除時の処理（attributesを初期値に戻す）
-	const onRemoveImage = useCallback(() => {
-		setAttributes({
-			imgId: 0,
-			imgUrl: '',
-			imgAlt: '',
-			imgW: '',
-			imgH: '',
-		});
-	}, []);
+	// console.log(className, attributes.className);
+
+	const attrClass = attributes.className || '';
+	const isBannerStyle = -1 !== attrClass.indexOf('is-style-banner');
+
+	// ブロッククラス
+	const blockClass = classnames(className, blockName, 'c-boxLink', '-' + layout, {
+		'has-text-align-center': 'center' === align,
+	});
+
+	// 縦並びか横並びかを変数化
+	const isVertical = 'vertical' === layout;
+
+	// state
+	const [isURLPickerOpen, setIsURLPickerOpen] = useState(false);
+	const [useIconHtml, setUseIconHtml] = useState(!!iconHtml);
 
 	// 画像選択時の処理
 	const onSelectImage = useCallback(
@@ -111,6 +121,17 @@ export default function (props) {
 		[imgUrl]
 	);
 
+	// 画像削除時の処理（attributesを初期値に戻す）
+	const onRemoveImage = useCallback(() => {
+		setAttributes({
+			imgId: 0,
+			imgUrl: undefined,
+			imgAlt: undefined,
+			imgW: undefined,
+			imgH: undefined,
+		});
+	}, []);
+
 	// メディアサイズリストを取得
 	const { sizeOptions, resizedImages } = useSelect(
 		(select) => {
@@ -152,146 +173,103 @@ export default function (props) {
 	);
 
 	// サイズを変えた時
-	const updateImagesSize = (sizeSlug) => {
-		// console.log(sizeSlug, resizedImages[sizeSlug]);
-		const newSizeData = resizedImages[sizeSlug];
+	const updateImagesSize = useCallback(
+		(sizeSlug) => {
+			// console.log(sizeSlug, resizedImages[sizeSlug]);
+			const newSizeData = resizedImages[sizeSlug];
 
-		setAttributes({
-			imgSize: sizeSlug,
-			imgUrl: newSizeData.url,
-			imgW: newSizeData.width,
-			imgH: newSizeData.imgH,
-		});
-	};
+			setAttributes({
+				imgSize: sizeSlug,
+				imgUrl: newSizeData.url,
+				imgW: newSizeData.width,
+				imgH: newSizeData.imgH,
+			});
+		},
+		[resizedImages]
+	);
 
-	const figureClass = classnames('c-boxLink__figure', { 'is-fixed-ratio': fixRatio });
-	let figureStyle = null;
-
-	// 横並びかどうかで設定を変更
-	if ('horizontal' === layout) {
-		figureStyle = ratio ? { flexBasis: `${ratio}%` } : null;
-	} else {
-		figureStyle = ratio ? { paddingTop: `${ratio}%` } : null;
+	// アイコン
+	const iconStyle = !iconSize
+		? null
+		: {
+				'--arkb-boxlink_icon_size': iconSize + 'px',
+		  };
+	let iconContent = null;
+	if (useIcon && useIconHtml) {
+		iconContent = (
+			<figure className='c-boxLink__figure -icon -html' style={iconStyle}>
+				<RawHTML>{iconHtml}</RawHTML>
+			</figure>
+		);
+	} else if (useIcon) {
+		iconContent = (
+			<figure className='c-boxLink__figure -icon' style={iconStyle}>
+				<ArkheIcon icon={icon} className={`c-boxLink__icon`} />
+			</figure>
+		);
 	}
 
-	const layoutButtons = [
-		{
-			value: 'vertical',
-			label: __('Vertical', 'arkhe-blocks'),
-		},
-		{
-			value: 'horizontal',
-			label: __('Horizontal', 'arkhe-blocks'),
-		},
-	];
+	// figure
+	let figure = '';
+	if (isBannerStyle) {
+		figure = (
+			<>
+				<Figure
+					url={imgUrl}
+					id={imgId}
+					alt={imgAlt}
+					figureClass='c-boxLink__bg'
+					figureStyle={null}
+					imgClass='c-boxLink__img -no-lb'
+					onSelect={onSelectImage}
+					onSelectURL={onSelectURL}
+				/>
+				{iconContent}
+			</>
+		);
+	} else if (useIcon) {
+		figure = iconContent;
+	} else {
+		// figure の style
+		let figureStyle = null;
+		if (isVertical) {
+			figureStyle = ratio ? { paddingTop: `${ratio}%` } : null;
+		} else {
+			figureStyle = ratio ? { flexBasis: `${ratio}%` } : null;
+		}
+
+		figure = (
+			<Figure
+				url={imgUrl}
+				id={imgId}
+				alt={imgAlt}
+				figureClass={classnames('c-boxLink__figure', { 'is-fixed-ratio': fixRatio })}
+				figureStyle={figureStyle}
+				imgClass='c-boxLink__img -no-lb'
+				onSelect={onSelectImage}
+				onSelectURL={onSelectURL}
+			/>
+		);
+	}
 
 	return (
 		<>
-			<BlockControls>
-				{!!imgUrl && (
-					<>
-						<MediaReplaceFlow
-							mediaId={imgId}
-							mediaURL={imgUrl}
-							allowedTypes={['image']}
-							accept='image/*'
-							onSelect={onSelectImage}
-							onSelectURL={onSelectURL}
-						/>
-						<Toolbar>
-							<IconButton
-								className='components-toolbar__control'
-								label={__('Delete image', 'arkhe-blocks')}
-								icon='no-alt'
-								onClick={onRemoveImage}
-							/>
-						</Toolbar>
-					</>
-				)}
-			</BlockControls>
-			<InspectorControls>
-				<PanelBody title={__('settings', 'arkhe-blocks')} initialOpen={true}>
-					<ButtonGroup className='ark-notice-btns'>
-						{layoutButtons.map((btn) => {
-							return (
-								<Button
-									isPrimary={layout === btn.value}
-									key={`ark-${btn.value}`}
-									onClick={() => {
-										setAttributes({
-											layout: btn.value,
-										});
-									}}
-								>
-									{btn.label}
-								</Button>
-							);
-						})}
-					</ButtonGroup>
-				</PanelBody>
-				<PanelBody title={__('settings', 'arkhe-blocks')} initialOpen={true}>
-					{0 !== imgId && (
-						<SelectControl
-							label={__('Image size')}
-							value={imgSize}
-							options={sizeOptions}
-							onChange={updateImagesSize}
-						/>
-					)}
-					<ToggleControl
-						label={__('画像比率を固定する', 'arkhe-blocks')}
-						checked={fixRatio}
-						onChange={(val) => {
-							setAttributes({ fixRatio: val });
-						}}
-					/>
-					{fixRatio && (
-						<RangeControl
-							label={__('画像比率', 'arkhe-blocks') + '(PC)'}
-							help={__(
-								'デフォルトではアーカイブリストのサムネイルと同じ比率になります。',
-								'arkhe-blocks'
-							)}
-							value={ratio}
-							onChange={(val) => {
-								setAttributes({ ratio: val });
-							}}
-							min={1}
-							max={100}
-							allowReset={true}
-						/>
-					)}
-				</PanelBody>
-				<PanelBody title={__('READ MORE', 'arkhe-blocks')} initialOpen={true}>
-					<TextControl
-						label={__('READ MOREのテキスト', 'arkhe-blocks')}
-						// help={faNote}
-						value={more}
-						onChange={(val) => {
-							setAttributes({ more: val });
-						}}
-					/>
-					<ToggleControl
-						label={__('矢印アイコンを表示する', 'arkhe-blocks')}
-						checked={showMoreArrow}
-						onChange={(val) => {
-							setAttributes({ showMoreArrow: val });
-						}}
-					/>
-				</PanelBody>
-			</InspectorControls>
+			<ThisControls
+				attributes={attributes}
+				setAttributes={setAttributes}
+				onSelectImage={onSelectImage}
+				onSelectURL={onSelectURL}
+				onRemoveImage={onRemoveImage}
+				updateImagesSize={updateImagesSize}
+				sizeOptions={sizeOptions}
+				isURLPickerOpen={isURLPickerOpen}
+				setIsURLPickerOpen={setIsURLPickerOpen}
+				useIconHtml={useIconHtml}
+				setUseIconHtml={setUseIconHtml}
+			/>
 			<Block.div className={blockClass}>
 				<div className='c-boxLink__inner'>
-					<Figure
-						url={imgUrl}
-						id={imgId}
-						alt={imgAlt}
-						figureClass={figureClass}
-						figureStyle={figureStyle}
-						imgClass='c-boxLink__img -no-lb'
-						onSelect={onSelectImage}
-						onSelectURL={onSelectURL}
-					/>
+					{figure}
 					<div className='c-boxLink__body'>
 						<RichText
 							tagName='div'

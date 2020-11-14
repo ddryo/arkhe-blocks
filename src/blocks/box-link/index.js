@@ -4,11 +4,13 @@
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 import { RichText, InnerBlocks } from '@wordpress/block-editor';
+import { RawHTML } from '@wordpress/element';
 
 /**
  * @Internal dependencies
  */
 import { iconColor } from '@blocks/config';
+import { ArkheIconOnSave } from '@components/ArkheIcon';
 import edit from './edit';
 import metadata from './block.json';
 import blockIcon from './_icon';
@@ -39,52 +41,121 @@ registerBlockType(name, {
 	supports,
 	parent,
 	attributes: metadata.attributes,
+	styles: [
+		{ name: 'default', label: __('Default', 'arkhe-blocks'), isDefault: true },
+		{ name: 'banner', label: __('バナー', 'arkhe-blocks') },
+	],
 	edit,
 	save: ({ attributes }) => {
 		const {
+			align,
+			useIcon,
+			icon,
+			iconSize,
+			iconHtml,
 			layout,
 			imgId,
 			imgUrl,
 			imgAlt,
-			imgSize,
+			// imgSize,
 			imgW,
 			imgH,
 			fixRatio,
 			ratio,
 			title,
+			htag,
 			href,
+			rel,
+			isNewTab,
 			more,
 			showMoreArrow,
 		} = attributes;
 
-		const blockClass = classnames(blockName, 'c-boxLink', '-' + layout);
+		const blockClass = classnames(blockName, 'c-boxLink', '-' + layout, {
+			'has-text-align-center': 'center' === align,
+		});
 
-		const figureClass = classnames('c-boxLink__figure', { 'is-fixed-ratio': fixRatio });
-		let figureStyle = null;
+		// 縦並びか横並びかを変数化
+		const isVertical = 'vertical' === layout;
 
-		// 横並びかどうかで設定を変更
-		if ('horizontal' === layout) {
-			figureStyle = ratio ? { flexBasis: `${ratio}%` } : null;
-		} else {
-			figureStyle = ratio ? { paddingTop: `${ratio}%` } : null;
+		const attrClass = attributes.className || '';
+		const isBannerStyle = -1 !== attrClass.indexOf('is-style-banner');
+
+		// アイコン
+		const iconStyle = !iconSize
+			? null
+			: {
+					'--arkb-boxlink_icon_size': iconSize + 'px',
+			  };
+		let iconContent = null;
+		if (useIcon && !!iconHtml) {
+			iconContent = (
+				<figure className='c-boxLink__figure -icon -html' style={iconStyle}>
+					<RawHTML>{iconHtml}</RawHTML>
+				</figure>
+			);
+		} else if (useIcon) {
+			iconContent = (
+				<figure className='c-boxLink__figure -icon' style={iconStyle}>
+					<ArkheIconOnSave icon={icon} className={`c-boxLink__icon`} />
+				</figure>
+			);
+		}
+
+		// 画像
+		const img = (
+			<img
+				className={`c-boxLink__img -no-lb wp-image-${imgId}`}
+				src={imgUrl}
+				alt={imgAlt}
+				width={imgW || null}
+				height={imgH || null}
+			/>
+		);
+
+		let figure = '';
+		if (isBannerStyle) {
+			figure = (
+				<>
+					{imgUrl && <figure className='c-boxLink__bg'>{img}</figure>}
+					{iconContent}
+				</>
+			);
+		} else if (useIcon) {
+			figure = iconContent;
+		} else if (imgUrl) {
+			// figure の style
+			let figureStyle = null;
+			if (isVertical) {
+				figureStyle = ratio ? { paddingTop: `${ratio}%` } : null;
+			} else {
+				figureStyle = ratio ? { flexBasis: `${ratio}%` } : null;
+			}
+
+			figure = (
+				<figure
+					className={classnames('c-boxLink__figure', { 'is-fixed-ratio': fixRatio })}
+					style={figureStyle}
+				>
+					{img}
+				</figure>
+			);
 		}
 
 		return (
 			<div className={blockClass}>
-				<a href={href || '###'} className='c-boxLink__inner'>
-					<figure className={figureClass} style={figureStyle}>
-						<img
-							className={`c-boxLink__img -no-lb wp-image-${imgId}`}
-							src={imgUrl}
-							alt={imgAlt}
-							width={imgW || null}
-							height={imgH || null}
-						/>
-					</figure>
+				<a
+					href={href}
+					className='c-boxLink__inner'
+					rel={rel}
+					target={isNewTab ? '_blank' : null}
+				>
+					{figure}
+
 					<div className='c-boxLink__body'>
 						{!RichText.isEmpty(title) && (
 							<RichText.Content
-								tagName='div'
+								tagName={htag}
 								className='c-boxLink__title'
 								value={title}
 							/>

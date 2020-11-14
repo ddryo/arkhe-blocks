@@ -14,7 +14,7 @@ import metadata from './block.json';
 import blockIcon from './_icon';
 import BlockControls from './_controls';
 import example from './_example';
-import { ArkheIcon } from '@components/ArkheIcon';
+import { ArkheIcon, ArkheIconOnSave } from '@components/ArkheIcon';
 
 /**
  * @others dependencies
@@ -94,7 +94,7 @@ registerBlockType(name, {
 		return (
 			<div className={blockClass}>
 				<div className={`${blockName}__head`}>
-					<ArkheIcon icon={icon} className={`${blockName}__icon`} />
+					<ArkheIconOnSave icon={icon} className={`${blockName}__icon`} />
 					<RichText.Content
 						tagName='span'
 						className={`${blockName}__title`}

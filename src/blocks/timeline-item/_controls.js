@@ -3,8 +3,8 @@
  */
 import { __ } from '@wordpress/i18n';
 import { PanelColorSettings, InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, TextControl, BaseControl, CheckboxControl } from '@wordpress/components';
-import { createInterpolateElement } from '@wordpress/element';
+import { PanelBody, BaseControl, CheckboxControl } from '@wordpress/components';
+import { useCallback } from '@wordpress/element';
 
 /**
  * @Internal dependencies
@@ -15,19 +15,11 @@ export default function (props) {
 	const { attributes, setAttributes } = props;
 	const { color, isFill, icon } = attributes;
 
-	/* eslint jsx-a11y/anchor-has-content: 0 */
-	const faNote = createInterpolateElement(
-		__('The <a>Font Awesome icon</a> is also available. (Output with svg)'),
-		{
-			a: (
-				<a
-					href='https://fontawesome.com/icons?d=gallery'
-					target='_blank'
-					rel='noopener noreferrer'
-				/>
-			),
-		}
-	);
+	// アイコン選択時
+	const setIcon = useCallback((val, isSelected) => {
+		const newIcon = isSelected ? '' : val;
+		setAttributes({ icon: newIcon });
+	}, []);
 
 	return (
 		<InspectorControls>
@@ -54,26 +46,7 @@ export default function (props) {
 				></PanelColorSettings>
 			</PanelBody>
 			<PanelBody title={__('Icon settings', 'arkhe-blocks')}>
-				<ArkheIconPicker
-					icon={icon}
-					onClick={(val, isSelected) => {
-						if (isSelected) {
-							setAttributes({ icon: '' });
-						} else {
-							setAttributes({
-								icon: val,
-							});
-						}
-					}}
-				/>
-				<TextControl
-					label={__('Icon', 'arkhe-blocks')}
-					value={icon}
-					help={faNote}
-					onChange={(val) => {
-						setAttributes({ icon: val });
-					}}
-				/>
+				<ArkheIconPicker icon={icon} setIcon={setIcon} />
 			</PanelBody>
 		</InspectorControls>
 	);
