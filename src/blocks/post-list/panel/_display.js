@@ -94,12 +94,12 @@ export default function (props) {
 
 	const orderOptions = [
 		{
-			label: __('Descending order', 'arkhe-blocks'),
-			value: 'DESC',
-		},
-		{
 			label: __('Ascending order', 'arkhe-blocks'),
 			value: 'ASC',
+		},
+		{
+			label: __('Descending order', 'arkhe-blocks'),
+			value: 'DESC',
 		},
 	];
 

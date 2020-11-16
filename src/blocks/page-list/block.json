@@ -16,49 +16,28 @@
             "type": "string",
             "default": ""
         },
-        "rssUrl": {
+        "target": {
+            "type": "string",
+            "default": "children"
+        },
+        "postID": {
             "type": "string",
             "default": ""
-        },
-        "pageName": {
-            "type": "string",
-            "default": ""
-        },
-        "listType": {
-            "type": "string",
-            "default": "card"
-        },
-        "listCountPC": {
-            "type": "number",
-            "default": 3
-        },
-        "listCountSP": {
-            "type": "number",
-            "default": 3
-        },
-        "showSite": {
-            "type": "boolean",
-            "default": true
-        },
-        "showDate": {
-            "type": "boolean",
-            "default": true
-        },
-        "showAuthor": {
-            "type": "boolean",
-            "default": false
-        },
-        "showThumb": {
-            "type": "boolean",
-            "default": true
-        },
-        "useCache": {
-            "type": "boolean",
-            "default": true
         },
         "hTag": {
             "type": "string",
             "default": "h2"
+        },
+        "excerptLength": {
+            "type": "number"
+        },
+        "order": {
+            "type": "string",
+            "default": "ASC"
+        },
+        "orderby": {
+            "type": "string",
+            "default": "menu_order"
         }
     },
     "editorScript": "file:../../../dist/blocks/page-list/index.js",

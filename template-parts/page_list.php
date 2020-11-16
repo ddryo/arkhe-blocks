@@ -16,7 +16,7 @@ if ( $the_query->have_posts() ) :
 
 		$the_id = get_the_ID();
 		$url    = get_permalink( $the_id );
-		$h_tag  = isset( $args['h_tag'] ) ? $args['h_tag'] : 'h2';
+		$h_tag  = isset( $list_args['h_tag'] ) ? $list_args['h_tag'] : 'h2';
 		?>
 			<li class="p-postList__item">
 				<a href="<?php the_permalink( $the_id ); ?>" class="p-postList__link">

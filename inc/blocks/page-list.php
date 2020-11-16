@@ -4,7 +4,7 @@ namespace Arkhe_Blocks;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * 投稿リストブロック
+ * 固定ページリストブロック
  */
 $block_name = 'page-list';
 
@@ -20,63 +20,65 @@ function cb_page_list( $attrs, $content ) {
 
 	if ( ! class_exists( 'Arkhe' ) ) return;
 
-	// $rss_url       = $attrs['rssUrl'];
-	// $use_cache     = $attrs['useCache'];
+	$target  = $attrs['target'];
+	$orderby = $attrs['orderby'];
+	$order   = $attrs['order'];
+
+	// $target = $attrs['postID'];
+
 	// $list_count_pc = $attrs['listCountPC'];
 	// $list_count_sp = $attrs['listCountSP'];
 
+	// echo get_the_ID();
+	$numberposts = -1;
+
+	$query_args = [
+		'post_type'      => 'page',
+		'posts_per_page' => $numberposts,
+		'post_status'    => 'publish',
+		'order'          => $order,
+		'orderby'        => $orderby,
+	];
+
+	// 子ページを取得するかどうか
+	if ( 'children' === $target ) {
+		$query_args['post_parent']    = get_the_ID();
+		$query_args['posts_per_page'] = -1;
+	} elseif ( 'id' === $target ) {
+
+		// 投稿IDで直接指定
+		$query_args['post__in'] = array_map( 'intval', explode( ',', $attrs['postID'] ) );
+
+	}
+
+	// 「順序」設定通りに並べる
+	// if ( 0 ) {}
+
+	$list_args = [
+		'h_tag' => $attrs['hTag'],
+	];
+
+	\Arkhe::$ex_parts_path  = ARKHE_BLOCKS_PATH;
+	\Arkhe::$excerpt_length = $attrs['excerptLength'] ?: 0;
+
 	ob_start();
 	echo '<div class="ark-block-pageList c-postContent">';
-
-	// 投稿リスト
-	\Arkhe_Blocks\get_page_list();
-
+	\Arkhe::get_part( 'page_list', [
+		'query_args' => $query_args,
+		'list_args'  => $list_args,
+	] );
 	echo '</div>';
 
-	// $thumb = wp_get_attachment_image( 49, 'full', false, [
-	// 	'class' => 'hoge',
-	// 	'alt'   => 'hohoho',
-	// ] );
-
-	// $img = '<figure class="wp-block-image size-full is-resized"><img src="http://localhost:2222/wp-content/uploads/2020/10/8wz1Q4Q_XAg.jpg" alt="" class="wp-imag-e-49" width="1050" height="700"/><figcaption>キャプションaaaaaだよ</figcaption></figure>';
-	// echo $img;
+	// リセット
+	\Arkhe::$ex_parts_path  = '';
+	\Arkhe::$excerpt_length = ARKHE_EXCERPT_LENGTH;
 
 	return ob_get_clean();
 }
 
 
 /**
- * RSS記事のサムネイル取得
+ *
  */
-function get_page_list( $url = '' ) {
-
-	// echo get_the_ID();
-	$numberposts = -1;
-
-	$query_args = [
-		'post_parent'    => get_the_ID(),
-		'post_type'      => 'page',
-		'posts_per_page' => $numberposts,
-		'post_status'    => 'publish',
-	];
-
-	// 「順序」通りに並べる
-	if ( 1 ) {
-		$query_args['order']   = 'ASC';
-		$query_args['orderby'] = 'menu_order';
-	}
-
-	$list_args = [];
-
-	// 投稿リスト
-	\Arkhe::$ex_parts_path = ARKHE_BLOCKS_PATH;
-	// \Arkhe::get_part( 'page_list', [
-	// 	'query_args' => $query_args,
-	// 	'list_args'  => $list_args,
-	// ] );
-	\Arkhe::get_part( 'test', [
-		'query_args' => $query_args,
-		'list_args'  => $list_args,
-	] );
-	\Arkhe::$ex_parts_path = '';
-}
+// function get_page_list( $url = '' ) {
+// }

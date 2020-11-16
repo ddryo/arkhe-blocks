@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Arkhe Blocks\n"
-"POT-Creation-Date: 2020-11-02 23:28+0900\n"
-"PO-Revision-Date: 2020-11-02 23:28+0900\n"
+"POT-Creation-Date: 2020-11-16 22:47+0900\n"
+"PO-Revision-Date: 2020-11-16 22:48+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.4.2\n"
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
@@ -28,10 +28,10 @@ msgstr ""
 msgid "Accordion item"
 msgstr "アコーディオン項目"
 
-#: src/blocks/accordion-item/index.js:54 src/blocks/dl-dt/index.js:50
-#: src/blocks/faq-item/index.js:48 src/blocks/notice/index.js:68
-#: src/blocks/step-item/index.js:71 src/blocks/timeline-item/index.js:65
-#: src/blocks/timeline-item/index.js:73
+#: src/blocks/accordion-item/index.js:54 src/blocks/box-link/edit.js:277
+#: src/blocks/dl-dt/index.js:50 src/blocks/faq-item/index.js:48
+#: src/blocks/notice/index.js:68 src/blocks/step-item/index.js:71
+#: src/blocks/timeline-item/index.js:65 src/blocks/timeline-item/index.js:73
 msgid "Enter text"
 msgstr "テキストを入力"
 
@@ -42,6 +42,154 @@ msgstr "アコーディオン"
 #: src/blocks/accordion/index.js:36
 msgid "Create content that can be expanded with a click."
 msgstr "クリックで展開できるコンテンツを作成します。"
+
+#: src/blocks/box-link/_controls.js:54
+msgid "Vertical"
+msgstr ""
+
+#: src/blocks/box-link/_controls.js:58
+msgid "Horizontal"
+msgstr ""
+
+#: src/blocks/box-link/_controls.js:129
+msgid "デフォルトではアーカイブリストのサムネイルと同じ比率になります。"
+msgstr ""
+
+#: src/blocks/box-link/_controls.js:134
+msgid "画像比率"
+msgstr ""
+
+#: src/blocks/box-link/_controls.js:149
+msgid "画像比率を固定する"
+msgstr ""
+
+#: src/blocks/box-link/_controls.js:175
+msgid "テキストセンター寄せ"
+msgstr ""
+
+#: src/blocks/box-link/_controls.js:208
+msgid "Delete image"
+msgstr ""
+
+#: src/blocks/box-link/_controls.js:221 src/blocks/box-link/_smb.js:252
+#: src/blocks/box-link/_smb.js:278
+msgid "Link"
+msgstr ""
+
+#: src/blocks/box-link/_controls.js:250 src/blocks/box-link/_controls.js:345
+#, fuzzy
+#| msgctxt "tab-panel"
+#| msgid "Settings"
+msgid "settings"
+msgstr "表示設定"
+
+#: src/blocks/box-link/_controls.js:253
+msgid "並び方"
+msgstr ""
+
+#: src/blocks/box-link/_controls.js:276 src/blocks/page-list/_controls.js:118
+#: src/blocks/post-list/panel/_display.js:192 src/blocks/rss/_controls.js:194
+msgid "HTML tag for title"
+msgstr "タイトルのHTMLタグ"
+
+#: src/blocks/box-link/_controls.js:297 src/blocks/notice/_controls.js:76
+#: src/blocks/timeline-item/_controls.js:48
+msgid "Icon settings"
+msgstr "アイコン設定"
+
+#: src/blocks/box-link/_controls.js:299
+msgid "Use icon"
+msgstr ""
+
+#: src/blocks/box-link/_controls.js:308
+msgid "Use html tag."
+msgstr ""
+
+#: src/blocks/box-link/_controls.js:319
+msgid "アイコン用HTML"
+msgstr ""
+
+#: src/blocks/box-link/_controls.js:331
+msgid "アイコンサイズ"
+msgstr ""
+
+#: src/blocks/box-link/_controls.js:348
+msgid "Image size"
+msgstr ""
+
+#: src/blocks/box-link/_controls.js:356
+#, fuzzy
+#| msgid "Icon settings"
+msgid "Link settings"
+msgstr "アイコン設定"
+
+#: src/blocks/box-link/_controls.js:358
+msgid "Open in new tab"
+msgstr ""
+
+#: src/blocks/box-link/_controls.js:369
+msgid "Link rel"
+msgstr ""
+
+#: src/blocks/box-link/_controls.js:376 src/blocks/box-links/index.js:57
+msgid "READ MORE"
+msgstr ""
+
+#: src/blocks/box-link/_controls.js:378
+msgid "READ MOREのテキスト"
+msgstr ""
+
+#: src/blocks/box-link/_controls.js:386
+msgid "矢印アイコンを表示する"
+msgstr ""
+
+#: src/blocks/box-link/_smb.js:173
+#, fuzzy
+#| msgctxt "tab-panel"
+#| msgid "Settings"
+msgid "Block Settings"
+msgstr "表示設定"
+
+#: src/blocks/box-link/_smb.js:175
+msgid "Title Tag"
+msgstr ""
+
+#: src/blocks/box-link/_smb.js:201
+msgid "Images size"
+msgstr ""
+
+#: src/blocks/box-link/_smb.js:229
+msgid "Write title…"
+msgstr ""
+
+#: src/blocks/box-link/_smb.js:239
+msgid "Write content…"
+msgstr ""
+
+#: src/blocks/box-link/_smb.js:288
+msgid "Unlink"
+msgstr ""
+
+#: src/blocks/box-link/index.js:33
+msgid "Box link"
+msgstr ""
+
+#: src/blocks/box-link/index.js:45 src/blocks/notice/index.js:44
+msgid "Default"
+msgstr "デフォルト"
+
+#: src/blocks/box-link/index.js:46
+msgid "バナー"
+msgstr ""
+
+#: src/blocks/box-links/index.js:38
+msgid "Box links"
+msgstr ""
+
+#: src/blocks/box-links/index.js:59 src/blocks/box-links/index.js:68
+#: src/blocks/box-links/index.js:77
+msgid "列数"
+msgstr ""
 
 #: src/blocks/dl-dd/index.js:30
 msgid "Description"
@@ -71,21 +219,9 @@ msgstr "Q&A項目"
 msgid "Create Q & A format content."
 msgstr "Q&A形式のコンテンツを作成します。"
 
-#: src/blocks/notice/_controls.js:54 src/blocks/timeline-item/_controls.js:20
-msgid "The <a>Font Awesome icon</a> is also available. (Output with svg)"
-msgstr "<a>Font Awesome のアイコン</a>も利用可能です。(svgで出力されます)"
-
-#: src/blocks/notice/_controls.js:69
+#: src/blocks/notice/_controls.js:53
 msgid "Notification type"
 msgstr "通知タイプ"
-
-#: src/blocks/notice/_controls.js:92 src/blocks/timeline-item/_controls.js:56
-msgid "Icon settings"
-msgstr "アイコン設定"
-
-#: src/blocks/notice/_controls.js:106
-msgid "Icon class"
-msgstr "アイコンクラス"
 
 #: src/blocks/notice/index.js:34
 msgid "Notice"
@@ -95,10 +231,6 @@ msgstr "通知"
 msgid "Create content that is prominently emphasized."
 msgstr "目立つように強調されたコンテンツを作成します。"
 
-#: src/blocks/notice/index.js:44
-msgid "Default"
-msgstr "デフォルト"
-
 #: src/blocks/notice/index.js:45
 msgid "Stronger"
 msgstr "強調"
@@ -106,6 +238,81 @@ msgstr "強調"
 #: src/blocks/notice/index.js:46
 msgid "Simple"
 msgstr "シンプル"
+
+#: src/blocks/page-list/_controls.js:37
+msgid "Children"
+msgstr ""
+
+#: src/blocks/page-list/_controls.js:41
+msgid "ID"
+msgstr ""
+
+#: src/blocks/page-list/_controls.js:64
+msgid "\"Order\" setting"
+msgstr "「順序」設定"
+
+#: src/blocks/page-list/_controls.js:68
+#: src/blocks/post-list/panel/_display.js:82
+msgid "Release date"
+msgstr "公開日"
+
+#: src/blocks/page-list/_controls.js:72
+#: src/blocks/post-list/panel/_display.js:90
+msgid "Random"
+msgstr "ランダム"
+
+#: src/blocks/page-list/_controls.js:79
+#: src/blocks/post-list/panel/_display.js:97
+msgid "Ascending order"
+msgstr "昇順"
+
+#: src/blocks/page-list/_controls.js:83
+#: src/blocks/post-list/panel/_display.js:101
+msgid "Descending order"
+msgstr "降順"
+
+#: src/blocks/page-list/_controls.js:90
+#: src/blocks/post-list/panel/_display.js:124 src/blocks/rss/_controls.js:137
+msgid "Display settings"
+msgstr "表示設定"
+
+#: src/blocks/page-list/_controls.js:92
+msgid "ターゲット"
+msgstr ""
+
+#: src/blocks/page-list/_controls.js:101
+#: src/blocks/post-list/panel/_pickup.js:158
+msgid "Specify the post ID directly"
+msgstr "投稿IDを直接指定する"
+
+#: src/blocks/page-list/_controls.js:106
+#: src/blocks/post-list/panel/_pickup.js:162
+#: src/blocks/post-list/panel/_pickup.js:176
+msgid "If there are multiple, enter them separated by \",\"."
+msgstr "複数の場合は「,」区切りで入力して下さい。"
+
+#: src/blocks/page-list/_controls.js:139
+#: src/blocks/post-list/panel/_display.js:213
+msgid "Sorting order setting"
+msgstr "並び順の設定"
+
+#: src/blocks/page-list/_controls.js:141
+#: src/blocks/post-list/panel/_display.js:215
+msgid "What to arrange based on"
+msgstr "何を基準に並べるか"
+
+#: src/blocks/page-list/_controls.js:149
+#: src/blocks/post-list/panel/_display.js:223
+msgid "Descending or Ascending"
+msgstr "降順か昇順か"
+
+#: src/blocks/page-list/index.js:33
+msgid "Page list"
+msgstr "固定ページリスト"
+
+#: src/blocks/page-list/index.js:34
+msgid "Create a page list with the specified conditions."
+msgstr "指定した条件で固定ページリストを作成します。"
 
 #: src/blocks/post-list/_controls.js:40
 msgctxt "tab-panel"
@@ -153,29 +360,9 @@ msgstr "リスト型"
 msgid "Text type"
 msgstr "テキスト型"
 
-#: src/blocks/post-list/panel/_display.js:82
-msgid "Release date"
-msgstr "公開日"
-
 #: src/blocks/post-list/panel/_display.js:86
 msgid "Update date"
 msgstr "更新日"
-
-#: src/blocks/post-list/panel/_display.js:90
-msgid "Random"
-msgstr "ランダム"
-
-#: src/blocks/post-list/panel/_display.js:97
-msgid "Descending order"
-msgstr "降順"
-
-#: src/blocks/post-list/panel/_display.js:101
-msgid "Ascending order"
-msgstr "昇順"
-
-#: src/blocks/post-list/panel/_display.js:124 src/blocks/rss/_controls.js:137
-msgid "Display settings"
-msgstr "表示設定"
 
 #: src/blocks/post-list/panel/_display.js:126
 #: src/blocks/post-list/panel/_display.js:135 src/blocks/rss/_controls.js:139
@@ -194,22 +381,6 @@ msgstr "何を表示するか"
 #: src/blocks/post-list/panel/_display.js:181
 msgid "Number of characters in the excerpt"
 msgstr "抜粋文の文字数"
-
-#: src/blocks/post-list/panel/_display.js:192 src/blocks/rss/_controls.js:194
-msgid "HTML tag for title"
-msgstr "タイトルのHTMLタグ"
-
-#: src/blocks/post-list/panel/_display.js:213
-msgid "Sorting order setting"
-msgstr "並び順の設定"
-
-#: src/blocks/post-list/panel/_display.js:215
-msgid "What to arrange based on"
-msgstr "何を基準に並べるか"
-
-#: src/blocks/post-list/panel/_display.js:223
-msgid "Descending or Ascending"
-msgstr "降順か昇順か"
 
 #: src/blocks/post-list/panel/_pickup.js:69
 msgid "All"
@@ -234,15 +405,6 @@ msgstr "含まない"
 #: src/blocks/post-list/panel/_pickup.js:156
 msgid "Narrow down by post ID"
 msgstr "投稿IDでの絞り込み"
-
-#: src/blocks/post-list/panel/_pickup.js:158
-msgid "Specify the post ID directly"
-msgstr "投稿IDを直接指定する"
-
-#: src/blocks/post-list/panel/_pickup.js:162
-#: src/blocks/post-list/panel/_pickup.js:176
-msgid "If there are multiple, enter them separated by \",\"."
-msgstr "複数の場合は「,」区切りで入力して下さい。"
 
 #: src/blocks/post-list/panel/_pickup.js:172
 msgid "Post ID to exclude"
@@ -373,12 +535,12 @@ msgid "Text of \"STEP\" part"
 msgstr "「STEP」部分のテキスト"
 
 #: src/blocks/step-item/_controls.js:46
-#: src/blocks/timeline-item/_controls.js:43
+#: src/blocks/timeline-item/_controls.js:35
 msgid "Color settings"
 msgstr "カラー設定"
 
 #: src/blocks/step-item/_controls.js:51
-#: src/blocks/timeline-item/_controls.js:48
+#: src/blocks/timeline-item/_controls.js:40
 msgid "Color"
 msgstr "色"
 
@@ -402,17 +564,13 @@ msgstr "ステップ"
 msgid "Create step-by-step content."
 msgstr "ステップ形式のコンテンツを作成します。"
 
-#: src/blocks/timeline-item/_controls.js:34
+#: src/blocks/timeline-item/_controls.js:26
 msgid "Shape settings"
 msgstr "シェイプ設定"
 
-#: src/blocks/timeline-item/_controls.js:37
+#: src/blocks/timeline-item/_controls.js:29
 msgid "Fill the shape"
 msgstr "シェイプを塗りつぶす"
-
-#: src/blocks/timeline-item/_controls.js:70
-msgid "Icon"
-msgstr "アイコン"
 
 #: src/blocks/timeline-item/index.js:32
 msgid "Timeline item"
@@ -426,13 +584,25 @@ msgstr "タイムライン"
 msgid "Create timeline format content."
 msgstr "タイムライン形式のコンテンツを作成します。"
 
-#: src/components/ArkheIconPicker.js:63
+#: src/components/ArkheIconPicker.js:48
+msgid "The <a>Font Awesome icon</a> is also available. (Output with svg)"
+msgstr "<a>Font Awesome のアイコン</a>も利用可能です。(svgで出力されます)"
+
+#: src/components/ArkheIconPicker.js:83
 msgid ""
 "If you use \"Arkhe\", you will be able to select the icons provided in the "
 "theme itself."
 msgstr ""
 "“Arkhe”を利用すれば、テーマ本体に用意されているアイコンも選べるようになりま"
 "す。"
+
+#: src/components/ArkheIconPicker.js:90
+msgid "Icon"
+msgstr "アイコン"
+
+#: src/components/Figure.js:34 src/components/Figure.js:35
+msgid "Edit image"
+msgstr ""
 
 #: src/extension/headbar.js:35
 msgid "View Post"
@@ -466,7 +636,7 @@ msgstr "RSSフィードのURLが正しくありません。"
 msgid "The article was not found."
 msgstr "記事が見つかりませんでした。"
 
-#: inc/gutenberg.php:84
+#: inc/gutenberg.php:91
 msgid "Arkhe Blocks"
 msgstr ""
 
@@ -497,6 +667,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "https://loos.co.jp/"
 msgstr ""
+
+#~ msgid "Icon class"
+#~ msgstr "アイコンクラス"
 
 #~ msgid "Tag"
 #~ msgstr "タグ"

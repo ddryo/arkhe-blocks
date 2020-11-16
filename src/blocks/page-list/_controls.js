@@ -29,63 +29,17 @@ import {
 export default function (props) {
 	const { attributes, setAttributes } = props;
 
-	const {
-		rssUrl,
-		pageName,
-		useCache,
-		listType,
-		listCountPC,
-		listCountSP,
-		showDate,
-		showAuthor,
-		showSite,
-		showThumb,
-		hTag,
-
-		// excerptLength,
-	} = attributes;
-
-	// トグルコントロール
-	const toggleData = [
-		{
-			name: 'showSite',
-			label: __('Show page name of site', 'arkhe-blocks'),
-			value: showSite,
-		},
-		{
-			name: 'showDate',
-			label: __('Show release date', 'arkhe-blocks'),
-			description: '',
-			value: showDate,
-		},
-		{
-			name: 'showAuthor',
-			label: __('Show author', 'arkhe-blocks'),
-			value: showAuthor,
-		},
-	];
-
-	if ('simple' !== listType) {
-		toggleData.push({
-			name: 'showThumb',
-			label: __('Show thumbnail', 'arkhe-blocks'),
-			value: showThumb,
-		});
-	}
+	const { target, postID, hTag, excerptLength, orderby, order } = attributes;
 
 	// リストタイプ
-	const listTypeOptions = [
+	const targetOptions = [
 		{
-			label: __('Card type', 'arkhe-blocks'),
-			value: 'card',
+			label: __('Children', 'arkhe-blocks'),
+			value: 'children',
 		},
 		{
-			label: __('List type', 'arkhe-blocks'),
-			value: 'list',
-		},
-		{
-			label: __('Text type', 'arkhe-blocks'),
-			value: 'simple',
+			label: __('ID', 'arkhe-blocks'),
+			value: 'id',
 		},
 	];
 
@@ -104,91 +58,76 @@ export default function (props) {
 		},
 	];
 
+	// 何を基準に並べるか
+	const orderbyOptions = [
+		{
+			label: __('"Order" setting', 'arkhe-blocks'),
+			value: 'menu_order',
+		},
+		{
+			label: __('Release date', 'arkhe-blocks'),
+			value: 'date',
+		},
+		{
+			label: __('Random', 'arkhe-blocks'),
+			value: 'rand',
+		},
+	];
+
+	const orderOptions = [
+		{
+			label: __('Ascending order', 'arkhe-blocks'),
+			value: 'ASC',
+		},
+		{
+			label: __('Descending order', 'arkhe-blocks'),
+			value: 'DESC',
+		},
+	];
+
 	return (
 		<InspectorControls>
-			<PanelBody title={__('RSS settings', 'arkhe-blocks')} initialOpen={true}>
-				<TextControl
-					label={__('RSS feed URL', 'arkhe-blocks')}
-					value={rssUrl}
+			<PanelBody title={__('Display settings', 'arkhe-blocks')} initialOpen={true}>
+				<RadioControl
+					label={__('ターゲット', 'arkhe-blocks')}
+					selected={target}
+					options={targetOptions}
 					onChange={(val) => {
-						setAttributes({ rssUrl: val });
+						setAttributes({ target: val });
 					}}
 				/>
-				<TextControl
-					label={__('RSS feed page name', 'arkhe-blocks')}
-					value={pageName}
-					onChange={(val) => {
-						setAttributes({ pageName: val });
-					}}
-				/>
-				<ToggleControl
-					label={__('Use the cache', 'arkhe-blocks')}
+				{'id' === target && (
+					<TextControl
+						label={__('Specify the post ID directly', 'arkhe-blocks')}
+						placeholder='ex) 8,120,272'
+						help={
+							'※ ' +
+							__(
+								'If there are multiple, enter them separated by ",".',
+								'arkhe-blocks'
+							)
+						}
+						value={postID || ''}
+						onChange={(value) => {
+							setAttributes({ postID: value });
+						}}
+					/>
+				)}
+				<RangeControl
+					label={__('Number of characters in the excerpt', 'arkhe-blocks')}
 					help={__(
-						'If you want to clear the cache, turn it off only once.',
+						'「抜粋」が入力されているページは、その内容が表示されます。',
 						'arkhe-blocks'
 					)}
-					checked={useCache}
+					value={excerptLength}
 					onChange={(val) => {
-						setAttributes({ useCache: val });
+						setAttributes({ excerptLength: val });
 					}}
+					min={0}
+					max={240}
+					allowReset={true}
+					className='arkb-range--useReset'
 				/>
-			</PanelBody>
-
-			<PanelBody title={__('Display settings', 'arkhe-blocks')} initialOpen={true}>
-				<RangeControl
-					label={__('Number of posts to display', 'arkhe-blocks') + '(PC)'}
-					value={listCountPC}
-					onChange={(val) => {
-						setAttributes({ listCountPC: val });
-					}}
-					min={1}
-					max={10}
-				/>
-				<RangeControl
-					label={__('Number of posts to display', 'arkhe-blocks') + '(SP)'}
-					value={listCountSP}
-					onChange={(val) => {
-						setAttributes({ listCountSP: val });
-					}}
-					min={1}
-					max={10}
-				/>
-				<RadioControl
-					label={__('List layout', 'arkhe-blocks')}
-					selected={listType}
-					options={listTypeOptions}
-					onChange={(val) => {
-						setAttributes({ listType: val });
-					}}
-				/>
-
-				<BaseControl className='arkb-toggles'>
-					<BaseControl.VisualLabel>
-						{__('What to display', 'arkhe-blocks')}
-					</BaseControl.VisualLabel>
-					{toggleData.map((toggle) => {
-						const label =
-							'' === toggle.description ? (
-								toggle.label
-							) : (
-								<span>
-									{toggle.label}
-									<br />
-									<small>{toggle.description}</small>
-								</span>
-							);
-						return (
-							<ToggleControl
-								label={label}
-								checked={toggle.value}
-								onChange={(val) => {
-									setAttributes({ [toggle.name]: val });
-								}}
-								key={`toggle_${toggle.name}`}
-							/>
-						);
-					})}
-				</BaseControl>
 				<BaseControl>
 					<BaseControl.VisualLabel>
 						{__('HTML tag for title', 'arkhe-blocks')}
@@ -211,6 +150,24 @@ export default function (props) {
 						})}
 					</ButtonGroup>
 				</BaseControl>
+			</PanelBody>
+			<PanelBody title={__('Sorting order setting', 'arkhe-blocks')} initialOpen={true}>
+				<RadioControl
+					label={__('What to arrange based on', 'arkhe-blocks')} //'何を基準に並べるか'
+					selected={orderby}
+					options={orderbyOptions}
+					onChange={(val) => {
+						setAttributes({ orderby: val });
+					}}
+				/>
+				<RadioControl
+					label={__('Descending or Ascending', 'arkhe-blocks')} // '降順か昇順か'
+					selected={order}
+					options={orderOptions}
+					onChange={(val) => {
+						setAttributes({ order: val });
+					}}
+				/>
 			</PanelBody>
 		</InspectorControls>
 	);
