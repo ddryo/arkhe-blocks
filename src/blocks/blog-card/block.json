@@ -1,0 +1,51 @@
+{
+    "name": "arkhe-blocks/blog-card",
+    "title": "Blog card",
+    "category": "arkhe-blocks",
+    "keywords": [
+        "arkhe",
+        "blog",
+        "card",
+        "link"
+    ],
+    "supports": {
+        "anchor": true,
+        "className": false
+    },
+    "attributes": {
+        "className": {
+            "type": "string",
+            "default": ""
+        },
+        "postTitle": {
+            "type": "string",
+            "default": ""
+        },
+        "postId": {
+            "type": "number",
+            "default": 0
+        },
+        "cardCaption": {
+            "type": "string",
+            "default": ""
+        },
+        "isNewTab": {
+            "type": "boolean",
+            "default": false
+        },
+        "externalUrl": {
+            "type": "string",
+            "default": ""
+        },
+        "isPreview": {
+            "type": "boolean",
+            "default": false
+        },
+        "rel": {
+            "type": "string",
+            "default": ""
+        }
+    },
+    "editorScript": "file:../../../dist/blocks/blog-card/index.js",
+    "textdomain": "arkhe-blocks"
+}

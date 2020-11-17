@@ -1,0 +1,34 @@
+{
+    "name": "arkhe-blocks/column",
+    "title": "Column",
+    "category": "arkhe-blocks",
+    "keywords": [
+        "arkhe",
+        "column"
+    ],
+    "supports": {
+        "anchor": true,
+        "className": false,
+        "lightBlockWrapper": true
+    },
+    "parent": [
+        "arkhe-blocks/columns"
+    ],
+    "attributes": {
+        "vAlign": {
+            "type": "string",
+            "default": ""
+        },
+        "widthPC": {
+            "type": "number"
+        },
+        "widthTab": {
+            "type": "number"
+        },
+        "widthMobile": {
+            "type": "number"
+        }
+    },
+    "editorScript": "file:../../../dist/blocks/column/index.js",
+    "textdomain": "arkhe-blocks"
+}

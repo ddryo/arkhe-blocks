@@ -9,7 +9,7 @@ $the_query = new \WP_Query( $query_args );
 
 if ( $the_query->have_posts() ) :
 ?>
-	<ul class="p-postList -type-card" data-max="3" data-min="2">
+	<ul class="p-postList -type-card">
 	<?php
 	while ( $the_query->have_posts() ) :
 		$the_query->the_post();

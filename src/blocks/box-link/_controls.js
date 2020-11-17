@@ -7,7 +7,7 @@ import { memo, useCallback } from '@wordpress/element';
 import {
 	BlockControls,
 	InspectorControls,
-	AlignmentToolbar,
+	// AlignmentToolbar,
 	MediaReplaceFlow,
 	__experimentalLinkControl as LinkControl,
 } from '@wordpress/block-editor';
@@ -126,12 +126,12 @@ export default memo((props) => {
 
 	// 画像比率の設定
 	const rationHelp = isVertical
-		? __('デフォルトではアーカイブリストのサムネイルと同じ比率になります。', 'arkhe-blocks')
+		? __('By default, it has the same ratio as thumbnails in the archive list.', 'arkhe-blocks')
 		: null;
 
 	const ratioConrtol = (
 		<RangeControl
-			label={__('画像比率', 'arkhe-blocks')}
+			label={__('Image ratio', 'arkhe-blocks')}
 			help={rationHelp}
 			value={ratio}
 			onChange={(val) => {
@@ -146,7 +146,7 @@ export default memo((props) => {
 	const ratioSettings = isVertical ? (
 		<>
 			<ToggleControl
-				label={__('画像比率を固定する', 'arkhe-blocks')}
+				label={__('Fix image ratio', 'arkhe-blocks')}
 				checked={fixRatio}
 				onChange={(val) => {
 					setAttributes({ fixRatio: val });
@@ -172,7 +172,7 @@ export default memo((props) => {
 						className={classnames('components-toolbar__control', {
 							'is-pressed': 'center' === align,
 						})}
-						label={__('テキストセンター寄せ', 'arkhe-blocks')}
+						label={__('Center the text', 'arkhe-blocks')}
 						icon={
 							<svg
 								width='24'
@@ -247,10 +247,10 @@ export default memo((props) => {
 			</BlockControls>
 
 			<InspectorControls>
-				<PanelBody title={__('settings', 'arkhe-blocks')} initialOpen={true}>
+				<PanelBody title={__('Settings', 'arkhe-blocks')} initialOpen={true}>
 					<BaseControl>
 						<BaseControl.VisualLabel>
-							{__('並び方', 'arkhe-blocks')}
+							{__('Box layout', 'arkhe-blocks')}
 						</BaseControl.VisualLabel>
 						<ButtonGroup className='ark-notice-btns'>
 							{layoutBtns.map((btn) => {
@@ -294,6 +294,17 @@ export default memo((props) => {
 						</ButtonGroup>
 					</BaseControl>
 				</PanelBody>
+				<PanelBody title={__('Image settings', 'arkhe-blocks')} initialOpen={true}>
+					{0 !== imgId && (
+						<SelectControl
+							label={__('Image size')}
+							value={imgSize}
+							options={sizeOptions}
+							onChange={updateImagesSize}
+						/>
+					)}
+					{ratioSettings}
+				</PanelBody>
 				<PanelBody title={__('Icon settings', 'arkhe-blocks')} initialOpen={true}>
 					<ToggleControl
 						label={__('Use icon', 'arkhe-blocks')}
@@ -305,7 +316,8 @@ export default memo((props) => {
 					{useIcon && (
 						<>
 							<ToggleControl
-								label={__('Use html tag.', 'arkhe-blocks')}
+								label={__('Write the icon in HTML', 'arkhe-blocks')}
+								className='arkb-toggle--iconHtml'
 								checked={useIconHtml}
 								onChange={(val) => {
 									setUseIconHtml(val);
@@ -316,7 +328,7 @@ export default memo((props) => {
 							/>
 							{useIconHtml ? (
 								<TextareaControl
-									label={__('アイコン用HTML', 'arkhe-blocks')}
+									label={__('HTML for icons', 'arkhe-blocks')}
 									help='svgタグまたはiタグを使用してください。'
 									value={iconHtml}
 									rows='8'
@@ -328,7 +340,7 @@ export default memo((props) => {
 								<ArkheIconPicker icon={icon} setIcon={setIcon} />
 							)}
 							<RangeControl
-								label={__('アイコンサイズ', 'arkhe-blocks')}
+								label={__('Icon size', 'arkhe-blocks')}
 								value={iconSize}
 								onChange={(val) => {
 									setAttributes({ iconSize: val });
@@ -340,18 +352,6 @@ export default memo((props) => {
 							/>
 						</>
 					)}
-				</PanelBody>
-
-				<PanelBody title={__('settings', 'arkhe-blocks')} initialOpen={true}>
-					{0 !== imgId && (
-						<SelectControl
-							label={__('Image size')}
-							value={imgSize}
-							options={sizeOptions}
-							onChange={updateImagesSize}
-						/>
-					)}
-					{ratioSettings}
 				</PanelBody>
 				<PanelBody title={__('Link settings', 'arkhe-blocks')} initialOpen={true}>
 					<ToggleControl
@@ -373,9 +373,9 @@ export default memo((props) => {
 						}}
 					/>
 				</PanelBody>
-				<PanelBody title={__('READ MORE', 'arkhe-blocks')} initialOpen={true}>
+				<PanelBody title={__('"READ MORE" settings', 'arkhe-blocks')} initialOpen={true}>
 					<TextControl
-						label={__('READ MOREのテキスト', 'arkhe-blocks')}
+						label={__('"READ MORE" text', 'arkhe-blocks')}
 						// help={faNote}
 						value={more}
 						onChange={(val) => {
@@ -383,7 +383,7 @@ export default memo((props) => {
 						}}
 					/>
 					<ToggleControl
-						label={__('矢印アイコンを表示する', 'arkhe-blocks')}
+						label={__('Show arrow icon', 'arkhe-blocks')}
 						checked={showMoreArrow}
 						onChange={(val) => {
 							setAttributes({ showMoreArrow: val });

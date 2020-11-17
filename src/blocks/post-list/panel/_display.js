@@ -180,11 +180,17 @@ export default function (props) {
 					<RangeControl
 						label={__('Number of characters in the excerpt', 'arkhe-blocks')}
 						value={excerptLength}
+						help={__(
+							'If "Excerpt" is entered, its contents will be displayed.',
+							'arkhe-blocks'
+						)}
 						onChange={(val) => {
 							setAttributes({ excerptLength: val });
 						}}
 						min={0}
 						max={320}
+						allowReset={true}
+						className='arkb-range--useReset'
 					/>
 				)}
 				<BaseControl>

@@ -56,16 +56,6 @@
 		}
 	}
 
-	// &[data-hide] {
-
-	// 	&:empty {
-	// 		display: none;
-	// 	}
-
-	// 	&::after {
-	// 		display: none;
-	// 	}
-	// }
 }
 
 .ark-block-step__title {
@@ -203,9 +193,10 @@
 	.ark-block-step__item {
 		padding: 2em;
 		background: #fff;
-		// border: solid 1px var(--ark-color_border, rgba(200, 200, 200, .5));
-		// border-radius: 4px;
-		box-shadow: 0 1px 20px -4px rgba(0, 0, 0, .1);
+		// box-shadow: 0 1px 20px -4px rgba(0, 0, 0, .1);
+		box-shadow: var(--arkb-box-shadow);
+
+		// --arkb-box-shadow: 0 1px 12px 0 rgba(0, 0, 0, .1);
 
 		@include sp {
 			padding: 1.5em;

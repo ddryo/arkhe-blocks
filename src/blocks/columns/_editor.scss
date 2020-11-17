@@ -1,0 +1,21 @@
+// :root{}
+
+.ark-block-columns {
+
+	.ark-block-column {
+	}
+
+	// .ark-block-column__body {}
+
+	.block-list-appender {
+		flex-basis: 80% !important;
+		margin-left: 10%;
+	}
+
+	&.is-style-shadow > div > .ark-block-column {
+		padding: 1rem;
+		background-color: #fff;
+		box-shadow: var(--arkb-box-shadow);
+	}
+
+}

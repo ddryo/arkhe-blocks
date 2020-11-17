@@ -103,7 +103,8 @@
 		background: #fff;
 		border: none;
 		border-top: solid 2px var(--arkb-notice_icon);
-		box-shadow: 0 0 20px -4px rgba(0, 0, 0, .1);
+		// box-shadow: 0 0 20px -4px rgba(0, 0, 0, .1);
+		box-shadow: var(--arkb-box-shadow);
 
 		.ark-block-notice__icon {
 			margin-right: .25em;

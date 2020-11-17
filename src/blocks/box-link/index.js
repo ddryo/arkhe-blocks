@@ -31,7 +31,6 @@ const { name, category, keywords, supports, parent } = metadata;
  */
 registerBlockType(name, {
 	title: __('Box link', 'arkhe-blocks'),
-	description: __('', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
 		src: blockIcon,
@@ -43,7 +42,7 @@ registerBlockType(name, {
 	attributes: metadata.attributes,
 	styles: [
 		{ name: 'default', label: __('Default', 'arkhe-blocks'), isDefault: true },
-		{ name: 'banner', label: __('バナー', 'arkhe-blocks') },
+		{ name: 'banner', label: __('Banner', 'arkhe-blocks') },
 	],
 	edit,
 	save: ({ attributes }) => {
@@ -71,7 +70,7 @@ registerBlockType(name, {
 			showMoreArrow,
 		} = attributes;
 
-		const blockClass = classnames(blockName, 'c-boxLink', '-' + layout, {
+		const blockClass = classnames(blockName, 'c-boxLink', 'arkb-columns__item', '-' + layout, {
 			'has-text-align-center': 'center' === align,
 		});
 
@@ -177,7 +176,7 @@ registerBlockType(name, {
 										role='img'
 										focusable='false'
 									>
-										<path d='M30.4 16.664l-4.528-4.528-1.128 1.136 3.392 3.392h-26.536v1.6h28.8v-1.6z'></path>
+										<path d='M30.4,15.5l-4.5-4.5l-1.1,1.1l3.4,3.4H1.6v1.6h28.8V15.5z' />
 									</svg>
 								)}
 							</div>

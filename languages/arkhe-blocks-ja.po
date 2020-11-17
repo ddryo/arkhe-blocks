@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Arkhe Blocks\n"
-"POT-Creation-Date: 2020-11-16 22:47+0900\n"
-"PO-Revision-Date: 2020-11-16 22:48+0900\n"
+"POT-Creation-Date: 2020-11-17 22:15+0900\n"
+"PO-Revision-Date: 2020-11-17 22:16+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -28,7 +28,7 @@ msgstr ""
 msgid "Accordion item"
 msgstr "アコーディオン項目"
 
-#: src/blocks/accordion-item/index.js:54 src/blocks/box-link/edit.js:277
+#: src/blocks/accordion-item/index.js:54 src/blocks/box-link/edit.js:284
 #: src/blocks/dl-dt/index.js:50 src/blocks/faq-item/index.js:48
 #: src/blocks/notice/index.js:68 src/blocks/step-item/index.js:71
 #: src/blocks/timeline-item/index.js:65 src/blocks/timeline-item/index.js:73
@@ -45,83 +45,82 @@ msgstr "クリックで展開できるコンテンツを作成します。"
 
 #: src/blocks/box-link/_controls.js:54
 msgid "Vertical"
-msgstr ""
+msgstr "縦並び"
 
 #: src/blocks/box-link/_controls.js:58
 msgid "Horizontal"
-msgstr ""
+msgstr "横並び"
 
 #: src/blocks/box-link/_controls.js:129
-msgid "デフォルトではアーカイブリストのサムネイルと同じ比率になります。"
-msgstr ""
+msgid "By default, it has the same ratio as thumbnails in the archive list."
+msgstr "デフォルトではアーカイブリストのサムネイルと同じ比率になります。"
 
 #: src/blocks/box-link/_controls.js:134
-msgid "画像比率"
-msgstr ""
+msgid "Image ratio"
+msgstr "画像比率"
 
 #: src/blocks/box-link/_controls.js:149
-msgid "画像比率を固定する"
-msgstr ""
+msgid "Fix image ratio"
+msgstr "画像比率を固定する"
 
 #: src/blocks/box-link/_controls.js:175
-msgid "テキストセンター寄せ"
-msgstr ""
+msgid "Center the text"
+msgstr "テキストセンター寄せ"
 
 #: src/blocks/box-link/_controls.js:208
 msgid "Delete image"
-msgstr ""
+msgstr "画像を削除"
 
-#: src/blocks/box-link/_controls.js:221 src/blocks/box-link/_smb.js:252
-#: src/blocks/box-link/_smb.js:278
+#: src/blocks/box-link/_controls.js:221
 msgid "Link"
 msgstr ""
 
-#: src/blocks/box-link/_controls.js:250 src/blocks/box-link/_controls.js:345
-#, fuzzy
-#| msgctxt "tab-panel"
-#| msgid "Settings"
-msgid "settings"
-msgstr "表示設定"
+#: src/blocks/box-link/_controls.js:250 src/blocks/box-links/index.js:71
+#: src/blocks/column/index.js:84 src/blocks/page-list/_controls.js:90
+msgid "Settings"
+msgstr "設定"
 
 #: src/blocks/box-link/_controls.js:253
-msgid "並び方"
-msgstr ""
+msgid "Box layout"
+msgstr "ボックスレイアウト"
 
-#: src/blocks/box-link/_controls.js:276 src/blocks/page-list/_controls.js:118
-#: src/blocks/post-list/panel/_display.js:192 src/blocks/rss/_controls.js:194
+#: src/blocks/box-link/_controls.js:276 src/blocks/page-list/_controls.js:132
+#: src/blocks/post-list/panel/_display.js:198 src/blocks/rss/_controls.js:194
 msgid "HTML tag for title"
 msgstr "タイトルのHTMLタグ"
 
-#: src/blocks/box-link/_controls.js:297 src/blocks/notice/_controls.js:76
+#: src/blocks/box-link/_controls.js:297
+msgid "Image settings"
+msgstr "画像設定"
+
+#: src/blocks/box-link/_controls.js:300
+msgid "Image size"
+msgstr ""
+
+#: src/blocks/box-link/_controls.js:308 src/blocks/notice/_controls.js:76
 #: src/blocks/timeline-item/_controls.js:48
 msgid "Icon settings"
 msgstr "アイコン設定"
 
-#: src/blocks/box-link/_controls.js:299
+#: src/blocks/box-link/_controls.js:310
 msgid "Use icon"
-msgstr ""
-
-#: src/blocks/box-link/_controls.js:308
-msgid "Use html tag."
-msgstr ""
+msgstr "アイコンを使用する"
 
 #: src/blocks/box-link/_controls.js:319
-msgid "アイコン用HTML"
-msgstr ""
+msgid "Write the icon in HTML"
+msgstr "HTMLでアイコンを書く"
 
 #: src/blocks/box-link/_controls.js:331
-msgid "アイコンサイズ"
-msgstr ""
+msgid "HTML for icons"
+msgstr "アイコン用HTML"
 
-#: src/blocks/box-link/_controls.js:348
-msgid "Image size"
-msgstr ""
+#: src/blocks/box-link/_controls.js:343
+msgid "Icon size"
+msgstr "アイコンサイズ"
 
 #: src/blocks/box-link/_controls.js:356
-#, fuzzy
-#| msgid "Icon settings"
 msgid "Link settings"
-msgstr "アイコン設定"
+msgstr "リンク設定"
 
 #: src/blocks/box-link/_controls.js:358
 msgid "Open in new tab"
@@ -131,65 +130,58 @@ msgstr ""
 msgid "Link rel"
 msgstr ""
 
-#: src/blocks/box-link/_controls.js:376 src/blocks/box-links/index.js:57
-msgid "READ MORE"
-msgstr ""
+#: src/blocks/box-link/_controls.js:376
+msgid "\"READ MORE\" settings"
+msgstr "「READ MORE」設定"
 
 #: src/blocks/box-link/_controls.js:378
-msgid "READ MOREのテキスト"
-msgstr ""
+msgid "\"READ MORE\" text"
+msgstr "「READ MORE」テキスト"
 
 #: src/blocks/box-link/_controls.js:386
-msgid "矢印アイコンを表示する"
-msgstr ""
-
-#: src/blocks/box-link/_smb.js:173
-#, fuzzy
-#| msgctxt "tab-panel"
-#| msgid "Settings"
-msgid "Block Settings"
-msgstr "表示設定"
-
-#: src/blocks/box-link/_smb.js:175
-msgid "Title Tag"
-msgstr ""
-
-#: src/blocks/box-link/_smb.js:201
-msgid "Images size"
-msgstr ""
-
-#: src/blocks/box-link/_smb.js:229
-msgid "Write title…"
-msgstr ""
-
-#: src/blocks/box-link/_smb.js:239
-msgid "Write content…"
-msgstr ""
-
-#: src/blocks/box-link/_smb.js:288
-msgid "Unlink"
-msgstr ""
+msgid "Show arrow icon"
+msgstr "矢印アイコンを表示する"
 
 #: src/blocks/box-link/index.js:33
 msgid "Box link"
-msgstr ""
+msgstr "ボックス"
 
-#: src/blocks/box-link/index.js:45 src/blocks/notice/index.js:44
+#: src/blocks/box-link/index.js:44 src/blocks/columns/index.js:57
+#: src/blocks/notice/index.js:44
 msgid "Default"
 msgstr "デフォルト"
 
-#: src/blocks/box-link/index.js:46
-msgid "バナー"
-msgstr ""
+#: src/blocks/box-link/index.js:45
+msgid "Banner"
+msgstr "バナー"
 
-#: src/blocks/box-links/index.js:38
+#: src/blocks/box-links/index.js:47
 msgid "Box links"
-msgstr ""
+msgstr " ボックスリンク"
 
-#: src/blocks/box-links/index.js:59 src/blocks/box-links/index.js:68
-#: src/blocks/box-links/index.js:77
-msgid "列数"
-msgstr ""
+#: src/blocks/box-links/index.js:73 src/blocks/box-links/index.js:82
+#: src/blocks/box-links/index.js:91 src/blocks/columns/index.js:87
+#: src/blocks/columns/index.js:96 src/blocks/columns/index.js:105
+msgid "Number of columns"
+msgstr "列数"
+
+#: src/blocks/column/index.js:45
+msgid "Column item"
+msgstr "カラム項目"
+
+#: src/blocks/column/index.js:86 src/blocks/column/index.js:95
+#: src/blocks/column/index.js:104
+msgid "Column width"
+msgstr "カラム横幅"
+
+#: src/blocks/columns/index.js:48
+msgid "Rich columns"
+msgstr "リッチカラム"
+
+#: src/blocks/columns/index.js:58
+msgctxt "style"
+msgid "Shadow"
+msgstr "影付き"
 
 #: src/blocks/dl-dd/index.js:30
 msgid "Description"
@@ -240,12 +232,12 @@ msgid "Simple"
 msgstr "シンプル"
 
 #: src/blocks/page-list/_controls.js:37
-msgid "Children"
-msgstr ""
+msgid "Child page"
+msgstr "子ページ"
 
 #: src/blocks/page-list/_controls.js:41
-msgid "ID"
-msgstr ""
+msgid "Specify by ID"
+msgstr "IDで指定する"
 
 #: src/blocks/page-list/_controls.js:64
 msgid "\"Order\" setting"
@@ -271,38 +263,38 @@ msgstr "昇順"
 msgid "Descending order"
 msgstr "降順"
 
-#: src/blocks/page-list/_controls.js:90
-#: src/blocks/post-list/panel/_display.js:124 src/blocks/rss/_controls.js:137
-msgid "Display settings"
-msgstr "表示設定"
-
 #: src/blocks/page-list/_controls.js:92
-msgid "ターゲット"
-msgstr ""
+msgid "The page you want to display"
+msgstr "表示したいページ"
 
-#: src/blocks/page-list/_controls.js:101
-#: src/blocks/post-list/panel/_pickup.js:158
-msgid "Specify the post ID directly"
-msgstr "投稿IDを直接指定する"
-
-#: src/blocks/page-list/_controls.js:106
+#: src/blocks/page-list/_controls.js:105
 #: src/blocks/post-list/panel/_pickup.js:162
 #: src/blocks/post-list/panel/_pickup.js:176
 msgid "If there are multiple, enter them separated by \",\"."
 msgstr "複数の場合は「,」区切りで入力して下さい。"
 
-#: src/blocks/page-list/_controls.js:139
-#: src/blocks/post-list/panel/_display.js:213
+#: src/blocks/page-list/_controls.js:116
+#: src/blocks/post-list/panel/_display.js:181
+msgid "Number of characters in the excerpt"
+msgstr "抜粋文の文字数"
+
+#: src/blocks/page-list/_controls.js:118
+#: src/blocks/post-list/panel/_display.js:184
+msgid "If \"Excerpt\" is entered, its contents will be displayed."
+msgstr "「抜粋」が入力されている場合は、その内容が表示されます。"
+
+#: src/blocks/page-list/_controls.js:153
+#: src/blocks/post-list/panel/_display.js:219
 msgid "Sorting order setting"
 msgstr "並び順の設定"
 
-#: src/blocks/page-list/_controls.js:141
-#: src/blocks/post-list/panel/_display.js:215
+#: src/blocks/page-list/_controls.js:155
+#: src/blocks/post-list/panel/_display.js:221
 msgid "What to arrange based on"
 msgstr "何を基準に並べるか"
 
-#: src/blocks/page-list/_controls.js:149
-#: src/blocks/post-list/panel/_display.js:223
+#: src/blocks/page-list/_controls.js:163
+#: src/blocks/post-list/panel/_display.js:229
 msgid "Descending or Ascending"
 msgstr "降順か昇順か"
 
@@ -364,6 +356,10 @@ msgstr "テキスト型"
 msgid "Update date"
 msgstr "更新日"
 
+#: src/blocks/post-list/panel/_display.js:124 src/blocks/rss/_controls.js:137
+msgid "Display settings"
+msgstr "表示設定"
+
 #: src/blocks/post-list/panel/_display.js:126
 #: src/blocks/post-list/panel/_display.js:135 src/blocks/rss/_controls.js:139
 #: src/blocks/rss/_controls.js:148
@@ -377,10 +373,6 @@ msgstr "リストレイアウト"
 #: src/blocks/post-list/panel/_display.js:154 src/blocks/rss/_controls.js:167
 msgid "What to display"
 msgstr "何を表示するか"
-
-#: src/blocks/post-list/panel/_display.js:181
-msgid "Number of characters in the excerpt"
-msgstr "抜粋文の文字数"
 
 #: src/blocks/post-list/panel/_pickup.js:69
 msgid "All"
@@ -405,6 +397,10 @@ msgstr "含まない"
 #: src/blocks/post-list/panel/_pickup.js:156
 msgid "Narrow down by post ID"
 msgstr "投稿IDでの絞り込み"
+
+#: src/blocks/post-list/panel/_pickup.js:158
+msgid "Specify the post ID directly"
+msgstr "投稿IDを直接指定する"
 
 #: src/blocks/post-list/panel/_pickup.js:172
 msgid "Post ID to exclude"
@@ -636,7 +632,7 @@ msgstr "RSSフィードのURLが正しくありません。"
 msgid "The article was not found."
 msgstr "記事が見つかりませんでした。"
 
-#: inc/gutenberg.php:91
+#: inc/gutenberg.php:92
 msgid "Arkhe Blocks"
 msgstr ""
 
@@ -667,6 +663,21 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "https://loos.co.jp/"
 msgstr ""
+
+#~ msgid "Use html tag"
+#~ msgstr "HTML"
+
+#, fuzzy
+#~| msgctxt "tab-panel"
+#~| msgid "Settings"
+#~ msgid "Block Settings"
+#~ msgstr "表示設定"
+
+#, fuzzy
+#~| msgctxt "tab-panel"
+#~| msgid "Settings"
+#~ msgid "settings"
+#~ msgstr "表示設定"
 
 #~ msgid "Icon class"
 #~ msgstr "アイコンクラス"

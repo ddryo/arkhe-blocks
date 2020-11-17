@@ -24,17 +24,8 @@ function cb_page_list( $attrs, $content ) {
 	$orderby = $attrs['orderby'];
 	$order   = $attrs['order'];
 
-	// $target = $attrs['postID'];
-
-	// $list_count_pc = $attrs['listCountPC'];
-	// $list_count_sp = $attrs['listCountSP'];
-
-	// echo get_the_ID();
-	$numberposts = -1;
-
 	$query_args = [
 		'post_type'      => 'page',
-		'posts_per_page' => $numberposts,
 		'post_status'    => 'publish',
 		'order'          => $order,
 		'orderby'        => $orderby,
@@ -51,15 +42,14 @@ function cb_page_list( $attrs, $content ) {
 
 	}
 
-	// 「順序」設定通りに並べる
-	// if ( 0 ) {}
-
 	$list_args = [
 		'h_tag' => $attrs['hTag'],
 	];
 
-	\Arkhe::$ex_parts_path  = ARKHE_BLOCKS_PATH;
-	\Arkhe::$excerpt_length = $attrs['excerptLength'] ?: 0;
+	\Arkhe::$ex_parts_path = ARKHE_BLOCKS_PATH;
+	if ( isset( $attrs['excerptLength'] ) ) {
+		\Arkhe::$excerpt_length = $attrs['excerptLength'];
+	}
 
 	ob_start();
 	echo '<div class="ark-block-pageList c-postContent">';
@@ -75,10 +65,3 @@ function cb_page_list( $attrs, $content ) {
 
 	return ob_get_clean();
 }
-
-
-/**
- *
- */
-// function get_page_list( $url = '' ) {
-// }

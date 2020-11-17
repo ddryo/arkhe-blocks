@@ -11,6 +11,9 @@ const blocks = [
 	// 'accordion-item',
 	// 'box-link',
 	// 'box-links',
+	'blog-card',
+	// 'column',
+	// 'columns',
 	// 'faq',
 	// 'faq-item',
 	// 'dl',
@@ -22,7 +25,7 @@ const blocks = [
 	// 'step-item',
 	// 'timeline',
 	// 'timeline-item',
-	'page-list',
+	// 'page-list',
 	// 'post-list',
 	// 'rss',
 	//

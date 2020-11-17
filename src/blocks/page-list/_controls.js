@@ -34,11 +34,11 @@ export default function (props) {
 	// リストタイプ
 	const targetOptions = [
 		{
-			label: __('Children', 'arkhe-blocks'),
+			label: __('Child page', 'arkhe-blocks'),
 			value: 'children',
 		},
 		{
-			label: __('ID', 'arkhe-blocks'),
+			label: __('Specify by ID', 'arkhe-blocks'),
 			value: 'id',
 		},
 	];
@@ -87,9 +87,9 @@ export default function (props) {
 
 	return (
 		<InspectorControls>
-			<PanelBody title={__('Display settings', 'arkhe-blocks')} initialOpen={true}>
+			<PanelBody title={__('Settings', 'arkhe-blocks')} initialOpen={true}>
 				<RadioControl
-					label={__('ターゲット', 'arkhe-blocks')}
+					label={__('The page you want to display', 'arkhe-blocks')}
 					selected={target}
 					options={targetOptions}
 					onChange={(val) => {
@@ -98,7 +98,6 @@ export default function (props) {
 				/>
 				{'id' === target && (
 					<TextControl
-						label={__('Specify the post ID directly', 'arkhe-blocks')}
 						placeholder='ex) 8,120,272'
 						help={
 							'※ ' +
@@ -116,7 +115,7 @@ export default function (props) {
 				<RangeControl
 					label={__('Number of characters in the excerpt', 'arkhe-blocks')}
 					help={__(
-						'「抜粋」が入力されているページは、その内容が表示されます。',
+						'If "Excerpt" is entered, its contents will be displayed.',
 						'arkhe-blocks'
 					)}
 					value={excerptLength}

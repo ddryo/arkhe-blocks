@@ -1,23 +1,29 @@
 {
-    "name": "arkhe-blocks/box-links",
-    "title": "Box links",
+    "name": "arkhe-blocks/columns",
+    "title": "Rich Columns",
     "category": "arkhe-blocks",
     "keywords": [
         "arkhe",
-        "box-links"
+        "columns",
+        "rich"
     ],
     "supports": {
         "anchor": true,
         "className": false,
         "lightBlockWrapper": true,
         "align": [
-            "wide"
+            "wide",
+            "full"
         ]
     },
     "attributes": {
+        "vAlign": {
+            "type": "string",
+            "default": ""
+        },
         "colPC": {
             "type": "number",
-            "default": 3
+            "default": 2
         },
         "colTab": {
             "type": "number",
@@ -28,6 +34,6 @@
             "default": 1
         }
     },
-    "editorScript": "file:../../../dist/blocks/box-links/index.js",
+    "editorScript": "file:../../../dist/blocks/columns/index.js",
     "textdomain": "arkhe-blocks"
 }

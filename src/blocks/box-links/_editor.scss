@@ -1,78 +1,17 @@
 [data-type="arkhe-blocks/box-links"] {
 
-	display: block !important;
+	// display: block !important;
 
-	.ark-block-boxLinks {
-		// margin-left: auto;
-		// margin-right: auto;
-	}
+	// .ark-block-boxLinks {}
 
 	& > .block-editor-block-list__layout {
-		display: flex;
-		flex-wrap: wrap;
-		width: 100%;
-		margin-right: -.75rem;
-		margin-left: -.75rem;
 
 		& > .block-list-appender {
-			width: 100%;
-			margin: 1em 0 0;
+			width: 80%;
+			margin: 1em 10% 0;
 		}
 	}
 
-	.ark-block-boxLink {
-
-		flex-basis: 100%;
-		// margin-top: 0 !important;
-		// margin-right: .75rem !important;
-		// margin-left: .75rem !important;
-		margin: 0 .75rem 1.5rem !important;
-
-		[data-column="3"] > & {
-			flex-basis: calc(33.3% - 1.5rem);
-		}
-
-		[data-column="2"] > & {
-			flex-basis: calc(50% - 1.5rem);
-		}
-
-		@include tab {
-
-			// [data-tab-column="4"] > & {
-			// 	flex-basis: calc(25% - 1.5rem);
-			// }
-
-			[data-tab-column="3"] > & {
-				flex-basis: calc(33.3% - 1.5rem);
-			}
-
-			[data-tab-column="2"] > & {
-				flex-basis: calc(50% - 1.5rem);
-			}
-
-			[data-tab-column="1"] > & {
-				flex-basis: 100%;
-			}
-		}
-
-		@include pc {
-
-			[data-pc-column="4"] > & {
-				flex-basis: calc(25% - 1.5rem);
-			}
-
-			[data-pc-column="3"] > & {
-				flex-basis: calc(33.3% - 1.5rem);
-			}
-
-			[data-pc-column="2"] > & {
-				flex-basis: calc(50% - 1.5rem);
-			}
-
-			[data-pc-column="1"] > & {
-				flex-basis: 100%;
-			}
-		}
-	}
+	// .ark-block-boxLink {}
 }
 

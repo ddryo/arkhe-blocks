@@ -5,6 +5,8 @@
  */
 @import "mixin/**";
 // @import "icon";
+@import "./common/**";
+@import "./editor/**";
 @import "../blocks/**/_common.scss";
 @import "../blocks/**/_editor.scss";
 
@@ -118,6 +120,7 @@ $color_guide: rgba(123, 134, 162, .3);//#b8c7da;
 }
 
 
+// リセット付きレンジコントロール
 .arkb-range--useReset {
 
 	.components-range-control__root {
@@ -129,4 +132,15 @@ $color_guide: rgba(123, 134, 162, .3);//#b8c7da;
 		margin-top: 8px;
 		text-align: right;
 	}
+
+	.components-range-control__reset {
+		height: auto !important;
+		min-height: 0 !important;
+		box-shadow: none !important;
+	}
+}
+
+// ヘルプテキスト詰まりすぎなので打ち消し
+.components-base-control .components-base-control__help {
+	margin-top: -4px;
 }

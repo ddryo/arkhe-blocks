@@ -65,9 +65,16 @@ export default function (props) {
 	const isBannerStyle = -1 !== attrClass.indexOf('is-style-banner');
 
 	// ブロッククラス
-	const blockClass = classnames(className, blockName, 'c-boxLink', '-' + layout, {
-		'has-text-align-center': 'center' === align,
-	});
+	const blockClass = classnames(
+		className,
+		blockName,
+		'c-boxLink',
+		'arkb-columns__item',
+		'-' + layout,
+		{
+			'has-text-align-center': 'center' === align,
+		}
+	);
 
 	// 縦並びか横並びかを変数化
 	const isVertical = 'vertical' === layout;

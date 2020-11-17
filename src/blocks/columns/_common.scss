@@ -1,0 +1,17 @@
+
+.ark-block-columns {
+
+	&.is-style-shadow > .ark-block-column {
+		padding: 1rem;
+		background-color: #fff;
+		box-shadow: var(--arkb-box-shadow);
+	}
+}
+
+.ark-block-column {
+}
+
+.ark-block-column__body {
+	// padding: 1em;
+	// border: solid 1px #ccc;
+}

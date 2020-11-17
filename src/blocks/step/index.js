@@ -40,9 +40,9 @@ registerBlockType(name, {
 	supports,
 	example,
 	styles: [
-		{ name: 'default', label: 'デフォルト', isDefault: true },
-		{ name: 'big', label: 'ビッグ' },
-		{ name: 'card', label: 'カード' },
+		{ name: 'default', label: __('Default', 'arkhe-blocks'), isDefault: true },
+		{ name: 'big', label: __('Big', 'arkhe-blocks') },
+		{ name: 'card', label: __('Card', 'arkhe-blocks') },
 	],
 	attributes: metadata.attributes,
 	edit: (props) => {
@@ -67,7 +67,7 @@ registerBlockType(name, {
 					<InnerBlocks
 						allowedBlocks={['arkhe-blocks/step-item']}
 						templateLock={false}
-						template={[['arkhe-blocks/step-item']]}
+						template={[['arkhe-blocks/step-item'], ['arkhe-blocks/step-item']]}
 						__experimentalTagName='div'
 					/>
 				</Block.div>

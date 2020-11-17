@@ -46,6 +46,8 @@ function register_blocks() {
 		$arkhe_blocks_pro = [
 			'box-link',
 			'box-links',
+			'column',
+			'columns',
 			'notice',
 			'step',
 			'step-item',
@@ -65,11 +67,12 @@ function register_blocks() {
 	if ( ! \Arkhe_Blocks::IS_PRO ) return;
 
 	// ダイナミックブロックの読み込み
-	$dynamic_blocks = [
-		'page-list',
-	];
+	$dynamic_blocks = [];
+
+	$dynamic_blocks[] = 'blog-card';
 
 	if ( IS_ARKHE_THEME ) {
+		$dynamic_blocks[] = 'page-list';
 		$dynamic_blocks[] = 'post-list';
 		$dynamic_blocks[] = 'rss';
 	}

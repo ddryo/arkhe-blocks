@@ -46,6 +46,7 @@ export default function (props) {
 						setAttributes({ startNum: parseInt(val) });
 					}}
 				/>
+				<div className='u-mt-40'></div>
 			</PanelBody>
 		</InspectorControls>
 	);
