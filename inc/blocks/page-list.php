@@ -46,21 +46,17 @@ function cb_page_list( $attrs, $content ) {
 		'h_tag' => $attrs['hTag'],
 	];
 
-	\Arkhe::$ex_parts_path = ARKHE_BLOCKS_PATH;
 	if ( isset( $attrs['excerptLength'] ) ) {
 		\Arkhe::$excerpt_length = $attrs['excerptLength'];
 	}
 
 	ob_start();
-	echo '<div class="ark-block-pageList c-postContent">';
-	\Arkhe::get_part( 'page_list', [
+	\Arkhe_Blocks::get_part( 'page_list', [
 		'query_args' => $query_args,
 		'list_args'  => $list_args,
 	] );
-	echo '</div>';
 
 	// リセット
-	\Arkhe::$ex_parts_path  = '';
 	\Arkhe::$excerpt_length = ARKHE_EXCERPT_LENGTH;
 
 	return ob_get_clean();

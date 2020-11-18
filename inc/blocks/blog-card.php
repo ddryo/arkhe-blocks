@@ -23,26 +23,49 @@ function cb_blog_card( $attrs, $content ) {
 	$sc_props     = '';
 	$class_name   = $attrs['className'];
 	$post_id      = $attrs['postId'];
-	$caption      = $attrs['cardCaption'];
-	$is_new_tab   = $attrs['isNewTab'];
+	$caption      = $attrs['caption'];
+	$is_newtab    = $attrs['isNewTab'];
 	$external_url = $attrs['externalUrl'];
 	$rel          = $attrs['rel'];
+	// $useCache     = $attrs['useCache'];
 
-	// if ( $post_id ) $sc_props .= ' id="' . $post_id . '"';
-	// if ( $cardCaption ) $sc_props .= ' cap="' . $cardCaption . '"';
-	// if ( $is_new_tab ) $sc_props  .= ' target="_blank"';
-	// if ( $external_url ) $sc_props .= ' url="' . $external_url . '"';
-	// if ( $rel ) $sc_props         .= ' rel="' . $rel . '"';
+	$is_external = ! empty( $external_url );
+
+	// キャッシュがあるか調べる
+	$useCache  = 1;
+	$card_data = [];
+	$cache_key = '';
+	if ( $useCache ) {
+		$cache_key = $is_external ? 'arkhe_blogcard_' . md5( $external_url ) : 'arkhe_blogcard_' . $post_id;
+		$card_data = get_transient( $cache_key );
+	}
+
+	if ( empty( $card_data ) ) {
+		if ( $is_external ) {
+			$card_data = \Arkhe_Blocks\get_external_blog_card( $external_url );
+		} elseif ( $post_id ) {
+			$card_data = \Arkhe_Blocks\get_internal_blog_card( $post_id );
+		}
+
+		if ( '' !== $cache_key ) {
+			$cache_time = apply_filters( 'arkhe_blocks_blogcard_cache_time', DAY_IN_SECONDS * 7 );
+			set_transient( $cache_key, $card_data, $cache_time );
+		}
+	}
+
+	$card_data['is_newtab'] = $is_newtab;
+	$card_data['rel']       = $rel;
+	$card_data['type']      = $is_external ? 'external' : 'internal';
+
+	// キャプションの設定があれば
+	if ( $caption ) {
+		$card_data['caption'] = $caption;
+	}
 
 	ob_start();
-	echo '<div class="ark-block-blogCard ' . esc_attr( $class_name ) . '">';
 
-	// 外部リンクの場合
-	if ( $external_url ) {
-		SWELL_FUNC::get_external_blog_card( $external_url, $caption, $rel, $is_new_tab );
-	} elseif ( $post_id ) {
-		SWELL_FUNC::get_internal_blog_card( $post_id, $caption, $rel, $is_new_tab );
-	}
+	echo '<div class="ark-block-blogCard ' . esc_attr( $class_name ) . '">';
+	\Arkhe_Blocks::get_part( 'blog_card', $card_data );
 	echo '</div>';
 
 	return ob_get_clean();
@@ -53,142 +76,103 @@ function cb_blog_card( $attrs, $content ) {
 /**
  * 内部リンクのブログカード化
  */
-function get_internal_blog_card( $post_id, $caption = '', $rel = '', $is_blank = false ) {
+function get_internal_blog_card( $post_id ) {
 
-	$card_data = '';
-	// キャッシュがあるか調べる
-	if ( USE_CACHE_CARD_IN ) {
-		$cache_key = 'swell_card_id' . $post_id;
-		$card_data = get_transient( $cache_key );
-		}
+	$post_data = get_post( $post_id );
+	if ( null === $post_data ) return [];
 
-	// キャッシュがなければ
-	if ( ! $card_data ) {
+	$title   = get_the_title( $post_id );
+	$url     = get_permalink( $post_id );
+	$excerpt = apply_filters( 'get_the_excerpt', $post_data->post_excerpt, $post_data );
+	// $excerpt   = SWELL_PARTS::post_excerpt( $post_data, 80 );
 
-		$post_data = get_post( $post_id );
-		$title     = get_the_title( $post_id );
-		$url       = get_permalink( $post_id );
-		$excerpt   = SWELL_PARTS::post_excerpt( $post_data, 80 );
+	// タイトルは最大100文字までに制限
+	if ( mb_strwidth( $title, 'UTF-8' ) > 100 ) {
+		$title = mb_strimwidth( $title, 0, 100, '...', 'UTF-8' );
+	}
 
-		if ( mb_strwidth( $title, 'UTF-8' ) > 100 ) {
-			$title = mb_strimwidth( $title, 0, 100, '...', 'UTF-8' );
-			}
-		if ( has_post_thumbnail( $post_id ) ) {
-			// アイキャッチ画像のIDを取得
-			$thumb_id   = get_post_thumbnail_id( $post_id );
-			$thumb_data = wp_get_attachment_image_src( $thumb_id, 'medium' );
-			$thumb      = $thumb_data[0];
-			} else {
-			$thumb = NOIMG_S;
-			}
+	// 抜粋文は160文字までに制限
+	if ( mb_strwidth( $excerpt, 'UTF-8' ) > 160 ) {
+		$excerpt = mb_strimwidth( $excerpt, 0, 160 ) . '...';
+	}
 
-		$card_data = [
-			'url'     => $url,
-			'title'   => $title,
-			'thumb'   => $thumb,
-			'excerpt' => $excerpt,
-		];
+	$card_data = [
+		'url'       => $url,
+		'title'     => $title,
+		'excerpt'   => $excerpt,
+	];
 
-		if ( USE_CACHE_CARD_IN ) {
-			$day = \SWELL_FUNC::get_setting( 'cache_card_time' ) ?: 30;
-			set_transient( $cache_key, $card_data, DAY_IN_SECONDS * intval( $day ) );
-			}
-		}
+	// サムネイル画像のデータをセット
+	if ( has_post_thumbnail( $post_id ) ) {
+		$thumb_id   = get_post_thumbnail_id( $post_id );
+		$thumb_data = wp_get_attachment_image_src( $thumb_id, 'medium' );
+		$thumb_url  = $thumb_data[0];
 
-	$card_data['caption']   = $caption;
-	$card_data['is_blank']  = $is_blank;
-	$card_data['add_class'] = '-internal';
-	$card_data['rel']       = $rel;
+		$card_data['thumb_id']  = $thumb_id;
+		$card_data['thumb_url'] = $thumb_url;
+	}
 
-	$type = \SWELL_FUNC::get_editor( 'blog_card_type' ) ?: 'type1';
-	return SWELL_PARTS::blog_card( $card_data, $type );
+	return $card_data;
 }
 
 
 /**
  * 外部サイトのブログカード
  */
-function get_external_blog_card( $url, $caption = null, $rel = '' ) {
+function get_external_blog_card( $url ) {
 
-	$card_data = '';
+	// OpenGraphの読み込み
+	require_once ARKHE_BLOCKS_PATH . 'inc/open_graph.php';
 
-	// キャッシュがあるか調べる
-	if ( USE_CACHE_CARD_EX ) {
-		$url_hash  = md5( $url );
-		$cache_key = 'swell_card_' . $url_hash;
-		$card_data = get_transient( $cache_key );
+	$ogp = \OpenGraph::fetch( $url );
+	if ( ! $ogp ) return $url;
 
-		if ( ! isset( $card_data['site_name'] ) ) {
-			// キャプション不具合修正時のコード変更に対応
-			delete_transient( $cache_key );
-			$card_data = '';
-			}
-		}
+	$image       = isset( $ogp->image ) ? $ogp->image : '';
+	$title       = isset( $ogp->title ) ? $ogp->title : '';
+	$description = isset( $ogp->description ) ? $ogp->description : '';
+	$site_name   = isset( $ogp->site_name ) ? $ogp->site_name : '';
 
-	if ( ! $card_data ) {
+	// /favicon.ico
+	// echo '<pre style="margin-left: 100px;">';
+	// var_dump( $ogp );
+	// echo '</pre>';
 
-		// OpenGraphの読み込み
-		require_once T_DIRE . '/lib/open_graph.php';
+	/**
+	 * はてなブログの文字化け対策
+	 */
+	$title_decoded = utf8_decode( $title );  // utf8でのデコード
+	if ( mb_detect_encoding( $title_decoded ) === 'UTF-8' ) {
+		$title = $title_decoded; // 文字化け解消
 
-		$ogp = OpenGraph::fetch( $url );
-		if ( ! $ogp ) return $url;
-
-		$image       = isset( $ogp->image ) ? $ogp->image : '';
-		$title       = isset( $ogp->title ) ? $ogp->title : '';
-		$description = isset( $ogp->description ) ? $ogp->description : '';
-		$site_name   = isset( $ogp->site_name ) ? $ogp->site_name : '';
-
-		/**
-		 * はてなブログの文字化け対策
-		 */
-		$title_decoded = utf8_decode( $title );  // utf8でのデコード
-		if ( mb_detect_encoding( $title_decoded ) === 'UTF-8' ) {
-			$title = $title_decoded; // 文字化け解消
-
-			$description_decoded = utf8_decode( $description );
-			if ( mb_detect_encoding( $description_decoded ) === 'UTF-8' ) {
-				$description = $description_decoded;
-				}
-
-			$site_name_decoded = utf8_decode( $site_name );
-			if ( mb_detect_encoding( $site_name_decoded ) === 'UTF-8' ) {
-				$site_name = $site_name_decoded;
-				}
+		$description_decoded = utf8_decode( $description );
+		if ( mb_detect_encoding( $description_decoded ) === 'UTF-8' ) {
+			$description = $description_decoded;
 			}
 
-		// 文字数で切り取り
-		if ( mb_strwidth( $title, 'UTF-8' ) > 100 ) {
-			$title = mb_strimwidth( $title, 0, 100 ) . '...';
+		$site_name_decoded = utf8_decode( $site_name );
+		if ( mb_detect_encoding( $site_name_decoded ) === 'UTF-8' ) {
+			$site_name = $site_name_decoded;
 		}
-		if ( mb_strwidth( $description, 'UTF-8' ) > 160 ) {
-			$description = mb_strimwidth( $description, 0, 160 ) . '...';
-		}
-		if ( mb_strwidth( $caption, 'UTF-8' ) > 32 ) {
-			$caption = mb_strimwidth( $caption, 0, 32 ) . '...';
-		}
+	}
 
-		$card_data = [
-			'url'       => $url,
-			'site_name' => $site_name,
-			'title'     => $title,
-			'thumb'     => $image,
-			'excerpt'   => $description,
-		];
+	// 文字数で切り取り
+	if ( mb_strwidth( $title, 'UTF-8' ) > 100 ) {
+		$title = mb_strimwidth( $title, 0, 100 ) . '...';
+	}
+	if ( mb_strwidth( $description, 'UTF-8' ) > 160 ) {
+		$description = mb_strimwidth( $description, 0, 160 ) . '...';
+	}
+	if ( mb_strwidth( $site_name, 'UTF-8' ) > 32 ) {
+		$site_name = mb_strimwidth( $site_name, 0, 32 ) . '...';
+	}
 
-		if ( USE_CACHE_CARD_EX ) {
-			$day = \SWELL_FUNC::get_setting( 'cache_card_time' ) ?: 30;
-			set_transient( $cache_key, $card_data, DAY_IN_SECONDS * intval( $day ) );
-			}
-		}
+	$card_data = [
+		'url'       => $url,
+		'title'     => $title,
+		'excerpt'   => $description,
+		'thumb_url' => $image,
+		'caption'   => $site_name,
+	];
 
-	$caption = $caption ?: $card_data['site_name'];
-
-	$card_data['caption']   = $caption;
-	$card_data['is_blank']  = true;
-	$card_data['add_class'] = '-external';
-	$card_data['rel']       = $rel;
-
-	$type = \SWELL_FUNC::get_editor( 'blog_card_type_ex' ) ?: 'type3';
-	return SWELL_PARTS::blog_card( $card_data, $type );
-
+	return $card_data;
 }

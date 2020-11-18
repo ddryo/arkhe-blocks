@@ -16,11 +16,41 @@
 
 defined( 'ABSPATH' ) || exit;
 
+
+// 5.0以下のエラー回避
+if ( ! function_exists( 'register_block_type' ) ) return;
+
+// 定数定義
+define( 'ARKHE_BLOCKS_VERSION', ( defined( 'WP_DEBUG' ) && WP_DEBUG ) ? date_i18n( 'mdGis' ) : '1.1.2' );
+define( 'ARKHE_BLOCKS_URL', plugins_url( '/', __FILE__ ) );
+define( 'ARKHE_BLOCKS_PATH', plugin_dir_path( __FILE__ ) );
+
+
+/**
+ * CLASSのオートロード
+ */
+spl_autoload_register(
+	function( $classname ) {
+
+		// 名前に Arkhe_Theme がなければオートロードしない。
+		if ( strpos( $classname, 'Arkhe_Blocks' ) === false && strpos( $classname, 'Arkhe_Blocks' ) === false) return;
+
+		$classname = str_replace( '\\', '/', $classname );
+		$classname = str_replace( 'Arkhe_Blocks/', '', $classname );
+		$file      = ARKHE_BLOCKS_PATH . 'classes/' . $classname . '.php';
+
+		if ( file_exists( $file ) ) require $file;
+	}
+);
+
+
 /**
  * プラグイン実行クラス
  */
 if ( ! class_exists( 'Arkhe_Blocks' ) ) {
 	class Arkhe_Blocks {
+
+		use \Arkhe_Blocks\Template_Parts;
 
 		const IS_PRO = true;
 
@@ -35,14 +65,6 @@ if ( ! class_exists( 'Arkhe_Blocks' ) ) {
 				$is_arkhe_theme = ( 'Arkhe' === $theme_name || 'arkhe' === $theme_template );
 				define( 'IS_ARKHE_THEME', $is_arkhe_theme );
 			}
-
-			// 5.0以下のエラー回避
-			if ( ! function_exists( 'register_block_type' ) ) return;
-
-			// 定数定義
-			define( 'ARKHE_BLOCKS_VERSION', ( defined( 'WP_DEBUG' ) && WP_DEBUG ) ? date_i18n( 'mdGis' ) : '1.1.2' );
-			define( 'ARKHE_BLOCKS_URL', plugins_url( '/', __FILE__ ) );
-			define( 'ARKHE_BLOCKS_PATH', plugin_dir_path( __FILE__ ) );
 
 			// 翻訳ファイルを登録
 			$locale = apply_filters( 'plugin_locale', determine_locale(), 'arkhe-blocks' );

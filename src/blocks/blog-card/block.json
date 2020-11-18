@@ -25,7 +25,7 @@
             "type": "number",
             "default": 0
         },
-        "cardCaption": {
+        "caption": {
             "type": "string",
             "default": ""
         },
@@ -37,13 +37,13 @@
             "type": "string",
             "default": ""
         },
-        "isPreview": {
-            "type": "boolean",
-            "default": false
-        },
         "rel": {
             "type": "string",
             "default": ""
+        },
+        "isPreview": {
+            "type": "boolean",
+            "default": false
         }
     },
     "editorScript": "file:../../../dist/blocks/blog-card/index.js",

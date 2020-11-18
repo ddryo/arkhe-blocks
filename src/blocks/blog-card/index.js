@@ -19,6 +19,7 @@ import example from './_example';
 import exampleHtml from './_exampleHtml';
 // import SwellTab from '@swell-guten/components/swell-tab.js';
 // import BlockControl from './_panels';
+import getNewLinkRel from '@helper/getNewLinkRel';
 
 /**
  * @Others dependencies
@@ -53,6 +54,9 @@ registerBlockType(name, {
 			postId,
 			postTitle,
 			externalUrl,
+			caption,
+			isNewTab,
+			rel,
 			// isCached,
 		} = attributes;
 
@@ -66,9 +70,117 @@ registerBlockType(name, {
 		// const currentID = useSelect((select) => select('core/editor').getCurrentPostId());
 		// const blockEdit = ();
 
+		const inputArea = isSelected ? (
+			<>
+				<ToggleControl
+					label={__('外部リンクを利用する', 'arkhe-blocks')}
+					checked={isExternal}
+					onChange={(val) => {
+						setIsExternal(val);
+					}}
+				/>
+				<div className={`${blockName}__inputWrapper`}>
+					{!isExternal && (
+						<div className='__internalArea'>
+							<TextControl
+								className='__idInput'
+								placeholder={__('投稿ID', 'arkhe-blocks')}
+								type='number'
+								value={postId}
+								onChange={(newID) => {
+									setAttributes({
+										postId: newID,
+										externalUrl: '',
+									});
+								}}
+							/>
+							<URLInput
+								value={postTitle}
+								className='__urlInput'
+								// autoFocus={isSelected}
+								hasBorder
+								placeholder={__('タイトルを入力して記事を検索', 'arkhe-blocks')}
+								disableSuggestions={!isSelected}
+								onChange={(url, post) => {
+									// console.log(url, post);
+									if (!post) {
+										setAttributes({
+											postTitle: url,
+											postId: 0,
+											externalUrl: '',
+										});
+									} else if (post.id) {
+										let newPostTitle = post.title || url;
+										newPostTitle = newPostTitle.replace('&#8211;', '-');
+										setAttributes({
+											postId: post.id,
+											externalUrl: '',
+											postTitle: newPostTitle,
+										});
+									}
+								}}
+							/>
+						</div>
+					)}
+					{isExternal && (
+						<div className='__externalArea'>
+							<TextControl
+								className='__externalInput'
+								placeholder={__('URLを直接入力してください。', 'arkhe-blocks')}
+								value={externalUrl}
+								onChange={(val) => {
+									setAttributes({
+										externalUrl: val,
+										postId: 0,
+										postTitle: '',
+									});
+								}}
+							/>
+						</div>
+					)}
+				</div>
+			</>
+		) : null;
+
 		return (
 			<>
-				<InspectorControls>{/* <BlockControl {...props} /> */}</InspectorControls>
+				<InspectorControls>
+					<PanelBody title={__('Settings', 'arkhe-blocks')} initialOpen={true}>
+						<TextControl
+							label={__('キャプション', 'arkhe-blocks')}
+							value={caption}
+							onChange={(val) => {
+								setAttributes({ caption: val });
+							}}
+						/>
+					</PanelBody>
+					<PanelBody title={__('Link settings', 'arkhe-blocks')} initialOpen={true}>
+						<>
+							<ToggleControl
+								id='loosbtn_is_new_open'
+								label={__('Open in new tab')}
+								help='※ 外部サイトへのリンクでは、「新しいタブで開く」の設定は無視され、強制的にオンになります。'
+								checked={isNewTab}
+								// className={externalUrl ? '-is-external' : null}
+								onChange={(value) => {
+									const newRel = getNewLinkRel(value, rel);
+									// const newRel = setBlankRel(value, rel);
+									setAttributes({
+										isNewTab: value,
+										rel: newRel,
+									});
+								}}
+							/>
+							<TextControl
+								label={__('Link rel')}
+								value={rel || ''}
+								onChange={(value) => {
+									setAttributes({ rel: value });
+								}}
+							/>
+						</>
+					</PanelBody>
+				</InspectorControls>
 				<div className={classnames(blockName, className)}>
 					<div className={`${blockName}__preview`}>
 						{postId || externalUrl ? (
@@ -76,88 +188,12 @@ registerBlockType(name, {
 						) : (
 							<div className={`${blockName}__none`}>
 								{!isExternal
-									? '※ ブログカードとして表示したい投稿を指定してください。'
-									: '※ ブログカードとして表示したいURLを入力してください。'}
+									? '※ ページを指定してください。'
+									: '※ URLを入力してください。'}
 							</div>
 						)}
 					</div>
-					{isSelected && (
-						<>
-							<ToggleControl
-								label={__('外部リンクを利用する', 'arkhe-blocks')}
-								checked={isExternal}
-								onChange={(val) => {
-									setIsExternal(val);
-								}}
-							/>
-							<div className={`${blockName}__inputWrapper`}>
-								{!isExternal && (
-									<div className='__internalArea'>
-										<input
-											type='text'
-											className='__idInput'
-											value={postId}
-											placeholder='IDを入力'
-											onChange={(e) => {
-												e.preventDefault();
-												setAttributes({
-													postId: parseInt(e.target.value),
-													externalUrl: '',
-												});
-											}}
-										/>
-										<URLInput
-											value={postTitle}
-											className='__urlInput'
-											// autoFocus={isSelected}
-											hasBorder
-											placeholder='タイトルを入力して記事を検索'
-											disableSuggestions={!isSelected}
-											onChange={(url, post) => {
-												let newPostTitle = url;
-												if (post && post.title) {
-													// newPostTitle = decodeURIComponent(post.title);
-													newPostTitle = post.title;
-													// 文字化け対策
-													newPostTitle = newPostTitle.replace(
-														'&#8211;',
-														'-'
-													);
-												}
-												if (post && post.id) {
-													setAttributes({
-														postId: post.id,
-														externalUrl: '',
-													});
-												}
-												setAttributes({
-													postTitle: newPostTitle,
-												});
-											}}
-										/>
-									</div>
-								)}
-								{isExternal && (
-									<div className='__externalArea'>
-										<TextControl
-											// label='外部リンクのURL'
-											className='__externalInput'
-											placeholder='URLを直接入力してください。'
-											value={externalUrl}
-											onChange={(val) => {
-												setAttributes({
-													externalUrl: val,
-													postId: 0,
-													postTitle: '',
-													isNewTab: false,
-												});
-											}}
-										/>
-									</div>
-								)}
-							</div>
-						</>
-					)}
+					{inputArea}
 				</div>
 			</>
 		);

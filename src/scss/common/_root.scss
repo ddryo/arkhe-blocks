@@ -1,3 +1,6 @@
+$color_guide: rgba(123, 134, 162, .3); //#b8c7da;
+
 :root {
-	--arkb-box-shadow: 0 0 4px -2px rgba(0, 0, 0, .05), 0 1px 20px -2px rgba(0, 0, 0, .1);
+	--arkb-shadow: 0 0 4px 0 rgba(0, 0, 0, .05), 0 1px 24px -8px rgba(0, 0, 0, .15);
+	--arkb-shadow--s: 0 1px 6px 0 rgba(0, 0, 0, .1);
 }

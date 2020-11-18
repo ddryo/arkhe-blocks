@@ -7,33 +7,34 @@
 
 // ボックスリンク
 .c-boxLink {
-	background-color: #fff;
-	box-shadow: 0 1px 12px 0 rgba(0, 0, 0, .1);
-	transition: box-shadow .25s;
-
-	&:hover {
-		box-shadow: 0 1px 20px 0 rgba(0, 0, 0, .15);
-
-		.c-boxLink__more__svg {
-			transform: translateX(4px);
-		}
-	}
-
+	// box-shadow: 0 1px 12px 0 rgba(0, 0, 0, .1);
+	box-shadow: var(--arkb-shadow);
 	// htag時の優先度を考慮してネスト
 	.c-boxLink__title {
 		font-weight: bold;
-		font-size: 1.1rem;
+		font-size: 1rem;
 	}
-
 }
 
 .c-boxLink__inner {
-	display: block;
 	display: flex;
 	flex-direction: column;
 	height: 100%;
 	color: inherit;
 	text-decoration: none;
+	background-color: #fff;
+	// box-shadow: 0 1px 12px 0 rgba(0, 0, 0, .1);
+	transition: box-shadow .25s;
+}
+
+// リンクホバー時
+a.c-boxLink__inner:hover {
+	// box-shadow: 0 1px 20px 0 rgba(0, 0, 0, .15);
+	box-shadow: 0 4px 32px -8px rgba(0, 0, 0, .1);
+
+	.c-boxLink__more__svg {
+		transform: translateX(4px);
+	}
 }
 
 .c-boxLink__figure {
@@ -91,6 +92,7 @@
 	margin: auto 0 0;
 	padding-top: .5rem;
 	font-size: .75rem;
+	line-height: 1;
 	text-align: right;
 }
 
@@ -118,12 +120,13 @@
 
 	.c-boxLink__inner {
 		flex-direction: row;
-		align-items: center;
+		// align-items: center;
+		align-items: stretch;
 	}
 
 	.c-boxLink__figure {
 		flex: 1 0 40%;
-		height: 100%;
+		// height: 100%;
 
 		&.-icon {
 			flex-basis: auto;
