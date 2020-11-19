@@ -18,8 +18,6 @@ register_block_type_from_metadata(
 
 function cb_blog_card( $attrs, $content ) {
 
-	// if ( ! class_exists( 'Arkhe' ) ) return;
-
 	$sc_props     = '';
 	$class_name   = $attrs['className'];
 	$post_id      = $attrs['postId'];
@@ -27,17 +25,17 @@ function cb_blog_card( $attrs, $content ) {
 	$is_newtab    = $attrs['isNewTab'];
 	$external_url = $attrs['externalUrl'];
 	$rel          = $attrs['rel'];
-	// $useCache     = $attrs['useCache'];
+	$use_cache    = $attrs['useCache'];
 
 	$is_external = ! empty( $external_url );
+	$card_data   = [];
 
 	// キャッシュがあるか調べる
-	$useCache  = 1;
-	$card_data = [];
-	$cache_key = '';
-	if ( $useCache ) {
-		$cache_key = $is_external ? 'arkhe_blogcard_' . md5( $external_url ) : 'arkhe_blogcard_' . $post_id;
+	$cache_key = $is_external ? 'arkhe_blogcard_' . md5( $external_url ) : 'arkhe_blogcard_' . $post_id;
+	if ( $use_cache ) {
 		$card_data = get_transient( $cache_key );
+	} else {
+		delete_transient( $cache_key );
 	}
 
 	if ( empty( $card_data ) ) {
@@ -47,7 +45,11 @@ function cb_blog_card( $attrs, $content ) {
 			$card_data = \Arkhe_Blocks\get_internal_blog_card( $post_id );
 		}
 
-		if ( '' !== $cache_key ) {
+		if ( null === $card_data ) {
+			return '';
+		}
+
+		if ( $use_cache ) {
 			$cache_time = apply_filters( 'arkhe_blocks_blogcard_cache_time', DAY_IN_SECONDS * 7 );
 			set_transient( $cache_key, $card_data, $cache_time );
 		}
@@ -79,7 +81,7 @@ function cb_blog_card( $attrs, $content ) {
 function get_internal_blog_card( $post_id ) {
 
 	$post_data = get_post( $post_id );
-	if ( null === $post_data ) return [];
+	if ( null === $post_data ) return null;
 
 	$title   = get_the_title( $post_id );
 	$url     = get_permalink( $post_id );
@@ -121,33 +123,30 @@ function get_internal_blog_card( $post_id ) {
  */
 function get_external_blog_card( $url ) {
 
-	// OpenGraphの読み込み
-	require_once ARKHE_BLOCKS_PATH . 'inc/open_graph.php';
+	// Get_OGP_InWP の読み込み
+	require_once ARKHE_BLOCKS_PATH . 'classes/plugins/get_ogp_inwp.php';
 
-	$ogp = \OpenGraph::fetch( $url );
-	if ( ! $ogp ) return $url;
+	$ogps = \Get_OGP_InWP::get( $url );
+	if ( empty( $ogps ) ) return null;
 
-	$image       = isset( $ogp->image ) ? $ogp->image : '';
-	$title       = isset( $ogp->title ) ? $ogp->title : '';
-	$description = isset( $ogp->description ) ? $ogp->description : '';
-	$site_name   = isset( $ogp->site_name ) ? $ogp->site_name : '';
+	// 必要なデータを抽出
+	$card_data = \Get_OGP_InWP::extract_card_data( $ogps );
 
-	// /favicon.ico
-	// echo '<pre style="margin-left: 100px;">';
-	// var_dump( $ogp );
-	// echo '</pre>';
+	$title       = $card_data['title'];
+	$description = $card_data['description'];
+	$site_name   = $card_data['site_name'];
 
 	/**
 	 * はてなブログの文字化け対策
 	 */
 	$title_decoded = utf8_decode( $title );  // utf8でのデコード
 	if ( mb_detect_encoding( $title_decoded ) === 'UTF-8' ) {
-		$title = $title_decoded; // 文字化け解消
+		$title = $title_decoded;
 
 		$description_decoded = utf8_decode( $description );
 		if ( mb_detect_encoding( $description_decoded ) === 'UTF-8' ) {
 			$description = $description_decoded;
-			}
+		}
 
 		$site_name_decoded = utf8_decode( $site_name );
 		if ( mb_detect_encoding( $site_name_decoded ) === 'UTF-8' ) {
@@ -166,13 +165,12 @@ function get_external_blog_card( $url ) {
 		$site_name = mb_strimwidth( $site_name, 0, 32 ) . '...';
 	}
 
-	$card_data = [
+	return [
 		'url'       => $url,
 		'title'     => $title,
 		'excerpt'   => $description,
-		'thumb_url' => $image,
+		'thumb_url' => $card_data['thumbnail'],
+		'icon'      => $card_data['icon'],
 		'caption'   => $site_name,
 	];
-
-	return $card_data;
 }

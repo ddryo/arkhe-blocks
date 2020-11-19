@@ -57,7 +57,7 @@ registerBlockType(name, {
 			caption,
 			isNewTab,
 			rel,
-			// isCached,
+			useCache,
 		} = attributes;
 
 		// プレビュー中
@@ -153,11 +153,21 @@ registerBlockType(name, {
 								setAttributes({ caption: val });
 							}}
 						/>
+						<ToggleControl
+							label={__('Use the cache', 'arkhe-blocks')}
+							help={__(
+								'If you want to clear the cache, turn it off only once.',
+								'arkhe-blocks'
+							)}
+							checked={useCache}
+							onChange={(val) => {
+								setAttributes({ useCache: val });
+							}}
+						/>
 					</PanelBody>
 					<PanelBody title={__('Link settings', 'arkhe-blocks')} initialOpen={true}>
 						<>
 							<ToggleControl
-								id='loosbtn_is_new_open'
 								label={__('Open in new tab')}
 								help='※ 外部サイトへのリンクでは、「新しいタブで開く」の設定は無視され、強制的にオンになります。'
 								checked={isNewTab}

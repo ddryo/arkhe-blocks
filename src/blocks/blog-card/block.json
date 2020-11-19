@@ -41,6 +41,10 @@
             "type": "string",
             "default": ""
         },
+        "useCache": {
+            "type": "boolean",
+            "default": true
+        },
         "isPreview": {
             "type": "boolean",
             "default": false
