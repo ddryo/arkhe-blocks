@@ -2,25 +2,21 @@
  * @WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { memo, useMemo, useCallback, useState, RawHTML } from '@wordpress/element';
+import {
+	// memo,
+	// useMemo,
+	useCallback,
+	useState,
+	RawHTML,
+} from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 
 import {
-	// BlockControls,
-	// InspectorControls,
-	// MediaReplaceFlow,
 	RichText,
-	InnerBlocks,
-	__experimentalBlock as Block,
+	// InnerBlocks,
+	useBlockProps,
+	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
 } from '@wordpress/block-editor';
-// import {
-// 	ToggleControl,
-// 	RangeControl,
-// 	ToolbarButton,
-// 	ToolbarGroup,
-// 	Popover,
-// } from '@wordpress/components';
-// import { link } from '@wordpress/icons';
 
 /**
  * @Internal dependencies
@@ -30,8 +26,6 @@ import { ArkheIcon } from '@components/ArkheIcon';
 import getResizedImages from '@helper/getResizedImages';
 // import getNewLinkRel from '@helper/getNewLinkRel';
 import ThisControls from './_controls';
-
-// import ImageSizeSelectControl from '@components/ImageSizeSelectControl';
 
 /**
  * @Others dependencies
@@ -259,6 +253,19 @@ export default function (props) {
 		);
 	}
 
+	const blockProps = useBlockProps({
+		className: blockClass,
+	});
+
+	const innerBlocksProps = useInnerBlocksProps(
+		{ className: 'c-boxLink__content ark-keep-mt--s' },
+		{
+			allowedBlocks: ['core/paragraph', 'core/list', 'core/buttons'],
+			template: [['core/paragraph']],
+			templateLock: false,
+		}
+	);
+
 	return (
 		<>
 			<ThisControls
@@ -274,7 +281,7 @@ export default function (props) {
 				useIconHtml={useIconHtml}
 				setUseIconHtml={setUseIconHtml}
 			/>
-			<Block.div className={blockClass}>
+			<div {...blockProps}>
 				<div className='c-boxLink__inner'>
 					{figure}
 					<div className='c-boxLink__body'>
@@ -285,16 +292,7 @@ export default function (props) {
 							value={title}
 							onChange={(newTitle) => setAttributes({ title: newTitle })}
 						/>
-
-						<InnerBlocks
-							allowedBlocks={['core/paragraph', 'core/list', 'core/buttons']}
-							templateLock={false}
-							template={[['core/paragraph']]}
-							__experimentalTagName='div'
-							__experimentalPassedProps={{
-								className: 'c-boxLink__content ark-keep-mt--s',
-							}}
-						/>
+						<div {...innerBlocksProps} />
 						{more && (
 							<div className='c-boxLink__more'>
 								<span className={`c-boxLink__more__text`}>{more}</span>
@@ -314,7 +312,7 @@ export default function (props) {
 						)}
 					</div>
 				</div>
-			</Block.div>
+			</div>
 		</>
 	);
 }

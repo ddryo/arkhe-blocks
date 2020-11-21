@@ -2,20 +2,18 @@
 /**
  * ブログカード
  */
-
-// 初期値とマージ
 $args = array_merge([
-	'url'       => '',
-	'excerpt'   => '',
-	'title'     => '',
-	'caption'   => '',
-	'thumb_id'  => 0,
-	'thumb_url' => '',
-	'icon'      => '',
-	'is_newtab' => false,
-	'rel'       => '',
-	'type'      => '',
-
+	'url'        => '',
+	'excerpt'    => '',
+	'title'      => '',
+	'caption'    => '',
+	'thumb_id'   => 0,
+	'thumb_url'  => '',
+	'icon'       => '',
+	'is_newtab'  => false,
+	'rel'        => '',
+	'type'       => '',
+	'class'      => '',
 ], $args );
 
 $url    = $args['url'];
@@ -27,13 +25,17 @@ if ( $args['thumb_id'] ) {
 	$img_class .= ' wp-image-' . $args['thumb_id'];
 }
 
-$favicon = $args['icon'] ? esc_url( $args['icon'] ) : 'https://www.google.com/s2/favicons?domain_url=' . esc_url( $url );
+$favicon = '';
+if ( 'external' === $args['type'] ) {
+	$favicon = $args['icon'] ? esc_url( $args['icon'] ) : 'https://www.google.com/s2/favicons?domain_url=' . esc_url( $url );
+}
+
+$add_class = $args['class'] ? ' ' . $args['class'] : '';
 
 // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 ?>
-<div class="ark-block-blogCard c-boxLink">
+<div class="ark-block-blogCard c-boxLink<?=esc_attr( $add_class )?>">
 	<a href="<?=esc_url( $url )?>" class="c-boxLink__inner" data-type="<?=$args['type']?>"<?=$target . $rel?>>
-	<!-- <div class="p-blogCard__inner"> -->
 		<?php if ( $args['thumb_url'] ) : ?>
 			<div class="c-boxLink__figure c-postThumb">
 				<figure class="c-postThumb__figure">
@@ -46,14 +48,12 @@ $favicon = $args['icon'] ? esc_url( $args['icon'] ) : 'https://www.google.com/s2
 			<div class="c-boxLink__content"><?=esc_html( $args['excerpt'] )?></div>
 			<?php if ( $args['caption'] ) : ?>
 				<div class="c-boxLink__more">
-					<img class="c-boxLink__favicon" src="<?=$favicon?>" alt="">
+					<?php if ( $favicon ) : ?>
+						<img class="c-boxLink__favicon" src="<?=$favicon?>" alt="" aria-hidden="true">
+					<?php endif; ?>
 					<span class="c-boxLink__caption"><?=esc_html( $args['caption'] )?></span>
 				</div>
 			<?php endif; ?>
-
-				<!-- <span class="c-boxLink__more__text">READ MORE</span> -->
-
 		</div>
-	<!-- </div> -->
 	</a>
 </div>

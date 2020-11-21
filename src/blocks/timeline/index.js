@@ -48,7 +48,7 @@ registerBlockType(name, {
 					<InnerBlocks
 						allowedBlocks={['arkhe-blocks/timeline-item']}
 						templateLock={false}
-						template={[['arkhe-blocks/timeline-item']]}
+						template={[['arkhe-blocks/timeline-item'], ['arkhe-blocks/timeline-item']]}
 						__experimentalTagName='div'
 					/>
 				</Block.div>

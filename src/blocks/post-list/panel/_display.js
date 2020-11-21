@@ -28,6 +28,7 @@ export default function (props) {
 		showModified,
 		showAuthor,
 		showCat,
+		showStickyPosts,
 		order,
 		orderby,
 		hTag,
@@ -57,6 +58,11 @@ export default function (props) {
 			name: 'showAuthor',
 			label: __('Show author', 'arkhe-blocks'),
 			value: showAuthor,
+		},
+		{
+			name: 'showStickyPosts',
+			label: __('Show sticky posts', 'arkhe-blocks'),
+			value: showStickyPosts,
 		},
 	];
 

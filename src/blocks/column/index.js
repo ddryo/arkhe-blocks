@@ -8,8 +8,11 @@ import {
 	InspectorControls,
 	InnerBlocks,
 	BlockVerticalAlignmentToolbar,
-	__experimentalBlock as Block,
+	useBlockProps,
+	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
+	// __experimentalBlock as Block,
 } from '@wordpress/block-editor';
+import { useSelect } from '@wordpress/data';
 import {
 	PanelBody,
 	// Button,
@@ -36,12 +39,13 @@ import classnames from 'classnames';
  * metadata
  */
 const blockName = 'ark-block-column';
-const { name, category, keywords, supports, parent } = metadata;
+const { apiVersion, name, category, keywords, supports, parent } = metadata;
 
 /**
  * リッチカラム-項目
  */
 registerBlockType(name, {
+	apiVersion,
 	title: __('Column item', 'arkhe-blocks'), //'自由項目',
 	icon: {
 		foreground: iconColor,
@@ -53,11 +57,17 @@ registerBlockType(name, {
 	supports,
 	attributes: metadata.attributes,
 	edit: (props) => {
-		const { className, attributes, setAttributes } = props;
+		const { className, attributes, setAttributes, clientId } = props;
 		const { vAlign, widthPC, widthTab, widthMobile } = attributes;
 
 		// 子ブロックの設定
-		const blockClass = classnames(className, blockName, 'arkb-columns__item', 'ark-has-guide');
+		const blockClass = classnames(
+			// className,
+			blockName,
+			'arkb-columns__item',
+			'ark-keep-mt--s',
+			'ark-has-guide'
+		);
 
 		const columnStyle = {};
 		if (widthMobile) {
@@ -69,6 +79,25 @@ registerBlockType(name, {
 		if (widthPC) {
 			columnStyle['--arkb-fb_pc'] = widthPC + '%';
 		}
+
+		const hasChildBlocks = useSelect(
+			(select) => {
+				const { getBlockOrder } = select('core/block-editor');
+				return getBlockOrder(clientId).length > 0;
+			},
+			[clientId]
+		);
+
+		const blockProps = useBlockProps({
+			className: blockClass,
+			'data-valign': vAlign || null,
+			style: columnStyle || null,
+		});
+		// className: `${blockName}__body ark-keep-mt--s`,
+		const innerBlocksProps = useInnerBlocksProps(blockProps, {
+			templateLock: false,
+			renderAppender: hasChildBlocks ? undefined : InnerBlocks.ButtonBlockAppender,
+		});
 
 		return (
 			<>
@@ -111,21 +140,7 @@ registerBlockType(name, {
 						/>
 					</PanelBody>
 				</InspectorControls>
-
-				<Block.div
-					className={blockClass}
-					data-valign={vAlign || null}
-					style={columnStyle || null}
-				>
-					<InnerBlocks
-						templateLock={false}
-						// template={[['arkhe-blocks/column'], ['arkhe-blocks/column']]}
-						__experimentalTagName='div'
-						__experimentalPassedProps={{
-							className: `${blockName}__body ark-keep-mt--s`,
-						}}
-					/>
-				</Block.div>
+				<div {...innerBlocksProps} />
 			</>
 		);
 	},
@@ -145,15 +160,17 @@ registerBlockType(name, {
 			columnStyle['--arkb-fb_pc'] = widthPC + '%';
 		}
 
+		const blockProps = useBlockProps.save({
+			className: `${blockName} arkb-columns__item ark-keep-mt--s`,
+			'data-valign': vAlign || null,
+			style: columnStyle || null,
+		});
+
 		return (
-			<div
-				className={`${blockName} arkb-columns__item`}
-				data-valign={vAlign || null}
-				style={columnStyle || null}
-			>
-				<div className={`${blockName}__body ark-keep-mt--s`}>
-					<InnerBlocks.Content />
-				</div>
+			<div {...blockProps}>
+				{/* <div className={`${blockName}__body ark-keep-mt--s`}> */}
+				<InnerBlocks.Content />
+				{/* </div> */}
 			</div>
 		);
 	},

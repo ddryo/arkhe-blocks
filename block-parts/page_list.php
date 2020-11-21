@@ -47,7 +47,9 @@ if ( $the_query->have_posts() ) :
 		<?php endwhile; ?>
 	</ul>
 <?php else : ?>
-	<?php echo 'Not founrd.'; ?>
+	<p>
+		<?php echo 'Not found.'; ?>
+	</p>
 <?php
 endif;
 

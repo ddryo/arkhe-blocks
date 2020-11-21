@@ -1,4 +1,5 @@
 {
+    "apiVersion": 2,
     "name": "arkhe-blocks/box-links",
     "title": "Box links",
     "category": "arkhe-blocks",
@@ -9,7 +10,6 @@
     "supports": {
         "anchor": true,
         "className": false,
-        "lightBlockWrapper": true,
         "align": [
             "wide"
         ]

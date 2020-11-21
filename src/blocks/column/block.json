@@ -1,4 +1,5 @@
 {
+    "apiVersion": 2,
     "name": "arkhe-blocks/column",
     "title": "Column",
     "category": "arkhe-blocks",
@@ -8,8 +9,7 @@
     ],
     "supports": {
         "anchor": true,
-        "className": false,
-        "lightBlockWrapper": true
+        "className": false
     },
     "parent": [
         "arkhe-blocks/columns"

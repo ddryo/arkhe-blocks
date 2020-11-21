@@ -77,6 +77,7 @@ registerBlockType(name, {
 					</div>
 					<div className={`${blockName}__body`}>
 						<InnerBlocks
+							template={[['core/paragraph']]}
 							__experimentalTagName='div'
 							__experimentalPassedProps={{
 								className: 'ark-keep-mt--s',

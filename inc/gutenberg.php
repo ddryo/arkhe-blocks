@@ -44,16 +44,27 @@ function register_blocks() {
 
 	if ( \Arkhe_Blocks::IS_PRO ) {
 		$arkhe_blocks_pro = [
-			'box-link',
-			'box-links',
-			'column',
-			'columns',
 			'notice',
 			'step',
 			'step-item',
 			'timeline',
 			'timeline-item',
 		];
+
+		global $wp_version;
+		if ( version_compare( $wp_version, '5.6.RC1' ) >= 0 ) {
+			$arkhe_blocks_pro = [
+				'box-link',
+				'box-links',
+				'column',
+				'columns',
+				'notice',
+				'step',
+				'step-item',
+				'timeline',
+				'timeline-item',
+			];
+		}
 
 		$arkhe_blocks = array_merge( $arkhe_blocks, $arkhe_blocks_pro );
 	}

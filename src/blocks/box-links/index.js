@@ -7,7 +7,8 @@ import {
 	// BlockControls,
 	InspectorControls,
 	InnerBlocks,
-	__experimentalBlock as Block,
+	useBlockProps,
+	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
 } from '@wordpress/block-editor';
 
 import { PanelBody, RangeControl } from '@wordpress/components';
@@ -18,7 +19,7 @@ import { PanelBody, RangeControl } from '@wordpress/components';
 import { iconColor } from '@blocks/config';
 import metadata from './block.json';
 import blockIcon from './_icon';
-import example from './_example';
+// import example from './_example';
 
 /**
  * @Others dependencies
@@ -29,7 +30,7 @@ import classnames from 'classnames';
  * metadata
  */
 const blockName = 'ark-block-boxLinks';
-const { name, category, keywords, supports } = metadata;
+const { apiVersion, name, category, keywords, supports } = metadata;
 
 const basisSet = {
 	col1: 100,
@@ -44,6 +45,7 @@ const basisSet = {
  * アコーディオン
  */
 registerBlockType(name, {
+	apiVersion,
 	title: __('Box links', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
@@ -55,15 +57,32 @@ registerBlockType(name, {
 	attributes: metadata.attributes,
 	// example,
 	edit: (props) => {
-		const { className, attributes, setAttributes } = props;
+		const { attributes, setAttributes } = props;
 		const { colPC, colTab, colMobile } = attributes;
-		const blockClass = classnames(className, blockName, 'arkb-columns', 'ark-has-guide');
+		const blockClass = classnames(blockName, 'arkb-columns', 'ark-has-guide');
 
 		const columnStyle = {
 			'--arkb-fb': basisSet[`col${colMobile}`] + '%',
 			'--arkb-fb_tab': basisSet[`col${colTab}`] + '%',
 			'--arkb-fb_pc': basisSet[`col${colPC}`] + '%',
 		};
+
+		const blockProps = useBlockProps({
+			className: blockClass,
+			style: columnStyle || null,
+		});
+
+		// 左右marginの関係でカラムブロックは一つdivかませる
+		const innerBlocksProps = useInnerBlocksProps(
+			{},
+			{
+				allowedBlocks: ['arkhe-blocks/box-link'],
+				template: [['arkhe-blocks/box-link'], ['arkhe-blocks/box-link']],
+				templateLock: false,
+				orientation: 'horizontal',
+				renderAppender: InnerBlocks.ButtonBlockAppender,
+			}
+		);
 
 		return (
 			<>
@@ -98,17 +117,10 @@ registerBlockType(name, {
 						/>
 					</PanelBody>
 				</InspectorControls>
-				<Block.div className={blockClass} style={columnStyle || null}>
-					<InnerBlocks
-						allowedBlocks={['arkhe-blocks/box-link']}
-						templateLock={false}
-						template={[['arkhe-blocks/box-link'], ['arkhe-blocks/box-link']]}
-						__experimentalTagName='div'
-						// __experimentalPassedProps={{
-						// 	className: 'arkb-columns',
-						// }}
-					/>
-				</Block.div>
+				{/* 左右marginの関係でカラムブロックは一つdivかませる */}
+				<div {...blockProps}>
+					<div {...innerBlocksProps} />
+				</div>
 			</>
 		);
 	},
@@ -122,8 +134,13 @@ registerBlockType(name, {
 			'--arkb-fb_pc': basisSet[`col${colPC}`] + '%',
 		};
 
+		const blockProps = useBlockProps.save({
+			className: `${blockName} arkb-columns`,
+			style: columnStyle || null,
+		});
+
 		return (
-			<div className={`${blockName} arkb-columns`} style={columnStyle || null}>
+			<div {...blockProps}>
 				<InnerBlocks.Content />
 			</div>
 		);

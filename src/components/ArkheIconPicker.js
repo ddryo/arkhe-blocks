@@ -45,7 +45,7 @@ const ArkheIconPicker = memo((props) => {
 
 	/* eslint jsx-a11y/anchor-has-content: 0 */
 	const faNote = createInterpolateElement(
-		__('The <a>Font Awesome icon</a> is also available. (Output with svg)'),
+		__('The <a>Font Awesome icon</a> is also available. (Output with svg)', 'arkhe-blocks'),
 		{
 			a: (
 				<a

@@ -50,7 +50,15 @@ function cb_page_list( $attrs, $content ) {
 		\Arkhe::$excerpt_length = $attrs['excerptLength'];
 	}
 
+	// リストを囲むクラス名
+	$list_wrapper_class = 'ark-block-pageList';
+	if ( $attrs['className'] ) {
+		$list_wrapper_class .= ' ' . $attrs['className'];
+	}
+
 	ob_start();
+	echo '<div class="' . esc_attr( $list_wrapper_class ) . '">';
+
 	\Arkhe_Blocks::get_part( 'page_list', [
 		'query_args' => $query_args,
 		'list_args'  => $list_args,

@@ -9,7 +9,8 @@
     ],
     "supports": {
         "anchor": true,
-        "className": false
+        "className": false,
+        "html": false
     },
     "attributes": {
         "className": {
@@ -81,6 +82,10 @@
             "default": false
         },
         "showAuthor": {
+            "type": "boolean",
+            "default": false
+        },
+        "showStickyPosts": {
             "type": "boolean",
             "default": false
         },

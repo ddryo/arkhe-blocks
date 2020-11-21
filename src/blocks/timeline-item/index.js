@@ -62,7 +62,7 @@ registerBlockType(name, {
 							<ArkheIcon icon={icon} className={`${blockName}__icon`} />
 						</span>
 						<RichText
-							placeholder={__('Enter text', 'arkhe-blocks') + '...'}
+							placeholder='2020.01.01'
 							className={`${blockName}__label`}
 							tagName='span'
 							value={label}
@@ -78,6 +78,7 @@ registerBlockType(name, {
 					/>
 					<div className={`${blockName}__body`}>
 						<InnerBlocks
+							template={[['core/paragraph']]}
 							__experimentalTagName='div'
 							__experimentalPassedProps={{
 								className: 'ark-keep-mt--s',

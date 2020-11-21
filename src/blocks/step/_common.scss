@@ -19,6 +19,7 @@
 .ark-block-step__number {
 	display: flex;
 	flex-direction: column;
+	flex-shrink: 0;
 	justify-content: center;
 	box-sizing: content-box;
 	line-height: 1;

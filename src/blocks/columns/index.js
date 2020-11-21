@@ -8,7 +8,8 @@ import {
 	InspectorControls,
 	BlockVerticalAlignmentToolbar,
 	InnerBlocks,
-	__experimentalBlock as Block,
+	useBlockProps,
+	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
 } from '@wordpress/block-editor';
 import { PanelBody, RangeControl } from '@wordpress/components';
 
@@ -30,7 +31,7 @@ import classnames from 'classnames';
  * metadata
  */
 const blockName = 'ark-block-columns';
-const { name, category, keywords, supports } = metadata;
+const { apiVersion, name, category, keywords, supports } = metadata;
 
 const basisSet = {
 	col1: 100,
@@ -45,6 +46,7 @@ const basisSet = {
  * リッチカラム
  */
 registerBlockType(name, {
+	apiVersion,
 	title: __('Rich columns', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
@@ -63,6 +65,8 @@ registerBlockType(name, {
 		const { attributes, setAttributes, className } = props;
 		const { vAlign, colPC, colTab, colMobile } = attributes;
 
+		// console.log(attributes.tagName);
+
 		const blockClass = classnames(className, blockName, 'arkb-columns', 'ark-has-guide');
 
 		const columnStyle = {
@@ -70,6 +74,26 @@ registerBlockType(name, {
 			'--arkb-fb_tab': basisSet[`col${colTab}`] + '%',
 			'--arkb-fb_pc': basisSet[`col${colPC}`] + '%',
 		};
+
+		const blockProps = useBlockProps({
+			className: blockClass,
+			'data-valign': vAlign || null,
+			style: columnStyle,
+		});
+
+		// 左右marginの関係でカラムブロックは一つdivかませる
+		const innerBlocksProps = useInnerBlocksProps(
+			{
+				// className: '',
+			},
+			{
+				allowedBlocks: ['arkhe-blocks/column'],
+				template: [['arkhe-blocks/column'], ['arkhe-blocks/column']],
+				templateLock: false,
+				orientation: 'horizontal',
+				renderAppender: InnerBlocks.ButtonBlockAppender,
+			}
+		);
 
 		return (
 			<>
@@ -112,17 +136,10 @@ registerBlockType(name, {
 						/>
 					</PanelBody>
 				</InspectorControls>
-				<Block.div className={blockClass} data-valign={vAlign || null} style={columnStyle}>
-					<InnerBlocks
-						allowedBlocks={['arkhe-blocks/column']}
-						templateLock={false}
-						template={[['arkhe-blocks/column'], ['arkhe-blocks/column']]}
-						__experimentalTagName='div'
-						// __experimentalPassedProps={{
-						// 	className: 'c-boxLink__content ark-keep-mt--s',
-						// }}
-					/>
-				</Block.div>
+				{/* 左右marginの関係でカラムブロックは一つdivかませる */}
+				<div {...blockProps}>
+					<div {...innerBlocksProps} />
+				</div>
 			</>
 		);
 	},
@@ -135,12 +152,14 @@ registerBlockType(name, {
 			'--arkb-fb_pc': basisSet[`col${colPC}`] + '%',
 		};
 
+		const blockProps = useBlockProps.save({
+			className: `${blockName} arkb-columns`,
+			'data-valign': vAlign || null,
+			style: columnStyle,
+		});
+
 		return (
-			<div
-				className={`${blockName} arkb-columns`}
-				data-valign={vAlign || null}
-				style={columnStyle}
-			>
+			<div {...blockProps}>
 				<InnerBlocks.Content />
 			</div>
 		);

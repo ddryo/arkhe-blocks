@@ -36,15 +36,24 @@ function cb_post_list( $attrs, $content ) {
 
 	// クエリ生成用データ
 	$query_args = [
-		'post_type'      => $attrs['postType'],
-		'order'          => $attrs['order'],
-		'orderby'        => $attrs['orderby'],
-		'posts_per_page' => max( $list_count_pc, $list_count_sp ),
-		'no_found_rows'  => true,
+		'post_type'           => $attrs['postType'],
+		'order'               => $attrs['order'],
+		'orderby'             => $attrs['orderby'],
+		'no_found_rows'       => true,
+		'ignore_sticky_posts' => true,
 	];
 
-	// $more_url  = $attrs['moreUrl'];
-	// $more_text = $attrs['moreText'];
+	// 先頭固定表示
+	if ( $attrs['showStickyPosts'] ) {
+		$query_args['ignore_sticky_posts'] = false;
+
+		$sticky_posts  = get_option( 'sticky_posts' ) ?: [];
+		$sticky_ct     = count( $sticky_posts );
+		$list_count_pc = $list_count_pc - $sticky_ct;
+		$list_count_sp = $list_count_sp - $sticky_ct;
+	}
+
+	$query_args['posts_per_page'] = max( $list_count_pc, $list_count_sp );
 
 	if ( $attrs['postID'] ) {
 
@@ -139,20 +148,6 @@ function cb_post_list( $attrs, $content ) {
 		'query_args' => $query_args,
 		'list_args'  => $list_args,
 	] );
-
-	// MOREボタン (テキストがあれば表示)
-	// if ( '' !== $more_text && '' !== $more_url ) {
-
-	// 	// 相対URLの時
-	// 	if ( strpos( $more_url, '://' ) === false ) {
-	// 		$more_url = home_url( $more_url );
-	// 	}
-
-	// 	echo '<div class="is-style-more_btn">' .
-	// 		'<a href="' . esc_url( $more_url ) . '" class="btn_text">' . esc_html( $more_text ) . '</a>' .
-	// 	'</div>';
-	// }
-
 	echo '</div>';
 	return ob_get_clean();
 }

@@ -2,27 +2,16 @@
 [data-type="arkhe-block/blog-card"] {
 	padding: 16px;
 
-	// &.is-selected:not(:focus)::after {
-	// 	border: dashed 1px $color_guide !important;
-	// }
-
-	// .swell-components-tab {
-	// 	margin-top: 1em;
-	// }
-	// .swell-components-tab {
-
-	// 	.components-button {
-	// 		padding: 0 8px;
-	// 	}
-	// }
-
 	.p-blogCard {
 		color: inherit;
 		text-decoration: none;
 	}
 
 }
-// プレビュー
+
+
+
+// プレビューエリア
 .ark-block-blogCard__preview {
 	margin: 0 0;
 
@@ -40,6 +29,11 @@
 	padding: 16px;
 	font-size: 14px;
 	border: dashed 1px $color_guide;
+}
+
+// コントロールエリア
+.ark-block-blogCard__controls {
+	margin-top: 1rem;
 }
 
 .ark-block-blogCard__inputWrapper {

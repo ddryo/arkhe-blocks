@@ -1,4 +1,5 @@
 {
+    "apiVersion": 2,
     "name": "arkhe-blocks/blog-card",
     "title": "Blog card",
     "category": "arkhe-blocks",
@@ -22,8 +23,8 @@
             "default": ""
         },
         "postId": {
-            "type": "number",
-            "default": 0
+            "type": "string",
+            "default": ""
         },
         "caption": {
             "type": "string",

@@ -19,7 +19,6 @@ register_block_type_from_metadata(
 function cb_blog_card( $attrs, $content ) {
 
 	$sc_props     = '';
-	$class_name   = $attrs['className'];
 	$post_id      = $attrs['postId'];
 	$caption      = $attrs['caption'];
 	$is_newtab    = $attrs['isNewTab'];
@@ -33,7 +32,7 @@ function cb_blog_card( $attrs, $content ) {
 	// キャッシュがあるか調べる
 	$cache_key = $is_external ? 'arkhe_blogcard_' . md5( $external_url ) : 'arkhe_blogcard_' . $post_id;
 	if ( $use_cache ) {
-		$card_data = get_transient( $cache_key );
+		$card_data = get_transient( $cache_key ) ?: [];
 	} else {
 		delete_transient( $cache_key );
 	}
@@ -58,6 +57,7 @@ function cb_blog_card( $attrs, $content ) {
 	$card_data['is_newtab'] = $is_newtab;
 	$card_data['rel']       = $rel;
 	$card_data['type']      = $is_external ? 'external' : 'internal';
+	$card_data['class']     = $attrs['className'];
 
 	// キャプションの設定があれば
 	if ( $caption ) {
@@ -65,11 +65,7 @@ function cb_blog_card( $attrs, $content ) {
 	}
 
 	ob_start();
-
-	echo '<div class="ark-block-blogCard ' . esc_attr( $class_name ) . '">';
 	\Arkhe_Blocks::get_part( 'blog_card', $card_data );
-	echo '</div>';
-
 	return ob_get_clean();
 }
 
@@ -81,12 +77,11 @@ function cb_blog_card( $attrs, $content ) {
 function get_internal_blog_card( $post_id ) {
 
 	$post_data = get_post( $post_id );
-	if ( null === $post_data ) return null;
+	if ( null === $post_data ) return [];
 
 	$title   = get_the_title( $post_id );
 	$url     = get_permalink( $post_id );
 	$excerpt = apply_filters( 'get_the_excerpt', $post_data->post_excerpt, $post_data );
-	// $excerpt   = SWELL_PARTS::post_excerpt( $post_data, 80 );
 
 	// タイトルは最大100文字までに制限
 	if ( mb_strwidth( $title, 'UTF-8' ) > 100 ) {
@@ -127,7 +122,7 @@ function get_external_blog_card( $url ) {
 	require_once ARKHE_BLOCKS_PATH . 'classes/plugins/get_ogp_inwp.php';
 
 	$ogps = \Get_OGP_InWP::get( $url );
-	if ( empty( $ogps ) ) return null;
+	if ( empty( $ogps ) ) return [];
 
 	// 必要なデータを抽出
 	$card_data = \Get_OGP_InWP::extract_card_data( $ogps );

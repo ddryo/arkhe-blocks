@@ -33,12 +33,8 @@ import {
 /**
  * @Internal dependencies
  */
-// import { ArkheSVG } from '@components/ArkheSVG';
 import ArkheIconPicker from '@components/ArkheIconPicker';
-// import getResizedImages from '@helper/getResizedImages';
 import getNewLinkRel from '@helper/getNewLinkRel';
-
-// import ImageSizeSelectControl from '@components/ImageSizeSelectControl';
 
 /**
  * @Others dependencies

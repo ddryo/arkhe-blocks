@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 import { registerBlockType } from '@wordpress/blocks';
-import { URLInput, InspectorControls } from '@wordpress/block-editor';
+import { URLInput, InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { PanelBody, ToggleControl, TextControl } from '@wordpress/components';
 // import { PanelBody, ToggleControl, TextControl } from '@wordpress/components';
 import ServerSideRender from '@wordpress/server-side-render';
@@ -24,20 +24,21 @@ import getNewLinkRel from '@helper/getNewLinkRel';
 /**
  * @Others dependencies
  */
-import classnames from 'classnames';
+// import classnames from 'classnames';
 
 /**
  * metadata
  */
 const blockName = 'ark-block-blogCard';
-const { name, category, keywords, supports } = metadata;
+const { apiVersion, name, category, keywords, supports } = metadata;
 
 /**
  * 関連記事ブロック
  */
 registerBlockType(name, {
-	title: __('関連記事', 'arkhe-blocks'),
-	description: __('関連記事をブログカード型で表示します。', 'arkhe-blocks'),
+	apiVersion,
+	title: __('Blog card', 'arkhe-blocks'),
+	description: __('Create a card-type link for related articles.', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
 		src: 'admin-links',
@@ -48,7 +49,7 @@ registerBlockType(name, {
 	example,
 	attributes: metadata.attributes,
 	edit: (props) => {
-		const { attributes, className, setAttributes, isSelected } = props;
+		const { attributes, setAttributes, isSelected } = props;
 		const {
 			isPreview,
 			postId,
@@ -71,9 +72,9 @@ registerBlockType(name, {
 		// const blockEdit = ();
 
 		const inputArea = isSelected ? (
-			<>
+			<div className={`${blockName}__controls`}>
 				<ToggleControl
-					label={__('外部リンクを利用する', 'arkhe-blocks')}
+					label={__('Link to an external site', 'arkhe-blocks')}
 					checked={isExternal}
 					onChange={(val) => {
 						setIsExternal(val);
@@ -84,7 +85,7 @@ registerBlockType(name, {
 						<div className='__internalArea'>
 							<TextControl
 								className='__idInput'
-								placeholder={__('投稿ID', 'arkhe-blocks')}
+								placeholder={__('Post ID', 'arkhe-blocks')}
 								type='number'
 								value={postId}
 								onChange={(newID) => {
@@ -99,21 +100,23 @@ registerBlockType(name, {
 								className='__urlInput'
 								// autoFocus={isSelected}
 								hasBorder
-								placeholder={__('タイトルを入力して記事を検索', 'arkhe-blocks')}
+								placeholder={__(
+									'Enter a title to search for articles',
+									'arkhe-blocks'
+								)}
 								disableSuggestions={!isSelected}
 								onChange={(url, post) => {
-									// console.log(url, post);
 									if (!post) {
 										setAttributes({
 											postTitle: url,
-											postId: 0,
+											postId: '',
 											externalUrl: '',
 										});
 									} else if (post.id) {
 										let newPostTitle = post.title || url;
 										newPostTitle = newPostTitle.replace('&#8211;', '-');
 										setAttributes({
-											postId: post.id,
+											postId: post.id + '',
 											externalUrl: '',
 											postTitle: newPostTitle,
 										});
@@ -126,12 +129,12 @@ registerBlockType(name, {
 						<div className='__externalArea'>
 							<TextControl
 								className='__externalInput'
-								placeholder={__('URLを直接入力してください。', 'arkhe-blocks')}
+								placeholder={__('Enter the URL.', 'arkhe-blocks')}
 								value={externalUrl}
 								onChange={(val) => {
 									setAttributes({
 										externalUrl: val,
-										postId: 0,
+										postId: '',
 										postTitle: '',
 									});
 								}}
@@ -139,15 +142,19 @@ registerBlockType(name, {
 						</div>
 					)}
 				</div>
-			</>
+			</div>
 		) : null;
+
+		const blockProps = useBlockProps({
+			className: blockName,
+		});
 
 		return (
 			<>
 				<InspectorControls>
 					<PanelBody title={__('Settings', 'arkhe-blocks')} initialOpen={true}>
 						<TextControl
-							label={__('キャプション', 'arkhe-blocks')}
+							label={__('Caption at the bottom right of the card', 'arkhe-blocks')}
 							value={caption}
 							onChange={(val) => {
 								setAttributes({ caption: val });
@@ -169,12 +176,9 @@ registerBlockType(name, {
 						<>
 							<ToggleControl
 								label={__('Open in new tab')}
-								help='※ 外部サイトへのリンクでは、「新しいタブで開く」の設定は無視され、強制的にオンになります。'
 								checked={isNewTab}
-								// className={externalUrl ? '-is-external' : null}
 								onChange={(value) => {
 									const newRel = getNewLinkRel(value, rel);
-									// const newRel = setBlankRel(value, rel);
 									setAttributes({
 										isNewTab: value,
 										rel: newRel,
@@ -191,15 +195,15 @@ registerBlockType(name, {
 						</>
 					</PanelBody>
 				</InspectorControls>
-				<div className={classnames(blockName, className)}>
+				<div {...blockProps}>
 					<div className={`${blockName}__preview`}>
 						{postId || externalUrl ? (
 							<ServerSideRender block={name} attributes={attributes} />
 						) : (
 							<div className={`${blockName}__none`}>
 								{!isExternal
-									? '※ ページを指定してください。'
-									: '※ URLを入力してください。'}
+									? `※ ${__('Specify the page.', 'arkhe-blocks')}`
+									: `※ ${__('Enter the URL.', 'arkhe-blocks')}`}
 							</div>
 						)}
 					</div>

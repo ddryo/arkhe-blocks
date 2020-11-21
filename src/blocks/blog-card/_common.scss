@@ -8,8 +8,6 @@
 	--ark-thumb_ratio: 61.8%;
 	// }
 
-
-
 	&.c-boxLink {
 		box-shadow: var(--arkb-shadow--s);
 	}
@@ -27,10 +25,10 @@
 		flex-basis: 25%;
 		align-self: center;
 		max-width: 200px;
+		margin-right: 1rem;
 	}
 
 	.c-boxLink__body {
-		margin-left: 1rem;
 		padding: 0;
 	}
 
