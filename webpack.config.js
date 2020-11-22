@@ -10,7 +10,7 @@ const blocks = [
 	// 'accordion',
 	// 'accordion-item',
 	// 'box-link',
-	// 'box-links',
+	'box-links',
 	'blog-card',
 	// 'column',
 	// 'columns',
@@ -26,7 +26,7 @@ const blocks = [
 	// 'timeline',
 	// 'timeline-item',
 	// 'page-list',
-	'post-list',
+	// 'post-list',
 	// 'rss',
 	//
 	// 'button',

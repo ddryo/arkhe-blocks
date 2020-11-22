@@ -6,7 +6,6 @@ import { useState } from '@wordpress/element';
 import { registerBlockType } from '@wordpress/blocks';
 import { URLInput, InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { PanelBody, ToggleControl, TextControl } from '@wordpress/components';
-// import { PanelBody, ToggleControl, TextControl } from '@wordpress/components';
 import ServerSideRender from '@wordpress/server-side-render';
 
 /**
@@ -14,11 +13,9 @@ import ServerSideRender from '@wordpress/server-side-render';
  */
 import { iconColor } from '@blocks/config';
 import metadata from './block.json';
-// import blockIcon from './_icon';
+import blockIcon from './_icon';
 import example from './_example';
 import exampleHtml from './_exampleHtml';
-// import SwellTab from '@swell-guten/components/swell-tab.js';
-// import BlockControl from './_panels';
 import getNewLinkRel from '@helper/getNewLinkRel';
 
 /**
@@ -41,7 +38,7 @@ registerBlockType(name, {
 	description: __('Create a card-type link for related articles.', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
-		src: 'admin-links',
+		src: blockIcon,
 	},
 	category,
 	keywords,
@@ -196,17 +193,19 @@ registerBlockType(name, {
 					</PanelBody>
 				</InspectorControls>
 				<div {...blockProps}>
-					<div className={`${blockName}__preview`}>
-						{postId || externalUrl ? (
-							<ServerSideRender block={name} attributes={attributes} />
-						) : (
-							<div className={`${blockName}__none`}>
-								{!isExternal
-									? `※ ${__('Specify the page.', 'arkhe-blocks')}`
-									: `※ ${__('Enter the URL.', 'arkhe-blocks')}`}
-							</div>
-						)}
-					</div>
+					{postId || externalUrl ? (
+						<ServerSideRender
+							block={name}
+							attributes={attributes}
+							className={`${blockName}__preview`}
+						/>
+					) : (
+						<div className={`${blockName}__preview -none`}>
+							{!isExternal
+								? `※ ${__('Specify the page.', 'arkhe-blocks')}`
+								: `※ ${__('Enter the URL.', 'arkhe-blocks')}`}
+						</div>
+					)}
 					{inputArea}
 				</div>
 			</>

@@ -19,7 +19,7 @@ import { PanelBody, RangeControl } from '@wordpress/components';
 import { iconColor } from '@blocks/config';
 import metadata from './block.json';
 import blockIcon from './_icon';
-// import example from './_example';
+import example from './_example';
 
 /**
  * @Others dependencies
@@ -55,7 +55,7 @@ registerBlockType(name, {
 	keywords,
 	supports,
 	attributes: metadata.attributes,
-	// example,
+	example,
 	edit: (props) => {
 		const { attributes, setAttributes } = props;
 		const { colPC, colTab, colMobile } = attributes;

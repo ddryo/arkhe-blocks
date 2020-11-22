@@ -23,13 +23,14 @@
 	.p-blogCard {
 		margin: 0 0;
 	}
+
+	&.-none {
+		padding: 16px;
+		font-size: 14px;
+		border: dashed 1px $color_guide;
+	}
 }
 
-.ark-block-blogCard__none {
-	padding: 16px;
-	font-size: 14px;
-	border: dashed 1px $color_guide;
-}
 
 // コントロールエリア
 .ark-block-blogCard__controls {
