@@ -1,0 +1,9 @@
+Here is the license for the svg icons loaded in this plugin.
+
+Copyright 2020, LOOS,Inc.
+
+Licensed under the GPL License, Version 3.0.
+See: http://www.gnu.org/licenses/gpl-3.0.html
+
+Some SVGs use icon data from the "IcoMoon-Free" package.
+See: https://icomoon.io/#icons-icomoon

@@ -79,6 +79,12 @@ function get_internal_blog_card( $post_id ) {
 	$post_data = get_post( $post_id );
 	if ( null === $post_data ) return [];
 
+	// 抜粋分の文字数セット
+	$excerpt_length = apply_filters( 'arkhe_blocks_blogcard_excerpt_lengtg', 140 );
+	if ( IS_ARKHE_THEME ) {
+		\Arkhe::$excerpt_length = $excerpt_length;
+	}
+
 	$title   = get_the_title( $post_id );
 	$url     = get_permalink( $post_id );
 	$excerpt = apply_filters( 'get_the_excerpt', $post_data->post_excerpt, $post_data );
@@ -88,9 +94,15 @@ function get_internal_blog_card( $post_id ) {
 		$title = mb_strimwidth( $title, 0, 100, '...', 'UTF-8' );
 	}
 
-	// 抜粋文は160文字までに制限
-	if ( mb_strwidth( $excerpt, 'UTF-8' ) > 160 ) {
-		$excerpt = mb_strimwidth( $excerpt, 0, 160 ) . '...';
+	if ( IS_ARKHE_THEME ) {
+
+		// リセット
+		\Arkhe::$excerpt_length = ARKHE_EXCERPT_LENGTH;
+
+	} elseif ( mb_strwidth( $excerpt, 'UTF-8' ) > $excerpt_length ) {
+
+		// 抜粋文の文字数制御
+		$excerpt = mb_strimwidth( $excerpt, 0, $excerpt_length ) . '...';
 	}
 
 	$card_data = [
@@ -153,11 +165,12 @@ function get_external_blog_card( $url ) {
 	if ( mb_strwidth( $title, 'UTF-8' ) > 100 ) {
 		$title = mb_strimwidth( $title, 0, 100 ) . '...';
 	}
-	if ( mb_strwidth( $description, 'UTF-8' ) > 160 ) {
-		$description = mb_strimwidth( $description, 0, 160 ) . '...';
-	}
 	if ( mb_strwidth( $site_name, 'UTF-8' ) > 32 ) {
 		$site_name = mb_strimwidth( $site_name, 0, 32 ) . '...';
+	}
+	$excerpt_length = apply_filters( 'arkhe_blocks_blogcard_excerpt_lengtg', 140 );
+	if ( mb_strwidth( $description, 'UTF-8' ) > $excerpt_length ) {
+		$description = mb_strimwidth( $description, 0, $excerpt_length ) . '...';
 	}
 
 	return [

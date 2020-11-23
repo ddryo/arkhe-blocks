@@ -47,7 +47,7 @@ const basisSet = {
  */
 registerBlockType(name, {
 	apiVersion,
-	title: __('Rich columns', 'arkhe-blocks'),
+	title: __('Rich columns', 'arkhe-blocks') + '(β)',
 	icon: {
 		foreground: iconColor,
 		src: blockIcon,
@@ -77,8 +77,11 @@ registerBlockType(name, {
 
 		const blockProps = useBlockProps({
 			className: blockClass,
-			'data-valign': vAlign || null,
 			style: columnStyle,
+			'data-valign': vAlign || null,
+			'data-col': colMobile,
+			'data-col-tab': colTab,
+			'data-col-pc': colPC,
 		});
 
 		// 左右marginの関係でカラムブロックは一つdivかませる
@@ -154,8 +157,11 @@ registerBlockType(name, {
 
 		const blockProps = useBlockProps.save({
 			className: `${blockName} arkb-columns`,
-			'data-valign': vAlign || null,
 			style: columnStyle,
+			'data-valign': vAlign || null,
+			'data-col': colMobile,
+			'data-col-tab': colTab,
+			'data-col-pc': colPC,
 		});
 
 		return (

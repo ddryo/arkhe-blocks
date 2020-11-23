@@ -13,22 +13,19 @@ import {
 } from '@wordpress/block-editor';
 import {
 	PanelBody,
-	IconButton,
-	Toolbar,
 	SelectControl,
 	TextControl,
 	BaseControl,
-	// RadioControl,
 	ButtonGroup,
 	Button,
 	ToggleControl,
 	RangeControl,
 	ToolbarButton,
-	// ToolbarGroup,
+	ToolbarGroup,
 	TextareaControl,
 	Popover,
 } from '@wordpress/components';
-// import { link } from '@wordpress/icons';
+import { Icon, alignCenter, link } from '@wordpress/icons';
 
 /**
  * @Internal dependencies
@@ -163,63 +160,29 @@ export default memo((props) => {
 	return (
 		<>
 			<BlockControls>
-				<Toolbar>
-					<IconButton
+				<ToolbarGroup>
+					<ToolbarButton
 						className={classnames('components-toolbar__control', {
 							'is-pressed': 'center' === align,
 						})}
 						label={__('Center the text', 'arkhe-blocks')}
-						icon={
-							<svg
-								width='24'
-								height='24'
-								xmlns='http://www.w3.org/2000/svg'
-								viewBox='0 0 24 24'
-								role='img'
-								aria-hidden='true'
-								focusable='false'
-							>
-								<path d='M16.4 4.2H7.6v1.5h8.9V4.2zM4 11.2v1.5h16v-1.5H4zm3.6 8.6h8.9v-1.5H7.6v1.5z'></path>
-							</svg>
-						}
+						icon={<Icon icon={alignCenter} />}
 						onClick={() => {
 							const newAlign = 'center' !== align ? 'center' : undefined;
 							setAttributes({ align: newAlign });
 						}}
 					/>
-				</Toolbar>
-				{!!imgUrl && (
-					<>
-						<MediaReplaceFlow
-							mediaId={imgId}
-							mediaURL={imgUrl}
-							allowedTypes={['image']}
-							accept='image/*'
-							onSelect={onSelectImage}
-							onSelectURL={onSelectURL}
-						/>
-						<Toolbar>
-							<IconButton
-								className='components-toolbar__control'
-								label={__('Delete image', 'arkhe-blocks')}
-								icon='no-alt'
-								onClick={onRemoveImage}
-							/>
-						</Toolbar>
-					</>
-				)}
-
-				<Toolbar>
+				</ToolbarGroup>
+				<ToolbarGroup>
 					<ToolbarButton
 						name='link'
-						icon='admin-links'
-						// icon={link}
+						icon={<Icon icon={link} />}
 						title={__('Link')}
 						onClick={() => {
 							setIsURLPickerOpen(true);
 						}}
 					/>
-				</Toolbar>
+				</ToolbarGroup>
 				{/* リンク設定用のポップオーバー */}
 				{isURLPickerOpen && (
 					<Popover position='bottom center' onClose={() => setIsURLPickerOpen(false)}>
@@ -239,6 +202,27 @@ export default memo((props) => {
 							}}
 						/>
 					</Popover>
+				)}
+				{!!imgUrl && (
+					<>
+						<MediaReplaceFlow
+							mediaId={imgId}
+							mediaURL={imgUrl}
+							allowedTypes={['image']}
+							accept='image/*'
+							onSelect={onSelectImage}
+							onSelectURL={onSelectURL}
+						/>
+						<ToolbarGroup>
+							<ToolbarButton
+								className='components-toolbar__control'
+								label={__('Delete image', 'arkhe-blocks')}
+								icon='no-alt'
+								// icon={<Icon icon={cancelCircleFilled} />}
+								onClick={onRemoveImage}
+							/>
+						</ToolbarGroup>
+					</>
 				)}
 			</BlockControls>
 

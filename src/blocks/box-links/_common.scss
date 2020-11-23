@@ -47,23 +47,21 @@ a.c-boxLink__inner:hover {
 		align-items: center;
 		justify-content: center;
 		padding: 2rem 2rem 0;
+
+		svg {
+			display: block;
+			width: var(--arkb-boxlink_icon_size, 80px);
+			height: var(--arkb-boxlink_icon_size, 80px);
+			fill: currentColor;
+		}
+
+		i {
+			display: block;
+			font-size: var(--arkb-boxlink_icon_size, 80px);
+		}
 	}
 
-	svg {
-		display: block;
-		width: var(--arkb-boxlink_icon_size, 80px);
-		height: var(--arkb-boxlink_icon_size, 80px);
-		// font-size: var(--arkb-boxlink_icon_size, 80px);
-		fill: currentColor;
-	}
 
-	i {
-		display: block;
-		// width: var(--arkb-boxlink_icon_size, 80px);
-		// height: var(--arkb-boxlink_icon_size, 80px);
-		font-size: var(--arkb-boxlink_icon_size, 80px);
-		// fill: currentColor;
-	}
 }
 
 .c-boxLink__img {

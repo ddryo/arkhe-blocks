@@ -2,8 +2,15 @@
  * @WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { memo, useMemo } from '@wordpress/element';
-import { MediaPlaceholder, BlockControls, MediaReplaceFlow } from '@wordpress/block-editor';
+import { memo } from '@wordpress/element';
+import {
+	MediaPlaceholder,
+	// BlockIcon,
+	// BlockControls,
+	// MediaReplaceFlow,
+} from '@wordpress/block-editor';
+import { Icon, image } from '@wordpress/icons';
+
 /**
  * @Internal dependencies
  */
@@ -11,7 +18,7 @@ import { MediaPlaceholder, BlockControls, MediaReplaceFlow } from '@wordpress/bl
 /**
  * @Others dependencies
  */
-import classnames from 'classnames';
+// import classnames from 'classnames';
 
 export const Figure = memo((props) => {
 	const {
@@ -40,8 +47,8 @@ export const Figure = memo((props) => {
 
 		return (
 			<MediaPlaceholder
-				icon='format-image'
-				// labels='label?'
+				className={figureClass}
+				icon={<Icon icon={image} />}
 				onSelect={onSelect}
 				onSelectURL={onSelectURL}
 				accept={accept}

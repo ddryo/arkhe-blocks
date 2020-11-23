@@ -57,12 +57,11 @@ registerBlockType(name, {
 	supports,
 	attributes: metadata.attributes,
 	edit: (props) => {
-		const { className, attributes, setAttributes, clientId } = props;
+		const { attributes, setAttributes, clientId } = props;
 		const { vAlign, widthPC, widthTab, widthMobile } = attributes;
 
 		// 子ブロックの設定
 		const blockClass = classnames(
-			// className,
 			blockName,
 			'arkb-columns__item',
 			'ark-keep-mt--s',
@@ -145,8 +144,6 @@ registerBlockType(name, {
 		);
 	},
 	save: ({ attributes }) => {
-		// const blockClass = classnames(`${blockName}`);
-
 		const { vAlign, widthPC, widthTab, widthMobile } = attributes;
 
 		const columnStyle = {};
@@ -168,9 +165,7 @@ registerBlockType(name, {
 
 		return (
 			<div {...blockProps}>
-				{/* <div className={`${blockName}__body ark-keep-mt--s`}> */}
 				<InnerBlocks.Content />
-				{/* </div> */}
 			</div>
 		);
 	},

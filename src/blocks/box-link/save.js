@@ -115,10 +115,11 @@ export default function ({ attributes }) {
 	const blockProps = useBlockProps.save({
 		className: blockClass,
 	});
+	const InnerTag = !!href ? 'a' : 'div';
 
 	return (
 		<div {...blockProps}>
-			<a
+			<InnerTag
 				href={href}
 				className='c-boxLink__inner'
 				rel={rel}
@@ -157,7 +158,7 @@ export default function ({ attributes }) {
 						</div>
 					)}
 				</div>
-			</a>
+			</InnerTag>
 		</div>
 	);
 }

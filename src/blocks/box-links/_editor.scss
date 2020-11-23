@@ -1,2 +1,15 @@
-// [data-type="arkhe-blocks/box-links"] {}
+[data-type="arkhe-blocks/box-links"] {
+
+	.components-placeholder.c-boxLink__bg {
+
+		&::after {
+			content: none;
+		}
+
+		& ~ .c-boxLink__body,
+		& ~ .c-boxLink__figure {
+			background: #555;
+		}
+	}
+}
 

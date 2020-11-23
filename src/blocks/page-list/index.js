@@ -95,7 +95,7 @@ const orderOptions = [
  */
 registerBlockType(name, {
 	apiVersion,
-	title: __('Page list', 'arkhe-blocks'),
+	title: __('Page list', 'arkhe-blocks') + '(β)',
 	description: __('Create a page list with the specified conditions.', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,

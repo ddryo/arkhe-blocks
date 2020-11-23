@@ -12,6 +12,9 @@ add_filter( 'block_categories', '\Arkhe_Blocks\add_block_categories', 5 );
  */
 function register_blocks() {
 
+	global $wp_version;
+	$is_wp56 = ( version_compare( $wp_version, '5.6.RC1' ) >= 0 );
+
 	// 翻訳登録用の空ファイル
 	wp_enqueue_script(
 		'arkhe-blocks-lang',
@@ -44,26 +47,19 @@ function register_blocks() {
 
 	if ( \Arkhe_Blocks::IS_PRO ) {
 		$arkhe_blocks_pro = [
-			'notice',
+			'notice', // freeへ？
 			'step',
 			'step-item',
 			'timeline',
 			'timeline-item',
 		];
 
-		global $wp_version;
-		if ( version_compare( $wp_version, '5.6.RC1' ) >= 0 ) {
-			$arkhe_blocks_pro = [
-				'box-link',
-				'box-links',
-				'column',
-				'columns',
-				'notice',
-				'step',
-				'step-item',
-				'timeline',
-				'timeline-item',
-			];
+		if ( $is_wp56 ) {
+			// apiv2 の β版
+			// $arkhe_blocks_pro[] = 'box-link';
+			// $arkhe_blocks_pro[] = 'box-links';
+			// $arkhe_blocks_pro[] = 'column';
+			// $arkhe_blocks_pro[] = 'columns';
 		}
 
 		$arkhe_blocks = array_merge( $arkhe_blocks, $arkhe_blocks_pro );
@@ -80,7 +76,9 @@ function register_blocks() {
 	// ダイナミックブロックの読み込み
 	$dynamic_blocks = [];
 
-	$dynamic_blocks[] = 'blog-card';
+	if ( $is_wp56 ) {
+		$dynamic_blocks[] = 'blog-card';
+	}
 
 	if ( IS_ARKHE_THEME ) {
 		$dynamic_blocks[] = 'page-list';

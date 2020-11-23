@@ -23,6 +23,7 @@
         "@fortawesome/fontawesome-svg-core": "^1.2.32",
         "@fortawesome/free-solid-svg-icons": "^5.15.1",
         "@fortawesome/react-fontawesome": "^0.1.11",
+        "@wordpress/icons": "^2.8.0",
         "@wordpress/scripts": "^12.5.0",
         "classnames": "^2.2.6",
         "glob": "^7.1.6",

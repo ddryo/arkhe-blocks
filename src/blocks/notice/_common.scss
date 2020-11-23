@@ -102,9 +102,9 @@
 		padding: 0;
 		background: #fff;
 		border: none;
-		border-top: solid 2px var(--arkb-notice_icon);
+		border: solid 1px var(--arkb-notice_icon);
 		// box-shadow: 0 0 20px -4px rgba(0, 0, 0, .1);
-		box-shadow: var(--arkb-shadow--s);
+		box-shadow: var(--arkb-shadow);
 
 		.ark-block-notice__icon {
 			margin-right: .25em;
@@ -116,7 +116,8 @@
 
 	& > .ark-block-notice__head {
 		position: relative;
-		top: -2px;
+		top: -1px;
+		left: -1px;
 		width: max-content;
 		padding: 6px .5em;
 		color: #fff;

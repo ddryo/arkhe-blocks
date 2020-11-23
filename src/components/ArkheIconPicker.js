@@ -17,7 +17,7 @@ const ArkheIconPicker = memo((props) => {
 	const { icon, setIcon } = props;
 
 	// アイコンリスト
-	let icons = [
+	const icons = [
 		'arkb-svg-point',
 		'arkb-svg-alert',
 		'arkb-svg-warning',
@@ -28,20 +28,29 @@ const ArkheIconPicker = memo((props) => {
 		'arkb-svg-cart',
 		'arkb-svg-thumb_down',
 		'arkb-svg-thumb_up',
-		// 'arkb-svg-plus',
-		// 'arkb-svg-minus',
+		'arkb-svg-comment',
+		'arkb-svg-home',
+		'arkb-svg-person',
+		'arkb-svg-star',
+		'arkb-svg-heart',
+		'arkb-svg-cog',
+		'arkb-svg-quill',
+		'arkb-svg-link',
+		'arkb-svg-blocked',
+		'arkb-svg-batsu',
+		// 'arkb-svg-image',
 	];
 
-	if (window.arkheTheme) {
-		icons = icons.concat([
-			'arkhe-icon-comment',
-			'arkhe-icon-posted',
-			'arkhe-icon-tag',
-			'arkhe-icon-folder',
-			'arkhe-icon-home',
-			'arkhe-icon-link',
-		]);
-	}
+	// if (window.arkheTheme) {
+	// 	icons = icons.concat([
+	// 		'arkhe-icon-comment',
+	// 		'arkhe-icon-posted',
+	// 		'arkhe-icon-tag',
+	// 		'arkhe-icon-folder',
+	// 		'arkhe-icon-home',
+	// 		'arkhe-icon-link',
+	// 	]);
+	// }
 
 	/* eslint jsx-a11y/anchor-has-content: 0 */
 	const faNote = createInterpolateElement(
@@ -77,14 +86,14 @@ const ArkheIconPicker = memo((props) => {
 						);
 					})}
 				</ButtonGroup>
-				{!window.arkheTheme && (
+				{/* {!window.arkheTheme && (
 					<div className='ark-blocks-help'>
 						{__(
 							'If you use "Arkhe", you will be able to select the icons provided in the theme itself.',
 							'arkhe-blocks'
 						)}
 					</div>
-				)}
+				)} */}
 			</BaseControl>
 			<TextControl
 				label={__('Icon', 'arkhe-blocks')}
