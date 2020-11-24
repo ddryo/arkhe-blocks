@@ -1,4 +1,5 @@
 {
+    "apiVersion": 2,
     "name": "arkhe-blocks/accordion",
     "title": "Accordion",
     "category": "arkhe-blocks",
@@ -11,16 +12,7 @@
         "className": false,
         "lightBlockWrapper": true
     },
-    "attributes": {
-        "iconOpened": {
-            "type": "string",
-            "default": "arrow_drop_up"
-        },
-        "iconClosed": {
-            "type": "string",
-            "default": "arrow_drop_down"
-        }
-    },
+    "attributes": {},
     "editorScript": "file:../../../dist/blocks/accordion/index.js",
     "textdomain": "arkhe-blocks"
 }

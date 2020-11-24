@@ -1,4 +1,5 @@
 {
+    "apiVersion": 2,
     "name": "arkhe-blocks/accordion-item",
     "title": "Accordion Item",
     "category": "arkhe-blocks",
@@ -16,6 +17,14 @@
             "source": "html",
             "selector": ".ark-block-accordion__label",
             "default": ""
+        },
+        "iconOpened": {
+            "type": "string",
+            "default": "arkb-svg-minus"
+        },
+        "iconClosed": {
+            "type": "string",
+            "default": "arkb-svg-plus"
         }
     },
     "usesContext": [

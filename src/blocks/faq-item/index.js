@@ -3,7 +3,12 @@
  */
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
-import { RichText, InnerBlocks, __experimentalBlock as Block } from '@wordpress/block-editor';
+import {
+	RichText,
+	InnerBlocks,
+	useBlockProps,
+	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
+} from '@wordpress/block-editor';
 
 /**
  * @Internal dependencies
@@ -15,18 +20,19 @@ import { iconColor } from '@blocks/config';
 /**
  * @Others dependencies
  */
-import classnames from 'classnames';
+// import classnames from 'classnames';
 
 /**
  * metadata
  */
 const blockName = 'ark-block-faq';
-const { name, category, supports, parent } = metadata;
+const { apiVersion, name, category, supports, parent } = metadata;
 
 /**
  * Q&A項目ブロック
  */
 registerBlockType(name, {
+	apiVersion,
 	title: __('Q&A item', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
@@ -37,11 +43,23 @@ registerBlockType(name, {
 	supports,
 	attributes: metadata.attributes,
 	edit: (props) => {
-		const { attributes, setAttributes, className } = props;
-		const blockClass = classnames(className, `${blockName}__item`);
+		const { attributes, setAttributes } = props;
+
+		const blockProps = useBlockProps({
+			className: `${blockName}__item`,
+		});
+		const innerBlocksProps = useInnerBlocksProps(
+			{
+				className: `${blockName}__a ark-keep-mt--s`,
+			},
+			{
+				template: [['core/paragraph']],
+				templateLock: false,
+			}
+		);
 
 		return (
-			<Block.div className={blockClass}>
+			<div {...blockProps}>
 				<RichText
 					className={`${blockName}__q`}
 					tagName='div'
@@ -49,26 +67,21 @@ registerBlockType(name, {
 					value={attributes.textQ}
 					onChange={(textQ) => setAttributes({ textQ })}
 				/>
-				<div className={`${blockName}__a`}>
-					<InnerBlocks
-						templateLock={false}
-						__experimentalTagName='div'
-						__experimentalPassedProps={{
-							className: 'ark-keep-mt--s',
-						}}
-					/>
-				</div>
-			</Block.div>
+				<div {...innerBlocksProps} />
+			</div>
 		);
 	},
-	save: (props) => {
-		const blockClass = `${blockName}__item`;
+	save: ({ attributes }) => {
+		const blockProps = useBlockProps.save({
+			className: `${blockName}__item`,
+		});
+
 		return (
-			<div className={blockClass}>
+			<div {...blockProps}>
 				<RichText.Content
 					tagName='dt'
 					className={`${blockName}__q`}
-					value={props.attributes.textQ}
+					value={attributes.textQ}
 				/>
 				<dd className={`${blockName}__a ark-keep-mt--s`}>
 					<InnerBlocks.Content />

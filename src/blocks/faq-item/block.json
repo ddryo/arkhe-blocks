@@ -1,4 +1,5 @@
 {
+    "apiVersion": 2,
     "name": "arkhe-blocks/faq-item",
     "title": "Q&A Item",
     "category": "arkhe-blocks",

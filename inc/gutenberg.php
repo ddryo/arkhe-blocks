@@ -56,10 +56,10 @@ function register_blocks() {
 
 		if ( $is_wp56 ) {
 			// apiv2 の β版
-			// $arkhe_blocks_pro[] = 'box-link';
-			// $arkhe_blocks_pro[] = 'box-links';
-			// $arkhe_blocks_pro[] = 'column';
-			// $arkhe_blocks_pro[] = 'columns';
+			$arkhe_blocks_pro[] = 'box-link';
+			$arkhe_blocks_pro[] = 'box-links';
+			$arkhe_blocks_pro[] = 'column';
+			$arkhe_blocks_pro[] = 'columns';
 		}
 
 		$arkhe_blocks = array_merge( $arkhe_blocks, $arkhe_blocks_pro );

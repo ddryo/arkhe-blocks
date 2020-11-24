@@ -1,7 +1,42 @@
-.ark-block-accordion {
+[data-type="arkhe-blocks/accordion"] {
+	// &.ark-block-accordion {}
 
 	.ark-block-accordion__title {
 		cursor: inherit;
 	}
 
+	.ark-block-accordion__icon {
+
+		display: flex;
+		align-items: center;
+		width: 2.5em;
+
+		.__closed {
+			transform: scale(.8) rotate(0) !important;
+			opacity: 1 !important;
+		}
+
+		.__slash {
+			margin: 0 4px;
+			opacity: .8;
+		}
+
+		.__opened {
+			position: relative;
+			transform: scale(.8) rotate(0) !important;
+		}
+	}
+}
+
+.components-button-group.arkb-btns--acc {
+	display: flex;
+
+	span {
+		margin: 0 4px;
+	}
+
+	svg {
+		width: 14px;
+		height: 14px;
+	}
 }

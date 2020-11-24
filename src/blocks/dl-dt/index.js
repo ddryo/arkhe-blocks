@@ -6,7 +6,8 @@ import { registerBlockType } from '@wordpress/blocks';
 import {
 	RichText,
 	// InnerBlocks,
-	__experimentalBlock as Block,
+	useBlockProps,
+	// __experimentalUseInnerBlocksProps as useInnerBlocksProps,
 } from '@wordpress/block-editor';
 
 /**
@@ -19,18 +20,19 @@ import metadata from './block.json';
 /**
  * @Others dependencies
  */
-import classnames from 'classnames';
+// import classnames from 'classnames';
 
 /**
  * metadata
  */
 const blockName = 'ark-block-dl';
-const { name, category, supports, parent } = metadata;
+const { apiVersion, name, category, supports, parent } = metadata;
 
 /**
  * DT ブロック
  */
 registerBlockType(name, {
+	apiVersion,
 	title: __('Term', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
@@ -41,22 +43,28 @@ registerBlockType(name, {
 	supports,
 	attributes: metadata.attributes,
 	edit: (props) => {
-		const { attributes, className, setAttributes } = props;
-		const blockClass = classnames(className, blockName + '__dt');
+		const { attributes, setAttributes } = props;
+		const blockProps = useBlockProps({
+			className: `${blockName}__dt`,
+		});
+
 		return (
-			<Block.div className={blockClass}>
+			<div {...blockProps}>
 				<RichText
 					tagName='span'
 					placeholder={__('Enter text', 'arkhe-blocks') + '...'}
 					value={attributes.content}
 					onChange={(content) => setAttributes({ content })}
 				/>
-			</Block.div>
+			</div>
 		);
 	},
 	save: ({ attributes }) => {
+		const blockProps = useBlockProps.save({
+			className: `${blockName}__dt`,
+		});
 		return (
-			<dt className={`${blockName}__dt`}>
+			<dt {...blockProps}>
 				<RichText.Content tagName='span' value={attributes.content} />
 			</dt>
 		);

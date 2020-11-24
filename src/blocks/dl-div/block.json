@@ -1,4 +1,5 @@
 {
+    "apiVersion": 2,
     "name": "arkhe-blocks/dl-div",
     "title": "Side-by-side items",
     "category": "arkhe-blocks",

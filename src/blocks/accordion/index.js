@@ -6,7 +6,8 @@ import { registerBlockType } from '@wordpress/blocks';
 import {
 	// InspectorControls,
 	InnerBlocks,
-	__experimentalBlock as Block,
+	useBlockProps,
+	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
 } from '@wordpress/block-editor';
 
 /**
@@ -20,18 +21,19 @@ import example from './_example';
 /**
  * @Others dependencies
  */
-import classnames from 'classnames';
+// import classnames from 'classnames';
 
 /**
  * metadata
  */
 const blockName = 'ark-block-accordion';
-const { name, category, keywords, supports } = metadata;
+const { apiVersion, name, category, keywords, supports } = metadata;
 
 /**
  * アコーディオン
  */
 registerBlockType(name, {
+	apiVersion,
 	title: __('Accordion', 'arkhe-blocks'),
 	description: __('Create content that can be expanded with a click.', 'arkhe-blocks'),
 	icon: {
@@ -47,27 +49,30 @@ registerBlockType(name, {
 	// },
 	attributes: metadata.attributes,
 	example,
-	edit: (props) => {
-		const { className } = props;
-		const blockClass = classnames(className, blockName, 'ark-has-guide');
+	edit: () => {
+		const blockProps = useBlockProps({
+			className: `${blockName} ark-has-guide`,
+		});
+		const innerBlocksProps = useInnerBlocksProps(blockProps, {
+			allowedBlocks: ['arkhe-blocks/accordion-item'],
+			template: [['arkhe-blocks/accordion-item']],
+			templateLock: false,
+			renderAppender: InnerBlocks.ButtonBlockAppender,
+		});
 
 		return (
-			// <>
-			<Block.div className={blockClass}>
-				<InnerBlocks
-					allowedBlocks={['arkhe-blocks/accordion-item']}
-					templateLock={false}
-					template={[['arkhe-blocks/accordion-item']]}
-					__experimentalTagName='div'
-				/>
-			</Block.div>
-			// </>
+			<>
+				<div {...innerBlocksProps} />
+			</>
 		);
 	},
 
 	save: () => {
+		const blockProps = useBlockProps.save({
+			className: blockName,
+		});
 		return (
-			<div className={blockName}>
+			<div {...blockProps}>
 				<InnerBlocks.Content />
 			</div>
 		);

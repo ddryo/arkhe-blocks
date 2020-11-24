@@ -1,0 +1,22 @@
+{
+    "name": "arkhe-blocks/dl-dt",
+    "title": "Term",
+    "category": "arkhe-blocks",
+    "supports": {
+        "className": false,
+        "lightBlockWrapper": true
+    },
+    "parent": [
+        "arkhe-blocks/dl",
+        "arkhe-blocks/dl-div"
+    ],
+    "attributes": {
+        "content": {
+            "type": "string",
+            "source": "html",
+            "selector": ".ark-block-dl__dt span"
+        }
+    },
+    "editorScript": "file:../../../dist/blocks/dl-dt/index.js",
+    "textdomain": "arkhe-blocks"
+}

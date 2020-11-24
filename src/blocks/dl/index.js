@@ -3,7 +3,11 @@
  */
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
-import { InnerBlocks, __experimentalBlock as Block } from '@wordpress/block-editor';
+import {
+	InnerBlocks,
+	useBlockProps,
+	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
+} from '@wordpress/block-editor';
 
 /**
  * @Internal dependencies
@@ -16,18 +20,19 @@ import example from './_example';
 /**
  * @Others dependencies
  */
-import classnames from 'classnames';
+// import classnames from 'classnames';
 
 /**
  * metadata
  */
 const blockName = 'ark-block-dl';
-const { name, category, keywords, supports } = metadata;
+const { apiVersion, name, category, keywords, supports } = metadata;
 
 /**
  * registerBlockType
  */
 registerBlockType(name, {
+	apiVersion,
 	title: __('Description list', 'arkhe-blocks'),
 	description: __('Create a description list using the "dl" tag.', 'arkhe-blocks'),
 	icon: {
@@ -43,36 +48,31 @@ registerBlockType(name, {
 	// 	{ name: 'float', label: '横並び' },
 	// ],
 	attributes: {},
-	edit: (props) => {
-		const { className } = props;
-		const blockClass = classnames(className, blockName, 'ark-has-guide');
-
-		return (
-			<>
-				<Block.div className={blockClass}>
-					<InnerBlocks
-						allowedBlocks={[
-							'arkhe-blocks/dl-div',
-							'arkhe-blocks/dl-dt',
-							'arkhe-blocks/dl-dd',
-						]}
-						templateLock={false}
-						template={[
-							['arkhe-blocks/dl-dt'],
-							['arkhe-blocks/dl-dd'],
-							['arkhe-blocks/dl-dt'],
-							['arkhe-blocks/dl-dd'],
-						]}
-						__experimentalTagName='div'
-					/>
-				</Block.div>
-			</>
-		);
+	edit: () => {
+		const blockProps = useBlockProps({
+			className: `${blockName} ark-has-guide`,
+		});
+		const innerBlocksProps = useInnerBlocksProps(blockProps, {
+			allowedBlocks: ['arkhe-blocks/dl-div', 'arkhe-blocks/dl-dt', 'arkhe-blocks/dl-dd'],
+			template: [
+				['arkhe-blocks/dl-dt'],
+				['arkhe-blocks/dl-dd'],
+				['arkhe-blocks/dl-dt'],
+				['arkhe-blocks/dl-dd'],
+			],
+			templateLock: false,
+			renderAppender: InnerBlocks.ButtonBlockAppender,
+		});
+		return <div {...innerBlocksProps} />;
 	},
 
 	save: () => {
+		const blockProps = useBlockProps.save({
+			className: blockName,
+		});
+
 		return (
-			<dl className={blockName}>
+			<dl {...blockProps}>
 				<InnerBlocks.Content />
 			</dl>
 		);

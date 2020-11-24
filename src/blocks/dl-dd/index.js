@@ -3,7 +3,11 @@
  */
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
-import { InnerBlocks, __experimentalBlock as Block } from '@wordpress/block-editor';
+import {
+	InnerBlocks,
+	useBlockProps,
+	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
+} from '@wordpress/block-editor';
 
 /**
  * @Internal dependencies
@@ -15,18 +19,19 @@ import metadata from './block.json';
 /**
  * @Others dependencies
  */
-import classnames from 'classnames';
+// import classnames from 'classnames';
 
 /**
  * metadata
  */
 const blockName = 'ark-block-dl';
-const { name, category, supports, parent } = metadata;
+const { apiVersion, name, category, supports, parent } = metadata;
 
 /**
  * DD ブロック
  */
 registerBlockType(name, {
+	apiVersion,
 	title: __('Description', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
@@ -36,25 +41,24 @@ registerBlockType(name, {
 	parent,
 	supports,
 	attributes: metadata.attributes,
-	edit: (props) => {
-		const { className } = props;
-		const blockClass = classnames(className, blockName + '__dd');
-		return (
-			<Block.div className={blockClass}>
-				<InnerBlocks
-					template={[['core/paragraph']]}
-					templateLock={false}
-					__experimentalTagName='div'
-					__experimentalPassedProps={{
-						className: 'ark-keep-mt--s',
-					}}
-				/>
-			</Block.div>
-		);
+	edit: () => {
+		const blockProps = useBlockProps({
+			className: `${blockName}__dd ark-keep-mt--s`,
+		});
+		const innerBlocksProps = useInnerBlocksProps(blockProps, {
+			template: [['core/paragraph']],
+			templateLock: false,
+		});
+
+		return <div {...innerBlocksProps} />;
 	},
 	save: () => {
+		const blockProps = useBlockProps.save({
+			className: `${blockName}__dd ark-keep-mt--s`,
+		});
+
 		return (
-			<dd className={`${blockName}__dd ark-keep-mt--s`}>
+			<dd {...blockProps}>
 				<InnerBlocks.Content />
 			</dd>
 		);

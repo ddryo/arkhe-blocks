@@ -88,7 +88,7 @@ if ( ! class_exists( 'Arkhe_Blocks' ) ) {
 
 			// アップデート
 			if ( self::IS_PRO ) {
-				require_once ARKHE_BLOCKS_PATH . 'inc/update.php';
+				// require_once ARKHE_BLOCKS_PATH . 'inc/update.php';
 			}
 
 		}

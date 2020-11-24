@@ -1,6 +1,6 @@
 #!/bin/bashx
 
-#使い方 : $ bash ./bin/zip_free.sh 1-0-1
+#使い方 : $ bash ./bin/zip_free.sh 1-1-1
 
 #引数 : プラグインのバージョン
 version=$1
@@ -16,7 +16,7 @@ zip -r arkhe-blocks.zip arkhe-blocks-pro -x "*/.*" "*/__*" "*/bin*" "*/node_modu
 zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/composer*" "arkhe-blocks-pro/webpack*" "arkhe-blocks-pro/package*"
 
 #PROブロック & アップデート系 削除
-zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/inc/update*" "arkhe-blocks-pro/*/blocks/notice*" "arkhe-blocks-pro/*/blocks/step*" "arkhe-blocks-pro/*/blocks/timeline*" "arkhe-blocks-pro/*/blocks/post-list*" "arkhe-blocks-pro/*/blocks/rss*"
+zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/inc/update*" "arkhe-blocks-pro/*/blocks/notice*" "arkhe-blocks-pro/*/blocks/step*" "arkhe-blocks-pro/*/blocks/timeline*" "arkhe-blocks-pro/*/blocks/post-list*" "arkhe-blocks-pro/*/blocks/rss*" "arkhe-blocks-pro/*/blocks/column*" "arkhe-blocks-pro/*/blocks/box-link*" "arkhe-blocks-pro/*/blocks/blog-card*" "arkhe-blocks-pro/*/blocks/page-list*"
 
 #zipファイルを移動
 mv arkhe-blocks.zip ./arkhe-blocks-free/arkhe-blocks.zip

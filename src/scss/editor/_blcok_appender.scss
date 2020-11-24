@@ -1,0 +1,30 @@
+// ブロック追加ボタン
+
+
+.arkb-columns > .block-editor-block-list__layout,
+.ark-block-accordion,
+.ark-block-dl,
+.ark-block-faq {
+
+	& > .block-list-appender {
+		flex-basis: 80% !important;
+		margin: 1rem 10% 0;
+		padding: 8px;
+	}
+}
+
+.ark-block-accordion,
+.ark-block-dl,
+.ark-block-faq {
+
+	&:not(.is-selected):not(.has-child-selected) > .block-list-appender {
+		display: none;
+	}
+}
+
+.arkb-columns:not(.is-selected):not(.has-child-selected) {
+
+	& > .block-editor-block-list__layout > .block-list-appender {
+		display: none;
+	}
+}

@@ -1,4 +1,5 @@
 {
+    "apiVersion": 2,
     "name": "arkhe-blocks/box-link",
     "title": "Box link",
     "category": "arkhe-blocks",

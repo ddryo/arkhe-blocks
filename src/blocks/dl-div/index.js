@@ -3,7 +3,11 @@
  */
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
-import { InnerBlocks, __experimentalBlock as Block } from '@wordpress/block-editor';
+import {
+	InnerBlocks,
+	useBlockProps,
+	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
+} from '@wordpress/block-editor';
 
 /**
  * @Internal dependencies
@@ -15,18 +19,19 @@ import metadata from './block.json';
 /**
  * @Others dependencies
  */
-import classnames from 'classnames';
+// import classnames from 'classnames';
 
 /**
  * metadata
  */
 const blockName = 'ark-block-dl';
-const { name, category, supports, parent } = metadata;
+const { apiVersion, name, category, supports, parent } = metadata;
 
 /**
  * DD ブロック
  */
 registerBlockType(name, {
+	apiVersion,
 	title: __('Side-by-side items', 'arkhe-blocks'), // 横並び項目
 	icon: {
 		foreground: iconColor,
@@ -36,23 +41,25 @@ registerBlockType(name, {
 	parent,
 	supports,
 	attributes: metadata.attributes,
-	edit: (props) => {
-		const { className } = props;
-		const blockClass = classnames(className, blockName + '__div');
-		return (
-			<Block.div className={blockClass}>
-				<InnerBlocks
-					allowedBlocks={['arkhe-blocks/dl-dt', 'arkhe-blocks/dl-dd']}
-					template={[['arkhe-blocks/dl-dt'], ['arkhe-blocks/dl-dd']]}
-					templateLock='all'
-					__experimentalTagName='div'
-				/>
-			</Block.div>
-		);
+	edit: () => {
+		const blockProps = useBlockProps({
+			className: `${blockName}__div`,
+		});
+		const innerBlocksProps = useInnerBlocksProps(blockProps, {
+			allowedBlocks: ['arkhe-blocks/dl-dt', 'arkhe-blocks/dl-dd'],
+			template: [['arkhe-blocks/dl-dt'], ['arkhe-blocks/dl-dd']],
+			templateLock: 'all',
+		});
+
+		return <div {...innerBlocksProps} />;
 	},
 	save: () => {
+		const blockProps = useBlockProps.save({
+			className: `${blockName}__div`,
+		});
+
 		return (
-			<div className={`${blockName}__div`}>
+			<div {...blockProps}>
 				<InnerBlocks.Content />
 			</div>
 		);
