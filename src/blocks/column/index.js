@@ -10,7 +10,6 @@ import {
 	BlockVerticalAlignmentToolbar,
 	useBlockProps,
 	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
-	// __experimentalBlock as Block,
 } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
 import {

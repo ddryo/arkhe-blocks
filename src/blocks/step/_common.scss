@@ -1,3 +1,5 @@
+// ::before の方が、エディターでのコア側のUIからの影響が少ない。（移動モードの時だけ）
+
 .ark-block-step {
 	counter-reset: step;
 }

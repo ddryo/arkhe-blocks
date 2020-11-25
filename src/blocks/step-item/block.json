@@ -1,11 +1,12 @@
 {
+    "apiVersion": 2,
     "name": "arkhe-blocks/step-item",
     "title": "Step item",
     "category": "arkhe-blocks",
     "supports": {
         "anchor": true,
         "className": false,
-        "lightBlockWrapper": true
+        "reusable": false
     },
     "parent": [
         "arkhe-blocks/step"

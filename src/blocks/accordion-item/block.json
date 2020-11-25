@@ -6,7 +6,7 @@
     "supports": {
         "anchor": true,
         "className": false,
-        "lightBlockWrapper": true
+        "reusable": false
     },
     "parent": [
         "arkhe-blocks/accordion"

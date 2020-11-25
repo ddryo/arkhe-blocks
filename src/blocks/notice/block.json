@@ -1,4 +1,5 @@
 {
+    "apiVersion": 2,
     "name": "arkhe-blocks/notice",
     "title": "Notice",
     "category": "arkhe-blocks",
@@ -8,8 +9,7 @@
     ],
     "supports": {
         "anchor": true,
-        "className": false,
-        "lightBlockWrapper": true
+        "className": false
     },
     "attributes": {
         "title": {

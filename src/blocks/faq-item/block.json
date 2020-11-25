@@ -6,7 +6,6 @@
     "supports": {
         "anchor": true,
         "className": false,
-        "lightBlockWrapper": true,
         "reusable": false
     },
     "parent": [

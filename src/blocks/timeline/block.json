@@ -1,4 +1,5 @@
 {
+    "apiVersion": 2,
     "name": "arkhe-blocks/timeline",
     "title": "Timeline",
     "category": "arkhe-blocks",
@@ -8,8 +9,7 @@
     ],
     "supports": {
         "anchor": true,
-        "className": false,
-        "lightBlockWrapper": true
+        "className": false
     },
     "attributes": {},
     "editorScript": "file:../../../dist/blocks/timeline/index.js",

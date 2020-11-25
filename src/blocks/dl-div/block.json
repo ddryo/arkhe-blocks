@@ -5,7 +5,7 @@
     "category": "arkhe-blocks",
     "supports": {
         "className": false,
-        "lightBlockWrapper": true
+        "reusable": false
     },
     "parent": [
         "arkhe-blocks/dl"

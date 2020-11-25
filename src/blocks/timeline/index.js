@@ -3,7 +3,11 @@
  */
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
-import { InnerBlocks, __experimentalBlock as Block } from '@wordpress/block-editor';
+import {
+	InnerBlocks,
+	useBlockProps,
+	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
+} from '@wordpress/block-editor';
 
 /**
  * @Internal dependencies
@@ -22,12 +26,13 @@ import metadata from './block.json';
  * metadata
  */
 const blockName = 'ark-block-timeline';
-const { name, category, keywords, supports } = metadata;
+const { apiVersion, name, category, keywords, supports } = metadata;
 
 /**
  * タイムラインブロック
  */
 registerBlockType(name, {
+	apiVersion,
 	title: __('Timeline', 'arkhe-blocks'),
 	description: __('Create timeline format content.', 'arkhe-blocks'),
 	icon: {
@@ -39,26 +44,27 @@ registerBlockType(name, {
 	supports,
 	example,
 	attributes: metadata.attributes,
-	edit: (props) => {
-		// const { attributes, setAttributes } = props;
+	edit: () => {
+		const blockProps = useBlockProps({
+			className: `${blockName} ark-has-guide`,
+		});
+		const innerBlocksProps = useInnerBlocksProps(blockProps, {
+			allowedBlocks: ['arkhe-blocks/timeline-item'],
+			template: [['arkhe-blocks/timeline-item'], ['arkhe-blocks/timeline-item']],
+			templateLock: false,
+			renderAppender: InnerBlocks.ButtonBlockAppender,
+		});
 
-		return (
-			<>
-				<Block.div className={`${blockName} ark-has-guide`}>
-					<InnerBlocks
-						allowedBlocks={['arkhe-blocks/timeline-item']}
-						templateLock={false}
-						template={[['arkhe-blocks/timeline-item'], ['arkhe-blocks/timeline-item']]}
-						__experimentalTagName='div'
-					/>
-				</Block.div>
-			</>
-		);
+		return <div {...innerBlocksProps} />;
 	},
 
 	save: () => {
+		const blockProps = useBlockProps.save({
+			className: `${blockName}`,
+		});
+
 		return (
-			<div className={blockName}>
+			<div {...blockProps}>
 				<InnerBlocks.Content />
 			</div>
 		);

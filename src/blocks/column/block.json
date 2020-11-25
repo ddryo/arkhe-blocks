@@ -9,7 +9,8 @@
     ],
     "supports": {
         "anchor": true,
-        "className": false
+        "className": false,
+        "reusable": false
     },
     "parent": [
         "arkhe-blocks/columns"

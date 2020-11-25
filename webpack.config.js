@@ -7,20 +7,20 @@ const entries = {};
 // entries.index = './src/blocks/index.js';
 
 const blocks = [
-	'accordion',
+	// 'accordion',
 	// 'accordion-item',
 	// 'box-link',
 	// 'box-links',
 	// 'blog-card',
 	// 'column',
 	// 'columns',
-	'faq',
+	// 'faq',
 	// 'faq-item',
 	// 'dl',
 	// 'dl-dt',
 	// 'dl-dd',
 	// 'dl-div',
-	// 'notice',
+	'notice',
 	// 'step',
 	// 'step-item',
 	// 'timeline',

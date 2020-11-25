@@ -3,13 +3,21 @@
  */
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
-import { RichText, InnerBlocks, __experimentalBlock as Block } from '@wordpress/block-editor';
+import {
+	RichText,
+	InnerBlocks,
+	PanelColorSettings,
+	InspectorControls,
+	useBlockProps,
+	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
+} from '@wordpress/block-editor';
+
+import { PanelBody, TextControl, BaseControl, CheckboxControl } from '@wordpress/components';
 
 /**
  * @Internal dependencies
  */
 import { iconColor } from '@blocks/config';
-import BlockControls from './_controls';
 import blockIcon from './_icon';
 import metadata from './block.json';
 
@@ -22,12 +30,13 @@ import metadata from './block.json';
  * metadata
  */
 const blockName = 'ark-block-step';
-const { name, category, supports, parent } = metadata;
+const { apiVersion, name, category, supports, parent } = metadata;
 
 /**
  * ステップ項目
  */
 registerBlockType(name, {
+	apiVersion,
 	title: __('Step item', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
@@ -52,17 +61,70 @@ registerBlockType(name, {
 
 		const thisStepLabel = isHideLabel ? '' : theLabel || stepLabel;
 		const thisStepNum = isHideNum ? '' : theNum || null;
+
+		const blockProps = useBlockProps({
+			className: `${blockName}__item`,
+		});
+		const innerBlocksProps = useInnerBlocksProps(
+			{
+				className: `${blockName}__body ark-keep-mt--s`,
+			},
+			{
+				template: [['core/paragraph']],
+				templateLock: false,
+			}
+		);
+
 		return (
 			<>
-				<BlockControls {...props} />
-				<Block.div className={`${blockName}__item`}>
+				<InspectorControls>
+					<PanelBody title={__('Text settings', 'arkhe-blocks')}>
+						<BaseControl>
+							<CheckboxControl
+								label={__('Hide the number', 'arkhe-blocks')}
+								checked={isHideNum}
+								onChange={(val) => setAttributes({ isHideNum: val })}
+							/>
+						</BaseControl>
+						<TextControl
+							label={__('Number part text', 'arkhe-blocks')}
+							value={theNum}
+							onChange={(val) => {
+								setAttributes({ theNum: val });
+							}}
+						/>
+						<BaseControl>
+							<CheckboxControl
+								label={__('Hide the text', 'arkhe-blocks')}
+								checked={isHideLabel}
+								onChange={(val) => setAttributes({ isHideLabel: val })}
+							/>
+						</BaseControl>
+						<TextControl
+							label={__('Text of "STEP" part', 'arkhe-blocks')}
+							value={theLabel}
+							onChange={(val) => {
+								setAttributes({ theLabel: val });
+							}}
+						/>
+					</PanelBody>
+					<PanelColorSettings
+						title={__('Color settings', 'arkhe-blocks')}
+						initialOpen={true}
+						colorSettings={[
+							{
+								value: numColor,
+								label: __('Color', 'arkhe-blocks'),
+								onChange: (value) => {
+									setAttributes({ numColor: value });
+								},
+							},
+						]}
+					></PanelColorSettings>
+				</InspectorControls>
+				<div {...blockProps}>
 					<div className={`${blockName}__head`}>
-						<div
-							className={`${numClass}`}
-							style={numStyle}
-							data-num={thisStepNum}
-							// data-hide={isHideNum ? '1' : null}
-						>
+						<div className={`${numClass}`} style={numStyle} data-num={thisStepNum}>
 							{thisStepLabel ? (
 								<span className='__label'>{thisStepLabel}</span>
 							) : null}
@@ -75,16 +137,8 @@ registerBlockType(name, {
 							onChange={(val) => setAttributes({ title: val })}
 						/>
 					</div>
-					<div className={`${blockName}__body`}>
-						<InnerBlocks
-							template={[['core/paragraph']]}
-							__experimentalTagName='div'
-							__experimentalPassedProps={{
-								className: 'ark-keep-mt--s',
-							}}
-						/>
-					</div>
-				</Block.div>
+					<div {...innerBlocksProps} />
+				</div>
 			</>
 		);
 	},
@@ -102,15 +156,14 @@ registerBlockType(name, {
 		const thisStepLabel = isHideLabel ? '' : theLabel || stepLabel;
 		const thisStepNum = isHideNum ? '' : theNum || null;
 
+		const blockProps = useBlockProps.save({
+			className: `${blockName}__item`,
+		});
+
 		return (
-			<div className={`${blockName}__item`}>
+			<div {...blockProps}>
 				<div className={`${blockName}__head`}>
-					<div
-						className={`${numClass}`}
-						style={numStyle}
-						data-num={thisStepNum}
-						// data-hide={isHideNum ? '1' : null}
-					>
+					<div className={`${numClass}`} style={numStyle} data-num={thisStepNum}>
 						{thisStepLabel ? <span className='__label'>{thisStepLabel}</span> : null}
 					</div>
 

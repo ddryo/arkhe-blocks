@@ -3,8 +3,15 @@
  */
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
-import { RichText, InnerBlocks, __experimentalBlock as Block } from '@wordpress/block-editor';
-// import { PanelBody, RadioControl } from '@wordpress/components';
+import {
+	RichText,
+	InnerBlocks,
+	InspectorControls,
+	useBlockProps,
+	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
+} from '@wordpress/block-editor';
+import { useCallback } from '@wordpress/element';
+import { PanelBody, ButtonGroup, Button } from '@wordpress/components';
 
 /**
  * @Internal dependencies
@@ -12,9 +19,10 @@ import { RichText, InnerBlocks, __experimentalBlock as Block } from '@wordpress/
 import { iconColor } from '@blocks/config';
 import metadata from './block.json';
 import blockIcon from './_icon';
-import BlockControls from './_controls';
 import example from './_example';
 import { ArkheIcon, ArkheIconOnSave } from '@components/ArkheIcon';
+import ArkheIconPicker from '@components/ArkheIconPicker';
+import { ArkheSVG } from '@components/ArkheSVG';
 
 /**
  * @others dependencies
@@ -25,12 +33,39 @@ import classnames from 'classnames';
  * metadata
  */
 const blockName = 'ark-block-notice';
-const { name, category, keywords, supports } = metadata;
+const { apiVersion, name, category, keywords, supports } = metadata;
+
+/**
+ * 設定
+ */
+const types = [
+	{
+		value: 'point',
+		icon: 'arkb-svg-point',
+	},
+	{
+		value: 'alert',
+		icon: 'arkb-svg-alert',
+	},
+	{
+		value: 'warning',
+		icon: 'arkb-svg-warning',
+	},
+	{
+		value: 'ok',
+		icon: 'arkb-svg-check',
+	},
+	{
+		value: 'memo',
+		icon: 'arkb-svg-pen',
+	},
+];
 
 /**
  * 通知ブロック
  */
 registerBlockType(name, {
+	apiVersion,
 	title: __('Notice', 'arkhe-blocks'),
 	description: __('Create content that is prominently emphasized.', 'arkhe-blocks'),
 	icon: {
@@ -48,18 +83,63 @@ registerBlockType(name, {
 	attributes: metadata.attributes,
 	example,
 	edit: (props) => {
-		const { attributes, className, setAttributes } = props;
+		const { attributes, setAttributes } = props;
 		const { type, icon, title } = attributes;
 
-		let blockClass = classnames(blockName, className);
+		let blockClass = blockName;
 		if (type) {
-			blockClass = classnames(blockClass, '-' + type);
+			blockClass = classnames(blockClass, `-${type}`);
 		}
+
+		// アイコン選択時の処理
+		const setIcon = useCallback((val, isSelected = false) => {
+			const newIcon = isSelected ? '' : val;
+			setAttributes({ icon: newIcon });
+		}, []);
+
+		// Props
+		const blockProps = useBlockProps({
+			className: blockClass,
+		});
+		const innerBlocksProps = useInnerBlocksProps(
+			{
+				className: `${blockName}__body ark-keep-mt--s`,
+			},
+			{
+				template: [['core/paragraph']],
+				templateLock: false,
+			}
+		);
 
 		return (
 			<>
-				<BlockControls {...props} />
-				<Block.div className={blockClass}>
+				<InspectorControls>
+					<PanelBody title={__('Notification type', 'arkhe-blocks')} initialOpen={true}>
+						<ButtonGroup className='ark-notice-btns'>
+							{types.map((data) => {
+								return (
+									<Button
+										isPrimary={type === data.value}
+										key={`ark-${data.value}`}
+										className={`ark-block-notice -${data.value}`}
+										onClick={() => {
+											setAttributes({
+												type: data.value,
+												icon: data.icon,
+											});
+										}}
+									>
+										<ArkheSVG icon={data.icon} />
+									</Button>
+								);
+							})}
+						</ButtonGroup>
+					</PanelBody>
+					<PanelBody title={__('Icon settings', 'arkhe-blocks')} initialOpen={true}>
+						<ArkheIconPicker icon={icon} setIcon={setIcon} />
+					</PanelBody>
+				</InspectorControls>
+				<div {...blockProps}>
 					<div className={`${blockName}__head`}>
 						<ArkheIcon icon={icon} className={`${blockName}__icon`} />
 						<RichText
@@ -70,15 +150,8 @@ registerBlockType(name, {
 							onChange={(newTitle) => setAttributes({ title: newTitle })}
 						/>
 					</div>
-					<div className={`${blockName}__body`}>
-						<InnerBlocks
-							__experimentalTagName='div'
-							__experimentalPassedProps={{
-								className: 'ark-keep-mt--s',
-							}}
-						/>
-					</div>
-				</Block.div>
+					<div {...innerBlocksProps} />
+				</div>
 			</>
 		);
 	},
@@ -88,18 +161,27 @@ registerBlockType(name, {
 
 		let blockClass = blockName;
 		if (type) {
-			blockClass = classnames(blockClass, '-' + type);
+			blockClass = classnames(blockClass, `-${type}`);
 		}
 
+		const blockProps = useBlockProps.save({
+			className: blockClass,
+		});
+
+		const attrClass = attributes.className || '';
+		const isSimpleStyle = -1 !== attrClass.indexOf('is-style-simple');
+
 		return (
-			<div className={blockClass}>
+			<div {...blockProps}>
 				<div className={`${blockName}__head`}>
 					<ArkheIconOnSave icon={icon} className={`${blockName}__icon`} />
-					<RichText.Content
-						tagName='span'
-						className={`${blockName}__title`}
-						value={title}
-					/>
+					{!isSimpleStyle && (
+						<RichText.Content
+							tagName='span'
+							className={`${blockName}__title`}
+							value={title}
+						/>
+					)}
 				</div>
 				<div className={`${blockName}__body ark-keep-mt--s`}>
 					<InnerBlocks.Content />

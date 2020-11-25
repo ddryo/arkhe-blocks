@@ -1,11 +1,12 @@
 {
+    "apiVersion": 2,
     "name": "arkhe-blocks/timeline-item",
     "title": "Timeline item",
     "category": "arkhe-blocks",
     "supports": {
         "anchor": true,
         "className": false,
-        "lightBlockWrapper": true
+        "reusable": false
     },
     "parent": [
         "arkhe-blocks/timeline"
