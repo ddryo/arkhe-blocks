@@ -26,7 +26,7 @@
         "iconHtml": {
             "type": "string",
             "source": "html",
-            "selector": ".c-boxLink__figure.-html"
+            "selector": ".arkb-boxLink__figure.-html"
         },
         "icon": {
             "type": "string",
@@ -46,13 +46,13 @@
         "imgUrl": {
             "type": "string",
             "source": "attribute",
-            "selector": "img.c-boxLink__img",
+            "selector": "img.arkb-boxLink__img",
             "attribute": "src"
         },
         "imgAlt": {
             "type": "string",
             "source": "attribute",
-            "selector": "img.c-boxLink__img",
+            "selector": "img.arkb-boxLink__img",
             "attribute": "alt"
         },
         "imgSize": {
@@ -75,7 +75,7 @@
         "href": {
             "type": "string",
             "source": "attribute",
-            "selector": "a.c-boxLink__inner",
+            "selector": "a.arkb-boxLink__inner",
             "attribute": "href"
         },
         "isNewTab": {
@@ -85,13 +85,13 @@
         "rel": {
             "type": "string",
             "source": "attribute",
-            "selector": "a.c-boxLink__inner",
+            "selector": "a.arkb-boxLink__inner",
             "attribute": "rel"
         },
         "title": {
             "type": "string",
             "source": "html",
-            "selector": ".c-boxLink__title"
+            "selector": ".arkb-boxLink__title"
         },
         "htag": {
             "type": "string",

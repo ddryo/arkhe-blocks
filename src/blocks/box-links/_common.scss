@@ -6,17 +6,17 @@
 
 
 // ボックスリンク
-.c-boxLink {
+.arkb-boxLink {
 	// box-shadow: 0 1px 12px 0 rgba(0, 0, 0, .1);
 	box-shadow: var(--arkb-shadow);
 	// htag時の優先度を考慮してネスト
-	.c-boxLink__title {
+	.arkb-boxLink__title {
 		font-weight: bold;
 		font-size: 1rem;
 	}
 }
 
-.c-boxLink__inner {
+.arkb-boxLink__inner {
 	display: flex;
 	flex-direction: column;
 	height: 100%;
@@ -28,16 +28,16 @@
 }
 
 // リンクホバー時
-a.c-boxLink__inner:hover {
+a.arkb-boxLink__inner:hover {
 	// box-shadow: 0 1px 20px 0 rgba(0, 0, 0, .15);
 	box-shadow: 0 4px 32px -8px rgba(0, 0, 0, .1);
 
-	.c-boxLink__more__svg {
+	.arkb-boxLink__more__svg {
 		transform: translateX(4px);
 	}
 }
 
-.c-boxLink__figure {
+.arkb-boxLink__figure {
 	position: relative;
 	margin: 0;
 	overflow: hidden;
@@ -64,26 +64,26 @@ a.c-boxLink__inner:hover {
 
 }
 
-.c-boxLink__img {
+.arkb-boxLink__img {
 	display: block;
 	width: 100%;
 }
 
-// .c-boxLink__icon {}
+// .arkb-boxLink__icon {}
 
-.c-boxLink__body {
+.arkb-boxLink__body {
 	display: flex;
 	flex: 1;
 	flex-direction: column;
 	padding: 1.25rem 1rem;
 }
 
-.c-boxLink__content {
+.arkb-boxLink__content {
 	margin-top: .5rem;
 	font-size: .9rem;
 }
 
-.c-boxLink__more {
+.arkb-boxLink__more {
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
@@ -94,14 +94,14 @@ a.c-boxLink__inner:hover {
 	text-align: right;
 }
 
-.c-boxLink__more__svg {
+.arkb-boxLink__more__svg {
 	margin-left: .5em;
 	transition: transform .25s;
 	fill: currentColor;
 }
 
 // 画像の比率を固定。
-.c-boxLink__figure.is-fixed-ratio {
+.arkb-boxLink__figure.is-fixed-ratio {
 	padding-top: var(--ark-thumb_ratio);
 
 	img {
@@ -114,15 +114,15 @@ a.c-boxLink__inner:hover {
 	}
 }
 
-.c-boxLink.-horizontal {
+.arkb-boxLink.-horizontal {
 
-	.c-boxLink__inner {
+	.arkb-boxLink__inner {
 		flex-direction: row;
 		// align-items: center;
 		align-items: stretch;
 	}
 
-	.c-boxLink__figure {
+	.arkb-boxLink__figure {
 		flex: 1 0 40%;
 		// height: 100%;
 
@@ -132,27 +132,27 @@ a.c-boxLink__inner:hover {
 		}
 	}
 
-	.c-boxLink__body {
+	.arkb-boxLink__body {
 		flex: 1 1 100%;
 	}
 }
 
 
-.c-boxLink.is-style-banner {
+.arkb-boxLink.is-style-banner {
 	color: #fff;
 
-	.c-boxLink__inner {
+	.arkb-boxLink__inner {
 		position: relative;
 	}
 
-	.c-boxLink__body {
+	.arkb-boxLink__body {
 		position: relative;
 		z-index: 1;
 		padding: 2rem 1.5rem;
 	}
 }
 
-.c-boxLink__bg {
+.arkb-boxLink__bg {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -177,8 +177,8 @@ a.c-boxLink__inner:hover {
 }
 
 
-.c-boxLink__bg .c-boxLink__img,
-.c-boxLink.-horizontal .c-boxLink__img {
+.arkb-boxLink__bg .arkb-boxLink__img,
+.arkb-boxLink.-horizontal .arkb-boxLink__img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
@@ -186,20 +186,20 @@ a.c-boxLink__inner:hover {
 
 
 // センター寄せ
-.c-boxLink.has-text-align-center {
+.arkb-boxLink.has-text-align-center {
 
-	.c-boxLink__more {
+	.arkb-boxLink__more {
 		justify-content: center;
 	}
 
-	.c-boxLink__more__svg {
+	.arkb-boxLink__more__svg {
 		margin-right: -1em;
 	}
 }
 
 
 // 丸くする
-// .c-boxLink__figure.is-circle {
+// .arkb-boxLink__figure.is-circle {
 // 	padding: 2rem 0 1rem;
 
 // 	img {

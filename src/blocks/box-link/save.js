@@ -41,7 +41,7 @@ export default function ({ attributes }) {
 		showMoreArrow,
 	} = attributes;
 
-	const blockClass = classnames(blockName, 'c-boxLink', 'arkb-columns__item', '-' + layout, {
+	const blockClass = classnames(blockName, 'arkb-boxLink', 'arkb-columns__item', '-' + layout, {
 		'has-text-align-center': 'center' === align,
 	});
 
@@ -60,14 +60,14 @@ export default function ({ attributes }) {
 	let iconContent = null;
 	if (useIcon && !!iconHtml) {
 		iconContent = (
-			<figure className='c-boxLink__figure -icon -html' style={iconStyle}>
+			<figure className='arkb-boxLink__figure -icon -html' style={iconStyle}>
 				<RawHTML>{iconHtml}</RawHTML>
 			</figure>
 		);
 	} else if (useIcon) {
 		iconContent = (
-			<figure className='c-boxLink__figure -icon' style={iconStyle}>
-				<ArkheIconOnSave icon={icon} className={`c-boxLink__icon`} />
+			<figure className='arkb-boxLink__figure -icon' style={iconStyle}>
+				<ArkheIconOnSave icon={icon} className={`arkb-boxLink__icon`} />
 			</figure>
 		);
 	}
@@ -75,7 +75,7 @@ export default function ({ attributes }) {
 	// 画像
 	const img = (
 		<img
-			className={`c-boxLink__img -no-lb wp-image-${imgId}`}
+			className={`arkb-boxLink__img -no-lb wp-image-${imgId}`}
 			src={imgUrl}
 			alt={imgAlt}
 			width={imgW || null}
@@ -87,7 +87,7 @@ export default function ({ attributes }) {
 	if (isBannerStyle) {
 		figure = (
 			<>
-				{imgUrl && <figure className='c-boxLink__bg'>{img}</figure>}
+				{imgUrl && <figure className='arkb-boxLink__bg'>{img}</figure>}
 				{iconContent}
 			</>
 		);
@@ -104,7 +104,7 @@ export default function ({ attributes }) {
 
 		figure = (
 			<figure
-				className={classnames('c-boxLink__figure', { 'is-fixed-ratio': fixRatio })}
+				className={classnames('arkb-boxLink__figure', { 'is-fixed-ratio': fixRatio })}
 				style={figureStyle}
 			>
 				{img}
@@ -121,31 +121,31 @@ export default function ({ attributes }) {
 		<div {...blockProps}>
 			<InnerTag
 				href={href}
-				className='c-boxLink__inner'
+				className='arkb-boxLink__inner'
 				rel={rel}
 				target={isNewTab ? '_blank' : null}
 			>
 				{figure}
 
-				<div className='c-boxLink__body'>
+				<div className='arkb-boxLink__body'>
 					{!RichText.isEmpty(title) && (
 						<RichText.Content
 							tagName={htag}
-							className='c-boxLink__title'
+							className='arkb-boxLink__title'
 							value={title}
 						/>
 					)}
 
-					<div className='c-boxLink__content ark-keep-mt--s'>
+					<div className='arkb-boxLink__content ark-keep-mt--s'>
 						<InnerBlocks.Content />
 					</div>
 					{more && (
-						<div className='c-boxLink__more'>
-							<span className={`c-boxLink__more__text`}>{more}</span>
+						<div className='arkb-boxLink__more'>
+							<span className={`arkb-boxLink__more__text`}>{more}</span>
 
 							{showMoreArrow && (
 								<svg
-									className='c-boxLink__more__svg'
+									className='arkb-boxLink__more__svg'
 									width='16'
 									height='16'
 									viewBox='0 0 32 32'

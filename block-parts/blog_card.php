@@ -34,24 +34,24 @@ $add_class = $args['class'] ? ' ' . $args['class'] : '';
 
 // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 ?>
-<div class="ark-block-blogCard c-boxLink<?=esc_attr( $add_class )?>">
-	<a href="<?=esc_url( $url )?>" class="c-boxLink__inner" data-type="<?=$args['type']?>"<?=$target . $rel?>>
+<div class="ark-block-blogCard arkb-boxLink<?=esc_attr( $add_class )?>">
+	<a href="<?=esc_url( $url )?>" class="arkb-boxLink__inner" data-type="<?=$args['type']?>"<?=$target . $rel?>>
 		<?php if ( $args['thumb_url'] ) : ?>
-			<div class="c-boxLink__figure c-postThumb">
+			<div class="arkb-boxLink__figure c-postThumb">
 				<figure class="c-postThumb__figure">
 					<img src="<?=esc_url( $args['thumb_url'] )?>" alt="" class="<?=esc_attr( $img_class )?>">
 				</figure>
 			</div>
 		<?php endif; ?>
-		<div class="c-boxLink__body">
-			<div class="c-boxLink__title"><?=esc_html( $args['title'] )?></div>
-			<div class="c-boxLink__content"><?=esc_html( $args['excerpt'] )?></div>
+		<div class="arkb-boxLink__body">
+			<div class="arkb-boxLink__title"><?=esc_html( $args['title'] )?></div>
+			<div class="arkb-boxLink__content"><?=esc_html( $args['excerpt'] )?></div>
 			<?php if ( $args['caption'] ) : ?>
-				<div class="c-boxLink__more">
+				<div class="arkb-boxLink__more">
 					<?php if ( $favicon ) : ?>
-						<img class="c-boxLink__favicon" src="<?=$favicon?>" alt="" aria-hidden="true">
+						<img class="arkb-boxLink__favicon" src="<?=$favicon?>" alt="" aria-hidden="true">
 					<?php endif; ?>
-					<span class="c-boxLink__caption"><?=esc_html( $args['caption'] )?></span>
+					<span class="arkb-boxLink__caption"><?=esc_html( $args['caption'] )?></span>
 				</div>
 			<?php endif; ?>
 		</div>

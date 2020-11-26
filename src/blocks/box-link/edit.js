@@ -34,7 +34,7 @@ import classnames from 'classnames';
 
 const blockName = 'ark-block-boxLink';
 export default function (props) {
-	const { className, attributes, setAttributes } = props;
+	const { attributes, setAttributes } = props;
 	const {
 		align,
 		useIcon,
@@ -59,16 +59,9 @@ export default function (props) {
 	const isBannerStyle = -1 !== attrClass.indexOf('is-style-banner');
 
 	// ブロッククラス
-	const blockClass = classnames(
-		className,
-		blockName,
-		'c-boxLink',
-		'arkb-columns__item',
-		'-' + layout,
-		{
-			'has-text-align-center': 'center' === align,
-		}
-	);
+	const blockClass = classnames(blockName, 'arkb-boxLink', 'arkb-columns__item', '-' + layout, {
+		'has-text-align-center': 'center' === align,
+	});
 
 	// 縦並びか横並びかを変数化
 	const isVertical = 'vertical' === layout;
@@ -198,14 +191,14 @@ export default function (props) {
 	let iconContent = null;
 	if (useIcon && useIconHtml) {
 		iconContent = (
-			<figure className='c-boxLink__figure -icon -html' style={iconStyle}>
+			<figure className='arkb-boxLink__figure -icon -html' style={iconStyle}>
 				<RawHTML>{iconHtml}</RawHTML>
 			</figure>
 		);
 	} else if (useIcon) {
 		iconContent = (
-			<figure className='c-boxLink__figure -icon' style={iconStyle}>
-				<ArkheIcon icon={icon} className={`c-boxLink__icon`} />
+			<figure className='arkb-boxLink__figure -icon' style={iconStyle}>
+				<ArkheIcon icon={icon} className={`arkb-boxLink__icon`} />
 			</figure>
 		);
 	}
@@ -219,9 +212,9 @@ export default function (props) {
 					url={imgUrl}
 					id={imgId}
 					alt={imgAlt}
-					figureClass='c-boxLink__bg'
+					figureClass='arkb-boxLink__bg'
 					figureStyle={null}
-					imgClass='c-boxLink__img -no-lb'
+					imgClass='arkb-boxLink__img -no-lb'
 					onSelect={onSelectImage}
 					onSelectURL={onSelectURL}
 				/>
@@ -244,9 +237,9 @@ export default function (props) {
 				url={imgUrl}
 				id={imgId}
 				alt={imgAlt}
-				figureClass={classnames('c-boxLink__figure', { 'is-fixed-ratio': fixRatio })}
+				figureClass={classnames('arkb-boxLink__figure', { 'is-fixed-ratio': fixRatio })}
 				figureStyle={figureStyle}
-				imgClass='c-boxLink__img -no-lb'
+				imgClass='arkb-boxLink__img -no-lb'
 				onSelect={onSelectImage}
 				onSelectURL={onSelectURL}
 			/>
@@ -258,7 +251,7 @@ export default function (props) {
 	});
 
 	const innerBlocksProps = useInnerBlocksProps(
-		{ className: 'c-boxLink__content ark-keep-mt--s' },
+		{ className: 'arkb-boxLink__content ark-keep-mt--s' },
 		{
 			allowedBlocks: ['core/paragraph', 'core/list', 'core/buttons'],
 			template: [['core/paragraph']],
@@ -282,23 +275,23 @@ export default function (props) {
 				setUseIconHtml={setUseIconHtml}
 			/>
 			<div {...blockProps}>
-				<div className='c-boxLink__inner'>
+				<div className='arkb-boxLink__inner'>
 					{figure}
-					<div className='c-boxLink__body'>
+					<div className='arkb-boxLink__body'>
 						<RichText
 							tagName='div'
-							className={`c-boxLink__title is-empty-${RichText.isEmpty(title)}`}
+							className={`arkb-boxLink__title is-empty-${RichText.isEmpty(title)}`}
 							placeholder={__('Enter text', 'arkhe-blocks') + '...'}
 							value={title}
 							onChange={(newTitle) => setAttributes({ title: newTitle })}
 						/>
 						<div {...innerBlocksProps} />
 						{more && (
-							<div className='c-boxLink__more'>
-								<span className={`c-boxLink__more__text`}>{more}</span>
+							<div className='arkb-boxLink__more'>
+								<span className={`arkb-boxLink__more__text`}>{more}</span>
 								{showMoreArrow && (
 									<svg
-										className='c-boxLink__more__svg'
+										className='arkb-boxLink__more__svg'
 										width='16'
 										height='16'
 										viewBox='0 0 32 32'

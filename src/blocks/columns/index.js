@@ -62,12 +62,12 @@ registerBlockType(name, {
 	example,
 	attributes: metadata.attributes,
 	edit: (props) => {
-		const { attributes, setAttributes, className } = props;
+		const { attributes, setAttributes } = props;
 		const { vAlign, colPC, colTab, colMobile } = attributes;
 
 		// console.log(attributes.tagName);
 
-		const blockClass = classnames(className, blockName, 'arkb-columns', 'ark-has-guide');
+		const blockClass = classnames(blockName, 'arkb-columns', 'ark-has-guide');
 
 		const columnStyle = {
 			'--arkb-fb': basisSet[`col${colMobile}`] + '%',
