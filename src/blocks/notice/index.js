@@ -4,6 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 import {
+	BlockControls,
 	RichText,
 	InnerBlocks,
 	InspectorControls,
@@ -23,6 +24,7 @@ import example from './_example';
 import { ArkheIcon, ArkheIconOnSave } from '@components/ArkheIcon';
 import ArkheIconPicker from '@components/ArkheIconPicker';
 import { ArkheSVG } from '@components/ArkheSVG';
+import { ArkheMarginControl } from '@components/ArkheMarginControl';
 
 /**
  * @others dependencies
@@ -113,6 +115,9 @@ registerBlockType(name, {
 
 		return (
 			<>
+				<BlockControls>
+					<ArkheMarginControl attributes={attributes} setAttributes={setAttributes} />
+				</BlockControls>
 				<InspectorControls>
 					<PanelBody title={__('Notification type', 'arkhe-blocks')} initialOpen={true}>
 						<ButtonGroup className='ark-notice-btns'>
