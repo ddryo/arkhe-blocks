@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 import { registerBlockType } from '@wordpress/blocks';
-import { URLInput, InspectorControls, useBlockProps } from '@wordpress/block-editor';
+import { URLInput, BlockControls, InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { PanelBody, ToggleControl, TextControl } from '@wordpress/components';
 import ServerSideRender from '@wordpress/server-side-render';
 
@@ -17,6 +17,7 @@ import blockIcon from './_icon';
 import example from './_example';
 import exampleHtml from './_exampleHtml';
 import getNewLinkRel from '@helper/getNewLinkRel';
+import { ArkheMarginControl } from '@components/ArkheMarginControl';
 
 /**
  * @Others dependencies
@@ -148,6 +149,9 @@ registerBlockType(name, {
 
 		return (
 			<>
+				<BlockControls>
+					<ArkheMarginControl attributes={attributes} setAttributes={setAttributes} />
+				</BlockControls>
 				<InspectorControls>
 					<PanelBody title={__('Settings', 'arkhe-blocks')} initialOpen={true}>
 						<TextControl

@@ -3,7 +3,7 @@
  */
 import { __, _x } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
-import { InspectorControls } from '@wordpress/block-editor';
+import { InspectorControls, BlockControls, useBlockProps } from '@wordpress/block-editor';
 import ServerSideRender from '@wordpress/server-side-render';
 import { TabPanel } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
@@ -16,6 +16,7 @@ import example from './_example';
 import metadata from './block.json';
 import DisplayControl from './panel/_display';
 import PickupControl from './panel/_pickup';
+import { ArkheMarginControl } from '@components/ArkheMarginControl';
 
 /**
  * @Others dependencies
@@ -26,12 +27,13 @@ import PickupControl from './panel/_pickup';
  * metadata
  */
 const blockName = 'ark-block-postList';
-const { name, category, keywords, supports } = metadata;
+const { apiVersion, name, category, keywords, supports } = metadata;
 
 /**
  *
  */
 registerBlockType(name, {
+	apiVersion,
 	title: __('Post list', 'arkhe-blocks'),
 	description: __('Create a post list with the specified conditions.', 'arkhe-blocks'),
 	icon: {
@@ -44,12 +46,19 @@ registerBlockType(name, {
 	supports,
 	attributes: metadata.attributes,
 	edit: (props) => {
-		const { attributes, className } = props;
+		const { attributes, setAttributes } = props;
 
 		const authors = useSelect((select) => select('core').getAuthors());
 
+		const blockProps = useBlockProps({
+			className: blockName,
+		});
+
 		return (
 			<>
+				<BlockControls>
+					<ArkheMarginControl attributes={attributes} setAttributes={setAttributes} />
+				</BlockControls>
 				<InspectorControls>
 					<TabPanel
 						className='arkb-tabPanel'
@@ -89,7 +98,7 @@ registerBlockType(name, {
 						}}
 					</TabPanel>
 				</InspectorControls>
-				<div className={`${blockName} ${className} ark-has-guide`}>
+				<div {...blockProps}>
 					<ServerSideRender block={name} attributes={attributes} />
 				</div>
 			</>

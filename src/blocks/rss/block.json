@@ -1,4 +1,5 @@
 {
+    "apiVersion": 2,
     "name": "arkhe-blocks/rss",
     "title": "RSS",
     "category": "arkhe-blocks",

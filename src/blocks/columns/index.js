@@ -20,7 +20,7 @@ import { iconColor } from '@blocks/config';
 import metadata from './block.json';
 import blockIcon from './_icon';
 import example from './_example';
-// import ColumnsControl from './ColumnsControl';
+import { ArkheMarginControl } from '@components/ArkheMarginControl';
 
 /**
  * @Others dependencies
@@ -107,6 +107,7 @@ registerBlockType(name, {
 						}}
 						value={vAlign}
 					/>
+					<ArkheMarginControl attributes={attributes} setAttributes={setAttributes} />
 				</BlockControls>
 				<InspectorControls>
 					<PanelBody title='カラム設定'>

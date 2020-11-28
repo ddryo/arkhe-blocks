@@ -4,6 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 import {
+	BlockControls,
 	InnerBlocks,
 	useBlockProps,
 	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
@@ -16,6 +17,7 @@ import metadata from './block.json';
 import blockIcon from './_icon';
 import example from './_example';
 import { iconColor } from '@blocks/config';
+import { ArkheMarginControl } from '@components/ArkheMarginControl';
 
 /**
  * @Others dependencies
@@ -48,7 +50,7 @@ registerBlockType(name, {
 	// ],
 	example,
 	attributes: metadata.attributes,
-	edit: () => {
+	edit: ({ attributes, setAttributes }) => {
 		const blockProps = useBlockProps({
 			className: `${blockName} ark-has-guide`,
 		});
@@ -59,7 +61,14 @@ registerBlockType(name, {
 			renderAppender: InnerBlocks.ButtonBlockAppender,
 		});
 
-		return <div {...innerBlocksProps} />;
+		return (
+			<>
+				<BlockControls>
+					<ArkheMarginControl attributes={attributes} setAttributes={setAttributes} />
+				</BlockControls>
+				<div {...innerBlocksProps} />
+			</>
+		);
 	},
 
 	save: () => {

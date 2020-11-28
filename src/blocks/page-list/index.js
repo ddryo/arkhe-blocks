@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 import ServerSideRender from '@wordpress/server-side-render';
-import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
+import { InspectorControls, BlockControls, useBlockProps } from '@wordpress/block-editor';
 import {
 	PanelBody,
 	TextControl,
@@ -22,6 +22,7 @@ import metadata from './block.json';
 import { iconColor } from '@blocks/config';
 // import blockIcon from './_icon';
 // import example from './_example';
+import { ArkheMarginControl } from '@components/ArkheMarginControl';
 
 /**
  * @Others dependencies
@@ -116,6 +117,9 @@ registerBlockType(name, {
 
 		return (
 			<>
+				<BlockControls>
+					<ArkheMarginControl attributes={attributes} setAttributes={setAttributes} />
+				</BlockControls>
 				<InspectorControls>
 					<PanelBody title={__('Settings', 'arkhe-blocks')} initialOpen={true}>
 						<RadioControl

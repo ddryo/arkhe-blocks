@@ -41,6 +41,12 @@ const mbControls = [
 	},
 	{
 		icon: <span className='arkb-null-icon'></span>,
+		size: '1.5rem',
+		title: '1.5rem',
+		mbClass: 'u-mt-15',
+	},
+	{
+		icon: <span className='arkb-null-icon'></span>,
 		size: '2rem',
 		title: '2rem',
 		mbClass: 'u-mt-20',
@@ -57,17 +63,23 @@ const mbControls = [
 		title: '4rem',
 		mbClass: 'u-mt-40',
 	},
-	{
-		icon: <span className='arkb-null-icon'></span>,
-		size: '5rem',
-		title: '5rem',
-		mbClass: 'u-mt-50',
-	},
+	// {
+	// 	icon: <span className='arkb-null-icon'></span>,
+	// 	size: '5rem',
+	// 	title: '5rem',
+	// 	mbClass: 'u-mt-50',
+	// },
 	{
 		icon: <span className='arkb-null-icon'></span>,
 		size: '6rem',
 		title: '6rem',
 		mbClass: 'u-mt-60',
+	},
+	{
+		icon: <span className='arkb-null-icon'></span>,
+		size: '8rem',
+		title: '8rem',
+		mbClass: 'u-mt-80',
 	},
 ];
 
@@ -114,8 +126,6 @@ export const ArkheMarginControl = memo(({ attributes, setAttributes }) => {
 			controls={mbControls.map((control) => {
 				const { mbClass } = control; //mapでループ中のボタンのクラス
 				const isActive = activeClass === mbClass;
-
-				console.log(isActive);
 
 				return {
 					...control,

@@ -3,17 +3,18 @@
  */
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
-// import { __experimentalBlock as Block } from '@wordpress/block-editor';
+import { BlockControls, useBlockProps } from '@wordpress/block-editor';
 import ServerSideRender from '@wordpress/server-side-render';
 
 /**
  * @Internal dependencies
  */
-import BlockControls from './_controls';
+import TheSidebar from './_sidebar';
 import { iconColor } from '@blocks/config';
 // import blockIcon from './_icon';
 import example from './_example';
 import metadata from './block.json';
+import { ArkheMarginControl } from '@components/ArkheMarginControl';
 
 /**
  * @Others dependencies
@@ -24,12 +25,13 @@ import metadata from './block.json';
  * metadata
  */
 const blockName = 'ark-block-rss';
-const { name, category, keywords, supports } = metadata;
+const { apiVersion, name, category, keywords, supports } = metadata;
 
 /**
  *
  */
 registerBlockType(name, {
+	apiVersion,
 	title: __('RSS', 'arkhe-blocks'),
 	description: __('Create a list of RSS feeds.', 'arkhe-blocks'),
 	icon: {
@@ -42,14 +44,19 @@ registerBlockType(name, {
 	supports,
 	attributes: metadata.attributes,
 	edit: (props) => {
-		const { attributes, className } = props;
+		const { attributes, setAttributes } = props;
 
-		// ark-has-guide
+		const blockProps = useBlockProps({
+			className: blockName,
+		});
 
 		return (
 			<>
-				<BlockControls {...props} />
-				<div className={`${blockName} ${className}`}>
+				<BlockControls>
+					<ArkheMarginControl attributes={attributes} setAttributes={setAttributes} />
+				</BlockControls>
+				<TheSidebar {...props} />
+				<div {...blockProps}>
 					<ServerSideRender block={name} attributes={attributes} />
 				</div>
 			</>
