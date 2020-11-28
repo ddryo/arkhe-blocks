@@ -1,0 +1,119 @@
+{
+    "apiVersion": 2,
+    "name": "arkhe-blocks/section",
+    "title": "Section",
+    "category": "arkhe-blocks",
+    "keywords": [
+        "arkhe",
+        "section"
+    ],
+    "supports": {
+        "anchor": true,
+        "className": false,
+        "align": [
+            "wide",
+            "full"
+        ]
+    },
+    "attributes": {
+        "align": {
+            "type": "string",
+            "default": "full"
+        },
+        "bgColor": {
+            "type": "string",
+            "default": "#f7f7f7"
+        },
+        "textColor": {
+            "type": "string",
+            "default": ""
+        },
+        "imgId": {
+            "type": "number",
+            "default": 0
+        },
+        "imgUrl": {
+            "type": "string",
+            "source": "attribute",
+            "selector": "img.arkb-boxLink__img",
+            "attribute": "src"
+        },
+        "imgAlt": {
+            "type": "string",
+            "source": "attribute",
+            "selector": "img.arkb-boxLink__img",
+            "attribute": "alt"
+        },
+        "imgSize": {
+            "type": "string",
+            "default": "full"
+        },
+        "imgW": {
+            "type": "number"
+        },
+        "imgH": {
+            "type": "number"
+        },
+        "opacity": {
+            "type": "number",
+            "default": 100
+        },
+        "contentSize": {
+            "type": "string",
+            "default": "article"
+        },
+        "padPC": {
+            "type": "number",
+            "default": 4
+        },
+        "padSP": {
+            "type": "number",
+            "default": 4
+        },
+        "padUnitPC": {
+            "type": "string",
+            "default": "rem"
+        },
+        "padUnitSP": {
+            "type": "string",
+            "default": "rem"
+        },
+        "bgFocalPoint": {
+            "type": "object"
+        },
+        "isFixBg": {
+            "type": "boolean",
+            "default": false
+        },
+        "isParallax": {
+            "type": "boolean",
+            "default": false
+        },
+        "topSvgType": {
+            "type": "string",
+            "default": "line"
+        },
+        "topSvgLevel": {
+            "type": "number",
+            "default": 0
+        },
+        "bottomSvgType": {
+            "type": "string",
+            "default": "line"
+        },
+        "bottomSvgLevel": {
+            "type": "number",
+            "default": 0
+        },
+        "isReTop": {
+            "type": "boolean",
+            "default": false
+        },
+        "isReBottom": {
+            "type": "boolean",
+            "default": false
+        }
+    },
+    "editorScript": "file:../../../dist/blocks/section/index.js",
+    "textdomain": "arkhe-blocks"
+}

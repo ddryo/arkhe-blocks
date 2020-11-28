@@ -122,7 +122,7 @@ export const ArkheMarginControl = memo(({ attributes, setAttributes }) => {
 					icons.mbCtrol
 				)
 			}
-			label={__('ブロック上の余白量', 'arkhe-blocks')}
+			label={__('Margins on the block', 'arkhe-blocks')}
 			controls={mbControls.map((control) => {
 				const { mbClass } = control; //mapでループ中のボタンのクラス
 				const isActive = activeClass === mbClass;

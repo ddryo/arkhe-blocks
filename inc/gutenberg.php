@@ -48,6 +48,7 @@ function register_blocks() {
 	if ( \Arkhe_Blocks::IS_PRO ) {
 		$arkhe_blocks_pro = [
 			'notice', // freeへ？
+			'section',
 			'step',
 			'step-item',
 			'timeline',

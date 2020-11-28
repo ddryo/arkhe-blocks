@@ -1,0 +1,12 @@
+:root {
+	--arkb-section-pad--pc: 4rem;
+	--arkb-section-pad--sp: 4rem;
+}
+
+.ark-block-section {
+	padding: var(--arkb-section-pad--pc) 0;
+
+	@include sp {
+		padding: var(--arkb-section-pad--sp) 0;
+	}
+}

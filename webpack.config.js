@@ -21,14 +21,14 @@ const blocks = [
 	// 'faq',
 	// 'faq-item',
 	// 'notice',
-	'page-list',
-	'post-list',
-	'rss',
+	// 'page-list',
+	// 'post-list',
+	// 'rss',
+	'section',
 	// 'step',
 	// 'step-item',
 	// 'timeline',
 	// 'timeline-item',
-	//
 	// 'button',
 	// 'tab',
 ];
