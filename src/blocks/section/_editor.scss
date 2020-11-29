@@ -1,0 +1,34 @@
+// サイドバー
+.ark-control--padding {
+	display: flex;
+	flex-wrap: wrap;
+	// align-items: center;
+
+	.__label {
+		flex-basis: 100%;
+		margin-bottom: 8px;
+	}
+
+	.components-base-control {
+		flex-basis: 36%;
+
+		&.__input {
+			flex-basis: 60%;
+			margin-right: 4%;
+		}
+	}
+
+	// .components-base-control{}
+}
+
+.ark-block-section__inner {
+
+	.wp-block {
+		max-width: 100%;
+	}
+}
+
+
+.arkb-section__bg {
+	height: 100% !important;
+}

@@ -44,8 +44,15 @@
 
 }
 
-// 余白を小さくするエリア。
-// の中 / 全幅じゃないカラムブロックメディアと文章ブロックの中 / 通常幅のカバー・グループブロックの中
+// 余白をキープするエリア。
+.ark-keep-mt {
+
+	& > .block-editor-block-list__block {
+		margin-top: var(--ark-mt, 2rem);
+	}
+}
+
+// 余白を小さめにキープするエリア。
 .ark-keep-mt--s {
 
 	& > .block-editor-block-list__block {

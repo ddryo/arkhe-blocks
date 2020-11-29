@@ -25,6 +25,52 @@ import {
 } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 
+/**
+ * 設定
+ */
+const padUnits = ['px', 'rem', 'em', '%', 'vw', 'vh'];
+
+const textColorSet = [
+	{
+		name: '白',
+		color: '#fff',
+	},
+	{
+		name: '黒',
+		color: '#000',
+	},
+];
+
+const innerSizes = [
+	{
+		label: 'コンテンツ幅',
+		value: '',
+	},
+	{
+		label: 'フル幅',
+		value: 'full',
+	},
+];
+
+const svgTypes = [
+	{
+		label: '斜線',
+		value: 'line',
+	},
+	{
+		label: '円',
+		value: 'circle',
+	},
+	{
+		label: '波',
+		value: 'wave',
+	},
+	{
+		label: 'ジグザグ',
+		value: 'zigzag',
+	},
+];
+
 export default (props) => {
 	const { attributes, setAttributes } = props;
 
@@ -32,16 +78,14 @@ export default (props) => {
 		bgColor,
 		textColor,
 		imgUrl,
-		imgID,
+		imgId,
 		opacity,
-		isFixBg,
 		bgFocalPoint,
-		isParallax,
 		padPC,
-		// padSP,
+		padSP,
 		padUnitPC,
-		// padUnitSP,
-		contentSize,
+		padUnitSP,
+		innerSize,
 		topSvgLevel,
 		bottomSvgLevel,
 		topSvgType,
@@ -52,52 +96,6 @@ export default (props) => {
 
 	const [isOpenBgPicker, setIsOpenBgPicker] = useState(false);
 
-	const textColorSet = [
-		{
-			name: '白',
-			color: '#fff',
-		},
-		{
-			name: '黒',
-			color: '#000',
-		},
-	];
-
-	const padUnits = ['px', 'rem', 'em', '%', 'vw', 'vh'];
-
-	const sizeData = [
-		{
-			label: '記事',
-			value: 'article',
-		},
-		{
-			label: 'サイト幅',
-			value: 'container',
-		},
-		{
-			label: 'フルワイド',
-			value: 'full',
-		},
-	];
-	const svgTypes = [
-		{
-			label: '斜線',
-			value: 'line',
-		},
-		{
-			label: '円',
-			value: 'circle',
-		},
-		{
-			label: '波',
-			value: 'wave',
-		},
-		{
-			label: 'ジグザグ',
-			value: 'zigzag',
-		},
-	];
-
 	return (
 		<>
 			<PanelBody title={__('Size settings', 'arkhe-blocks')}>
@@ -106,14 +104,14 @@ export default (props) => {
 						{__('コンテンツの横幅', 'arkhe-blocks')}
 					</BaseControl.VisualLabel>
 					<ButtonGroup>
-						{sizeData.map((size) => {
+						{innerSizes.map((size) => {
 							return (
 								<Button
-									isSecondary={size.value !== contentSize}
-									isPrimary={size.value === contentSize}
+									isSecondary={size.value !== innerSize}
+									isPrimary={size.value === innerSize}
 									onClick={() => {
 										setAttributes({
-											contentSize: size.value,
+											innerSize: size.value,
 										});
 									}}
 									key={`key_${size.value}`}
@@ -125,23 +123,42 @@ export default (props) => {
 					</ButtonGroup>
 				</BaseControl>
 				<div className='ark-control--padding'>
+					<div className='__label'>{__('上下のpadding量', 'arkhe-blocks') + '(PC)'}</div>
 					<TextControl
-						label={__('上下のpadding量', 'arkhe-blocks') + '(PC)'}
+						className='__input'
 						value={padPC}
 						type='number'
 						onChange={(val) => {
-							// intに変換してから保存
-							setAttributes({ padPC: parseInt(val) });
+							setAttributes({ padPC: parseInt(val) }); // intに変換してから保存
 						}}
 					/>
 					<SelectControl
-						label={__('Image size')}
 						value={padUnitPC}
 						options={padUnits.map((unit) => {
 							return { label: unit, value: unit };
 						})}
 						onChange={(val) => {
 							setAttributes({ padUnitPC: val });
+						}}
+					/>
+				</div>
+				<div className='ark-control--padding'>
+					<div className='__label'>{__('上下のpadding量', 'arkhe-blocks') + '(SP)'}</div>
+					<TextControl
+						className='__input'
+						value={padSP}
+						type='number'
+						onChange={(val) => {
+							setAttributes({ padSP: parseInt(val) }); // intに変換してから保存
+						}}
+					/>
+					<SelectControl
+						value={padUnitSP}
+						options={padUnits.map((unit) => {
+							return { label: unit, value: unit };
+						})}
+						onChange={(val) => {
+							setAttributes({ padUnitSP: val });
 						}}
 					/>
 				</div>
@@ -246,27 +263,35 @@ export default (props) => {
 					<MediaUploadCheck>
 						<MediaUpload
 							onSelect={(media) => {
+								console.log(media);
+
 								// 画像がなければ
 								if (!media || !media.url) {
 									setAttributes({
-										imgUrl: '',
-										imgID: 0,
+										imgUrl: undefined,
+										imgId: 0,
 										opacity: 100,
+										imgW: undefined,
+										imgH: undefined,
 									});
 									return;
 								}
 
 								setAttributes({
 									imgUrl: media.url,
-									imgID: media.id,
+									imgId: media.id,
+									imgW: media.width,
+									imgH: media.height,
 									...(100 === opacity ? { opacity: 50 } : {}),
 								});
 							}}
 							allowedTypes={'image'}
-							value={imgID}
+							value={imgId}
 							render={({ open }) => (
 								<Button isPrimary onClick={open}>
-									メディアから選択
+									{imgUrl
+										? __('画像を変更', 'arkhe-blocks')
+										: __('メディアから選択', 'arkhe-blocks')}
 								</Button>
 							)}
 						/>
@@ -277,7 +302,7 @@ export default (props) => {
 						onClick={() => {
 							setAttributes({
 								imgUrl: '',
-								imgID: 0,
+								imgId: 0,
 								opacity: 100,
 							});
 						}}
@@ -285,39 +310,7 @@ export default (props) => {
 						削除
 					</Button>
 				</div>
-
 				{imgUrl && (
-					<BaseControl>
-						<BaseControl.VisualLabel>
-							{__('背景効果', 'arkhe-blocks')}
-						</BaseControl.VisualLabel>
-						<ToggleControl
-							label={__('Fixed Background')}
-							checked={isFixBg}
-							onChange={() => {
-								setAttributes({
-									isFixBg: !isFixBg, //逆転させる
-									isParallax: false,
-									bgFocalPoint: undefined,
-									// ...(!hasParallax ? { focalPoint: undefined } : {}),
-								});
-							}}
-						/>
-						<ToggleControl
-							label='パララックス効果をつける'
-							checked={isParallax}
-							onChange={() => {
-								setAttributes({
-									isParallax: !isParallax, //逆転させる
-									isFixBg: false,
-									bgFocalPoint: undefined,
-									// ...(!hasParallax ? { focalPoint: undefined } : {}),
-								});
-							}}
-						/>
-					</BaseControl>
-				)}
-				{imgUrl && !isFixBg && !isParallax && (
 					<FocalPointPicker
 						label={__('Focal Point Picker')}
 						url={imgUrl}
@@ -326,99 +319,97 @@ export default (props) => {
 					/>
 				)}
 			</PanelBody>
-			{!imgUrl && (
-				<PanelBody title='上下の境界線の形状'>
+			<PanelBody title='上下の境界線の形状'>
+				<BaseControl>
+					<BaseControl.VisualLabel>
+						{__('上部の境界線の形状', 'arkhe-blocks')}
+					</BaseControl.VisualLabel>
+					<ButtonGroup className='swl-btns-minWidth'>
+						{svgTypes.map((type) => {
+							return (
+								<Button
+									isSecondary={type.value !== topSvgType}
+									isPrimary={type.value === topSvgType}
+									onClick={() => {
+										setAttributes({
+											topSvgType: type.value,
+										});
+									}}
+									key={`key_${type.value}`}
+								>
+									{type.label}
+								</Button>
+							);
+						})}
+					</ButtonGroup>
+				</BaseControl>
+				{'line' === topSvgType && (
 					<BaseControl>
-						<BaseControl.VisualLabel>
-							{__('上部の境界線の形状', 'arkhe-blocks')}
-						</BaseControl.VisualLabel>
-						<ButtonGroup className='swl-btns-minWidth'>
-							{svgTypes.map((type) => {
-								return (
-									<Button
-										isSecondary={type.value !== topSvgType}
-										isPrimary={type.value === topSvgType}
-										onClick={() => {
-											setAttributes({
-												topSvgType: type.value,
-											});
-										}}
-										key={`key_${type.value}`}
-									>
-										{type.label}
-									</Button>
-								);
-							})}
-						</ButtonGroup>
+						<CheckboxControl
+							label='逆向きにする'
+							checked={isReTop}
+							onChange={(val) => setAttributes({ isReTop: val })}
+						/>
 					</BaseControl>
-					{'line' === topSvgType && (
-						<BaseControl>
-							<CheckboxControl
-								label='逆向きにする'
-								checked={isReTop}
-								onChange={(val) => setAttributes({ isReTop: val })}
-							/>
-						</BaseControl>
-					)}
-					<RangeControl
-						label='上部の境界線の高さレベル'
-						value={topSvgLevel}
-						onChange={(val) => {
-							setAttributes({
-								topSvgLevel: val,
-							});
-						}}
-						min={0}
-						max={5}
-						step={0.1}
-					/>
+				)}
+				<RangeControl
+					label='上部の境界線の高さレベル'
+					value={topSvgLevel}
+					onChange={(val) => {
+						setAttributes({
+							topSvgLevel: val,
+						});
+					}}
+					min={0}
+					max={5}
+					step={0.1}
+				/>
 
+				<BaseControl>
+					<BaseControl.VisualLabel>
+						{__('下部の境界線の形状', 'arkhe-blocks')}
+					</BaseControl.VisualLabel>
+					<ButtonGroup className='swl-btns-minWidth'>
+						{svgTypes.map((type) => {
+							return (
+								<Button
+									isSecondary={type.value !== bottomSvgType}
+									isPrimary={type.value === bottomSvgType}
+									onClick={() => {
+										setAttributes({
+											bottomSvgType: type.value,
+										});
+									}}
+									key={`key_${type.value}`}
+								>
+									{type.label}
+								</Button>
+							);
+						})}
+					</ButtonGroup>
+				</BaseControl>
+				{'line' === bottomSvgType && (
 					<BaseControl>
-						<BaseControl.VisualLabel>
-							{__('下部の境界線の形状', 'arkhe-blocks')}
-						</BaseControl.VisualLabel>
-						<ButtonGroup className='swl-btns-minWidth'>
-							{svgTypes.map((type) => {
-								return (
-									<Button
-										isSecondary={type.value !== bottomSvgType}
-										isPrimary={type.value === bottomSvgType}
-										onClick={() => {
-											setAttributes({
-												bottomSvgType: type.value,
-											});
-										}}
-										key={`key_${type.value}`}
-									>
-										{type.label}
-									</Button>
-								);
-							})}
-						</ButtonGroup>
+						<CheckboxControl
+							label='逆向きにする'
+							checked={isReBottom}
+							onChange={(val) => setAttributes({ isReBottom: val })}
+						/>
 					</BaseControl>
-					{'line' === bottomSvgType && (
-						<BaseControl>
-							<CheckboxControl
-								label='逆向きにする'
-								checked={isReBottom}
-								onChange={(val) => setAttributes({ isReBottom: val })}
-							/>
-						</BaseControl>
-					)}
-					<RangeControl
-						label='下部の境界線の高さレベル'
-						value={bottomSvgLevel}
-						onChange={(val) => {
-							setAttributes({
-								bottomSvgLevel: val,
-							});
-						}}
-						min={0}
-						max={5}
-						step={0.1}
-					/>
-				</PanelBody>
-			)}
+				)}
+				<RangeControl
+					label='下部の境界線の高さレベル'
+					value={bottomSvgLevel}
+					onChange={(val) => {
+						setAttributes({
+							bottomSvgLevel: val,
+						});
+					}}
+					min={0}
+					max={5}
+					step={0.1}
+				/>
+			</PanelBody>
 		</>
 	);
 };

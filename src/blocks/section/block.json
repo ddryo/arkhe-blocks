@@ -35,13 +35,13 @@
         "imgUrl": {
             "type": "string",
             "source": "attribute",
-            "selector": "img.arkb-boxLink__img",
+            "selector": "img.arkb-section__bg",
             "attribute": "src"
         },
         "imgAlt": {
             "type": "string",
             "source": "attribute",
-            "selector": "img.arkb-boxLink__img",
+            "selector": "img.arkb-section__bg",
             "attribute": "alt"
         },
         "imgSize": {
@@ -58,9 +58,9 @@
             "type": "number",
             "default": 100
         },
-        "contentSize": {
+        "innerSize": {
             "type": "string",
-            "default": "article"
+            "default": ""
         },
         "padPC": {
             "type": "number",
@@ -80,14 +80,6 @@
         },
         "bgFocalPoint": {
             "type": "object"
-        },
-        "isFixBg": {
-            "type": "boolean",
-            "default": false
-        },
-        "isParallax": {
-            "type": "boolean",
-            "default": false
         },
         "topSvgType": {
             "type": "string",

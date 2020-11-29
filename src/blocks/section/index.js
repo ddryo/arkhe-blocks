@@ -57,14 +57,9 @@ const getBgColor = (attributes) => {
  * スタイルをセットする関数
  */
 const getBlockStyle = (attributes) => {
-	const { imgUrl, bgFocalPoint, textColor, padPC, padSP, padUnitPC, padUnitSP } = attributes;
+	const { textColor, padPC, padSP, padUnitPC, padUnitSP } = attributes;
 
 	const style = {};
-	if (imgUrl) {
-		if (bgFocalPoint) {
-			style.backgroundPosition = `${bgFocalPoint.x * 100}% ${bgFocalPoint.y * 100}%`;
-		}
-	}
 
 	// textColorがセットされているか
 	if (textColor) style.color = textColor;
@@ -100,21 +95,17 @@ registerBlockType(name, {
 	supports,
 	// example,
 	attributes: metadata.attributes,
-	// getEditWrapperProps(attributes) {
-	// 	const { contentSize } = attributes;
-	// 	return { 'data-align': 'full', 'data-content-size': contentSize };
-	// },
-
 	edit: (props) => {
 		const { attributes } = props;
 		const {
+			imgId,
 			imgUrl,
+			bgFocalPoint,
 			topSvgLevel,
 			bottomSvgLevel,
 			topSvgType,
 			bottomSvgType,
-			// isFixBg,
-			// isParallax,
+			innerSize,
 			// pcPadding,
 			// spPadding,
 			isReTop,
@@ -124,8 +115,6 @@ registerBlockType(name, {
 		// クラス名
 		const blockClass = classnames(blockName, {
 			'has-bg-img': !!imgUrl,
-			// '-fixbg' : isFixBg,
-			// '-parallax' : isParallax,
 		});
 
 		// スタイルデータ
@@ -140,10 +129,11 @@ registerBlockType(name, {
 		const blockProps = useBlockProps({
 			className: blockClass,
 			style: style || null,
+			'data-inner': innerSize || null,
 		});
 		const innerBlocksProps = useInnerBlocksProps(
 			{
-				className: `${blockName}__inner`,
+				className: `${blockName}__inner ark-keep-mt`,
 			},
 			{
 				template: [['core/heading']], // arkhe-blocks/section-heading にする
@@ -151,6 +141,22 @@ registerBlockType(name, {
 				// renderAppender: InnerBlocks.ButtonBlockAppender,
 			}
 		);
+
+		let bgImg = null;
+		if (imgUrl) {
+			const bgStyle = bgFocalPoint
+				? { objectPosition: `${bgFocalPoint.x * 100}% ${bgFocalPoint.y * 100}%` }
+				: null;
+
+			bgImg = (
+				<img
+					src={imgUrl}
+					className={`arkb-section__bg -no-lb wp-image-${imgId}`}
+					alt=''
+					style={bgStyle}
+				/>
+			);
+		}
 
 		return (
 			<>
@@ -161,6 +167,7 @@ registerBlockType(name, {
 					<FullWidePanels {...props} />
 				</InspectorControls>
 				<div {...blockProps}>
+					{bgImg}
 					{0 !== topSvgLevel && !imgUrl && (
 						<SectionSVG
 							position='top'
@@ -189,8 +196,10 @@ registerBlockType(name, {
 
 	save: ({ attributes }) => {
 		const {
+			imgId,
 			imgUrl,
-			contentSize,
+			bgFocalPoint,
+			innerSize,
 			topSvgLevel,
 			bottomSvgLevel,
 			topSvgType,
@@ -205,26 +214,35 @@ registerBlockType(name, {
 		// クラス名
 		const blockClass = classnames(blockName, {
 			'has-bg-img': !!imgUrl,
-			// '-fixbg' : isFixBg,
-			// '-parallax' : isParallax,
 		});
 
 		// ブロックProps
 		const blockProps = useBlockProps.save({
 			className: blockClass,
 			style: style || null,
+			'data-inner': innerSize || null,
 		});
-
-		// inner要素のクラス名
-		let innerClass = `${blockName}__inner`;
-		if ('full' !== contentSize) {
-			innerClass = classnames(innerClass, `l-${contentSize}`);
-		}
 
 		const bgColor = getBgColor(attributes);
 
+		let bgImg = null;
+		if (imgUrl) {
+			const bgStyle = bgFocalPoint
+				? { objectPosition: `${bgFocalPoint.x * 100}% ${bgFocalPoint.y * 100}%` }
+				: null;
+			bgImg = (
+				<img
+					src={imgUrl}
+					className={`arkb-section__bg -no-lb wp-image-${imgId}`}
+					alt=''
+					style={bgStyle}
+				/>
+			);
+		}
+
 		return (
 			<div {...blockProps}>
+				{bgImg}
 				{0 !== topSvgLevel && !imgUrl && (
 					<SectionSVG
 						position='top'
@@ -235,8 +253,7 @@ registerBlockType(name, {
 						isEdit={false}
 					/>
 				)}
-
-				<div className={innerClass}>
+				<div className={`${blockName}__inner ark-keep-mt`}>
 					<InnerBlocks.Content />
 				</div>
 				{0 !== bottomSvgLevel && !imgUrl && (

@@ -4,9 +4,46 @@
 }
 
 .ark-block-section {
+	position: relative;
 	padding: var(--arkb-section-pad--pc) 0;
 
 	@include sp {
 		padding: var(--arkb-section-pad--sp) 0;
 	}
+
+	&.has-bg-img {
+
+		&::before {
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 1;
+			width: 100%;
+			height: 100%;
+			background-color: inherit;
+			content: "";
+		}
+	}
+}
+
+.ark-block-section__inner {
+	position: relative;
+	z-index: 2;
+	max-width: var(--ark-article_width);
+	margin: 0 auto;
+
+	[data-inner="full"] > & {
+		max-width: 100%;
+	}
+}
+
+
+.arkb-section__bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }

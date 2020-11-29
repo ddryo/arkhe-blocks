@@ -7,6 +7,15 @@
 @import "../blocks/**/_common.scss";
 @import "../blocks/**/_front.scss";
 
+
+// 余白をキープするエリア。
+.ark-keep-mt {
+
+	& > * {
+		margin-top: var(--ark-mt, 2rem);
+	}
+}
+
 .ark-keep-mt--s {
 
 	& > * {
@@ -14,8 +23,12 @@
 		margin-bottom: 0;
 	}
 
+}
+
+.ark-keep-mt,
+.ark-keep-mt--s {
+
 	& > :first-child {
 		margin-top: 0;
 	}
-
 }
