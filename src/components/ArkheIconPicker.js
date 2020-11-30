@@ -86,14 +86,6 @@ const ArkheIconPicker = memo((props) => {
 						);
 					})}
 				</ButtonGroup>
-				{/* {!window.arkheTheme && (
-					<div className='ark-blocks-help'>
-						{__(
-							'If you use "Arkhe", you will be able to select the icons provided in the theme itself.',
-							'arkhe-blocks'
-						)}
-					</div>
-				)} */}
 			</BaseControl>
 			<TextControl
 				label={__('Icon', 'arkhe-blocks')}

@@ -92,6 +92,7 @@ export default (props) => {
 		bottomSvgType,
 		isReTop,
 		isReBottom,
+		isRepeat,
 	} = attributes;
 
 	const [isOpenBgPicker, setIsOpenBgPicker] = useState(false);
@@ -241,15 +242,26 @@ export default (props) => {
 				/>
 			</PanelBody>
 			<PanelBody title='背景画像の設定'>
+				<ToggleControl
+					label={__('背景画像をリピートする', 'arkhe-blocks')}
+					checked={isRepeat}
+					onChange={(val) => {
+						setAttributes({ isRepeat: val });
+						if (val) {
+							setAttributes({ bgFocalPoint: undefined });
+						}
+					}}
+				/>
+
 				<TextControl
 					className='u-mb-5'
 					label='画像URL'
 					value={imgUrl}
 					placeholder='URLを直接入力できます'
 					onChange={(val) => {
-						if ('' === val) {
+						if (!val) {
 							// 画像削除されたら
-							setAttributes({ imgUrl: '', opacity: 100 });
+							setAttributes({ imgUrl: undefined, opacity: 100 });
 						} else {
 							setAttributes({
 								imgUrl: val,
@@ -259,27 +271,28 @@ export default (props) => {
 					}}
 				/>
 
-				<div className='swl-btns--media u-mb-20'>
+				<div className='arkb-btns--media'>
 					<MediaUploadCheck>
 						<MediaUpload
 							onSelect={(media) => {
-								console.log(media);
+								// console.log(media);
 
 								// 画像がなければ
 								if (!media || !media.url) {
 									setAttributes({
-										imgUrl: undefined,
 										imgId: 0,
-										opacity: 100,
+										imgUrl: undefined,
 										imgW: undefined,
 										imgH: undefined,
+										opacity: 100,
+										bgFocalPoint: undefined,
 									});
 									return;
 								}
 
 								setAttributes({
-									imgUrl: media.url,
 									imgId: media.id,
+									imgUrl: media.url,
 									imgW: media.width,
 									imgH: media.height,
 									...(100 === opacity ? { opacity: 50 } : {}),
@@ -296,21 +309,26 @@ export default (props) => {
 							)}
 						/>
 					</MediaUploadCheck>
-					<Button
-						isSecondary
-						className='swl-btn--delete'
-						onClick={() => {
-							setAttributes({
-								imgUrl: '',
-								imgId: 0,
-								opacity: 100,
-							});
-						}}
-					>
-						削除
-					</Button>
+					{imgUrl && (
+						<Button
+							isSecondary
+							className='arkb-btn--delete'
+							onClick={() => {
+								setAttributes({
+									imgId: 0,
+									imgUrl: undefined,
+									imgW: undefined,
+									imgH: undefined,
+									opacity: 100,
+									bgFocalPoint: undefined,
+								});
+							}}
+						>
+							{__('Delete', 'arkhe-blocks')}
+						</Button>
+					)}
 				</div>
-				{imgUrl && (
+				{imgUrl && !isRepeat && (
 					<FocalPointPicker
 						label={__('Focal Point Picker')}
 						url={imgUrl}
@@ -319,12 +337,12 @@ export default (props) => {
 					/>
 				)}
 			</PanelBody>
-			<PanelBody title='上下の境界線の形状'>
+			<PanelBody title={__('上部の境界線の形状', 'arkhe-blocks')}>
 				<BaseControl>
 					<BaseControl.VisualLabel>
 						{__('上部の境界線の形状', 'arkhe-blocks')}
 					</BaseControl.VisualLabel>
-					<ButtonGroup className='swl-btns-minWidth'>
+					<ButtonGroup className='arkb-btns-minWidth'>
 						{svgTypes.map((type) => {
 							return (
 								<Button
@@ -369,7 +387,7 @@ export default (props) => {
 					<BaseControl.VisualLabel>
 						{__('下部の境界線の形状', 'arkhe-blocks')}
 					</BaseControl.VisualLabel>
-					<ButtonGroup className='swl-btns-minWidth'>
+					<ButtonGroup className='arkb-btns-minWidth'>
 						{svgTypes.map((type) => {
 							return (
 								<Button

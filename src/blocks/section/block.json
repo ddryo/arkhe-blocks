@@ -24,6 +24,10 @@
             "type": "string",
             "default": "#f7f7f7"
         },
+        "opacity": {
+            "type": "number",
+            "default": 100
+        },
         "textColor": {
             "type": "string",
             "default": ""
@@ -33,10 +37,7 @@
             "default": 0
         },
         "imgUrl": {
-            "type": "string",
-            "source": "attribute",
-            "selector": "img.arkb-section__bg",
-            "attribute": "src"
+            "type": "string"
         },
         "imgAlt": {
             "type": "string",
@@ -44,19 +45,21 @@
             "selector": "img.arkb-section__bg",
             "attribute": "alt"
         },
+        "imgW": {
+            "type": "string",
+            "source": "attribute",
+            "selector": "img.arkb-section__bg",
+            "attribute": "width"
+        },
+        "imgH": {
+            "type": "string",
+            "source": "attribute",
+            "selector": "img.arkb-section__bg",
+            "attribute": "height"
+        },
         "imgSize": {
             "type": "string",
             "default": "full"
-        },
-        "imgW": {
-            "type": "number"
-        },
-        "imgH": {
-            "type": "number"
-        },
-        "opacity": {
-            "type": "number",
-            "default": 100
         },
         "innerSize": {
             "type": "string",
@@ -84,6 +87,10 @@
         "topSvgType": {
             "type": "string",
             "default": "line"
+        },
+        "isRepeat": {
+            "type": "boolean",
+            "default": false
         },
         "topSvgLevel": {
             "type": "number",

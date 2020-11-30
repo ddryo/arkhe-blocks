@@ -42,8 +42,7 @@ const { apiVersion, name, category, keywords, supports } = metadata;
 /**
  * 背景色
  */
-const getBgColor = (attributes) => {
-	const { bgColor, opacity } = attributes;
+const getBgColor = (bgColor, opacity) => {
 	if (0 === opacity) {
 		// backgroundColorなし
 		return '';
@@ -54,17 +53,41 @@ const getBgColor = (attributes) => {
 };
 
 /**
+ * 背景画像のソース
+ */
+const getBgImage = (imgId, imgUrl, imgW, imgH, bgFocalPoint, isRepeat) => {
+	if (!imgUrl || isRepeat) {
+		return null;
+	}
+
+	const bgStyle = bgFocalPoint
+		? { objectPosition: `${bgFocalPoint.x * 100}% ${bgFocalPoint.y * 100}%` }
+		: null;
+
+	return (
+		<img
+			src={imgUrl}
+			className={`arkb-section__bg -no-lb wp-image-${imgId}`}
+			alt=''
+			width={imgW || null}
+			height={imgH || null}
+			style={bgStyle}
+		/>
+	);
+};
+
+/**
  * スタイルをセットする関数
  */
-const getBlockStyle = (attributes) => {
-	const { textColor, padPC, padSP, padUnitPC, padUnitSP } = attributes;
+const getBlockStyle = (attributes, bgColor) => {
+	const { textColor, padPC, padSP, padUnitPC, padUnitSP, isRepeat, imgUrl } = attributes;
 
 	const style = {};
 
 	// textColorがセットされているか
 	if (textColor) style.color = textColor;
 
-	const bgColor = getBgColor(attributes);
+	// 背景色
 	if (bgColor) style.backgroundColor = bgColor;
 
 	// padding
@@ -76,6 +99,12 @@ const getBlockStyle = (attributes) => {
 	}
 	if ('4rem' !== paddingSP) {
 		style['--arkb-section-pad--sp'] = paddingSP;
+	}
+
+	// リピート背景画像
+	if (isRepeat && imgUrl) {
+		style.backgroundImage = `url(${imgUrl})`;
+		style.backgroundRepeat = 'repeat';
 	}
 
 	return style;
@@ -98,8 +127,12 @@ registerBlockType(name, {
 	edit: (props) => {
 		const { attributes } = props;
 		const {
+			bgColor,
+			opacity,
 			imgId,
 			imgUrl,
+			imgW,
+			imgH,
 			bgFocalPoint,
 			topSvgLevel,
 			bottomSvgLevel,
@@ -110,6 +143,7 @@ registerBlockType(name, {
 			// spPadding,
 			isReTop,
 			isReBottom,
+			isRepeat,
 		} = attributes;
 
 		// クラス名
@@ -118,12 +152,11 @@ registerBlockType(name, {
 		});
 
 		// スタイルデータ
-		const style = getBlockStyle(attributes);
-		// if (imgUrl) {
-		// 	style.backgroundImage = 'url(' + imgUrl + ')';
-		// }
+		const _bgColor = getBgColor(bgColor, opacity);
+		const style = getBlockStyle(attributes, _bgColor);
 
-		const bgColor = getBgColor(attributes);
+		// 背景画像
+		const bgImg = getBgImage(imgId, imgUrl, imgW, imgH, bgFocalPoint, isRepeat);
 
 		// ブロックProps
 		const blockProps = useBlockProps({
@@ -142,22 +175,6 @@ registerBlockType(name, {
 			}
 		);
 
-		let bgImg = null;
-		if (imgUrl) {
-			const bgStyle = bgFocalPoint
-				? { objectPosition: `${bgFocalPoint.x * 100}% ${bgFocalPoint.y * 100}%` }
-				: null;
-
-			bgImg = (
-				<img
-					src={imgUrl}
-					className={`arkb-section__bg -no-lb wp-image-${imgId}`}
-					alt=''
-					style={bgStyle}
-				/>
-			);
-		}
-
 		return (
 			<>
 				{/* <BlockControls>
@@ -172,7 +189,7 @@ registerBlockType(name, {
 						<SectionSVG
 							position='top'
 							heightLevel={topSvgLevel}
-							fillColor={bgColor}
+							fillColor={_bgColor}
 							type={topSvgType}
 							isRe={isReTop}
 							isEdit={true}
@@ -183,7 +200,7 @@ registerBlockType(name, {
 						<SectionSVG
 							position='bottom'
 							heightLevel={bottomSvgLevel}
-							fillColor={bgColor}
+							fillColor={_bgColor}
 							type={bottomSvgType}
 							isRe={isReBottom}
 							isEdit={true}
@@ -196,8 +213,12 @@ registerBlockType(name, {
 
 	save: ({ attributes }) => {
 		const {
+			bgColor,
+			opacity,
 			imgId,
 			imgUrl,
+			imgW,
+			imgH,
 			bgFocalPoint,
 			innerSize,
 			topSvgLevel,
@@ -206,10 +227,15 @@ registerBlockType(name, {
 			bottomSvgType,
 			isReTop,
 			isReBottom,
+			isRepeat,
 		} = attributes;
 
 		// styleデータ
-		const style = getBlockStyle(attributes);
+		const _bgColor = getBgColor(bgColor, opacity);
+		const style = getBlockStyle(attributes, _bgColor);
+
+		// 背景画像
+		const bgImg = getBgImage(imgId, imgUrl, imgW, imgH, bgFocalPoint, isRepeat);
 
 		// クラス名
 		const blockClass = classnames(blockName, {
@@ -223,23 +249,6 @@ registerBlockType(name, {
 			'data-inner': innerSize || null,
 		});
 
-		const bgColor = getBgColor(attributes);
-
-		let bgImg = null;
-		if (imgUrl) {
-			const bgStyle = bgFocalPoint
-				? { objectPosition: `${bgFocalPoint.x * 100}% ${bgFocalPoint.y * 100}%` }
-				: null;
-			bgImg = (
-				<img
-					src={imgUrl}
-					className={`arkb-section__bg -no-lb wp-image-${imgId}`}
-					alt=''
-					style={bgStyle}
-				/>
-			);
-		}
-
 		return (
 			<div {...blockProps}>
 				{bgImg}
@@ -247,7 +256,7 @@ registerBlockType(name, {
 					<SectionSVG
 						position='top'
 						heightLevel={topSvgLevel}
-						fillColor={bgColor}
+						fillColor={_bgColor}
 						type={topSvgType}
 						isRe={isReTop}
 						isEdit={false}
@@ -260,7 +269,7 @@ registerBlockType(name, {
 					<SectionSVG
 						position='bottom'
 						heightLevel={bottomSvgLevel}
-						fillColor={bgColor}
+						fillColor={_bgColor}
 						type={bottomSvgType}
 						isRe={isReBottom}
 						isEdit={false}

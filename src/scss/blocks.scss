@@ -35,14 +35,6 @@
 	}
 }
 
-.ark-blocks-help {
-	margin: 16px 0;
-
-	.components-panel__body-title + & {
-		margin-top: 0;
-	}
-
-}
 
 // 余白をキープするエリア。
 .ark-keep-mt {
@@ -80,13 +72,6 @@
 }
 
 
-// ヘッダーツールバー（「投稿を表示する」）。
-.ark-custom-header-toolbar {
-	align-self: center;
-	margin-left: 12px;
-}
-
-
 // サイドバーのタブパネル
 .arkb-tabPanel {
 
@@ -104,46 +89,3 @@
 	}
 }
 
-// トグルコントロールが集まったエリア
-.arkb-toggles {
-
-	.components-base-control {
-		margin-bottom: 12px;
-	}
-}
-
-// 小さく表示したいボタン ( isSmall だと小さくなりすぎる時用)
-.arkb-btns--small {
-
-	.components-button {
-		height: 32px;
-		padding: 6px 8px;
-		font-size: 12px;
-	}
-}
-
-
-// リセット付きレンジコントロール
-.arkb-range--useReset {
-
-	.components-range-control__root {
-		flex-wrap: wrap;
-	}
-
-	.css-uojzqi-ActionRightWrapper {
-		width: 100%;
-		margin-top: 8px;
-		text-align: right;
-	}
-
-	.components-range-control__reset {
-		height: auto !important;
-		min-height: 0 !important;
-		box-shadow: none !important;
-	}
-}
-
-// ヘルプテキスト詰まりすぎなので打ち消し
-.components-base-control .components-base-control__help {
-	margin-top: -4px;
-}

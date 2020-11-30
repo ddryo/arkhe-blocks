@@ -165,7 +165,7 @@ registerBlockType(name, {
 							<BaseControl.VisualLabel>
 								{__('HTML tag for title', 'arkhe-blocks')}
 							</BaseControl.VisualLabel>
-							<ButtonGroup className='ark-btns--minWidth'>
+							<ButtonGroup>
 								{hTags.map((btn) => {
 									const isSlected = btn.val === hTag;
 									return (
