@@ -55,8 +55,24 @@ const getBgColor = (bgColor, opacity) => {
 /**
  * 背景画像のソース
  */
-const getBgImage = (imgId, imgUrl, imgW, imgH, bgFocalPoint, isRepeat) => {
-	if (!imgUrl || isRepeat) {
+const getBgImage = ({
+	imgId,
+	imgUrl,
+	imgWidth,
+	imgHeight,
+	bgFocalPoint,
+	imgIdSP,
+	imgUrlSP,
+	imgWidthSP,
+	imgHeightSP,
+	bgFocalPointSP,
+	isRepeat,
+}) => {
+	if (isRepeat) {
+		return null;
+	}
+
+	if (!imgUrl) {
 		return null;
 	}
 
@@ -64,15 +80,46 @@ const getBgImage = (imgId, imgUrl, imgW, imgH, bgFocalPoint, isRepeat) => {
 		? { objectPosition: `${bgFocalPoint.x * 100}% ${bgFocalPoint.y * 100}%` }
 		: null;
 
+	const bgStyleSP = bgFocalPointSP
+		? { objectPosition: `${bgFocalPointSP.x * 100}% ${bgFocalPointSP.y * 100}%` }
+		: null;
+
+	let pcImgClass = `${blockName}__bg u-lb-off`;
+	if (imgUrlSP) {
+		pcImgClass = classnames(pcImgClass, 'u-only-pc');
+	}
+	if (imgId) {
+		pcImgClass = classnames(pcImgClass, `wp-image-${imgId}`);
+	}
+
+	let spImgClass = `${blockName}__bg u-lb-off u-only-sp`;
+	if (imgId) {
+		spImgClass = classnames(spImgClass, `wp-image-${imgId}`);
+	}
+
 	return (
-		<img
-			src={imgUrl}
-			className={`arkb-section__bg -no-lb wp-image-${imgId}`}
-			alt=''
-			width={imgW || null}
-			height={imgH || null}
-			style={bgStyle}
-		/>
+		<>
+			<img
+				src={imgUrl}
+				className={pcImgClass}
+				alt=''
+				width={imgWidth || null}
+				height={imgHeight || null}
+				data-for='pc'
+				style={bgStyle}
+			/>
+			{imgUrlSP && (
+				<img
+					src={imgUrlSP}
+					className={spImgClass}
+					alt=''
+					width={imgWidthSP || null}
+					height={imgHeightSP || null}
+					data-for='sp'
+					style={bgStyleSP}
+				/>
+			)}
+		</>
 	);
 };
 
@@ -131,18 +178,22 @@ registerBlockType(name, {
 			opacity,
 			imgId,
 			imgUrl,
-			imgW,
-			imgH,
+			imgWidth,
+			imgHeight,
+			imgIdSP,
+			imgUrlSP,
+			imgWidthSP,
+			imgHeightSP,
 			bgFocalPoint,
-			topSvgLevel,
-			bottomSvgLevel,
-			topSvgType,
-			bottomSvgType,
 			innerSize,
+			svgLevelTop,
+			svgLevelBottom,
+			svgTypeTop,
+			svgTypeBottom,
+			svgColorTop,
+			svgColorBottom,
 			// pcPadding,
 			// spPadding,
-			isReTop,
-			isReBottom,
 			isRepeat,
 		} = attributes;
 
@@ -156,7 +207,16 @@ registerBlockType(name, {
 		const style = getBlockStyle(attributes, _bgColor);
 
 		// 背景画像
-		const bgImg = getBgImage(imgId, imgUrl, imgW, imgH, bgFocalPoint, isRepeat);
+		const bgImg = getBgImage(attributes);
+
+		// インナー部分のstyle
+		const innerStyle = {};
+		if (0 !== svgLevelTop) {
+			innerStyle.marginTop = `${Math.abs(svgLevelTop) * 0.1}vw`;
+		}
+		if (0 !== svgLevelBottom) {
+			innerStyle.marginBottom = `${Math.abs(svgLevelBottom) * 0.1}vw`;
+		}
 
 		// ブロックProps
 		const blockProps = useBlockProps({
@@ -167,6 +227,7 @@ registerBlockType(name, {
 		const innerBlocksProps = useInnerBlocksProps(
 			{
 				className: `${blockName}__inner ark-keep-mt`,
+				style: innerStyle || null,
 			},
 			{
 				template: [['core/heading']], // arkhe-blocks/section-heading にする
@@ -185,25 +246,21 @@ registerBlockType(name, {
 				</InspectorControls>
 				<div {...blockProps}>
 					{bgImg}
-					{0 !== topSvgLevel && !imgUrl && (
+					{0 !== svgLevelTop && (
 						<SectionSVG
 							position='top'
-							heightLevel={topSvgLevel}
-							fillColor={_bgColor}
-							type={topSvgType}
-							isRe={isReTop}
-							isEdit={true}
+							heightLevel={svgLevelTop}
+							fillColor={svgColorTop}
+							type={svgTypeTop}
 						/>
 					)}
 					<div {...innerBlocksProps} />
-					{0 !== bottomSvgLevel && !imgUrl && (
+					{0 !== svgLevelBottom && (
 						<SectionSVG
 							position='bottom'
-							heightLevel={bottomSvgLevel}
-							fillColor={_bgColor}
-							type={bottomSvgType}
-							isRe={isReBottom}
-							isEdit={true}
+							heightLevel={svgLevelBottom}
+							fillColor={svgColorBottom}
+							type={svgTypeBottom}
 						/>
 					)}
 				</div>
@@ -217,16 +274,16 @@ registerBlockType(name, {
 			opacity,
 			imgId,
 			imgUrl,
-			imgW,
-			imgH,
+			imgWidth,
+			imgHeight,
 			bgFocalPoint,
 			innerSize,
-			topSvgLevel,
-			bottomSvgLevel,
-			topSvgType,
-			bottomSvgType,
-			isReTop,
-			isReBottom,
+			svgLevelTop,
+			svgLevelBottom,
+			svgTypeTop,
+			svgTypeBottom,
+			svgColorTop,
+			svgColorBottom,
 			isRepeat,
 		} = attributes;
 
@@ -235,7 +292,16 @@ registerBlockType(name, {
 		const style = getBlockStyle(attributes, _bgColor);
 
 		// 背景画像
-		const bgImg = getBgImage(imgId, imgUrl, imgW, imgH, bgFocalPoint, isRepeat);
+		const bgImg = getBgImage(attributes);
+
+		// インナー部分のstyle
+		const innerStyle = {};
+		if (0 !== svgLevelTop) {
+			innerStyle.marginTop = `${Math.abs(svgLevelTop) * 0.1}vw`;
+		}
+		if (0 !== svgLevelBottom) {
+			innerStyle.marginBottom = `${Math.abs(svgLevelBottom) * 0.1}vw`;
+		}
 
 		// クラス名
 		const blockClass = classnames(blockName, {
@@ -252,27 +318,23 @@ registerBlockType(name, {
 		return (
 			<div {...blockProps}>
 				{bgImg}
-				{0 !== topSvgLevel && !imgUrl && (
+				{0 !== svgLevelTop && (
 					<SectionSVG
 						position='top'
-						heightLevel={topSvgLevel}
-						fillColor={_bgColor}
-						type={topSvgType}
-						isRe={isReTop}
-						isEdit={false}
+						heightLevel={svgLevelTop}
+						fillColor={svgColorTop}
+						type={svgTypeTop}
 					/>
 				)}
-				<div className={`${blockName}__inner ark-keep-mt`}>
+				<div className={`${blockName}__inner ark-keep-mt`} style={innerStyle || null}>
 					<InnerBlocks.Content />
 				</div>
-				{0 !== bottomSvgLevel && !imgUrl && (
+				{0 !== svgLevelBottom && (
 					<SectionSVG
 						position='bottom'
-						heightLevel={bottomSvgLevel}
-						fillColor={_bgColor}
-						type={bottomSvgType}
-						isRe={isReBottom}
-						isEdit={false}
+						heightLevel={svgLevelBottom}
+						fillColor={svgColorBottom}
+						type={svgTypeBottom}
 					/>
 				)}
 			</div>

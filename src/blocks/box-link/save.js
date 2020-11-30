@@ -75,7 +75,7 @@ export default function ({ attributes }) {
 	// 画像
 	const img = (
 		<img
-			className={`arkb-boxLink__img -no-lb wp-image-${imgId}`}
+			className={`arkb-boxLink__img u-lb-off wp-image-${imgId}`}
 			src={imgUrl}
 			alt={imgAlt}
 			width={imgW || null}

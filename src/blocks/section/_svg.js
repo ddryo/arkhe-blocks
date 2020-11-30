@@ -1,77 +1,59 @@
-const getWavePath = (position) => {
-	if ('top' === position) {
-		return 'M100,5.58c-0.05-0.01-0.1-0.03-0.15-0.04C93.74,3.8,87.42,2,75,2S56.26,3.8,50.15,5.53 C43.97,7.29,37.58,9.11,25,9.11c-12.48,0-18.86-1.79-25-3.53V10h75h25V5.58z';
-	}
-	return 'M0,4.42c0.05,0.01,0.1,0.03,0.15,0.04C6.26,6.2,12.58,8,25,8s18.74-1.8,24.85-3.53 C56.03,2.71,62.42,0.89,75,0.89c12.48,0,18.86,1.79,25,3.53V0H25H0V4.42z';
-};
-const getZigZagPath = (position) => {
-	if ('top' === position) {
-		return 'M100,5.58L75,2c0,0-50,7.22-50,7.11L0,5.58V10h75h25V5.58z';
-	}
-	return 'M0,4.42L25,8c0,0,50-7.22,50-7.11l25,3.53V0H25H0V4.42z';
-};
-const getLinePath = (position, isRe) => {
-	if ('top' === position) {
-		const topPath = isRe ? 'M100,0v100H0L100,0z' : 'm0,0 L100,100 L0,100 z';
-		return topPath;
-	}
-	const bottomPath = isRe ? 'M0,0h100L0,100V0z' : 'm0,0 L100,0 L100,100 z';
-	return bottomPath;
-};
-const getCirclePath = (position) => {
-	if ('top' === position) {
-		return 'M50,0C22.39,0,0,44.77,0,100h100C100,44.77,77.61,0,50,0z';
-	}
-	return 'M50,100c27.61,0,50-44.77,50-100H0C0,55.23,22.39,100,50,100z';
-};
+// import { memo } from '@wordpress/element';
 
-export const SectionSVG = ({ position, heightLevel, fillColor, type, isEdit, isRe }) => {
-	// let height = `${heightLevel * 10}px`;
-	let height = `${heightLevel}vw`;
-	let bgSVG;
-	let path;
-
-	// 高さの処理
-	if ('wave' !== type) {
-		const windowWidth = window.innerWidth;
-		if (isEdit && 782 < windowWidth) {
-			height = ((windowWidth - 440) * heightLevel) / 100 + 'px';
-		}
-	}
-
-	// fillの処理
-	if ('wave' === type || 'zigzag' === type) {
-		fillColor = fillColor.replace('#', '%23');
-		if ('wave' === type) path = getWavePath(position);
-		if ('zigzag' === type) path = getZigZagPath(position);
-
-		bgSVG = `data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"><path fill="${fillColor}" d="${path}" /></svg>`;
-
-		return (
-			<div
-				className={`swell-block-fullWide__SVG -${position} -bg`}
-				role='presentation'
-				style={{
-					height,
-					backgroundImage: `url('${bgSVG}')`,
-				}}
-			></div>
+const getPath = (type, position, isReverse) => {
+	if ('line' === type) {
+		return isReverse ? (
+			<polygon points='0,0 100,0 100,100' />
+		) : (
+			<polygon points='0,0 0,100 100,0' />
+		);
+	} else if ('circle' === type) {
+		return isReverse ? (
+			<path d='M0,0c20.1,133.4,79.9,133.3,100,0H0z' />
+		) : (
+			<g>
+				<path d='M0,100V0h50C30,0,10,33.3,0,100z' />
+				<path d='M50,0h50v100C90,33.3,70,0,50,0z' />
+			</g>
+		);
+	} else if ('wave' === type) {
+		return isReverse ? (
+			<path d='M0,50.3c0.1,0.1,0.1,0.4,0.2,0.6C6.3,75,12.6,100,25,100s18.7-25,24.8-49C56,26.5,62.4,1.3,75,1.3c12.5,0,18.9,24.9,25,49V0 L25,0L0,0L0,50.3z' />
+		) : (
+			<path d='M100,0H75H0v50.3c6.1-24.2,12.5-49,25-49c12.6,0,19,25.3,25.2,49.7c6.1,24,12.4,49,24.8,49s18.7-25,24.8-49.2 c0.1-0.1,0.1-0.4,0.2-0.6V0z' />
+		);
+	} else if ('zigzag' === type) {
+		return isReverse ? (
+			<path d='M0,50.3L25,100c0,0,50-100.3,50-98.8l25,49V0H25H0V50.3z' />
+		) : (
+			<path d='M100,50.3L75,100c0,0-50-100.3-50-98.8l-25,49V0h75h25V50.3z' />
 		);
 	}
+};
 
-	if ('line' === type) path = getLinePath(position, isRe);
-	if ('circle' === type) path = getCirclePath(position);
+export const SectionSVG = ({ position, heightLevel, fillColor, type }) => {
+	// 高さ
+	const isReverse = 0 > heightLevel;
+	const height = Math.abs(heightLevel) * 0.1;
+	const heightCSS = `${height}vw`;
+
+	const svgStyle = { height: heightCSS };
+
+	if (fillColor) {
+		svgStyle.fill = fillColor;
+	}
 
 	return (
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
 			viewBox='0 0 100 100'
 			preserveAspectRatio='none'
-			className={`swell-block-fullWide__SVG -${position}`}
-			role='presentation'
-			style={{ height }}
+			className={`ark-block-section__svg -${position}`}
+			aria-hidden='true'
+			focusable='false'
+			style={svgStyle}
 		>
-			<path d={path} strokewidth='0' fill={fillColor} />
+			{getPath(type, position, isReverse)}
 		</svg>
 	);
 };

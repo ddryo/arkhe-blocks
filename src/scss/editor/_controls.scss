@@ -7,11 +7,17 @@
 	}
 }
 
+
+// メディアURL
+.arkb-input--mediaUrl {
+	margin-bottom: 8px !important;
+}
+
 // メディアボタン & 削除ボタン
 .arkb-btns--media {
-	margin-bottom: 16px;
+	margin-bottom: 24px;
 
-	.arkb-btn--delete {
+	.__delete {
 		margin-left: 8px;
 	}
 }
@@ -53,7 +59,15 @@
 	margin-top: -4px;
 }
 
+// カラーピッカーの表示が崩れているのを修正
+.arkb-colorPicker {
 
-.ark-btns--media{
+	.components-color-picker__inputs-wrapper {
+		width: 100%;
+		min-width: 0;
+	}
 
+	.components-color-picker__inputs-field {
+		margin-bottom: 0 !important;
+	}
 }

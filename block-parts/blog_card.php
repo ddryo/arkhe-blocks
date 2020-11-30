@@ -20,7 +20,7 @@ $url    = $args['url'];
 $target = ( $args['is_newtab'] ) ? ' target="_blank"' : '';
 $rel    = $args['rel'] ? ' rel="' . $args['rel'] . '"' : '';
 
-$img_class = 'c-postThumb__img -no-lb';
+$img_class = 'c-postThumb__img u-lb-off';
 if ( $args['thumb_id'] ) {
 	$img_class .= ' wp-image-' . $args['thumb_id'];
 }

@@ -1,10 +1,12 @@
 /**
  * @WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __, _x } from '@wordpress/i18n';
 import {
 	MediaUpload,
 	MediaUploadCheck,
+	ColorPalette as WpColorPalette,
+	// getColorObjectByColorValue,
 	// MediaPlaceholder,
 } from '@wordpress/block-editor';
 import {
@@ -17,13 +19,14 @@ import {
 	RangeControl,
 	SelectControl,
 	// RadioControl,
-	CheckboxControl,
+	// CheckboxControl,
 	ButtonGroup,
 	Button,
-	Popover,
+	// Popover,
+	TabPanel,
 	FocalPointPicker,
 } from '@wordpress/components';
-import { useState } from '@wordpress/element';
+// import { useState } from '@wordpress/element';
 
 /**
  * 設定
@@ -79,23 +82,211 @@ export default (props) => {
 		textColor,
 		imgUrl,
 		imgId,
-		opacity,
 		bgFocalPoint,
+		imgUrlSP,
+		imgIdSP,
+		bgFocalPointSP,
+		opacity,
 		padPC,
 		padSP,
 		padUnitPC,
 		padUnitSP,
 		innerSize,
-		topSvgLevel,
-		bottomSvgLevel,
-		topSvgType,
-		bottomSvgType,
-		isReTop,
-		isReBottom,
+		svgLevelTop,
+		svgLevelBottom,
+		svgTypeTop,
+		svgTypeBottom,
+		svgColorTop,
+		svgColorBottom,
 		isRepeat,
 	} = attributes;
 
-	const [isOpenBgPicker, setIsOpenBgPicker] = useState(false);
+	// const [isOpenBgPicker, setIsOpenBgPicker] = useState(false);
+
+	// const onColorChange = useCallback(
+	// 	(color) => {
+	// 		console.log(color);
+	// 		const colorObject = getColorObjectByColorValue(colors, color);
+	// 	},
+	// 	[colors]
+	// );
+	// const onColorChange = (color) => {
+	// 	console.log(color);
+	// 	// const colorObject = getColorObjectByColorValue(colors, color);
+	// };
+
+	const imageSettingPC = (
+		<>
+			{/* <TextControl
+				className='arkb-input--mediaUrl'
+				label={__('画像', 'arkhe-blocks')}
+				value={imgUrl}
+				placeholder={__('画像URL', 'arkhe-blocks')}
+				onChange={(val) => {
+					setAttributes({ imgUrl: val });
+				}}
+			/> */}
+			<div className='arkb-btns--media'>
+				<MediaUploadCheck>
+					<MediaUpload
+						onSelect={(media) => {
+							// console.log(media);
+							if (media) {
+								setAttributes({
+									imgId: media.id,
+									imgUrl: media.url,
+									imgWidth: media.width,
+									imgHeight: media.height,
+								});
+							} else {
+								setAttributes({
+									imgId: 0,
+									imgUrl: '',
+									imgWidth: undefined,
+									imgHeight: undefined,
+									bgFocalPoint: undefined,
+								});
+							}
+						}}
+						allowedTypes={'image'}
+						value={imgId}
+						render={({ open }) => (
+							<Button isPrimary onClick={open}>
+								{imgUrl
+									? __('画像を変更', 'arkhe-blocks')
+									: __('メディアから選択', 'arkhe-blocks')}
+							</Button>
+						)}
+					/>
+				</MediaUploadCheck>
+				{imgUrl && (
+					<Button
+						isSecondary
+						className='__delete'
+						onClick={() => {
+							setAttributes({
+								imgId: 0,
+								imgUrl: '',
+								imgWidth: undefined,
+								imgHeight: undefined,
+								opacity: 100,
+								bgFocalPoint: undefined,
+							});
+						}}
+					>
+						{__('Delete', 'arkhe-blocks')}
+					</Button>
+				)}
+			</div>
+			{imgUrl && !isRepeat && (
+				<FocalPointPicker
+					label={__('Focal point picker')}
+					url={imgUrl}
+					value={bgFocalPoint}
+					onChange={(value) => setAttributes({ bgFocalPoint: value })}
+				/>
+			)}
+		</>
+	);
+
+	const imageSettingSP = (
+		<>
+			{/* <TextControl
+				className='arkb-input--mediaUrl'
+				label={__('画像', 'arkhe-blocks')}
+				value={imgUrlSP || ''}
+				placeholder={__('画像URL', 'arkhe-blocks')}
+				onChange={(val) => {
+					setAttributes({ imgUrlSP: val });
+				}}
+			/> */}
+			<div className='arkb-btns--media'>
+				<MediaUploadCheck>
+					<MediaUpload
+						onSelect={(media) => {
+							// console.log(media);
+							if (media) {
+								setAttributes({
+									imgIdSP: media.id,
+									imgUrlSP: media.url,
+									imgWidthSP: media.width,
+									imgHeightSP: media.height,
+								});
+							} else {
+								setAttributes({
+									imgIdSP: 0,
+									imgUrlSP: undefined,
+									imgWidthSP: undefined,
+									imgHeightSP: undefined,
+									bgFocalPointSP: undefined,
+								});
+							}
+						}}
+						allowedTypes={'image'}
+						value={imgIdSP}
+						render={({ open }) => (
+							<Button isPrimary onClick={open}>
+								{imgUrlSP
+									? __('画像を変更', 'arkhe-blocks')
+									: __('メディアから選択', 'arkhe-blocks')}
+							</Button>
+						)}
+					/>
+				</MediaUploadCheck>
+				{imgUrlSP && (
+					<Button
+						isSecondary
+						className='__delete'
+						onClick={() => {
+							setAttributes({
+								imgIdSP: 0,
+								imgUrlSP: undefined,
+								imgWidthSP: undefined,
+								imgHeightSP: undefined,
+								bgFocalPointSP: undefined,
+							});
+						}}
+					>
+						{__('Delete', 'arkhe-blocks')}
+					</Button>
+				)}
+			</div>
+			{imgUrlSP && (
+				<FocalPointPicker
+					label={__('Focal point picker')}
+					url={imgUrlSP}
+					value={bgFocalPointSP}
+					onChange={(value) => setAttributes({ bgFocalPointSP: value })}
+				/>
+			)}
+		</>
+	);
+
+	const bgImgTabs = [
+		{
+			name: 'pc',
+			title: (
+				<>
+					<i className='dashicons-before dashicons-admin-settings'></i>
+
+					{_x('PC', 'tab-panel', 'arkhe-blocks')}
+				</>
+			),
+			className: '__pc',
+		},
+	];
+	if (!isRepeat) {
+		bgImgTabs.push({
+			name: 'sp',
+			title: (
+				<>
+					<i className='dashicons-before dashicons-post-status'></i>
+					{_x('SP', 'tab-panel', 'arkhe-blocks')}
+				</>
+			),
+			className: '__sp',
+		});
+	}
 
 	return (
 		<>
@@ -164,7 +355,7 @@ export default (props) => {
 					/>
 				</div>
 			</PanelBody>
-			<PanelBody title='カラー設定'>
+			<PanelBody title={__('Color settings', 'arkhe-blocks')}>
 				<BaseControl>
 					<BaseControl.VisualLabel>
 						{__('テキストカラー', 'arkhe-blocks')}
@@ -177,57 +368,20 @@ export default (props) => {
 						}}
 					/>
 				</BaseControl>
-				<BaseControl className='-fullWideBgColor'>
+				<BaseControl>
 					<BaseControl.VisualLabel>
 						{imgUrl ? 'オーバーレイカラー' : '背景色'}
 					</BaseControl.VisualLabel>
-					<div className='__body'>
-						<div className='__color'>
-							<ColorPalette
-								// value={textColor}
-								colors={[{ name: 'カスタムカラー', color: bgColor }]}
-								disableCustomColors
-								clearable={false}
-								onChange={() => {
-									if (isOpenBgPicker) {
-										setIsOpenBgPicker(false);
-									} else {
-										setIsOpenBgPicker(true);
-									}
-								}}
-							/>
-							{isOpenBgPicker && (
-								<Popover
-									// noArrow={false}
-									position='bottom'
-									className='-fullWideBgColor'
-									onFocusOutside={() => {
-										setIsOpenBgPicker(false);
-									}}
-								>
-									<ColorPicker
-										clearable={false}
-										color={bgColor}
-										disableAlpha
-										onChangeComplete={(val) => {
-											const rgb = val.rgb;
-											if (1 !== rgb.a) {
-												const rgbaColor = `rgba(${rgb.r},${rgb.g},${rgb.b},${rgb.a})`;
-												setAttributes({
-													bgColor: rgbaColor,
-												});
-											} else {
-												setAttributes({
-													bgColor: val.hex,
-												});
-											}
-										}}
-									/>
-								</Popover>
-							)}
-						</div>
-						<div className='__label'>好きな色を選択できます。</div>
-					</div>
+					<ColorPicker
+						className='arkb-colorPicker'
+						clearable={false}
+						color={bgColor}
+						disableAlpha
+						onChangeComplete={(val) => {
+							// 不透明度の考慮はしなくていい
+							setAttributes({ bgColor: val.hex });
+						}}
+					/>
 				</BaseControl>
 				<RangeControl
 					label={imgUrl ? 'オーバーレイの不透明度' : '背景色の不透明度'}
@@ -252,105 +406,33 @@ export default (props) => {
 						}
 					}}
 				/>
-
-				<TextControl
-					className='u-mb-5'
-					label='画像URL'
-					value={imgUrl}
-					placeholder='URLを直接入力できます'
-					onChange={(val) => {
-						if (!val) {
-							// 画像削除されたら
-							setAttributes({ imgUrl: undefined, opacity: 100 });
-						} else {
-							setAttributes({
-								imgUrl: val,
-								...(100 === opacity ? { opacity: 50 } : {}),
-							});
+				<TabPanel
+					className={`arkb-tabPanel -section is-hide-${isRepeat}`}
+					activeClass='is-active'
+					tabs={bgImgTabs}
+					initialTabName='pc'
+				>
+					{(tab) => {
+						if ('pc' === tab.name) {
+							return imageSettingPC;
+						} else if ('sp' === tab.name) {
+							return imageSettingSP;
 						}
 					}}
-				/>
-
-				<div className='arkb-btns--media'>
-					<MediaUploadCheck>
-						<MediaUpload
-							onSelect={(media) => {
-								// console.log(media);
-
-								// 画像がなければ
-								if (!media || !media.url) {
-									setAttributes({
-										imgId: 0,
-										imgUrl: undefined,
-										imgW: undefined,
-										imgH: undefined,
-										opacity: 100,
-										bgFocalPoint: undefined,
-									});
-									return;
-								}
-
-								setAttributes({
-									imgId: media.id,
-									imgUrl: media.url,
-									imgW: media.width,
-									imgH: media.height,
-									...(100 === opacity ? { opacity: 50 } : {}),
-								});
-							}}
-							allowedTypes={'image'}
-							value={imgId}
-							render={({ open }) => (
-								<Button isPrimary onClick={open}>
-									{imgUrl
-										? __('画像を変更', 'arkhe-blocks')
-										: __('メディアから選択', 'arkhe-blocks')}
-								</Button>
-							)}
-						/>
-					</MediaUploadCheck>
-					{imgUrl && (
-						<Button
-							isSecondary
-							className='arkb-btn--delete'
-							onClick={() => {
-								setAttributes({
-									imgId: 0,
-									imgUrl: undefined,
-									imgW: undefined,
-									imgH: undefined,
-									opacity: 100,
-									bgFocalPoint: undefined,
-								});
-							}}
-						>
-							{__('Delete', 'arkhe-blocks')}
-						</Button>
-					)}
-				</div>
-				{imgUrl && !isRepeat && (
-					<FocalPointPicker
-						label={__('Focal Point Picker')}
-						url={imgUrl}
-						value={bgFocalPoint}
-						onChange={(value) => setAttributes({ bgFocalPoint: value })}
-					/>
-				)}
+				</TabPanel>
 			</PanelBody>
-			<PanelBody title={__('上部の境界線の形状', 'arkhe-blocks')}>
+			<PanelBody title={__('上部の境界線', 'arkhe-blocks')} initialOpen={false}>
 				<BaseControl>
-					<BaseControl.VisualLabel>
-						{__('上部の境界線の形状', 'arkhe-blocks')}
-					</BaseControl.VisualLabel>
+					<BaseControl.VisualLabel>{__('形状', 'arkhe-blocks')}</BaseControl.VisualLabel>
 					<ButtonGroup className='arkb-btns-minWidth'>
 						{svgTypes.map((type) => {
 							return (
 								<Button
-									isSecondary={type.value !== topSvgType}
-									isPrimary={type.value === topSvgType}
+									isSecondary={type.value !== svgTypeTop}
+									isPrimary={type.value === svgTypeTop}
 									onClick={() => {
 										setAttributes({
-											topSvgType: type.value,
+											svgTypeTop: type.value,
 										});
 									}}
 									key={`key_${type.value}`}
@@ -361,42 +443,42 @@ export default (props) => {
 						})}
 					</ButtonGroup>
 				</BaseControl>
-				{'line' === topSvgType && (
-					<BaseControl>
-						<CheckboxControl
-							label='逆向きにする'
-							checked={isReTop}
-							onChange={(val) => setAttributes({ isReTop: val })}
-						/>
-					</BaseControl>
-				)}
 				<RangeControl
-					label='上部の境界線の高さレベル'
-					value={topSvgLevel}
+					label={__('高さレベル', 'arkhe-blocks')}
+					value={svgLevelTop}
 					onChange={(val) => {
 						setAttributes({
-							topSvgLevel: val,
+							svgLevelTop: val,
 						});
 					}}
-					min={0}
-					max={5}
-					step={0.1}
+					min={-100}
+					max={100}
+					step={1}
 				/>
-
+				<div className='components-base-control'>
+					<div className='components-base-control__label'>
+						{__('Color', 'arkhe-blocks')}
+					</div>
+					<WpColorPalette
+						value={svgColorTop}
+						onChange={(color) => {
+							setAttributes({ svgColorTop: color });
+						}}
+						clearable={true}
+					/>
+				</div>
+			</PanelBody>
+			<PanelBody title={__('下部の境界線', 'arkhe-blocks')} initialOpen={false}>
 				<BaseControl>
-					<BaseControl.VisualLabel>
-						{__('下部の境界線の形状', 'arkhe-blocks')}
-					</BaseControl.VisualLabel>
+					<BaseControl.VisualLabel>{__('形状', 'arkhe-blocks')}</BaseControl.VisualLabel>
 					<ButtonGroup className='arkb-btns-minWidth'>
 						{svgTypes.map((type) => {
 							return (
 								<Button
-									isSecondary={type.value !== bottomSvgType}
-									isPrimary={type.value === bottomSvgType}
+									isSecondary={type.value !== svgTypeBottom}
+									isPrimary={type.value === svgTypeBottom}
 									onClick={() => {
-										setAttributes({
-											bottomSvgType: type.value,
-										});
+										setAttributes({ svgTypeBottom: type.value });
 									}}
 									key={`key_${type.value}`}
 								>
@@ -406,27 +488,28 @@ export default (props) => {
 						})}
 					</ButtonGroup>
 				</BaseControl>
-				{'line' === bottomSvgType && (
-					<BaseControl>
-						<CheckboxControl
-							label='逆向きにする'
-							checked={isReBottom}
-							onChange={(val) => setAttributes({ isReBottom: val })}
-						/>
-					</BaseControl>
-				)}
 				<RangeControl
-					label='下部の境界線の高さレベル'
-					value={bottomSvgLevel}
+					label={__('高さレベル', 'arkhe-blocks')}
+					value={svgLevelBottom}
 					onChange={(val) => {
-						setAttributes({
-							bottomSvgLevel: val,
-						});
+						setAttributes({ svgLevelBottom: val });
 					}}
-					min={0}
-					max={5}
-					step={0.1}
+					min={-100}
+					max={100}
+					step={1}
 				/>
+				<div className='components-base-control'>
+					<div className='components-base-control__label'>
+						{__('Color', 'arkhe-blocks')}
+					</div>
+					<WpColorPalette
+						value={svgColorBottom}
+						onChange={(color) => {
+							setAttributes({ svgColorBottom: color });
+						}}
+						clearable={true}
+					/>
+				</div>
 			</PanelBody>
 		</>
 	);

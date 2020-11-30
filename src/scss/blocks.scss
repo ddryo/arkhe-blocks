@@ -87,5 +87,13 @@
 			}
 		}
 	}
+
+	// sectionブロックでタブ部分非表示にする場合
+	&.is-hide-true {
+
+		.components-tab-panel__tabs {
+			display: none;
+		}
+	}
 }
 

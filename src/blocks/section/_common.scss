@@ -38,7 +38,7 @@
 }
 
 
-.arkb-section__bg {
+.ark-block-section__bg {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -47,3 +47,67 @@
 	height: 100%;
 	object-fit: cover;
 }
+
+// fill の詳細度をあげる
+.ark-block-section .ark-block-section__svg {
+	position: absolute;
+	left: 0;
+	z-index: 5;
+	width: 100%;
+	pointer-events: none;
+	fill: var(--ark-color_bg, #fff);
+
+	&.-top {
+		top: -1px;
+	}
+
+	&.-bottom {
+		bottom: -1px;
+		transform: rotate(180deg);
+		// transform: translateY(-1px); // 線が出ることがあるのを防止
+	}
+}
+
+.swell-block-fullWide__SVG {
+	position: absolute;
+	left: 0;
+	z-index: 5;
+	width: 100%;
+	pointer-events: none;
+
+	&.-top {
+		bottom: 100%;
+		transform: translateY(1px); // 線が出ることがあるのを防止
+	}
+
+	&.-bottom {
+		top: 100%;
+		transform: translateY(-1px); // 線が出ることがあるのを防止
+	}
+
+	&.-bg {
+		// background-repeat: repeat-x;
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
+
+		// pxが小数点になると境目にスペースが入ってしまう
+		// @include sp {
+		//     background-size: calc(100% - 10px) 100%;
+		// }
+
+		// @include pc {
+		//     background-size: calc(100% - 20px) 100%;
+		// }
+
+		&.-top {
+			// background-position: 100% 100%;
+			background-position: center;
+		}
+
+		&.-bottom {
+			// background-position: -100% 0%;
+			background-position: center;
+		}
+	}
+}
+

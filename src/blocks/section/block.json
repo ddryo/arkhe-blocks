@@ -37,29 +37,48 @@
             "default": 0
         },
         "imgUrl": {
-            "type": "string"
+            "type": "string",
+            "default": ""
         },
-        "imgAlt": {
+        "imgWidth": {
             "type": "string",
             "source": "attribute",
-            "selector": "img.arkb-section__bg",
-            "attribute": "alt"
-        },
-        "imgW": {
-            "type": "string",
-            "source": "attribute",
-            "selector": "img.arkb-section__bg",
+            "selector": "img[data-for=\"pc\"]",
             "attribute": "width"
         },
-        "imgH": {
+        "imgHeight": {
             "type": "string",
             "source": "attribute",
-            "selector": "img.arkb-section__bg",
+            "selector": "img[data-for=\"pc\"]",
             "attribute": "height"
         },
-        "imgSize": {
+        "imgIdSP": {
+            "type": "number",
+            "default": 0
+        },
+        "imgUrlSP": {
             "type": "string",
-            "default": "full"
+            "source": "attribute",
+            "selector": "img[data-for=\"sp\"]",
+            "attribute": "src"
+        },
+        "imgWidthSP": {
+            "type": "string",
+            "source": "attribute",
+            "selector": "img[data-for=\"sp\"]",
+            "attribute": "width"
+        },
+        "imgHeightSP": {
+            "type": "string",
+            "source": "attribute",
+            "selector": "img[data-for=\"sp\"]",
+            "attribute": "height"
+        },
+        "bgFocalPoint": {
+            "type": "object"
+        },
+        "bgFocalPointSP": {
+            "type": "object"
         },
         "innerSize": {
             "type": "string",
@@ -81,10 +100,7 @@
             "type": "string",
             "default": "rem"
         },
-        "bgFocalPoint": {
-            "type": "object"
-        },
-        "topSvgType": {
+        "svgTypeTop": {
             "type": "string",
             "default": "line"
         },
@@ -92,25 +108,25 @@
             "type": "boolean",
             "default": false
         },
-        "topSvgLevel": {
+        "svgLevelTop": {
             "type": "number",
             "default": 0
         },
-        "bottomSvgType": {
+        "svgTypeBottom": {
             "type": "string",
             "default": "line"
         },
-        "bottomSvgLevel": {
+        "svgLevelBottom": {
             "type": "number",
             "default": 0
         },
-        "isReTop": {
-            "type": "boolean",
-            "default": false
+        "svgColorTop": {
+            "type": "string",
+            "default": ""
         },
-        "isReBottom": {
-            "type": "boolean",
-            "default": false
+        "svgColorBottom": {
+            "type": "string",
+            "default": ""
         }
     },
     "editorScript": "file:../../../dist/blocks/section/index.js",

@@ -1,3 +1,45 @@
+.ark-block-section {
+	// ブロック選択時の青線を上に
+	&::after {
+		z-index: 10 !important;
+	}
+
+	.ark-block-section__bg.u-only-pc {
+
+		@include pc {
+			opacity: 1;
+		}
+
+		@include sp {
+			opacity: 0;
+		}
+	}
+
+	.ark-block-section__bg.u-only-sp {
+
+		@include pc {
+			opacity: 0;
+		}
+
+		@include sp {
+			opacity: 1;
+		}
+	}
+}
+
+
+.ark-block-section__inner {
+
+	.wp-block {
+		max-width: 100%;
+	}
+}
+
+.ark-block-section__bg {
+	height: 100% !important;
+}
+
+
 // サイドバー
 .ark-control--padding {
 	display: flex;
@@ -21,14 +63,10 @@
 	// .components-base-control{}
 }
 
-.ark-block-section__inner {
 
-	.wp-block {
-		max-width: 100%;
+.arkb-tabPanel.-section {
+
+	.components-tab-panel__tab-content {
+		padding-top: 16px;
 	}
-}
-
-
-.arkb-section__bg {
-	height: 100% !important;
 }
