@@ -30,6 +30,8 @@ export const ImageTab = memo(
 			isRepeat,
 		} = attribute;
 
+		// console.log(attribute);
+
 		const noImageView = (
 			<div className='arkb-imgPreview -noimage'>
 				<Icon icon={image} /> / <Icon icon={video} />

@@ -214,7 +214,7 @@ export default function (props) {
 					alt={imgAlt}
 					figureClass='arkb-boxLink__bg'
 					figureStyle={null}
-					imgClass='arkb-boxLink__img u-lb-off'
+					imgClass='arkb-boxLink__img'
 					onSelect={onSelectImage}
 					onSelectURL={onSelectURL}
 				/>
@@ -239,7 +239,7 @@ export default function (props) {
 				alt={imgAlt}
 				figureClass={classnames('arkb-boxLink__figure', { 'is-fixed-ratio': fixRatio })}
 				figureStyle={figureStyle}
-				imgClass='arkb-boxLink__img u-lb-off'
+				imgClass='arkb-boxLink__img'
 				onSelect={onSelectImage}
 				onSelectURL={onSelectURL}
 			/>

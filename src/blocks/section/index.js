@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 import {
-	InspectorControls,
+	// InspectorControls,
 	// BlockControls,
 	// RichText,
 	InnerBlocks,
@@ -138,7 +138,7 @@ const getBgImage = ({
 		bgStyleSP.objectPosition = `${pX}% ${pY}%`;
 	}
 
-	let pcImgClass = `${blockName}__bg u-lb-off`;
+	let pcImgClass = `${blockName}__bg`;
 	if (mediaUrlSP) {
 		pcImgClass = classnames(pcImgClass, 'u-only-pc');
 	}
@@ -146,7 +146,7 @@ const getBgImage = ({
 		pcImgClass = classnames(pcImgClass, `wp-image-${mediaId}`);
 	}
 
-	let spImgClass = `${blockName}__bg u-lb-off u-only-sp`;
+	let spImgClass = `${blockName}__bg u-only-sp`;
 	if (mediaIdSP) {
 		spImgClass = classnames(spImgClass, `wp-image-${mediaIdSP}`);
 	}

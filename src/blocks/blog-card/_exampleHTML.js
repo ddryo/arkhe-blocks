@@ -6,7 +6,7 @@ const html = (
 					<img
 						src='https://s.w.org/images/core/5.3/MtBlanc1.jpg'
 						alt=''
-						className='c-postThumb__img u-lb-off'
+						className='c-postThumb__img'
 					/>
 				</figure>
 			</div>
