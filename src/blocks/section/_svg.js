@@ -34,11 +34,8 @@ const getPath = (type, position, isReverse) => {
 export const SectionSVG = ({ position, heightLevel, fillColor, type }) => {
 	// 高さ
 	const isReverse = 0 > heightLevel;
-	const height = Math.abs(heightLevel) * 0.1;
-	const heightCSS = `${height}vw`;
 
-	const svgStyle = { height: heightCSS };
-
+	const svgStyle = { height: `${Math.abs(heightLevel)}vw` };
 	if (fillColor) {
 		svgStyle.fill = fillColor;
 	}

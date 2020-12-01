@@ -64,9 +64,35 @@
 }
 
 
-.arkb-tabPanel.-section {
+.arkb-tabPanel {
 
-	.components-tab-panel__tab-content {
-		padding-top: 16px;
+	&.-section {
+
+		.components-tab-panel__tab-content {
+			padding-top: 16px;
+		}
+
+		.components-tab-panel__tabs {
+			border-bottom: 1px solid #e0e0e0;
+		}
+	}
+	// sectionブロックでタブ部分非表示にする場合
+	&.is-hide {
+
+		.components-tab-panel__tabs {
+			display: none;
+		}
+	}
+
+	&.is-hide.-section .components-tab-panel__tab-content {
+		padding-top: 0;
+	}
+
+	&.has-no-pcimg {
+
+		.components-tab-panel__tabs-item.__sp {
+			opacity: .5;
+			pointer-events: none;
+		}
 	}
 }

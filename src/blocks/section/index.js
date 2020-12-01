@@ -24,7 +24,7 @@ import metadata from './block.json';
 // import { ArkheMarginControl } from '@components/ArkheMarginControl';
 
 import { SectionSVG } from './_svg';
-import FullWidePanels from './_panels';
+import TheSidebar from './_sidebar';
 // import FullWideToolbars from './_toolbars';
 
 /**
@@ -53,81 +53,10 @@ const getBgColor = (bgColor, opacity) => {
 };
 
 /**
- * 背景画像のソース
- */
-const getBgImage = ({
-	imgId,
-	imgUrl,
-	imgWidth,
-	imgHeight,
-	bgFocalPoint,
-	imgIdSP,
-	imgUrlSP,
-	imgWidthSP,
-	imgHeightSP,
-	bgFocalPointSP,
-	isRepeat,
-}) => {
-	if (isRepeat) {
-		return null;
-	}
-
-	if (!imgUrl) {
-		return null;
-	}
-
-	const bgStyle = bgFocalPoint
-		? { objectPosition: `${bgFocalPoint.x * 100}% ${bgFocalPoint.y * 100}%` }
-		: null;
-
-	const bgStyleSP = bgFocalPointSP
-		? { objectPosition: `${bgFocalPointSP.x * 100}% ${bgFocalPointSP.y * 100}%` }
-		: null;
-
-	let pcImgClass = `${blockName}__bg u-lb-off`;
-	if (imgUrlSP) {
-		pcImgClass = classnames(pcImgClass, 'u-only-pc');
-	}
-	if (imgId) {
-		pcImgClass = classnames(pcImgClass, `wp-image-${imgId}`);
-	}
-
-	let spImgClass = `${blockName}__bg u-lb-off u-only-sp`;
-	if (imgId) {
-		spImgClass = classnames(spImgClass, `wp-image-${imgId}`);
-	}
-
-	return (
-		<>
-			<img
-				src={imgUrl}
-				className={pcImgClass}
-				alt=''
-				width={imgWidth || null}
-				height={imgHeight || null}
-				data-for='pc'
-				style={bgStyle}
-			/>
-			{imgUrlSP && (
-				<img
-					src={imgUrlSP}
-					className={spImgClass}
-					alt=''
-					width={imgWidthSP || null}
-					height={imgHeightSP || null}
-					data-for='sp'
-					style={bgStyleSP}
-				/>
-			)}
-		</>
-	);
-};
-
-/**
  * スタイルをセットする関数
  */
 const getBlockStyle = (attributes, bgColor) => {
-	const { textColor, padPC, padSP, padUnitPC, padUnitSP, isRepeat, imgUrl } = attributes;
+	const { textColor, padPC, padSP, padUnitPC, padUnitSP, isRepeat, mediaUrl } = attributes;
 
 	const style = {};
 
@@ -149,15 +78,147 @@ const getBlockStyle = (attributes, bgColor) => {
 	}
 
 	// リピート背景画像
-	if (isRepeat && imgUrl) {
-		style.backgroundImage = `url(${imgUrl})`;
+	if (isRepeat && mediaUrl) {
+		style.backgroundImage = `url(${mediaUrl})`;
 		style.backgroundRepeat = 'repeat';
 	}
 
 	return style;
 };
 
-// カスタムブロックの登録
+const getInnerStyle = (svgLevelTop, svgLevelBottom) => {
+	const innerStyle = {};
+	if (0 !== svgLevelTop) {
+		innerStyle.marginTop = `${Math.abs(svgLevelTop)}vw`;
+	}
+	if (0 !== svgLevelBottom) {
+		innerStyle.marginBottom = `${Math.abs(svgLevelBottom)}vw`;
+	}
+
+	return innerStyle;
+};
+
+/**
+ * 背景画像のソース
+ */
+const getBgImage = ({
+	mediaId,
+	mediaUrl,
+	mediaWidth,
+	mediaHeight,
+	mediaIdSP,
+	mediaUrlSP,
+	mediaWidthSP,
+	mediaHeightSP,
+	mediaType,
+	mediaTypeSP,
+	focalPoint,
+	focalPointSP,
+	isRepeat,
+}) => {
+	if (isRepeat) {
+		return null;
+	}
+
+	if (!mediaUrl) {
+		return null;
+	}
+
+	const bgStyle = {};
+	if (!!focalPoint) {
+		const pX = (focalPoint.x * 100).toFixed();
+		const pY = (focalPoint.y * 100).toFixed();
+		bgStyle.objectPosition = `${pX}% ${pY}%`;
+	}
+
+	const bgStyleSP = {};
+	if (!!focalPoint) {
+		const pX = (focalPointSP.x * 100).toFixed();
+		const pY = (focalPointSP.y * 100).toFixed();
+		bgStyleSP.objectPosition = `${pX}% ${pY}%`;
+	}
+
+	let pcImgClass = `${blockName}__bg u-lb-off`;
+	if (mediaUrlSP) {
+		pcImgClass = classnames(pcImgClass, 'u-only-pc');
+	}
+	if (mediaId) {
+		pcImgClass = classnames(pcImgClass, `wp-image-${mediaId}`);
+	}
+
+	let spImgClass = `${blockName}__bg u-lb-off u-only-sp`;
+	if (mediaIdSP) {
+		spImgClass = classnames(spImgClass, `wp-image-${mediaIdSP}`);
+	}
+
+	const mediaForPC =
+		'video' === mediaType ? (
+			<video
+				// controls=''
+				autoPlay
+				loop
+				playsinline
+				muted
+				src={mediaUrl}
+				className={pcImgClass}
+				width={mediaWidth || null}
+				height={mediaHeight || null}
+				data-for='pc'
+				style={bgStyle || null}
+			/>
+		) : (
+			<img
+				src={mediaUrl}
+				className={pcImgClass}
+				alt=''
+				width={mediaWidth || null}
+				height={mediaHeight || null}
+				data-for='pc'
+				style={bgStyle}
+			/>
+		);
+
+	let mediaForSP = null;
+	if (mediaUrlSP) {
+		mediaForSP =
+			'video' === mediaTypeSP ? (
+				<video
+					// controls=''
+					autoPlay
+					loop
+					playsinline
+					muted
+					src={mediaUrlSP}
+					className={spImgClass}
+					width={mediaWidthSP || null}
+					height={mediaHeightSP || null}
+					data-for='sp'
+					style={bgStyleSP || null}
+				/>
+			) : (
+				<img
+					src={mediaUrlSP}
+					className={spImgClass}
+					alt=''
+					width={mediaWidthSP || null}
+					height={mediaHeightSP || null}
+					data-for='sp'
+					style={bgStyleSP}
+				/>
+			);
+	}
+
+	return (
+		<>
+			{mediaForPC}
+			{mediaForSP}
+		</>
+	);
+};
+
+/**
+ * カスタムブロックの登録
+ */
 registerBlockType(name, {
 	apiVersion,
 	title: __('Section', 'arkhe-blocks'),
@@ -172,19 +233,11 @@ registerBlockType(name, {
 	// example,
 	attributes: metadata.attributes,
 	edit: (props) => {
-		const { attributes } = props;
+		const { attributes, setAttributes } = props;
 		const {
 			bgColor,
 			opacity,
-			imgId,
-			imgUrl,
-			imgWidth,
-			imgHeight,
-			imgIdSP,
-			imgUrlSP,
-			imgWidthSP,
-			imgHeightSP,
-			bgFocalPoint,
+			mediaUrl,
 			innerSize,
 			svgLevelTop,
 			svgLevelBottom,
@@ -192,14 +245,11 @@ registerBlockType(name, {
 			svgTypeBottom,
 			svgColorTop,
 			svgColorBottom,
-			// pcPadding,
-			// spPadding,
-			isRepeat,
 		} = attributes;
 
 		// クラス名
 		const blockClass = classnames(blockName, {
-			'has-bg-img': !!imgUrl,
+			'has-bg-img': !!mediaUrl,
 		});
 
 		// スタイルデータ
@@ -209,14 +259,12 @@ registerBlockType(name, {
 		// 背景画像
 		const bgImg = getBgImage(attributes);
 
+		// heightレベルを10で割っておく
+		const _svgLevelTop = (svgLevelTop * 0.1).toFixed(1);
+		const _svgLevelBottom = (svgLevelBottom * 0.1).toFixed(1);
+
 		// インナー部分のstyle
-		const innerStyle = {};
-		if (0 !== svgLevelTop) {
-			innerStyle.marginTop = `${Math.abs(svgLevelTop) * 0.1}vw`;
-		}
-		if (0 !== svgLevelBottom) {
-			innerStyle.marginBottom = `${Math.abs(svgLevelBottom) * 0.1}vw`;
-		}
+		const innerStyle = getInnerStyle(_svgLevelTop, _svgLevelBottom);
 
 		// ブロックProps
 		const blockProps = useBlockProps({
@@ -241,15 +289,13 @@ registerBlockType(name, {
 				{/* <BlockControls>
 					<FullWideToolbars {...props} />
 				</BlockControls> */}
-				<InspectorControls>
-					<FullWidePanels {...props} />
-				</InspectorControls>
+				<TheSidebar attributes={attributes} setAttributes={setAttributes} />
 				<div {...blockProps}>
 					{bgImg}
 					{0 !== svgLevelTop && (
 						<SectionSVG
 							position='top'
-							heightLevel={svgLevelTop}
+							heightLevel={_svgLevelTop}
 							fillColor={svgColorTop}
 							type={svgTypeTop}
 						/>
@@ -258,7 +304,7 @@ registerBlockType(name, {
 					{0 !== svgLevelBottom && (
 						<SectionSVG
 							position='bottom'
-							heightLevel={svgLevelBottom}
+							heightLevel={_svgLevelBottom}
 							fillColor={svgColorBottom}
 							type={svgTypeBottom}
 						/>
@@ -272,11 +318,7 @@ registerBlockType(name, {
 		const {
 			bgColor,
 			opacity,
-			imgId,
-			imgUrl,
-			imgWidth,
-			imgHeight,
-			bgFocalPoint,
+			mediaUrl,
 			innerSize,
 			svgLevelTop,
 			svgLevelBottom,
@@ -284,7 +326,6 @@ registerBlockType(name, {
 			svgTypeBottom,
 			svgColorTop,
 			svgColorBottom,
-			isRepeat,
 		} = attributes;
 
 		// styleデータ
@@ -294,18 +335,16 @@ registerBlockType(name, {
 		// 背景画像
 		const bgImg = getBgImage(attributes);
 
+		// heightレベルを10で割っておく
+		const _svgLevelTop = (svgLevelTop * 0.1).toFixed(1);
+		const _svgLevelBottom = (svgLevelBottom * 0.1).toFixed(1);
+
 		// インナー部分のstyle
-		const innerStyle = {};
-		if (0 !== svgLevelTop) {
-			innerStyle.marginTop = `${Math.abs(svgLevelTop) * 0.1}vw`;
-		}
-		if (0 !== svgLevelBottom) {
-			innerStyle.marginBottom = `${Math.abs(svgLevelBottom) * 0.1}vw`;
-		}
+		const innerStyle = getInnerStyle(_svgLevelTop, _svgLevelBottom);
 
 		// クラス名
 		const blockClass = classnames(blockName, {
-			'has-bg-img': !!imgUrl,
+			'has-bg-img': !!mediaUrl,
 		});
 
 		// ブロックProps
@@ -321,7 +360,7 @@ registerBlockType(name, {
 				{0 !== svgLevelTop && (
 					<SectionSVG
 						position='top'
-						heightLevel={svgLevelTop}
+						heightLevel={_svgLevelTop}
 						fillColor={svgColorTop}
 						type={svgTypeTop}
 					/>
@@ -332,7 +371,7 @@ registerBlockType(name, {
 				{0 !== svgLevelBottom && (
 					<SectionSVG
 						position='bottom'
-						heightLevel={svgLevelBottom}
+						heightLevel={_svgLevelBottom}
 						fillColor={svgColorBottom}
 						type={svgTypeBottom}
 					/>

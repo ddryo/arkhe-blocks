@@ -1,10 +1,9 @@
 /**
  * @WordPress dependencies
  */
-import { __, _x } from '@wordpress/i18n';
+import { __ } from '@wordpress/i18n';
 import {
-	MediaUpload,
-	MediaUploadCheck,
+	InspectorControls,
 	ColorPalette as WpColorPalette,
 	// getColorObjectByColorValue,
 	// MediaPlaceholder,
@@ -18,15 +17,17 @@ import {
 	BaseControl,
 	RangeControl,
 	SelectControl,
-	// RadioControl,
-	// CheckboxControl,
 	ButtonGroup,
 	Button,
-	// Popover,
-	TabPanel,
-	FocalPointPicker,
 } from '@wordpress/components';
+
+import { useCallback } from '@wordpress/element';
 // import { useState } from '@wordpress/element';
+
+/**
+ * @Inner dependencies
+ */
+import { ImageTab } from './components/ImageTab';
 
 /**
  * 設定
@@ -74,19 +75,22 @@ const svgTypes = [
 	},
 ];
 
-export default (props) => {
-	const { attributes, setAttributes } = props;
+export default ({ attributes, setAttributes }) => {
+	// const { attributes, setAttributes } = props;
 
 	const {
+		mediaId,
+		mediaUrl,
+		mediaIdSP,
+		mediaUrlSP,
+		mediaType,
+		// mediaTypeSP,
+		focalPoint,
+		focalPointSP,
+		isRepeat,
+		opacity,
 		bgColor,
 		textColor,
-		imgUrl,
-		imgId,
-		bgFocalPoint,
-		imgUrlSP,
-		imgIdSP,
-		bgFocalPointSP,
-		opacity,
 		padPC,
 		padSP,
 		padUnitPC,
@@ -98,198 +102,76 @@ export default (props) => {
 		svgTypeBottom,
 		svgColorTop,
 		svgColorBottom,
-		isRepeat,
 	} = attributes;
 
-	// const [isOpenBgPicker, setIsOpenBgPicker] = useState(false);
-
-	// const onColorChange = useCallback(
-	// 	(color) => {
-	// 		console.log(color);
-	// 		const colorObject = getColorObjectByColorValue(colors, color);
-	// 	},
-	// 	[colors]
-	// );
-	// const onColorChange = (color) => {
-	// 	console.log(color);
-	// 	// const colorObject = getColorObjectByColorValue(colors, color);
-	// };
-
-	const imageSettingPC = (
-		<>
-			{/* <TextControl
-				className='arkb-input--mediaUrl'
-				label={__('画像', 'arkhe-blocks')}
-				value={imgUrl}
-				placeholder={__('画像URL', 'arkhe-blocks')}
-				onChange={(val) => {
-					setAttributes({ imgUrl: val });
-				}}
-			/> */}
-			<div className='arkb-btns--media'>
-				<MediaUploadCheck>
-					<MediaUpload
-						onSelect={(media) => {
-							// console.log(media);
-							if (media) {
-								setAttributes({
-									imgId: media.id,
-									imgUrl: media.url,
-									imgWidth: media.width,
-									imgHeight: media.height,
-								});
-							} else {
-								setAttributes({
-									imgId: 0,
-									imgUrl: '',
-									imgWidth: undefined,
-									imgHeight: undefined,
-									bgFocalPoint: undefined,
-								});
-							}
-						}}
-						allowedTypes={'image'}
-						value={imgId}
-						render={({ open }) => (
-							<Button isPrimary onClick={open}>
-								{imgUrl
-									? __('画像を変更', 'arkhe-blocks')
-									: __('メディアから選択', 'arkhe-blocks')}
-							</Button>
-						)}
-					/>
-				</MediaUploadCheck>
-				{imgUrl && (
-					<Button
-						isSecondary
-						className='__delete'
-						onClick={() => {
-							setAttributes({
-								imgId: 0,
-								imgUrl: '',
-								imgWidth: undefined,
-								imgHeight: undefined,
-								opacity: 100,
-								bgFocalPoint: undefined,
-							});
-						}}
-					>
-						{__('Delete', 'arkhe-blocks')}
-					</Button>
-				)}
-			</div>
-			{imgUrl && !isRepeat && (
-				<FocalPointPicker
-					label={__('Focal point picker')}
-					url={imgUrl}
-					value={bgFocalPoint}
-					onChange={(value) => setAttributes({ bgFocalPoint: value })}
-				/>
-			)}
-		</>
-	);
-
-	const imageSettingSP = (
-		<>
-			{/* <TextControl
-				className='arkb-input--mediaUrl'
-				label={__('画像', 'arkhe-blocks')}
-				value={imgUrlSP || ''}
-				placeholder={__('画像URL', 'arkhe-blocks')}
-				onChange={(val) => {
-					setAttributes({ imgUrlSP: val });
-				}}
-			/> */}
-			<div className='arkb-btns--media'>
-				<MediaUploadCheck>
-					<MediaUpload
-						onSelect={(media) => {
-							// console.log(media);
-							if (media) {
-								setAttributes({
-									imgIdSP: media.id,
-									imgUrlSP: media.url,
-									imgWidthSP: media.width,
-									imgHeightSP: media.height,
-								});
-							} else {
-								setAttributes({
-									imgIdSP: 0,
-									imgUrlSP: undefined,
-									imgWidthSP: undefined,
-									imgHeightSP: undefined,
-									bgFocalPointSP: undefined,
-								});
-							}
-						}}
-						allowedTypes={'image'}
-						value={imgIdSP}
-						render={({ open }) => (
-							<Button isPrimary onClick={open}>
-								{imgUrlSP
-									? __('画像を変更', 'arkhe-blocks')
-									: __('メディアから選択', 'arkhe-blocks')}
-							</Button>
-						)}
-					/>
-				</MediaUploadCheck>
-				{imgUrlSP && (
-					<Button
-						isSecondary
-						className='__delete'
-						onClick={() => {
-							setAttributes({
-								imgIdSP: 0,
-								imgUrlSP: undefined,
-								imgWidthSP: undefined,
-								imgHeightSP: undefined,
-								bgFocalPointSP: undefined,
-							});
-						}}
-					>
-						{__('Delete', 'arkhe-blocks')}
-					</Button>
-				)}
-			</div>
-			{imgUrlSP && (
-				<FocalPointPicker
-					label={__('Focal point picker')}
-					url={imgUrlSP}
-					value={bgFocalPointSP}
-					onChange={(value) => setAttributes({ bgFocalPointSP: value })}
-				/>
-			)}
-		</>
-	);
-
-	const bgImgTabs = [
-		{
-			name: 'pc',
-			title: (
-				<>
-					<i className='dashicons-before dashicons-admin-settings'></i>
-
-					{_x('PC', 'tab-panel', 'arkhe-blocks')}
-				</>
-			),
-			className: '__pc',
+	// 画像設定タブに渡す情報
+	const mediaAttrs = {
+		mediaId,
+		mediaUrl,
+		mediaIdSP,
+		mediaUrlSP,
+		focalPoint,
+		focalPointSP,
+		isRepeat,
+	};
+	const setImagePC = useCallback(
+		(media) => {
+			// console.log(media);
+			setAttributes({
+				mediaId: media.id,
+				mediaUrl: media.url,
+				mediaWidth: media.width,
+				mediaHeight: media.height,
+				mediaType: media.type,
+				...(100 === opacity ? { opacity: 50 } : {}),
+			});
 		},
-	];
-	if (!isRepeat) {
-		bgImgTabs.push({
-			name: 'sp',
-			title: (
-				<>
-					<i className='dashicons-before dashicons-post-status'></i>
-					{_x('SP', 'tab-panel', 'arkhe-blocks')}
-				</>
-			),
-			className: '__sp',
+		[opacity]
+	);
+
+	const removeImagePC = useCallback(() => {
+		setAttributes({
+			mediaId: 0,
+			mediaUrl: '',
+			mediaWidth: undefined,
+			mediaHeight: undefined,
+			mediaType: '',
+			focalPoint: undefined,
+			...(!mediaUrlSP ? { opacity: 100 } : {}), // SP画像もなければ カラー100に。
 		});
-	}
+	}, [mediaUrlSP]);
+
+	const setImageSP = useCallback((media) => {
+		setAttributes({
+			mediaIdSP: media.id,
+			mediaUrlSP: media.url,
+			mediaWidthSP: media.width,
+			mediaHeightSP: media.height,
+			mediaTypeSP: media.type,
+		});
+	}, []);
+
+	const removeImageSP = useCallback(() => {
+		setAttributes({
+			mediaIdSP: 0,
+			mediaUrlSP: undefined,
+			mediaWidthSP: undefined,
+			mediaHeightSP: undefined,
+			mediaTypeSP: '',
+			focalPointSP: undefined,
+			...(!mediaUrl ? { opacity: 100 } : {}), // PC画像もなければ カラー100に。
+		});
+	}, [mediaUrl]);
+
+	const setFocalPointPC = useCallback((val) => {
+		setAttributes({ focalPoint: val });
+	}, []);
+	const setFocalPointSP = useCallback((val) => {
+		setAttributes({ focalPointSP: val });
+	}, []);
 
 	return (
-		<>
+		<InspectorControls>
 			<PanelBody title={__('Size settings', 'arkhe-blocks')}>
 				<BaseControl>
 					<BaseControl.VisualLabel>
@@ -370,7 +252,7 @@ export default (props) => {
 				</BaseControl>
 				<BaseControl>
 					<BaseControl.VisualLabel>
-						{imgUrl ? 'オーバーレイカラー' : '背景色'}
+						{mediaUrl ? 'オーバーレイカラー' : '背景色'}
 					</BaseControl.VisualLabel>
 					<ColorPicker
 						className='arkb-colorPicker'
@@ -384,7 +266,7 @@ export default (props) => {
 					/>
 				</BaseControl>
 				<RangeControl
-					label={imgUrl ? 'オーバーレイの不透明度' : '背景色の不透明度'}
+					label={mediaUrl ? 'オーバーレイの不透明度' : '背景色の不透明度'}
 					value={opacity}
 					onChange={(val) => {
 						setAttributes({
@@ -395,33 +277,35 @@ export default (props) => {
 					max={100}
 				/>
 			</PanelBody>
-			<PanelBody title='背景画像の設定'>
-				<ToggleControl
-					label={__('背景画像をリピートする', 'arkhe-blocks')}
-					checked={isRepeat}
-					onChange={(val) => {
-						setAttributes({ isRepeat: val });
-						if (val) {
-							setAttributes({ bgFocalPoint: undefined });
-						}
-					}}
+			<PanelBody title='背景メディアの設定'>
+				{isRepeat && mediaUrl && (
+					<div className='arkb-imgPreview'>
+						<img src={mediaUrl} alt='' />
+					</div>
+				)}
+				<ImageTab
+					attribute={mediaAttrs}
+					setImagePC={setImagePC}
+					removeImagePC={removeImagePC}
+					setImageSP={setImageSP}
+					removeImageSP={removeImageSP}
+					setFocalPointPC={setFocalPointPC}
+					setFocalPointSP={setFocalPointSP}
 				/>
-				<TabPanel
-					className={`arkb-tabPanel -section is-hide-${isRepeat}`}
-					activeClass='is-active'
-					tabs={bgImgTabs}
-					initialTabName='pc'
-				>
-					{(tab) => {
-						if ('pc' === tab.name) {
-							return imageSettingPC;
-						} else if ('sp' === tab.name) {
-							return imageSettingSP;
-						}
-					}}
-				</TabPanel>
+				{'video' !== mediaType && (
+					<ToggleControl
+						label={__('背景画像をリピートする', 'arkhe-blocks')}
+						checked={isRepeat}
+						onChange={(val) => {
+							setAttributes({ isRepeat: val });
+							if (val) {
+								setAttributes({ focalPoint: undefined });
+							}
+						}}
+					/>
+				)}
 			</PanelBody>
-			<PanelBody title={__('上部の境界線', 'arkhe-blocks')} initialOpen={false}>
+			<PanelBody title={__('上部の境界線', 'arkhe-blocks')} initialOpen={0 !== svgLevelTop}>
 				<BaseControl>
 					<BaseControl.VisualLabel>{__('形状', 'arkhe-blocks')}</BaseControl.VisualLabel>
 					<ButtonGroup className='arkb-btns-minWidth'>
@@ -468,7 +352,10 @@ export default (props) => {
 					/>
 				</div>
 			</PanelBody>
-			<PanelBody title={__('下部の境界線', 'arkhe-blocks')} initialOpen={false}>
+			<PanelBody
+				title={__('下部の境界線', 'arkhe-blocks')}
+				initialOpen={0 !== svgLevelBottom}
+			>
 				<BaseControl>
 					<BaseControl.VisualLabel>{__('形状', 'arkhe-blocks')}</BaseControl.VisualLabel>
 					<ButtonGroup className='arkb-btns-minWidth'>
@@ -511,6 +398,6 @@ export default (props) => {
 					/>
 				</div>
 			</PanelBody>
-		</>
+		</InspectorControls>
 	);
 };

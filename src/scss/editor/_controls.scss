@@ -71,3 +71,45 @@
 		margin-bottom: 0 !important;
 	}
 }
+
+
+// サイドバーのタブパネル
+.arkb-tabPanel {
+
+	.components-tab-panel__tabs {
+
+		.components-button {
+			display: flex;
+			flex-basis: 50%;
+			justify-content: center;
+
+			i {
+				margin-right: 4px;
+			}
+		}
+	}
+}
+
+
+.arkb-imgPreview {
+	width: 160px;
+	max-width: 100%;
+	// margin: 0 auto;
+	margin-bottom: 8px;
+	padding: 8px;
+	border: dashed 1px #e0e0e0;
+
+	img {
+		display: block;
+		max-width: 100%;
+	}
+
+	&.-noimage {
+		display: flex;
+		align-items: center;
+
+		svg {
+			margin: 0 8px;
+		}
+	}
+}

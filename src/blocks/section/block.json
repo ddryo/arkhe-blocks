@@ -32,52 +32,60 @@
             "type": "string",
             "default": ""
         },
-        "imgId": {
+        "mediaId": {
             "type": "number",
             "default": 0
         },
-        "imgUrl": {
+        "mediaUrl": {
             "type": "string",
             "default": ""
         },
-        "imgWidth": {
+        "mediaWidth": {
             "type": "string",
             "source": "attribute",
-            "selector": "img[data-for=\"pc\"]",
+            "selector": ".ark-block-section__bg[data-for=\"pc\"]",
             "attribute": "width"
         },
-        "imgHeight": {
+        "mediaHeight": {
             "type": "string",
             "source": "attribute",
-            "selector": "img[data-for=\"pc\"]",
+            "selector": ".ark-block-section__bg[data-for=\"pc\"]",
             "attribute": "height"
         },
-        "imgIdSP": {
+        "mediaIdSP": {
             "type": "number",
             "default": 0
         },
-        "imgUrlSP": {
+        "mediaUrlSP": {
             "type": "string",
             "source": "attribute",
-            "selector": "img[data-for=\"sp\"]",
+            "selector": ".ark-block-section__bg[data-for=\"sp\"]",
             "attribute": "src"
         },
-        "imgWidthSP": {
+        "mediaWidthSP": {
             "type": "string",
             "source": "attribute",
-            "selector": "img[data-for=\"sp\"]",
+            "selector": ".ark-block-section__bg[data-for=\"sp\"]",
             "attribute": "width"
         },
-        "imgHeightSP": {
+        "mediaHeightSP": {
             "type": "string",
             "source": "attribute",
-            "selector": "img[data-for=\"sp\"]",
+            "selector": ".ark-block-section__bg[data-for=\"sp\"]",
             "attribute": "height"
         },
-        "bgFocalPoint": {
+        "mediaType": {
+            "type": "string",
+            "default": ""
+        },
+        "mediaTypeSP": {
+            "type": "string",
+            "default": ""
+        },
+        "focalPoint": {
             "type": "object"
         },
-        "bgFocalPointSP": {
+        "focalPointSP": {
             "type": "object"
         },
         "innerSize": {

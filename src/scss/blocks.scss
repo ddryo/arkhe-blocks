@@ -71,29 +71,3 @@
 	}
 }
 
-
-// サイドバーのタブパネル
-.arkb-tabPanel {
-
-	.components-tab-panel__tabs {
-
-		.components-button {
-			display: flex;
-			flex-basis: 50%;
-			justify-content: center;
-
-			i {
-				margin-right: 4px;
-			}
-		}
-	}
-
-	// sectionブロックでタブ部分非表示にする場合
-	&.is-hide-true {
-
-		.components-tab-panel__tabs {
-			display: none;
-		}
-	}
-}
-
