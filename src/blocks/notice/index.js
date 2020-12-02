@@ -21,7 +21,7 @@ import { iconColor } from '@blocks/config';
 import metadata from './block.json';
 import blockIcon from './_icon';
 import example from './_example';
-import { ArkheIcon, ArkheIconOnSave } from '@components/ArkheIcon';
+import { ArkheIcon } from '@components/ArkheIcon';
 import ArkheIconPicker from '@components/ArkheIconPicker';
 import { ArkheSVG } from '@components/ArkheSVG';
 import { ArkheMarginControl } from '@components/ArkheMarginControl';
@@ -116,7 +116,7 @@ registerBlockType(name, {
 		return (
 			<>
 				<BlockControls>
-					<ArkheMarginControl attributes={attributes} setAttributes={setAttributes} />
+					<ArkheMarginControl {...{ className: attributes.className, setAttributes }} />
 				</BlockControls>
 				<InspectorControls>
 					<PanelBody title={__('Notification type', 'arkhe-blocks')} initialOpen={true}>
@@ -179,7 +179,7 @@ registerBlockType(name, {
 		return (
 			<div {...blockProps}>
 				<div className={`${blockName}__head`}>
-					<ArkheIconOnSave icon={icon} className={`${blockName}__icon`} />
+					<ArkheIcon icon={icon} className={`${blockName}__icon`} />
 					{!isSimpleStyle && (
 						<RichText.Content
 							tagName='span'

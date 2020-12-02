@@ -16,25 +16,25 @@
     },
     "attributes": {
         "colPC": {
-            "type": "number",
+            "type": "string",
             "source": "attribute",
             "selector": ".arkb-columns",
             "attribute": "data-col-pc",
-            "default": 2
+            "default": "2"
         },
         "colTab": {
-            "type": "number",
+            "type": "string",
             "source": "attribute",
             "selector": ".arkb-columns",
             "attribute": "data-col-tab",
-            "default": 2
+            "default": "2"
         },
         "colMobile": {
-            "type": "number",
+            "type": "string",
             "source": "attribute",
             "selector": ".arkb-columns",
             "attribute": "data-col",
-            "default": 1
+            "default": "1"
         }
     },
     "editorScript": "file:../../../dist/blocks/box-links/index.js",

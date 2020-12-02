@@ -1,23 +1,27 @@
 export default {
-	article: (
-		<svg viewBox='0 0 56 56'>
-			<rect x='3' y='5' width='50' height='4' />
-			<rect x='3' y='47' width='50' height='4' />
-			<rect x='16' y='16' width='24' height='24' />
+	block: (
+		<svg viewBox='0 0 24 24'>
+			<path d='M2,4v17l20-1V3L2,4z M10,17H4v-2h6V17z M14,13H4v-2h10V13z M20,13h-4v-2h4V13z M20,9H4V7h16V9z' />
 		</svg>
 	),
-	container: (
-		<svg viewBox='0 0 56 56'>
-			<rect x='3' y='5' width='50' height='4' />
-			<rect x='3' y='47' width='50' height='4' />
-			<rect x='10' y='16' width='36' height='24' />
-		</svg>
-	),
-	full: (
-		<svg viewBox='0 0 56 56'>
-			<rect x='3' y='5' width='50' height='4' />
-			<rect x='3' y='47' width='50' height='4' />
-			<rect x='3' y='16' width='50' height='24' />
+
+	fullInner: (
+		<svg
+			viewBox='0 0 24 24'
+			width='24'
+			height='24'
+			xmlns='http://www.w3.org/2000/svg'
+			role='img'
+			aria-hidden='true'
+			focusable='false'
+		>
+			<rect x='2' y='3' width='20' height='1' />
+			<rect x='2' y='20' width='20' height='1' />
+			<rect x='8' y='6' width='8' height='12' />
+			<g>
+				<polygon points='22,12 19.5,9 19.5,10.8 17,10.8 17,13.2 19.5,13.2 19.5,15 	' />
+				<polygon points='7,10.8 4.5,10.8 4.5,9 2,12 4.5,15 4.5,13.2 7,13.2 	' />
+			</g>
 		</svg>
 	),
 };

@@ -1,6 +1,6 @@
 // import { memo } from '@wordpress/element';
 
-const getPath = (type, position, isReverse) => {
+const getPath = (type, isReverse) => {
 	if ('line' === type) {
 		return isReverse ? (
 			<polygon points='0,0 100,0 100,100' />
@@ -31,11 +31,8 @@ const getPath = (type, position, isReverse) => {
 	}
 };
 
-export const SectionSVG = ({ position, heightLevel, fillColor, type }) => {
-	// 高さ
-	const isReverse = 0 > heightLevel;
-
-	const svgStyle = { height: `${Math.abs(heightLevel)}vw` };
+export const SectionSVG = ({ position, type, height, isReverse, fillColor }) => {
+	const svgStyle = { height: `${height}vw` };
 	if (fillColor) {
 		svgStyle.fill = fillColor;
 	}
@@ -50,7 +47,24 @@ export const SectionSVG = ({ position, heightLevel, fillColor, type }) => {
 			focusable='false'
 			style={svgStyle}
 		>
-			{getPath(type, position, isReverse)}
+			{getPath(type, isReverse)}
+		</svg>
+	);
+};
+
+// 設定ボタン用
+export const getButtonSVG = (type) => {
+	return (
+		<svg
+			xmlns='http://www.w3.org/2000/svg'
+			viewBox='0 0 100 100'
+			width='32'
+			height='24'
+			preserveAspectRatio='none'
+			aria-hidden='true'
+			focusable='false'
+		>
+			{getPath(type, false)}
 		</svg>
 	);
 };

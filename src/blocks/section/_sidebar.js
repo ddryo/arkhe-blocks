@@ -5,7 +5,6 @@ import { __ } from '@wordpress/i18n';
 import {
 	InspectorControls,
 	ColorPalette as WpColorPalette,
-	// getColorObjectByColorValue,
 	// MediaPlaceholder,
 } from '@wordpress/block-editor';
 import {
@@ -21,13 +20,13 @@ import {
 	Button,
 } from '@wordpress/components';
 
-import { useCallback } from '@wordpress/element';
-// import { useState } from '@wordpress/element';
+import { memo, useMemo } from '@wordpress/element';
 
 /**
  * @Inner dependencies
  */
 import { ImageTab } from './components/ImageTab';
+import { getButtonSVG } from '././_svg';
 
 /**
  * 設定
@@ -36,48 +35,18 @@ const padUnits = ['px', 'rem', 'em', '%', 'vw', 'vh'];
 
 const textColorSet = [
 	{
-		name: '白',
+		name: __('White', 'arkhe-blocks'),
 		color: '#fff',
 	},
 	{
-		name: '黒',
+		name: __('Black', 'arkhe-blocks'),
 		color: '#000',
 	},
 ];
 
-const innerSizes = [
-	{
-		label: 'コンテンツ幅',
-		value: '',
-	},
-	{
-		label: 'フル幅',
-		value: 'full',
-	},
-];
+const svgTypes = ['line', 'circle', 'wave', 'zigzag'];
 
-const svgTypes = [
-	{
-		label: '斜線',
-		value: 'line',
-	},
-	{
-		label: '円',
-		value: 'circle',
-	},
-	{
-		label: '波',
-		value: 'wave',
-	},
-	{
-		label: 'ジグザグ',
-		value: 'zigzag',
-	},
-];
-
-export default ({ attributes, setAttributes }) => {
-	// const { attributes, setAttributes } = props;
-
+export default memo(({ attributes, setAttributes, isSelected }) => {
 	const {
 		mediaId,
 		mediaUrl,
@@ -95,7 +64,6 @@ export default ({ attributes, setAttributes }) => {
 		padSP,
 		padUnitPC,
 		padUnitSP,
-		innerSize,
 		svgLevelTop,
 		svgLevelBottom,
 		svgTypeTop,
@@ -105,7 +73,7 @@ export default ({ attributes, setAttributes }) => {
 	} = attributes;
 
 	// 画像設定タブに渡す情報
-	const mediaAttrs = {
+	const mediaProps = {
 		mediaId,
 		mediaUrl,
 		mediaIdSP,
@@ -113,91 +81,32 @@ export default ({ attributes, setAttributes }) => {
 		focalPoint,
 		focalPointSP,
 		isRepeat,
+		opacity,
+		setAttributes,
 	};
-	const setImagePC = useCallback(
-		(media) => {
-			// console.log(media);
-			setAttributes({
-				mediaId: media.id,
-				mediaUrl: media.url,
-				mediaWidth: media.width,
-				mediaHeight: media.height,
-				mediaType: media.type,
-				...(100 === opacity ? { opacity: 50 } : {}),
-			});
-		},
-		[opacity]
-	);
 
-	const removeImagePC = useCallback(() => {
-		setAttributes({
-			mediaId: 0,
-			mediaUrl: '',
-			mediaWidth: undefined,
-			mediaHeight: undefined,
-			mediaType: '',
-			focalPoint: undefined,
-			...(!mediaUrlSP ? { opacity: 100 } : {}), // SP画像もなければ カラー100に。
-		});
-	}, [mediaUrlSP]);
+	// 初回の状態を記憶
+	const isOpenSvgTop = useMemo(() => {
+		// console.log('memo: isOpenSvgTop');
+		return 0 !== svgLevelTop;
+	}, [isSelected]);
+	const isOpenSvgBottom = useMemo(() => {
+		return 0 !== svgLevelBottom;
+	}, [isSelected]);
 
-	const setImageSP = useCallback((media) => {
-		setAttributes({
-			mediaIdSP: media.id,
-			mediaUrlSP: media.url,
-			mediaWidthSP: media.width,
-			mediaHeightSP: media.height,
-			mediaTypeSP: media.type,
-		});
-	}, []);
+	// useEffect(() => {
+	// 	console.log('useEffect !');
+	// }, [isSelected]);
 
-	const removeImageSP = useCallback(() => {
-		setAttributes({
-			mediaIdSP: 0,
-			mediaUrlSP: undefined,
-			mediaWidthSP: undefined,
-			mediaHeightSP: undefined,
-			mediaTypeSP: '',
-			focalPointSP: undefined,
-			...(!mediaUrl ? { opacity: 100 } : {}), // PC画像もなければ カラー100に。
-		});
-	}, [mediaUrl]);
-
-	const setFocalPointPC = useCallback((val) => {
-		setAttributes({ focalPoint: val });
-	}, []);
-	const setFocalPointSP = useCallback((val) => {
-		setAttributes({ focalPointSP: val });
-	}, []);
+	// console.log('InspectorControls');
 
 	return (
 		<InspectorControls>
-			<PanelBody title={__('Size settings', 'arkhe-blocks')}>
-				<BaseControl>
-					<BaseControl.VisualLabel>
-						{__('コンテンツの横幅', 'arkhe-blocks')}
-					</BaseControl.VisualLabel>
-					<ButtonGroup>
-						{innerSizes.map((size) => {
-							return (
-								<Button
-									isSecondary={size.value !== innerSize}
-									isPrimary={size.value === innerSize}
-									onClick={() => {
-										setAttributes({
-											innerSize: size.value,
-										});
-									}}
-									key={`key_${size.value}`}
-								>
-									{size.label}
-								</Button>
-							);
-						})}
-					</ButtonGroup>
-				</BaseControl>
+			<PanelBody title={__('Padding settings', 'arkhe-blocks')}>
 				<div className='ark-control--padding'>
-					<div className='__label'>{__('上下のpadding量', 'arkhe-blocks') + '(PC)'}</div>
+					<div className='__label'>
+						{__('Upper and lower padding amount', 'arkhe-blocks') + '(PC)'}
+					</div>
 					<TextControl
 						className='__input'
 						value={padPC}
@@ -217,7 +126,9 @@ export default ({ attributes, setAttributes }) => {
 					/>
 				</div>
 				<div className='ark-control--padding'>
-					<div className='__label'>{__('上下のpadding量', 'arkhe-blocks') + '(SP)'}</div>
+					<div className='__label'>
+						{__('Upper and lower padding amount', 'arkhe-blocks') + '(SP)'}
+					</div>
 					<TextControl
 						className='__input'
 						value={padSP}
@@ -240,7 +151,7 @@ export default ({ attributes, setAttributes }) => {
 			<PanelBody title={__('Color settings', 'arkhe-blocks')}>
 				<BaseControl>
 					<BaseControl.VisualLabel>
-						{__('テキストカラー', 'arkhe-blocks')}
+						{__('Text color', 'arkhe-blocks')}
 					</BaseControl.VisualLabel>
 					<ColorPalette
 						value={textColor}
@@ -252,7 +163,9 @@ export default ({ attributes, setAttributes }) => {
 				</BaseControl>
 				<BaseControl>
 					<BaseControl.VisualLabel>
-						{mediaUrl ? 'オーバーレイカラー' : '背景色'}
+						{mediaUrl
+							? __('Overlay color', 'arkhe-blocks')
+							: __('Background color', 'arkhe-blocks')}
 					</BaseControl.VisualLabel>
 					<ColorPicker
 						className='arkb-colorPicker'
@@ -266,7 +179,11 @@ export default ({ attributes, setAttributes }) => {
 					/>
 				</BaseControl>
 				<RangeControl
-					label={mediaUrl ? 'オーバーレイの不透明度' : '背景色の不透明度'}
+					label={
+						mediaUrl
+							? __('Overlay opacity', 'arkhe-blocks')
+							: __('Background opacity', 'arkhe-blocks')
+					}
 					value={opacity}
 					onChange={(val) => {
 						setAttributes({
@@ -277,24 +194,16 @@ export default ({ attributes, setAttributes }) => {
 					max={100}
 				/>
 			</PanelBody>
-			<PanelBody title='背景メディアの設定'>
+			<PanelBody title={__('Background media setting', 'arkhe-blocks')}>
 				{isRepeat && mediaUrl && (
 					<div className='arkb-imgPreview'>
 						<img src={mediaUrl} alt='' />
 					</div>
 				)}
-				<ImageTab
-					attribute={mediaAttrs}
-					setImagePC={setImagePC}
-					removeImagePC={removeImagePC}
-					setImageSP={setImageSP}
-					removeImageSP={removeImageSP}
-					setFocalPointPC={setFocalPointPC}
-					setFocalPointSP={setFocalPointSP}
-				/>
+				<ImageTab {...mediaProps} />
 				{'video' !== mediaType && (
 					<ToggleControl
-						label={__('背景画像をリピートする', 'arkhe-blocks')}
+						label={__('Repeat the background image', 'arkhe-blocks')}
 						checked={isRepeat}
 						onChange={(val) => {
 							setAttributes({ isRepeat: val });
@@ -305,30 +214,28 @@ export default ({ attributes, setAttributes }) => {
 					/>
 				)}
 			</PanelBody>
-			<PanelBody title={__('上部の境界線', 'arkhe-blocks')} initialOpen={0 !== svgLevelTop}>
+			<PanelBody title={__('Top border', 'arkhe-blocks')} initialOpen={isOpenSvgTop}>
 				<BaseControl>
-					<BaseControl.VisualLabel>{__('形状', 'arkhe-blocks')}</BaseControl.VisualLabel>
-					<ButtonGroup className='arkb-btns-minWidth'>
+					<BaseControl.VisualLabel>{__('Shape', 'arkhe-blocks')}</BaseControl.VisualLabel>
+					<ButtonGroup className='arkb-btns--svg -top'>
 						{svgTypes.map((type) => {
 							return (
 								<Button
-									isSecondary={type.value !== svgTypeTop}
-									isPrimary={type.value === svgTypeTop}
+									isSecondary={type !== svgTypeTop}
+									isPrimary={type === svgTypeTop}
 									onClick={() => {
-										setAttributes({
-											svgTypeTop: type.value,
-										});
+										setAttributes({ svgTypeTop: type });
 									}}
-									key={`key_${type.value}`}
+									key={`key_${type}`}
 								>
-									{type.label}
+									{getButtonSVG(type)}
 								</Button>
 							);
 						})}
 					</ButtonGroup>
 				</BaseControl>
 				<RangeControl
-					label={__('高さレベル', 'arkhe-blocks')}
+					label={__('Height level', 'arkhe-blocks')}
 					value={svgLevelTop}
 					onChange={(val) => {
 						setAttributes({
@@ -352,31 +259,28 @@ export default ({ attributes, setAttributes }) => {
 					/>
 				</div>
 			</PanelBody>
-			<PanelBody
-				title={__('下部の境界線', 'arkhe-blocks')}
-				initialOpen={0 !== svgLevelBottom}
-			>
+			<PanelBody title={__('Bottom border', 'arkhe-blocks')} initialOpen={isOpenSvgBottom}>
 				<BaseControl>
-					<BaseControl.VisualLabel>{__('形状', 'arkhe-blocks')}</BaseControl.VisualLabel>
-					<ButtonGroup className='arkb-btns-minWidth'>
+					<BaseControl.VisualLabel>{__('Shape', 'arkhe-blocks')}</BaseControl.VisualLabel>
+					<ButtonGroup className='arkb-btns--svg -bottom'>
 						{svgTypes.map((type) => {
 							return (
 								<Button
-									isSecondary={type.value !== svgTypeBottom}
-									isPrimary={type.value === svgTypeBottom}
+									isSecondary={type !== svgTypeBottom}
+									isPrimary={type === svgTypeBottom}
 									onClick={() => {
-										setAttributes({ svgTypeBottom: type.value });
+										setAttributes({ svgTypeBottom: type });
 									}}
-									key={`key_${type.value}`}
+									key={`key_${type}`}
 								>
-									{type.label}
+									{getButtonSVG(type)}
 								</Button>
 							);
 						})}
 					</ButtonGroup>
 				</BaseControl>
 				<RangeControl
-					label={__('高さレベル', 'arkhe-blocks')}
+					label={__('Height level', 'arkhe-blocks')}
 					value={svgLevelBottom}
 					onChange={(val) => {
 						setAttributes({ svgLevelBottom: val });
@@ -400,4 +304,4 @@ export default ({ attributes, setAttributes }) => {
 			</PanelBody>
 		</InspectorControls>
 	);
-};
+});

@@ -5,10 +5,10 @@
 
 .ark-block-section {
 	position: relative;
-	padding: var(--arkb-section-pad--pc) 0;
+	padding: var(--arkb-section-pad--pc) var(--ark-pad--container, 48px);
 
 	@include sp {
-		padding: var(--arkb-section-pad--sp) 0;
+		padding: var(--arkb-section-pad--sp) var(--ark-pad--container, 4vw);
 	}
 
 	&.has-bg-img {
@@ -29,12 +29,13 @@
 .ark-block-section__inner {
 	position: relative;
 	z-index: 2;
-	max-width: var(--ark-article_width);
+	max-width: var(--ark-article_width, 1000px);
 	margin: 0 auto;
 
 	[data-inner="full"] > & {
 		max-width: 100%;
 	}
+
 }
 
 

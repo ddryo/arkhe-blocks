@@ -150,7 +150,7 @@ registerBlockType(name, {
 		return (
 			<>
 				<BlockControls>
-					<ArkheMarginControl attributes={attributes} setAttributes={setAttributes} />
+					<ArkheMarginControl {...{ className: attributes.className, setAttributes }} />
 				</BlockControls>
 				<InspectorControls>
 					<PanelBody title={__('Settings', 'arkhe-blocks')} initialOpen={true}>

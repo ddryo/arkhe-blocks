@@ -1,9 +1,8 @@
-.ark-block-boxLinks {
-}
+// .ark-block-boxLinks {
+// }
 
-.ark-block-boxLink {
-}
-
+// .ark-block-boxLink {
+// }
 
 // ボックスリンク
 .arkb-boxLink {
@@ -61,13 +60,31 @@ a.arkb-boxLink__inner:hover {
 		}
 	}
 
+	&.is-fixed-ratio {
+		padding-top: var(--ark-thumb_ratio);
+	}
 
 }
 
 .arkb-boxLink__img {
 	display: block;
 	width: 100%;
+
+	.is-fixed-ratio > & {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	.is-fixed-ratio > &,
+	.arkb-boxLink__bg &,
+	.arkb-boxLink.-horizontal & {
+		height: 100%;
+		object-fit: cover;
+	}
+
 }
+
 
 // .arkb-boxLink__icon {}
 
@@ -88,7 +105,7 @@ a.arkb-boxLink__inner:hover {
 	align-items: center;
 	justify-content: flex-end;
 	margin: auto 0 0;
-	padding-top: .5rem;
+	padding-top: 1rem;
 	font-size: .75rem;
 	line-height: 1;
 	text-align: right;
@@ -100,19 +117,6 @@ a.arkb-boxLink__inner:hover {
 	fill: currentColor;
 }
 
-// 画像の比率を固定。
-.arkb-boxLink__figure.is-fixed-ratio {
-	padding-top: var(--ark-thumb_ratio);
-
-	img {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
-}
 
 .arkb-boxLink.-horizontal {
 
@@ -175,15 +179,6 @@ a.arkb-boxLink__inner:hover {
 	}
 
 }
-
-
-.arkb-boxLink__bg .arkb-boxLink__img,
-.arkb-boxLink.-horizontal .arkb-boxLink__img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-}
-
 
 // センター寄せ
 .arkb-boxLink.has-text-align-center {

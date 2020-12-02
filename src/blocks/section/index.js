@@ -5,23 +5,28 @@ import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 import {
 	// InspectorControls,
-	// BlockControls,
+	BlockControls,
 	// RichText,
 	InnerBlocks,
 	useBlockProps,
 	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
 } from '@wordpress/block-editor';
-// import { useCallback } from '@wordpress/element';
-// import { PanelBody, ButtonGroup, Button } from '@wordpress/components';
+import {
+	useMemo,
+	//useCallback,
+	//useEffect
+} from '@wordpress/element';
+
+import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 
 /**
  * @Internal dependencies
  */
 import { iconColor } from '@blocks/config';
 import metadata from './block.json';
-// import blockIcon from './_icon';
+import blockIcon from './_icon';
 // import example from './_example';
-// import { ArkheMarginControl } from '@components/ArkheMarginControl';
+import { ArkheMarginControl } from '@components/ArkheMarginControl';
 
 import { SectionSVG } from './_svg';
 import TheSidebar from './_sidebar';
@@ -40,7 +45,7 @@ const blockName = 'ark-block-section';
 const { apiVersion, name, category, keywords, supports } = metadata;
 
 /**
- * 背景色
+ * 背景色生成
  */
 const getBgColor = (bgColor, opacity) => {
 	if (0 === opacity) {
@@ -55,8 +60,20 @@ const getBgColor = (bgColor, opacity) => {
 /**
  * スタイルをセットする関数
  */
-const getBlockStyle = (attributes, bgColor) => {
-	const { textColor, padPC, padSP, padUnitPC, padUnitSP, isRepeat, mediaUrl } = attributes;
+const getBlockStyle = (attributes) => {
+	const {
+		textColor,
+		padPC,
+		padSP,
+		padUnitPC,
+		padUnitSP,
+		isRepeat,
+		mediaUrl,
+		bgColor,
+		opacity,
+	} = attributes;
+
+	// console.log('Do getBlockStyle');
 
 	const style = {};
 
@@ -64,7 +81,8 @@ const getBlockStyle = (attributes, bgColor) => {
 	if (textColor) style.color = textColor;
 
 	// 背景色
-	if (bgColor) style.backgroundColor = bgColor;
+	const _bgColor = getBgColor(bgColor, opacity);
+	if (_bgColor) style.backgroundColor = _bgColor;
 
 	// padding
 	const paddingPC = `${padPC}${padUnitPC}`;
@@ -86,16 +104,32 @@ const getBlockStyle = (attributes, bgColor) => {
 	return style;
 };
 
-const getInnerStyle = (svgLevelTop, svgLevelBottom) => {
-	const innerStyle = {};
-	if (0 !== svgLevelTop) {
-		innerStyle.marginTop = `${Math.abs(svgLevelTop)}vw`;
-	}
-	if (0 !== svgLevelBottom) {
-		innerStyle.marginBottom = `${Math.abs(svgLevelBottom)}vw`;
-	}
+// const getInnerStyle = (svgLevelTop, svgLevelBottom) => {
+// 	const innerStyle = {};
+// 	if (0 !== svgLevelTop) {
+// 		innerStyle.marginTop = `${Math.abs(svgLevelTop)}vw`;
+// 	}
+// 	if (0 !== svgLevelBottom) {
+// 		innerStyle.marginBottom = `${Math.abs(svgLevelBottom)}vw`;
+// 	}
 
-	return innerStyle;
+// 	return innerStyle;
+// };
+
+const getSvgData = (svgLevel) => {
+	if (0 === svgLevel) {
+		return {
+			isReverse: false,
+			height: 0,
+		};
+	}
+	// vwに合わせて 100 >> 10.0
+	const height = (svgLevel * 0.1).toFixed(1);
+
+	return {
+		isReverse: 0 > svgLevel, // 負の値かどうか
+		height: Math.abs(height), // 絶対値
+	};
 };
 
 /**
@@ -116,6 +150,7 @@ const getBgImage = ({
 	focalPointSP,
 	isRepeat,
 }) => {
+	// console.log('Do getBgImage');
 	if (isRepeat) {
 		return null;
 	}
@@ -221,11 +256,11 @@ const getBgImage = ({
  */
 registerBlockType(name, {
 	apiVersion,
-	title: __('Section', 'arkhe-blocks'),
+	title: __('Section', 'arkhe-blocks') + '(β)',
 	description: __('Create a content area to use as a section.', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
-		src: 'align-wide',
+		src: blockIcon.block,
 	},
 	category,
 	keywords,
@@ -233,10 +268,9 @@ registerBlockType(name, {
 	// example,
 	attributes: metadata.attributes,
 	edit: (props) => {
-		const { attributes, setAttributes } = props;
+		const { attributes, setAttributes, isSelected } = props;
 		const {
-			bgColor,
-			opacity,
+			align,
 			mediaUrl,
 			innerSize,
 			svgLevelTop,
@@ -253,18 +287,19 @@ registerBlockType(name, {
 		});
 
 		// スタイルデータ
-		const _bgColor = getBgColor(bgColor, opacity);
-		const style = getBlockStyle(attributes, _bgColor);
+		const style = useMemo(() => getBlockStyle(attributes), [attributes]);
 
 		// 背景画像
-		const bgImg = getBgImage(attributes);
+		const bgImg = useMemo(() => getBgImage(attributes), [attributes]);
 
-		// heightレベルを10で割っておく
-		const _svgLevelTop = (svgLevelTop * 0.1).toFixed(1);
-		const _svgLevelBottom = (svgLevelBottom * 0.1).toFixed(1);
+		// svgデータ
+		const svgTop = useMemo(() => getSvgData(svgLevelTop), [svgLevelTop]);
+		const svgBottom = useMemo(() => getSvgData(svgLevelBottom), [svgLevelBottom]);
 
-		// インナー部分のstyle
-		const innerStyle = getInnerStyle(_svgLevelTop, _svgLevelBottom);
+		const innerStyle = {
+			...(0 !== svgLevelTop ? { marginTop: `${svgTop.height}vw` } : {}),
+			...(0 !== svgLevelBottom ? { marginBottom: `${svgBottom.height}vw` } : {}),
+		};
 
 		// ブロックProps
 		const blockProps = useBlockProps({
@@ -284,31 +319,66 @@ registerBlockType(name, {
 			}
 		);
 
+		const svgSrcTop = useMemo(() => {
+			if (svgLevelTop === 0) return null;
+			return (
+				<SectionSVG
+					position='top'
+					type={svgTypeTop}
+					height={svgTop.height}
+					isReverse={svgTop.isReverse}
+					fillColor={svgColorTop}
+				/>
+			);
+		}, [svgLevelTop, svgTypeTop, svgColorTop, svgTop]);
+
+		const svgSrcBottom = useMemo(() => {
+			if (svgLevelBottom === 0) return null;
+			return (
+				<SectionSVG
+					position='bottom'
+					type={svgTypeBottom}
+					height={svgBottom.height}
+					isReverse={svgBottom.isReverse}
+					fillColor={svgColorBottom}
+				/>
+			);
+		}, [svgLevelBottom, svgTypeBottom, svgColorBottom, svgBottom]);
+
 		return (
 			<>
-				{/* <BlockControls>
-					<FullWideToolbars {...props} />
-				</BlockControls> */}
-				<TheSidebar attributes={attributes} setAttributes={setAttributes} />
+				<BlockControls>
+					{'full' === align && (
+						<ToolbarGroup>
+							<ToolbarButton
+								className={classnames('components-toolbar__control', {
+									'is-pressed': 'full' === innerSize,
+								})}
+								label={__('To full-width content', 'arkhe-blocks')}
+								icon={blockIcon.fullInner}
+								onClick={() => {
+									if ('full' !== innerSize) {
+										setAttributes({ innerSize: 'full' });
+									} else {
+										setAttributes({ innerSize: '' });
+									}
+								}}
+							/>
+						</ToolbarGroup>
+					)}
+
+					<ArkheMarginControl {...{ className: attributes.className, setAttributes }} />
+				</BlockControls>
+				<TheSidebar
+					attributes={attributes}
+					setAttributes={setAttributes}
+					isSelected={isSelected}
+				/>
 				<div {...blockProps}>
 					{bgImg}
-					{0 !== svgLevelTop && (
-						<SectionSVG
-							position='top'
-							heightLevel={_svgLevelTop}
-							fillColor={svgColorTop}
-							type={svgTypeTop}
-						/>
-					)}
+					{svgSrcTop}
 					<div {...innerBlocksProps} />
-					{0 !== svgLevelBottom && (
-						<SectionSVG
-							position='bottom'
-							heightLevel={_svgLevelBottom}
-							fillColor={svgColorBottom}
-							type={svgTypeBottom}
-						/>
-					)}
+					{svgSrcBottom}
 				</div>
 			</>
 		);
@@ -316,8 +386,8 @@ registerBlockType(name, {
 
 	save: ({ attributes }) => {
 		const {
-			bgColor,
-			opacity,
+			// bgColor,
+			// opacity,
 			mediaUrl,
 			innerSize,
 			svgLevelTop,
@@ -329,18 +399,19 @@ registerBlockType(name, {
 		} = attributes;
 
 		// styleデータ
-		const _bgColor = getBgColor(bgColor, opacity);
-		const style = getBlockStyle(attributes, _bgColor);
+		const style = getBlockStyle(attributes);
 
 		// 背景画像
 		const bgImg = getBgImage(attributes);
 
-		// heightレベルを10で割っておく
-		const _svgLevelTop = (svgLevelTop * 0.1).toFixed(1);
-		const _svgLevelBottom = (svgLevelBottom * 0.1).toFixed(1);
+		// svgデータ
+		const svgTop = getSvgData(svgLevelTop);
+		const svgBottom = getSvgData(svgLevelBottom);
 
-		// インナー部分のstyle
-		const innerStyle = getInnerStyle(_svgLevelTop, _svgLevelBottom);
+		const innerStyle = {
+			...(0 !== svgLevelTop ? { marginTop: `${svgTop.height}vw` } : {}),
+			...(0 !== svgLevelBottom ? { marginBottom: `${svgBottom.height}vw` } : {}),
+		};
 
 		// クラス名
 		const blockClass = classnames(blockName, {
@@ -360,9 +431,10 @@ registerBlockType(name, {
 				{0 !== svgLevelTop && (
 					<SectionSVG
 						position='top'
-						heightLevel={_svgLevelTop}
-						fillColor={svgColorTop}
 						type={svgTypeTop}
+						height={svgTop.height}
+						isReverse={svgTop.isReverse}
+						fillColor={svgColorTop}
 					/>
 				)}
 				<div className={`${blockName}__inner ark-keep-mt`} style={innerStyle || null}>
@@ -371,9 +443,10 @@ registerBlockType(name, {
 				{0 !== svgLevelBottom && (
 					<SectionSVG
 						position='bottom'
-						heightLevel={_svgLevelBottom}
-						fillColor={svgColorBottom}
 						type={svgTypeBottom}
+						height={svgBottom.height}
+						isReverse={svgBottom.isReverse}
+						fillColor={svgColorBottom}
 					/>
 				)}
 			</div>

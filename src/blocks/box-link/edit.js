@@ -4,10 +4,10 @@
 import { __ } from '@wordpress/i18n';
 import {
 	// memo,
-	// useMemo,
+	useMemo,
 	useCallback,
 	useState,
-	RawHTML,
+	useEffect,
 } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 
@@ -22,10 +22,9 @@ import {
  * @Internal dependencies
  */
 import { Figure } from '@components/Figure';
-import { ArkheIcon } from '@components/ArkheIcon';
 import getResizedImages from '@helper/getResizedImages';
-// import getNewLinkRel from '@helper/getNewLinkRel';
 import ThisControls from './_controls';
+import { IconContent } from './components/IconContent';
 
 /**
  * @Others dependencies
@@ -36,7 +35,7 @@ const blockName = 'ark-block-boxLink';
 export default function (props) {
 	const { attributes, setAttributes } = props;
 	const {
-		align,
+		textAlign,
 		useIcon,
 		icon,
 		iconSize,
@@ -60,11 +59,17 @@ export default function (props) {
 
 	// ブロッククラス
 	const blockClass = classnames(blockName, 'arkb-boxLink', 'arkb-columns__item', '-' + layout, {
-		'has-text-align-center': 'center' === align,
+		'has-text-align-center': 'center' === textAlign,
 	});
 
 	// 縦並びか横並びかを変数化
 	const isVertical = 'vertical' === layout;
+
+	useEffect(() => {
+		if (isBannerStyle) {
+			setAttributes({ fixRatio: false });
+		}
+	}, [isBannerStyle]);
 
 	// state
 	const [isURLPickerOpen, setIsURLPickerOpen] = useState(false);
@@ -182,69 +187,48 @@ export default function (props) {
 		[resizedImages]
 	);
 
-	// アイコン
-	const iconStyle = !iconSize
-		? null
-		: {
-				'--arkb-boxlink_icon_size': iconSize + 'px',
-		  };
-	let iconContent = null;
-	if (useIcon && useIconHtml) {
-		iconContent = (
-			<figure className='arkb-boxLink__figure -icon -html' style={iconStyle}>
-				<RawHTML>{iconHtml}</RawHTML>
-			</figure>
-		);
-	} else if (useIcon) {
-		iconContent = (
-			<figure className='arkb-boxLink__figure -icon' style={iconStyle}>
-				<ArkheIcon icon={icon} className={`arkb-boxLink__icon`} />
-			</figure>
-		);
-	}
-
-	// figure
-	let figure = '';
-	if (isBannerStyle) {
-		figure = (
-			<>
-				<Figure
-					url={imgUrl}
-					id={imgId}
-					alt={imgAlt}
-					figureClass='arkb-boxLink__bg'
-					figureStyle={null}
-					imgClass='arkb-boxLink__img'
-					onSelect={onSelectImage}
-					onSelectURL={onSelectURL}
-				/>
-				{iconContent}
-			</>
-		);
-	} else if (useIcon) {
-		figure = iconContent;
-	} else {
-		// figure の style
-		let figureStyle = null;
-		if (isVertical) {
-			figureStyle = ratio ? { paddingTop: `${ratio}%` } : null;
-		} else {
-			figureStyle = ratio ? { flexBasis: `${ratio}%` } : null;
+	const figureContent = useMemo(() => {
+		if (isBannerStyle) {
+			return (
+				<>
+					<Figure
+						url={imgUrl}
+						id={imgId}
+						alt={imgAlt}
+						figureClass='arkb-boxLink__bg'
+						figureStyle={null}
+						imgClass='arkb-boxLink__img'
+						onSelect={onSelectImage}
+						onSelectURL={onSelectURL}
+					/>
+					<IconContent {...{ icon, iconSize, iconHtml, useIcon, useIconHtml }} />
+				</>
+			);
+		} else if (useIcon) {
+			return <IconContent {...{ icon, iconSize, iconHtml, useIcon, useIconHtml }} />;
 		}
 
-		figure = (
+		// figure の style
+		const figureStyle = {};
+		if (isVertical && ratio) {
+			figureStyle.paddingTop = `${ratio}%`;
+		} else if (!isVertical && ratio) {
+			figureStyle.flexBasis = `${ratio}%`;
+		}
+
+		return (
 			<Figure
 				url={imgUrl}
 				id={imgId}
 				alt={imgAlt}
 				figureClass={classnames('arkb-boxLink__figure', { 'is-fixed-ratio': fixRatio })}
-				figureStyle={figureStyle}
+				figureStyle={figureStyle || null}
 				imgClass='arkb-boxLink__img'
 				onSelect={onSelectImage}
 				onSelectURL={onSelectURL}
 			/>
 		);
-	}
+	}, [attributes, isBannerStyle, useIconHtml, onSelectImage, onSelectURL]);
 
 	const blockProps = useBlockProps({
 		className: blockClass,
@@ -262,21 +246,24 @@ export default function (props) {
 	return (
 		<>
 			<ThisControls
-				attributes={attributes}
-				setAttributes={setAttributes}
-				onSelectImage={onSelectImage}
-				onSelectURL={onSelectURL}
-				onRemoveImage={onRemoveImage}
-				updateImagesSize={updateImagesSize}
-				sizeOptions={sizeOptions}
-				isURLPickerOpen={isURLPickerOpen}
-				setIsURLPickerOpen={setIsURLPickerOpen}
-				useIconHtml={useIconHtml}
-				setUseIconHtml={setUseIconHtml}
+				{...{
+					attributes,
+					isBannerStyle,
+					setAttributes,
+					onSelectImage,
+					onSelectURL,
+					onRemoveImage,
+					updateImagesSize,
+					sizeOptions,
+					isURLPickerOpen,
+					setIsURLPickerOpen,
+					useIconHtml,
+					setUseIconHtml,
+				}}
 			/>
 			<div {...blockProps}>
 				<div className='arkb-boxLink__inner'>
-					{figure}
+					{figureContent}
 					<div className='arkb-boxLink__body'>
 						<RichText
 							tagName='div'

@@ -86,13 +86,15 @@ const mbControls = [
 /**
  * マージンコントロール
  */
-export const ArkheMarginControl = memo(({ attributes, setAttributes }) => {
+export const ArkheMarginControl = memo(({ className, setAttributes }) => {
+	// console.log('ArkheMarginControl');
+
 	// テーマがArkheの時のみ有効
 	if (!window.arkheTheme) {
 		return null;
 	}
 
-	const nowClass = attributes.className || '';
+	const nowClass = className || '';
 
 	// 設定項目からクラス名だけを集めた配列を生成する
 	const classGloup = mbControls.map((control) => {

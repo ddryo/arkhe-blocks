@@ -16,8 +16,9 @@
         "arkhe-blocks/box-links"
     ],
     "attributes": {
-        "align": {
-            "type": "string"
+        "textAlign": {
+            "type": "string",
+            "default": ""
         },
         "useIcon": {
             "type": "boolean",

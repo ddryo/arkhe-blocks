@@ -30,6 +30,7 @@ import { Icon, alignCenter, link } from '@wordpress/icons';
 /**
  * @Internal dependencies
  */
+import blockIcon from './_icon';
 import ArkheIconPicker from '@components/ArkheIconPicker';
 import getNewLinkRel from '@helper/getNewLinkRel';
 
@@ -78,6 +79,7 @@ const hTags = [
 export default memo((props) => {
 	const {
 		attributes,
+		isBannerStyle,
 		setAttributes,
 		onSelectImage,
 		onSelectURL,
@@ -91,7 +93,7 @@ export default memo((props) => {
 	} = props;
 
 	const {
-		align,
+		textAlign,
 		useIcon,
 		iconHtml,
 		icon,
@@ -111,9 +113,6 @@ export default memo((props) => {
 		showMoreArrow,
 	} = attributes;
 
-	// const attrClass = attributes.className || '';
-	// const isBannerStyle = -1 !== attrClass.indexOf('is-style-banner');
-
 	// 縦並びか横並びかを変数化
 	const isVertical = 'vertical' === layout;
 
@@ -122,34 +121,37 @@ export default memo((props) => {
 		? __('By default, it has the same ratio as thumbnails in the archive list.', 'arkhe-blocks')
 		: null;
 
-	const ratioConrtol = (
-		<RangeControl
-			label={__('Image ratio', 'arkhe-blocks')}
-			help={rationHelp}
-			value={ratio}
-			onChange={(val) => {
-				setAttributes({ ratio: val });
-			}}
-			min={1}
-			max={100}
-			allowReset={true}
-			className='arkb-range--useReset'
-		/>
-	);
-	const ratioSettings = isVertical ? (
-		<>
-			<ToggleControl
-				label={__('Fix image ratio', 'arkhe-blocks')}
-				checked={fixRatio}
-				onChange={(val) => {
-					setAttributes({ fixRatio: val });
-				}}
-			/>
-			{fixRatio && ratioConrtol}
-		</>
-	) : (
-		ratioConrtol
-	);
+	let ratioSettings = null;
+	if (!isBannerStyle) {
+		ratioSettings = (
+			<>
+				{isVertical && (
+					<ToggleControl
+						label={__('Fix image ratio', 'arkhe-blocks')}
+						checked={fixRatio}
+						onChange={(val) => {
+							setAttributes({ fixRatio: val });
+						}}
+					/>
+				)}
+
+				{(!isVertical || (fixRatio && isVertical)) && (
+					<RangeControl
+						label={__('Image ratio', 'arkhe-blocks')}
+						help={rationHelp}
+						value={ratio}
+						onChange={(val) => {
+							setAttributes({ ratio: val });
+						}}
+						min={1}
+						max={100}
+						allowReset={true}
+						className='arkb-range--useReset'
+					/>
+				)}
+			</>
+		);
+	}
 
 	// アイコン選択時
 	const setIcon = useCallback((val, isSelected) => {
@@ -160,19 +162,22 @@ export default memo((props) => {
 	return (
 		<>
 			<BlockControls>
-				<ToolbarGroup>
-					<ToolbarButton
-						className={classnames('components-toolbar__control', {
-							'is-pressed': 'center' === align,
-						})}
-						label={__('Center the text', 'arkhe-blocks')}
-						icon={<Icon icon={alignCenter} />}
-						onClick={() => {
-							const newAlign = 'center' !== align ? 'center' : undefined;
-							setAttributes({ align: newAlign });
-						}}
-					/>
-				</ToolbarGroup>
+				{isVertical && (
+					<ToolbarGroup>
+						<ToolbarButton
+							className={classnames('components-toolbar__control', {
+								'is-pressed': 'center' === textAlign,
+							})}
+							label={__('Center the text', 'arkhe-blocks')}
+							icon={<Icon icon={alignCenter} />}
+							onClick={() => {
+								const newAlign = 'center' === textAlign ? '' : 'center';
+								setAttributes({ textAlign: newAlign });
+							}}
+						/>
+					</ToolbarGroup>
+				)}
+
 				<ToolbarGroup>
 					<ToolbarButton
 						name='link'
@@ -227,25 +232,29 @@ export default memo((props) => {
 			</BlockControls>
 
 			<InspectorControls>
-				<PanelBody title={__('Settings', 'arkhe-blocks')} initialOpen={true}>
+				<PanelBody title={__('Box Settings', 'arkhe-blocks')} initialOpen={true}>
 					<BaseControl>
 						<BaseControl.VisualLabel>
-							{__('Box layout', 'arkhe-blocks')}
+							{__('Layout', 'arkhe-blocks')}
 						</BaseControl.VisualLabel>
-						<ButtonGroup className='ark-notice-btns'>
+						<ButtonGroup className='arkb-btns--boxLayout'>
 							{layoutBtns.map((btn) => {
+								const btnVal = btn.value;
 								return (
 									<Button
-										isPrimary={layout === btn.value}
-										key={`ark-${btn.value}`}
+										isPrimary={layout === btnVal}
+										icon={blockIcon[btnVal]}
+										key={`ark-${btnVal}`}
 										onClick={() => {
 											setAttributes({
-												layout: btn.value,
-												ratio: undefined,
+												layout: btnVal,
+												ratio: undefined, // リセット
+												fixRatio: false, // リセット
+												textAlign: '', // リセット
 											});
 										}}
 									>
-										{btn.label}
+										<span>{btn.label}</span>
 									</Button>
 								);
 							})}
@@ -273,6 +282,21 @@ export default memo((props) => {
 							})}
 						</ButtonGroup>
 					</BaseControl>
+					<TextControl
+						label={__('"READ MORE" text', 'arkhe-blocks')}
+						// help={faNote}
+						value={more}
+						onChange={(val) => {
+							setAttributes({ more: val });
+						}}
+					/>
+					<ToggleControl
+						label={__('Show arrow icon', 'arkhe-blocks')}
+						checked={showMoreArrow}
+						onChange={(val) => {
+							setAttributes({ showMoreArrow: val });
+						}}
+					/>
 				</PanelBody>
 				<PanelBody title={__('Image settings', 'arkhe-blocks')} initialOpen={true}>
 					{0 !== imgId && (
@@ -350,23 +374,6 @@ export default memo((props) => {
 						value={rel || ''}
 						onChange={(value) => {
 							setAttributes({ rel: value });
-						}}
-					/>
-				</PanelBody>
-				<PanelBody title={__('"READ MORE" settings', 'arkhe-blocks')} initialOpen={true}>
-					<TextControl
-						label={__('"READ MORE" text', 'arkhe-blocks')}
-						// help={faNote}
-						value={more}
-						onChange={(val) => {
-							setAttributes({ more: val });
-						}}
-					/>
-					<ToggleControl
-						label={__('Show arrow icon', 'arkhe-blocks')}
-						checked={showMoreArrow}
-						onChange={(val) => {
-							setAttributes({ showMoreArrow: val });
 						}}
 					/>
 				</PanelBody>

@@ -26,7 +26,7 @@ registerBlockType(name, {
 	title: __('Box link', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
-		src: blockIcon,
+		src: blockIcon.vertical,
 	},
 	category,
 	keywords,

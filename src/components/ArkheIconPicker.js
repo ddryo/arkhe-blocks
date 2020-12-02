@@ -13,9 +13,7 @@ import { ArkheIcon } from '@components/ArkheIcon';
 /**
  * タブ
  */
-const ArkheIconPicker = memo((props) => {
-	const { icon, setIcon } = props;
-
+const ArkheIconPicker = memo(({ icon, setIcon }) => {
 	// アイコンリスト
 	const icons = [
 		'arkb-svg-point',
@@ -81,7 +79,6 @@ const ArkheIconPicker = memo((props) => {
 								}}
 							>
 								<ArkheIcon icon={iconName} />
-								{/* <i className='arkhe-blocks-icon' data-icon={iconName}></i> */}
 							</Button>
 						);
 					})}

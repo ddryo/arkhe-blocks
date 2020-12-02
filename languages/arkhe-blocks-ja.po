@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Arkhe Blocks\n"
-"POT-Creation-Date: 2020-11-28 18:26+0900\n"
-"PO-Revision-Date: 2020-11-28 18:26+0900\n"
+"POT-Creation-Date: 2020-12-02 21:42+0900\n"
+"PO-Revision-Date: 2020-12-02 21:43+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -31,7 +31,7 @@ msgstr "アコーディオン項目"
 
 #: src/__55/accordion-item/index.js:54 src/__55/dl-dt/index.js:50
 #: src/__55/faq-item/index.js:48 src/blocks/accordion-item/index.js:121
-#: src/blocks/box-link/edit.js:284 src/blocks/dl-dt/index.js:55
+#: src/blocks/box-link/edit.js:271 src/blocks/dl-dt/index.js:55
 #: src/blocks/faq-item/index.js:66 src/blocks/notice/index.js:153
 #: src/blocks/step-item/index.js:133 src/blocks/timeline-item/index.js:131
 msgid "Enter text"
@@ -74,12 +74,12 @@ msgid "Create Q & A format content."
 msgstr "Q&A形式のコンテンツを作成します。"
 
 #: src/blocks/accordion-item/index.js:87 src/blocks/blog-card/index.js:156
-#: src/blocks/box-link/_controls.js:230 src/blocks/box-links/index.js:97
-#: src/blocks/column/index.js:111 src/blocks/page-list/index.js:124
+#: src/blocks/box-links/index.js:97 src/blocks/column/index.js:111
+#: src/blocks/page-list/index.js:124
 msgid "Settings"
 msgstr "設定"
 
-#: src/blocks/accordion-item/index.js:90 src/blocks/box-link/_controls.js:233
+#: src/blocks/accordion-item/index.js:90
 msgid "Box layout"
 msgstr "ボックスレイアウト"
 
@@ -119,15 +119,15 @@ msgstr "キャッシュを利用する"
 msgid "If you want to clear the cache, turn it off only once."
 msgstr "キャッシュを削除したい時、一度だけオフにしてください。"
 
-#: src/blocks/blog-card/index.js:176 src/blocks/box-link/_controls.js:336
+#: src/blocks/blog-card/index.js:176 src/blocks/box-link/_controls.js:338
 msgid "Link settings"
 msgstr "リンク設定"
 
-#: src/blocks/blog-card/index.js:179 src/blocks/box-link/_controls.js:338
+#: src/blocks/blog-card/index.js:179 src/blocks/box-link/_controls.js:340
 msgid "Open in new tab"
 msgstr ""
 
-#: src/blocks/blog-card/index.js:190 src/blocks/box-link/_controls.js:349
+#: src/blocks/blog-card/index.js:190 src/blocks/box-link/_controls.js:351
 msgid "Link rel"
 msgstr ""
 
@@ -143,73 +143,81 @@ msgstr "縦並び"
 msgid "Horizontal"
 msgstr "横並び"
 
-#: src/blocks/box-link/_controls.js:122
+#: src/blocks/box-link/_controls.js:120
 msgid "By default, it has the same ratio as thumbnails in the archive list."
 msgstr "デフォルトではアーカイブリストのサムネイルと同じ比率になります。"
 
-#: src/blocks/box-link/_controls.js:127
-msgid "Image ratio"
-msgstr "画像比率"
-
-#: src/blocks/box-link/_controls.js:142
+#: src/blocks/box-link/_controls.js:129
 msgid "Fix image ratio"
 msgstr "画像比率を固定する"
 
-#: src/blocks/box-link/_controls.js:168
+#: src/blocks/box-link/_controls.js:139
+msgid "Image ratio"
+msgstr "画像比率"
+
+#: src/blocks/box-link/_controls.js:169
 msgid "Center the text"
 msgstr "テキストセンター寄せ"
 
-#: src/blocks/box-link/_controls.js:180
+#: src/blocks/box-link/_controls.js:181
 msgid "Link"
 msgstr ""
 
-#: src/blocks/box-link/_controls.js:219
+#: src/blocks/box-link/_controls.js:220
 msgid "Delete image"
 msgstr "画像を削除"
 
-#: src/blocks/box-link/_controls.js:256 src/blocks/page-list/index.js:166
+#: src/blocks/box-link/_controls.js:231
+msgid "Box Settings"
+msgstr "ボックス設定"
+
+#: src/blocks/box-link/_controls.js:234
+msgid "Layout"
+msgstr "レイアウト"
+
+#: src/blocks/box-link/_controls.js:258 src/blocks/page-list/index.js:166
 #: src/blocks/post-list/panel/_display.js:204 src/blocks/rss/_sidebar.js:194
 msgid "HTML tag for title"
 msgstr "タイトルのHTMLタグ"
 
-#: src/blocks/box-link/_controls.js:277
+#: src/blocks/box-link/_controls.js:279
 msgid "Image settings"
 msgstr "画像設定"
 
-#: src/blocks/box-link/_controls.js:280
+#: src/blocks/box-link/_controls.js:282
 msgid "Image size"
 msgstr ""
 
-#: src/blocks/box-link/_controls.js:288 src/blocks/notice/index.js:143
+#: src/blocks/box-link/_controls.js:290 src/blocks/notice/index.js:143
 #: src/blocks/timeline-item/index.js:113
 msgid "Icon settings"
 msgstr "アイコン設定"
 
-#: src/blocks/box-link/_controls.js:290
+#: src/blocks/box-link/_controls.js:292
 msgid "Use icon"
 msgstr "アイコンを使用する"
 
-#: src/blocks/box-link/_controls.js:299
+#: src/blocks/box-link/_controls.js:301
 msgid "Write the icon in HTML"
 msgstr "HTMLでアイコンを書く"
 
-#: src/blocks/box-link/_controls.js:311
+#: src/blocks/box-link/_controls.js:313
 msgid "HTML for icons"
 msgstr "アイコン用HTML"
 
-#: src/blocks/box-link/_controls.js:323
+#: src/blocks/box-link/_controls.js:325
 msgid "Icon size"
 msgstr "アイコンサイズ"
 
-#: src/blocks/box-link/_controls.js:356
+#: src/blocks/box-link/_controls.js:358
 msgid "\"READ MORE\" settings"
 msgstr "「READ MORE」設定"
 
-#: src/blocks/box-link/_controls.js:358
+#: src/blocks/box-link/_controls.js:360
 msgid "\"READ MORE\" text"
 msgstr "「READ MORE」テキスト"
 
-#: src/blocks/box-link/_controls.js:366
+#: src/blocks/box-link/_controls.js:368
 msgid "Show arrow icon"
 msgstr "矢印アイコンを表示する"
 
@@ -229,7 +237,7 @@ msgstr "バナー"
 
 #: src/blocks/box-links/index.js:50
 msgid "Box links"
-msgstr " ボックスリンク"
+msgstr "ボックスリンク"
 
 #: src/blocks/box-links/index.js:99 src/blocks/box-links/index.js:108
 #: src/blocks/box-links/index.js:117 src/blocks/columns/index.js:115
@@ -544,49 +552,102 @@ msgstr ""
 msgid "Create a list of RSS feeds."
 msgstr "RSSフィードのリストを作成します。"
 
-#: src/blocks/section/_panels.js:103
-msgid "コンテンツの横幅をどこに揃えるか"
-msgstr ""
+#: src/blocks/section/_sidebar.js:38
+msgid "White"
+msgstr "白"
 
-#: src/blocks/section/_panels.js:126
-msgid "上下のpadding量（PC）"
-msgstr ""
+#: src/blocks/section/_sidebar.js:42
+msgid "Black"
+msgstr "黒"
 
-#: src/blocks/section/_panels.js:149
-msgid "上下のpadding量（SP）"
-msgstr ""
+#: src/blocks/section/_sidebar.js:105
+msgid "Padding settings"
+msgstr "余白設定"
 
-#: src/blocks/section/_panels.js:174
-msgid "テキストカラー"
-msgstr ""
+#: src/blocks/section/_sidebar.js:108 src/blocks/section/_sidebar.js:130
+msgid "Upper and lower padding amount"
+msgstr "上下のpadding量"
 
-#: src/blocks/section/_panels.js:322
-msgid "背景効果"
-msgstr ""
+#: src/blocks/section/_sidebar.js:151 src/blocks/step-item/index.js:112
+#: src/blocks/timeline-item/index.js:100
+msgid "Color settings"
+msgstr "カラー設定"
 
-#: src/blocks/section/_panels.js:325
-msgid "Fixed Background"
-msgstr ""
+#: src/blocks/section/_sidebar.js:154
+msgid "Text color"
+msgstr "文字色"
 
-#: src/blocks/section/_panels.js:352
-msgid "Focal Point Picker"
-msgstr ""
+#: src/blocks/section/_sidebar.js:167
+msgid "Overlay color"
+msgstr "オーバーレイカラー"
 
-#: src/blocks/section/_panels.js:365
-msgid "上部の境界線の形状"
-msgstr ""
+#: src/blocks/section/_sidebar.js:168
+msgid "Background color"
+msgstr "背景色"
 
-#: src/blocks/section/_panels.js:412
-msgid "下部の境界線の形状"
-msgstr ""
+#: src/blocks/section/_sidebar.js:184
+msgid "Overlay opacity"
+msgstr "オーバーレイの不透明度"
 
-#: src/blocks/section/index.js:104
+#: src/blocks/section/_sidebar.js:185
+msgid "Background opacity"
+msgstr "背景色の不透明度"
+
+#: src/blocks/section/_sidebar.js:197
+msgid "Background media setting"
+msgstr "背景メディア設定"
+
+#: src/blocks/section/_sidebar.js:206
+msgid "Repeat the background image"
+msgstr "背景画像をリピートする"
+
+#: src/blocks/section/_sidebar.js:217
+msgid "Top border"
+msgstr "上部の境界"
+
+#: src/blocks/section/_sidebar.js:219 src/blocks/section/_sidebar.js:264
+msgid "Shape"
+msgstr "形状"
+
+#: src/blocks/section/_sidebar.js:238 src/blocks/section/_sidebar.js:283
+msgid "Height level"
+msgstr "高さレベル"
+
+#: src/blocks/section/_sidebar.js:251 src/blocks/section/_sidebar.js:294
+#: src/blocks/step-item/index.js:117 src/blocks/timeline-item/index.js:105
+msgid "Color"
+msgstr "色"
+
+#: src/blocks/section/_sidebar.js:262
+msgid "Bottom border"
+msgstr "下部の境界"
+
+#: src/blocks/section/components/ImageTab.js:105
+#: src/blocks/section/components/ImageTab.js:153
+msgid "Change media"
+msgstr "メディアを変更"
+
+#: src/blocks/section/components/ImageTab.js:106
+#: src/blocks/section/components/ImageTab.js:154
+msgid "Select media"
+msgstr "メディアを選択"
+
+#: src/blocks/section/components/ImageTab.js:119
+#: src/blocks/section/components/ImageTab.js:167
+msgid "Delete"
+msgstr "削除"
+
+#: src/blocks/section/index.js:259
 msgid "Section"
 msgstr "セクション"
 
-#: src/blocks/section/index.js:105
+#: src/blocks/section/index.js:260
 msgid "Create a content area to use as a section."
 msgstr "セクションとして使うコンテンツエリアを作成します。"
+
+#: src/blocks/section/index.js:357
+msgid "To full-width content"
+msgstr "コンテンツを全幅にする"
 
 #: src/blocks/step-item/index.js:40
 msgid "Step item"
@@ -611,14 +672,6 @@ msgstr "テキストを非表示にする"
 #: src/blocks/step-item/index.js:104 src/blocks/step/index.js:97
 msgid "Text of \"STEP\" part"
 msgstr "「STEP」部分のテキスト"
-
-#: src/blocks/step-item/index.js:112 src/blocks/timeline-item/index.js:100
-msgid "Color settings"
-msgstr "カラー設定"
-
-#: src/blocks/step-item/index.js:117 src/blocks/timeline-item/index.js:105
-msgid "Color"
-msgstr "色"
 
 #: src/blocks/step/index.js:41
 msgid "Step"
@@ -664,23 +717,15 @@ msgstr "タイムライン"
 msgid "Create timeline format content."
 msgstr "タイムライン形式のコンテンツを作成します。"
 
-#: src/components/ArkheIconPicker.js:57
+#: src/components/ArkheIconPicker.js:55
 msgid "The <a>Font Awesome icon</a> is also available. (Output with svg)"
 msgstr "<a>Font Awesome のアイコン</a>も利用可能です。(svgで出力されます)"
 
-#: src/components/ArkheIconPicker.js:92
-msgid ""
-"If you use \"Arkhe\", you will be able to select the icons provided in the "
-"theme itself."
-msgstr ""
-"“Arkhe”を利用すれば、テーマ本体に用意されているアイコンも選べるようになりま"
-"す。"
-
-#: src/components/ArkheIconPicker.js:99
+#: src/components/ArkheIconPicker.js:88
 msgid "Icon"
 msgstr "アイコン"
 
-#: src/components/ArkheMarginControl.js:125
+#: src/components/ArkheMarginControl.js:127
 msgid "Margins on the block"
 msgstr "ブロック上の余白"
 
@@ -752,17 +797,18 @@ msgstr ""
 msgid "https://loos.co.jp/"
 msgstr ""
 
+#~ msgid ""
+#~ "If you use \"Arkhe\", you will be able to select the icons provided in "
+#~ "the theme itself."
+#~ msgstr ""
+#~ "“Arkhe”を利用すれば、テーマ本体に用意されているアイコンも選べるようになり"
+#~ "ます。"
+
 #~ msgid "Enter URL directly"
 #~ msgstr "URLを直接入力してください"
 
 #~ msgid "Use html tag"
 #~ msgstr "HTML"
-
-#, fuzzy
-#~| msgctxt "tab-panel"
-#~| msgid "Settings"
-#~ msgid "Block Settings"
-#~ msgstr "表示設定"
 
 #, fuzzy
 #~| msgctxt "tab-panel"

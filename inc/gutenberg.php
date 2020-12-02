@@ -48,15 +48,15 @@ function register_blocks() {
 	if ( \Arkhe_Blocks::IS_PRO ) {
 		$arkhe_blocks_pro = [
 			'notice', // freeへ？
-			'section',
 			'step',
 			'step-item',
 			'timeline',
 			'timeline-item',
 		];
 
-		if ( $is_wp56 ) {
+		if ( IS_ARKHE_THEME ) {
 			// apiv2 の β版
+			$arkhe_blocks_pro[] = 'section';
 			$arkhe_blocks_pro[] = 'box-link';
 			$arkhe_blocks_pro[] = 'box-links';
 			$arkhe_blocks_pro[] = 'column';

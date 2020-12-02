@@ -29,8 +29,6 @@ const blocks = [
 	// 'step-item',
 	// 'timeline',
 	// 'timeline-item',
-	// 'button',
-	// 'tab',
 ];
 blocks.forEach((key) => {
 	entries[key + '/index'] = path.resolve(srcDir, key + '/index.js');

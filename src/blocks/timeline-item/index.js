@@ -18,7 +18,7 @@ import { useCallback } from '@wordpress/element';
 /**
  * @Internal dependencies
  */
-import { ArkheIcon, ArkheIconOnSave } from '@components/ArkheIcon';
+import { ArkheIcon } from '@components/ArkheIcon';
 import ArkheIconPicker from '@components/ArkheIconPicker';
 import { iconColor } from '@blocks/config';
 import blockIcon from './_icon';
@@ -160,7 +160,7 @@ registerBlockType(name, {
 			<div {...blockProps}>
 				<div className={`${blockName}__head`}>
 					<span className={shapeClass} role='presentation' style={shapeStyle}>
-						<ArkheIconOnSave icon={icon} className={`${blockName}__icon`} />
+						<ArkheIcon icon={icon} className={`${blockName}__icon`} />
 					</span>
 					<span className={`${blockName}__label`}>
 						<RichText.Content value={label} />

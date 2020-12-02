@@ -1,14 +1,12 @@
 /**
  * @WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { RawHTML } from '@wordpress/element';
 import { RichText, InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 
 /**
  * @Internal dependencies
  */
-import { ArkheIconOnSave } from '@components/ArkheIcon';
+import { IconContent } from './components/IconContent';
 
 /**
  * @Others dependencies
@@ -18,7 +16,7 @@ import classnames from 'classnames';
 const blockName = 'ark-block-boxLink';
 export default function ({ attributes }) {
 	const {
-		align,
+		textAlign,
 		useIcon,
 		icon,
 		iconSize,
@@ -42,7 +40,7 @@ export default function ({ attributes }) {
 	} = attributes;
 
 	const blockClass = classnames(blockName, 'arkb-boxLink', 'arkb-columns__item', '-' + layout, {
-		'has-text-align-center': 'center' === align,
+		'has-text-align-center': 'center' === textAlign,
 	});
 
 	// 縦並びか横並びかを変数化
@@ -51,63 +49,49 @@ export default function ({ attributes }) {
 	const attrClass = attributes.className || '';
 	const isBannerStyle = -1 !== attrClass.indexOf('is-style-banner');
 
-	// アイコン
-	const iconStyle = !iconSize
-		? null
-		: {
-				'--arkb-boxlink_icon_size': iconSize + 'px',
-		  };
-	let iconContent = null;
-	if (useIcon && !!iconHtml) {
-		iconContent = (
-			<figure className='arkb-boxLink__figure -icon -html' style={iconStyle}>
-				<RawHTML>{iconHtml}</RawHTML>
-			</figure>
-		);
-	} else if (useIcon) {
-		iconContent = (
-			<figure className='arkb-boxLink__figure -icon' style={iconStyle}>
-				<ArkheIconOnSave icon={icon} className={`arkb-boxLink__icon`} />
-			</figure>
-		);
-	}
-
-	// 画像
-	const img = (
-		<img
-			className={`arkb-boxLink__img wp-image-${imgId}`}
-			src={imgUrl}
-			alt={imgAlt}
-			width={imgW || null}
-			height={imgH || null}
-		/>
-	);
-
-	let figure = '';
+	let figureContent = null;
 	if (isBannerStyle) {
-		figure = (
+		figureContent = (
 			<>
-				{imgUrl && <figure className='arkb-boxLink__bg'>{img}</figure>}
-				{iconContent}
+				{imgUrl && (
+					<figure className='arkb-boxLink__bg'>
+						<img
+							className={`arkb-boxLink__img wp-image-${imgId}`}
+							src={imgUrl}
+							alt={imgAlt}
+							width={imgW || null}
+							height={imgH || null}
+						/>
+					</figure>
+				)}
+				<IconContent {...{ icon, iconSize, iconHtml, useIcon, useIconHtml: !!iconHtml }} />
 			</>
 		);
 	} else if (useIcon) {
-		figure = iconContent;
+		figureContent = (
+			<IconContent {...{ icon, iconSize, iconHtml, useIcon, useIconHtml: !!iconHtml }} />
+		);
 	} else if (imgUrl) {
 		// figure の style
-		let figureStyle = null;
-		if (isVertical) {
-			figureStyle = ratio ? { paddingTop: `${ratio}%` } : null;
-		} else {
-			figureStyle = ratio ? { flexBasis: `${ratio}%` } : null;
+		const figureStyle = {};
+		if (isVertical && ratio) {
+			figureStyle.paddingTop = `${ratio}%`;
+		} else if (!isVertical && ratio) {
+			figureStyle.flexBasis = `${ratio}%`;
 		}
 
-		figure = (
+		figureContent = (
 			<figure
 				className={classnames('arkb-boxLink__figure', { 'is-fixed-ratio': fixRatio })}
-				style={figureStyle}
+				style={figureStyle || null}
 			>
-				{img}
+				<img
+					className={`arkb-boxLink__img wp-image-${imgId}`}
+					src={imgUrl}
+					alt={imgAlt}
+					width={imgW || null}
+					height={imgH || null}
+				/>
 			</figure>
 		);
 	}
@@ -125,8 +109,7 @@ export default function ({ attributes }) {
 				rel={rel}
 				target={isNewTab ? '_blank' : null}
 			>
-				{figure}
-
+				{figureContent}
 				<div className='arkb-boxLink__body'>
 					{!RichText.isEmpty(title) && (
 						<RichText.Content
@@ -135,7 +118,6 @@ export default function ({ attributes }) {
 							value={title}
 						/>
 					)}
-
 					<div className='arkb-boxLink__content ark-keep-mt--s'>
 						<InnerBlocks.Content />
 					</div>

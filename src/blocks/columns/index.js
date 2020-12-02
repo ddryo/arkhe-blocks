@@ -107,33 +107,33 @@ registerBlockType(name, {
 						}}
 						value={vAlign}
 					/>
-					<ArkheMarginControl attributes={attributes} setAttributes={setAttributes} />
+					<ArkheMarginControl {...{ className: attributes.className, setAttributes }} />
 				</BlockControls>
 				<InspectorControls>
 					<PanelBody title='カラム設定'>
 						<RangeControl
 							label={__('Number of columns', 'arkhe-blocks') + '(PC)'}
-							value={colPC}
+							value={parseInt(colPC)}
 							onChange={(val) => {
-								setAttributes({ colPC: val });
+								setAttributes({ colPC: val + '' });
 							}}
 							min={1}
 							max={6}
 						/>
 						<RangeControl
 							label={__('Number of columns', 'arkhe-blocks') + '(Tab)'}
-							value={colTab}
+							value={parseInt(colTab)}
 							onChange={(val) => {
-								setAttributes({ colTab: val });
+								setAttributes({ colTab: val + '' });
 							}}
 							min={1}
 							max={4}
 						/>
 						<RangeControl
 							label={__('Number of columns', 'arkhe-blocks') + '(Mobile)'}
-							value={colMobile}
+							value={parseInt(colMobile)}
 							onChange={(val) => {
-								setAttributes({ colMobile: val });
+								setAttributes({ colMobile: val + '' });
 							}}
 							min={1}
 							max={4}
