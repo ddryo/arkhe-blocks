@@ -56,7 +56,7 @@ export default function ({ attributes }) {
 				{imgUrl && (
 					<figure className='arkb-boxLink__bg'>
 						<img
-							className={`arkb-boxLink__img wp-image-${imgId}`}
+							className={`arkb-boxLink__img u-obf-cover wp-image-${imgId}`}
 							src={imgUrl}
 							alt={imgAlt}
 							width={imgW || null}
@@ -86,7 +86,9 @@ export default function ({ attributes }) {
 				style={figureStyle || null}
 			>
 				<img
-					className={`arkb-boxLink__img wp-image-${imgId}`}
+					className={classnames(`arkb-boxLink__img wp-image-${imgId}`, {
+						'u-obf-cover': fixRatio || !isVertical,
+					})}
 					src={imgUrl}
 					alt={imgAlt}
 					width={imgW || null}

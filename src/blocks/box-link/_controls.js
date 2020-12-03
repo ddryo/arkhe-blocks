@@ -135,7 +135,7 @@ export default memo((props) => {
 					/>
 				)}
 
-				{(!isVertical || (fixRatio && isVertical)) && (
+				{(!isVertical || fixRatio) && (
 					<RangeControl
 						label={__('Image ratio', 'arkhe-blocks')}
 						help={rationHelp}

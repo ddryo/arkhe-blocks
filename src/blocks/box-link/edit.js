@@ -197,7 +197,7 @@ export default function (props) {
 						alt={imgAlt}
 						figureClass='arkb-boxLink__bg'
 						figureStyle={null}
-						imgClass='arkb-boxLink__img'
+						imgClass='arkb-boxLink__img u-obf-cover'
 						onSelect={onSelectImage}
 						onSelectURL={onSelectURL}
 					/>
@@ -223,7 +223,9 @@ export default function (props) {
 				alt={imgAlt}
 				figureClass={classnames('arkb-boxLink__figure', { 'is-fixed-ratio': fixRatio })}
 				figureStyle={figureStyle || null}
-				imgClass='arkb-boxLink__img'
+				imgClass={classnames('arkb-boxLink__img', {
+					'u-obf-cover': fixRatio || !isVertical,
+				})}
 				onSelect={onSelectImage}
 				onSelectURL={onSelectURL}
 			/>

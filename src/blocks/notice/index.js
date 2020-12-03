@@ -120,7 +120,7 @@ registerBlockType(name, {
 				</BlockControls>
 				<InspectorControls>
 					<PanelBody title={__('Notification type', 'arkhe-blocks')} initialOpen={true}>
-						<ButtonGroup className='ark-notice-btns'>
+						<ButtonGroup className='arkb-btns--notice'>
 							{types.map((data) => {
 								return (
 									<Button

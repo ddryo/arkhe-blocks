@@ -26,7 +26,7 @@ import { memo, useMemo } from '@wordpress/element';
  * @Inner dependencies
  */
 import { ImageTab } from './components/ImageTab';
-import { getButtonSVG } from '././_svg';
+import { getButtonSVG } from './components/SectionSVG';
 
 /**
  * 設定

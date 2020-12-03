@@ -4,18 +4,12 @@
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 import {
-	// InspectorControls,
 	BlockControls,
-	// RichText,
 	InnerBlocks,
 	useBlockProps,
 	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
 } from '@wordpress/block-editor';
-import {
-	useMemo,
-	//useCallback,
-	//useEffect
-} from '@wordpress/element';
+import { useMemo } from '@wordpress/element';
 
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 
@@ -26,11 +20,11 @@ import { iconColor } from '@blocks/config';
 import metadata from './block.json';
 import blockIcon from './_icon';
 // import example from './_example';
-import { ArkheMarginControl } from '@components/ArkheMarginControl';
 
-import { SectionSVG } from './_svg';
 import TheSidebar from './_sidebar';
-// import FullWideToolbars from './_toolbars';
+import { SectionSVG } from './components/SectionSVG';
+import { BgImage } from './components/BgImage';
+import { ArkheMarginControl } from '@components/ArkheMarginControl';
 
 /**
  * @others dependencies
@@ -133,125 +127,6 @@ const getSvgData = (svgLevel) => {
 };
 
 /**
- * 背景画像のソース
- */
-const getBgImage = ({
-	mediaId,
-	mediaUrl,
-	mediaWidth,
-	mediaHeight,
-	mediaIdSP,
-	mediaUrlSP,
-	mediaWidthSP,
-	mediaHeightSP,
-	mediaType,
-	mediaTypeSP,
-	focalPoint,
-	focalPointSP,
-	isRepeat,
-}) => {
-	// console.log('Do getBgImage');
-	if (isRepeat) {
-		return null;
-	}
-
-	if (!mediaUrl) {
-		return null;
-	}
-
-	const bgStyle = {};
-	if (!!focalPoint) {
-		const pX = (focalPoint.x * 100).toFixed();
-		const pY = (focalPoint.y * 100).toFixed();
-		bgStyle.objectPosition = `${pX}% ${pY}%`;
-	}
-
-	const bgStyleSP = {};
-	if (!!focalPoint) {
-		const pX = (focalPointSP.x * 100).toFixed();
-		const pY = (focalPointSP.y * 100).toFixed();
-		bgStyleSP.objectPosition = `${pX}% ${pY}%`;
-	}
-
-	let pcImgClass = `${blockName}__bg`;
-	if (mediaUrlSP) {
-		pcImgClass = classnames(pcImgClass, 'u-only-pc');
-	}
-	if (mediaId) {
-		pcImgClass = classnames(pcImgClass, `wp-image-${mediaId}`);
-	}
-
-	let spImgClass = `${blockName}__bg u-only-sp`;
-	if (mediaIdSP) {
-		spImgClass = classnames(spImgClass, `wp-image-${mediaIdSP}`);
-	}
-
-	const mediaForPC =
-		'video' === mediaType ? (
-			<video
-				// controls=''
-				autoPlay
-				loop
-				playsinline
-				muted
-				src={mediaUrl}
-				className={pcImgClass}
-				width={mediaWidth || null}
-				height={mediaHeight || null}
-				data-for='pc'
-				style={bgStyle || null}
-			/>
-		) : (
-			<img
-				src={mediaUrl}
-				className={pcImgClass}
-				alt=''
-				width={mediaWidth || null}
-				height={mediaHeight || null}
-				data-for='pc'
-				style={bgStyle}
-			/>
-		);
-
-	let mediaForSP = null;
-	if (mediaUrlSP) {
-		mediaForSP =
-			'video' === mediaTypeSP ? (
-				<video
-					// controls=''
-					autoPlay
-					loop
-					playsinline
-					muted
-					src={mediaUrlSP}
-					className={spImgClass}
-					width={mediaWidthSP || null}
-					height={mediaHeightSP || null}
-					data-for='sp'
-					style={bgStyleSP || null}
-				/>
-			) : (
-				<img
-					src={mediaUrlSP}
-					className={spImgClass}
-					alt=''
-					width={mediaWidthSP || null}
-					height={mediaHeightSP || null}
-					data-for='sp'
-					style={bgStyleSP}
-				/>
-			);
-	}
-
-	return (
-		<>
-			{mediaForPC}
-			{mediaForSP}
-		</>
-	);
-};
-
-/**
  * カスタムブロックの登録
  */
 registerBlockType(name, {
@@ -290,7 +165,7 @@ registerBlockType(name, {
 		const style = useMemo(() => getBlockStyle(attributes), [attributes]);
 
 		// 背景画像
-		const bgImg = useMemo(() => getBgImage(attributes), [attributes]);
+		const bgImg = useMemo(() => <BgImage attributes={attributes} />, [attributes]);
 
 		// svgデータ
 		const svgTop = useMemo(() => getSvgData(svgLevelTop), [svgLevelTop]);
@@ -401,9 +276,6 @@ registerBlockType(name, {
 		// styleデータ
 		const style = getBlockStyle(attributes);
 
-		// 背景画像
-		const bgImg = getBgImage(attributes);
-
 		// svgデータ
 		const svgTop = getSvgData(svgLevelTop);
 		const svgBottom = getSvgData(svgLevelBottom);
@@ -427,7 +299,7 @@ registerBlockType(name, {
 
 		return (
 			<div {...blockProps}>
-				{bgImg}
+				<BgImage attributes={attributes} />
 				{0 !== svgLevelTop && (
 					<SectionSVG
 						position='top'
