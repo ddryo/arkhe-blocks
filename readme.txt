@@ -2,8 +2,8 @@
 Contributors: looswebstudio
 Donate link: https://arkhe-theme.com/
 Tags: blocks, editor, Guternberg, arkhe
-Requires at least: 5.5
-Tested up to: 5.5
+Requires at least: 5.6
+Tested up to: 5.6
 Stable tag: 1.1.0
 Requires PHP: 7.0
 License: GPLv2 or later

@@ -14,6 +14,7 @@ function register_blocks() {
 
 	global $wp_version;
 	$is_wp56 = ( version_compare( $wp_version, '5.6.RC1' ) >= 0 );
+	if ( ! $is_wp56 ) return;
 
 	// 翻訳登録用の空ファイル
 	wp_enqueue_script(
@@ -77,13 +78,10 @@ function register_blocks() {
 	// ダイナミックブロックの読み込み
 	$dynamic_blocks = [];
 
-	if ( $is_wp56 ) {
-		$dynamic_blocks[] = 'blog-card';
-	}
-
 	if ( IS_ARKHE_THEME ) {
 		$dynamic_blocks[] = 'page-list';
 		$dynamic_blocks[] = 'post-list';
+		$dynamic_blocks[] = 'blog-card';
 		$dynamic_blocks[] = 'rss';
 	}
 

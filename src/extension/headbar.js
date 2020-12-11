@@ -15,35 +15,40 @@ const PostlinkBtn = ({ currentPostLink, linkText }) => {
 };
 
 wp.domReady(function () {
-	// ヘッダーツールバーを取得
-	const headerToolbar = document.querySelector('.edit-post-header__toolbar');
-	if (null === headerToolbar) return;
-	// 投稿データ
-	const currentPost = wp.data.select('core/editor').getCurrentPost();
-	if (!currentPost) return;
+	setTimeout(() => {
+		// ヘッダーツールバーを取得
+		const headerToolbar = document.querySelector('.edit-post-header__toolbar');
+		if (null === headerToolbar) return;
+		// 投稿データ
+		const currentPost = wp.data.select('core/editor').getCurrentPost();
+		if (!currentPost) return;
 
-	// URLを取得する
-	const currentPostLink = currentPost.link; // currentPost.permalink_template も同じ？
-	if (!currentPostLink) return;
+		// URLを取得する
+		const currentPostLink = currentPost.link; // currentPost.permalink_template も同じ？
+		if (!currentPostLink) return;
 
-	// 投稿タイプを取得
-	const postType = wp.data.select('core/editor').getCurrentPostType();
+		// 投稿タイプを取得
+		const postType = wp.data.select('core/editor').getCurrentPostType();
 
-	// 表示テキスト
-	let linkText = '';
-	if ('post' === postType) {
-		linkText = __('View Post', 'arkke-blocks');
-	} else if ('page' === postType) {
-		linkText = __('View Page', 'arkke-blocks');
-	} else {
-		return false;
-	}
+		// 表示テキスト
+		let linkText = '';
+		if ('post' === postType) {
+			linkText = __('View Post', 'arkhe-blocks');
+		} else if ('page' === postType) {
+			linkText = __('View Page', 'arkhe-blocks');
+		} else {
+			return false;
+		}
 
-	// ヘッダーツールバーにdiv追加
-	headerToolbar.insertAdjacentHTML('beforeend', '<div class="ark-custom-header-toolbar"></div>');
+		// ヘッダーツールバーにdiv追加
+		headerToolbar.insertAdjacentHTML(
+			'beforeend',
+			'<div class="ark-custom-header-toolbar"></div>'
+		);
 
-	render(
-		<PostlinkBtn currentPostLink={currentPostLink} linkText={linkText} />,
-		document.querySelector('.ark-custom-header-toolbar')
-	);
+		render(
+			<PostlinkBtn currentPostLink={currentPostLink} linkText={linkText} />,
+			document.querySelector('.ark-custom-header-toolbar')
+		);
+	}, 100);
 });

@@ -3,7 +3,7 @@
  * Plugin Name: Arkhe Blocks Pro
  * Plugin URI: https://arkhe-theme.com
  * Description: A plugin that extends Gutenberg, optimized for the "Arkhe" theme.
- * Version: 1.1.3
+ * Version: 1.2.0
  * Author: LOOS,Inc.
  * Author URI: https://loos.co.jp/
  * License: GPL2 or later
@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) || exit;
 if ( ! function_exists( 'register_block_type' ) ) return;
 
 // 定数定義
-define( 'ARKHE_BLOCKS_VERSION', ( defined( 'WP_DEBUG' ) && WP_DEBUG ) ? date_i18n( 'mdGis' ) : '1.1.3' );
+define( 'ARKHE_BLOCKS_VERSION', ( defined( 'WP_DEBUG' ) && WP_DEBUG ) ? date_i18n( 'mdGis' ) : '1.2.0' );
 define( 'ARKHE_BLOCKS_URL', plugins_url( '/', __FILE__ ) );
 define( 'ARKHE_BLOCKS_PATH', plugin_dir_path( __FILE__ ) );
 
@@ -67,8 +67,11 @@ if ( ! class_exists( 'Arkhe_Blocks' ) ) {
 			}
 
 			// 翻訳ファイルを登録
-			$locale = apply_filters( 'plugin_locale', determine_locale(), 'arkhe-blocks' );
-			load_textdomain( 'arkhe-blocks', ARKHE_BLOCKS_PATH . 'languages/arkhe-blocks-' . $locale . '.mo' );
+			if ( 'ja' === determine_locale() ) {
+				load_textdomain( 'arkhe-blocks', ARKHE_BLOCKS_PATH . 'languages/arkhe-blocks-ja.mo' );
+			} else {
+				load_plugin_textdomain( 'arkhe-blocks' );
+			}
 
 			// setup
 			require_once ARKHE_BLOCKS_PATH . 'inc/setup.php';
