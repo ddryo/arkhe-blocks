@@ -4,31 +4,31 @@ const path = require('path');
 const srcDir = './src/blocks';
 
 const entries = {};
-entries.index = './src/blocks/index.js';
+// entries.index = './src/blocks/index.js';
 
 const blocks = [
-	'accordion',
-	'accordion-item',
-	'box-link',
-	'box-links',
-	'blog-card',
-	'column',
-	'columns',
-	'dl',
-	'dl-dt',
-	'dl-dd',
-	'dl-div',
-	'faq',
-	'faq-item',
-	'notice',
+	// 'accordion',
+	// 'accordion-item',
+	// 'box-link',
+	// 'box-links',
+	// 'blog-card',
+	// 'column',
+	// 'columns',
+	// 'dl',
+	// 'dl-dt',
+	// 'dl-dd',
+	// 'dl-div',
+	// 'faq',
+	// 'faq-item',
+	// 'notice',
 	'page-list',
 	'post-list',
 	'rss',
-	'section',
-	'step',
-	'step-item',
-	'timeline',
-	'timeline-item',
+	// 'section',
+	// 'step',
+	// 'step-item',
+	// 'timeline',
+	// 'timeline-item',
 ];
 blocks.forEach((key) => {
 	entries[key + '/index'] = path.resolve(srcDir, key + '/index.js');

@@ -92,6 +92,24 @@ const orderOptions = [
 ];
 
 /**
+ * 設定
+ */
+const listTypeOptions = [
+	{
+		label: __('Card type', 'arkhe-blocks'),
+		value: 'card',
+	},
+	{
+		label: __('List type', 'arkhe-blocks'),
+		value: 'list',
+	},
+	// {
+	// 	label: __('Text type', 'arkhe-blocks'),
+	// 	value: 'simple',
+	// },
+];
+
+/**
  *
  */
 registerBlockType(name, {
@@ -109,7 +127,7 @@ registerBlockType(name, {
 	attributes: metadata.attributes,
 	edit: (props) => {
 		const { attributes, setAttributes } = props;
-		const { target, postID, hTag, excerptLength, orderby, order } = attributes;
+		const { listType, target, postID, hTag, excerptLength, orderby, order } = attributes;
 
 		const blockProps = useBlockProps({
 			className: blockName,
@@ -146,6 +164,15 @@ registerBlockType(name, {
 								}}
 							/>
 						)}
+
+						<RadioControl
+							label={__('List layout', 'arkhe-blocks')}
+							selected={listType}
+							options={listTypeOptions}
+							onChange={(val) => {
+								setAttributes({ listType: val });
+							}}
+						/>
 						<RangeControl
 							label={__('Number of characters in the excerpt', 'arkhe-blocks')}
 							help={__(

@@ -1,7 +1,7 @@
 {
     "apiVersion": 2,
     "name": "arkhe-blocks/rss",
-    "title": "RSS",
+    "title": "RSS list",
     "category": "arkhe-blocks",
     "keywords": [
         "arkhe",
@@ -58,7 +58,7 @@
         },
         "hTag": {
             "type": "string",
-            "default": "h2"
+            "default": "div"
         }
     },
     "editorScript": "file:../../../dist/blocks/rss/index.js",

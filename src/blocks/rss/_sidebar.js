@@ -2,7 +2,7 @@
  * @WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { InspectorControls } from '@wordpress/block-editor';
+import { useMemo } from '@wordpress/element';
 import {
 	PanelBody,
 	TextControl,
@@ -18,17 +18,39 @@ import {
 // import { useSelect } from '@wordpress/data';
 
 /**
- * @Internal dependencies
+ * 設定
  */
+const listTypeOptions = [
+	{
+		label: __('Card type', 'arkhe-blocks'),
+		value: 'card',
+	},
+	{
+		label: __('List type', 'arkhe-blocks'),
+		value: 'list',
+	},
+	{
+		label: __('Text type', 'arkhe-blocks'),
+		value: 'simple',
+	},
+];
 
-/**
- * @Others dependencies
- */
-// import classnames from 'classnames';
+const hTags = [
+	{
+		label: 'h2',
+		val: 'h2',
+	},
+	{
+		label: 'h3',
+		val: 'h3',
+	},
+	{
+		label: 'div',
+		val: 'div',
+	},
+];
 
-export default function (props) {
-	const { attributes, setAttributes } = props;
-
+export default ({ attributes, setAttributes }) => {
 	const {
 		rssUrl,
 		pageName,
@@ -46,66 +68,37 @@ export default function (props) {
 	} = attributes;
 
 	// トグルコントロール
-	const toggleData = [
-		{
-			name: 'showSite',
-			label: __('Show page name of site', 'arkhe-blocks'),
-			value: showSite,
-		},
-		{
-			name: 'showDate',
-			label: __('Show release date', 'arkhe-blocks'),
-			description: '',
-			value: showDate,
-		},
-		{
-			name: 'showAuthor',
-			label: __('Show author', 'arkhe-blocks'),
-			value: showAuthor,
-		},
-	];
-
-	if ('simple' !== listType) {
-		toggleData.push({
-			name: 'showThumb',
-			label: __('Show thumbnail', 'arkhe-blocks'),
-			value: showThumb,
-		});
-	}
-
-	// リストタイプ
-	const listTypeOptions = [
-		{
-			label: __('Card type', 'arkhe-blocks'),
-			value: 'card',
-		},
-		{
-			label: __('List type', 'arkhe-blocks'),
-			value: 'list',
-		},
-		{
-			label: __('Text type', 'arkhe-blocks'),
-			value: 'simple',
-		},
-	];
-
-	const hTags = [
-		{
-			label: 'h2',
-			val: 'h2',
-		},
-		{
-			label: 'h3',
-			val: 'h3',
-		},
-		{
-			label: 'div',
-			val: 'div',
-		},
-	];
+	const toggleData = useMemo(() => {
+		const _toggleData = [
+			{
+				name: 'showSite',
+				label: __('Show page name of site', 'arkhe-blocks'),
+				value: showSite,
+			},
+			{
+				name: 'showDate',
+				label: __('Show release date', 'arkhe-blocks'),
+				description: '',
+				value: showDate,
+			},
+			{
+				name: 'showAuthor',
+				label: __('Show author', 'arkhe-blocks'),
+				value: showAuthor,
+			},
+		];
+		if ('simple' !== listType) {
+			_toggleData.push({
+				name: 'showThumb',
+				label: __('Show thumbnail', 'arkhe-blocks'),
+				value: showThumb,
+			});
+		}
+		return _toggleData;
+	}, [showSite, showDate, showAuthor, showThumb, listType]);
 
 	return (
-		<InspectorControls>
+		<>
 			<PanelBody title={__('RSS settings', 'arkhe-blocks')} initialOpen={true}>
 				<TextControl
 					label={__('RSS feed URL', 'arkhe-blocks')}
@@ -212,6 +205,6 @@ export default function (props) {
 					</ButtonGroup>
 				</BaseControl>
 			</PanelBody>
-		</InspectorControls>
+		</>
 	);
-}
+};

@@ -1,6 +1,6 @@
 #!/bin/bashx
 
-#使い方 : $ bash ./bin/zip_free.sh 1-1-1
+#使い方 : $ bash ./bin/zip_free.sh 1-2-0
 
 #引数 : プラグインのバージョン
 version=$1

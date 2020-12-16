@@ -21,8 +21,10 @@
             "default": "full"
         },
         "bgColor": {
-            "type": "string",
-            "default": "#f7f7f7"
+            "type": "string"
+        },
+        "bgGradient": {
+            "type": "string"
         },
         "opacity": {
             "type": "number",

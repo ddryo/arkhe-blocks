@@ -2,6 +2,7 @@
  * @WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
+import { useMemo } from '@wordpress/element';
 import {
 	PanelBody,
 	// TextControl,
@@ -15,11 +16,70 @@ import {
 } from '@wordpress/components';
 
 /**
+ * 設定
+ */
+// リストタイプ
+const listTypeOptions = [
+	{
+		label: __('Card type', 'arkhe-blocks'),
+		value: 'card',
+	},
+	{
+		label: __('List type', 'arkhe-blocks'),
+		value: 'list',
+	},
+	{
+		label: __('Text type', 'arkhe-blocks'),
+		value: 'simple',
+	},
+];
+
+// 何を基準に並べるか
+const orderbyOptions = [
+	{
+		label: __('Release date', 'arkhe-blocks'),
+		value: 'date',
+	},
+	{
+		label: __('Update date', 'arkhe-blocks'),
+		value: 'modified',
+	},
+	{
+		label: __('Random', 'arkhe-blocks'),
+		value: 'rand',
+	},
+];
+
+const orderOptions = [
+	{
+		label: __('Ascending order', 'arkhe-blocks'),
+		value: 'ASC',
+	},
+	{
+		label: __('Descending order', 'arkhe-blocks'),
+		value: 'DESC',
+	},
+];
+
+const hTags = [
+	{
+		label: 'h2',
+		val: 'h2',
+	},
+	{
+		label: 'h3',
+		val: 'h3',
+	},
+	{
+		label: 'div',
+		val: 'div',
+	},
+];
+
+/**
  * 投稿リストコントロール
  */
-export default function (props) {
-	const { attributes, setAttributes } = props;
-
+export default ({ attributes, setAttributes }) => {
 	const {
 		listType,
 		listCountPC,
@@ -36,93 +96,38 @@ export default function (props) {
 	} = attributes;
 
 	// トグルコントロール
-	const toggleData = [
-		{
-			name: 'showDate',
-			label: __('Show release date', 'arkhe-blocks'),
-			description: '',
-			value: showDate,
-		},
-		{
-			name: 'showModified',
-			label: __('Show update date', 'arkhe-blocks'),
-			description: '',
-			value: showModified,
-		},
-		{
-			name: 'showCat',
-			label: __('Show category', 'arkhe-blocks'),
-			value: showCat,
-		},
-		{
-			name: 'showAuthor',
-			label: __('Show author', 'arkhe-blocks'),
-			value: showAuthor,
-		},
-		{
-			name: 'showStickyPosts',
-			label: __('Show sticky posts', 'arkhe-blocks'),
-			value: showStickyPosts,
-		},
-	];
-
-	// リストタイプ
-	const listTypeOptions = [
-		{
-			label: __('Card type', 'arkhe-blocks'),
-			value: 'card',
-		},
-		{
-			label: __('List type', 'arkhe-blocks'),
-			value: 'list',
-		},
-		{
-			label: __('Text type', 'arkhe-blocks'),
-			value: 'simple',
-		},
-	];
-
-	// 何を基準に並べるか
-	const orderbyOptions = [
-		{
-			label: __('Release date', 'arkhe-blocks'),
-			value: 'date',
-		},
-		{
-			label: __('Update date', 'arkhe-blocks'),
-			value: 'modified',
-		},
-		{
-			label: __('Random', 'arkhe-blocks'),
-			value: 'rand',
-		},
-	];
-
-	const orderOptions = [
-		{
-			label: __('Ascending order', 'arkhe-blocks'),
-			value: 'ASC',
-		},
-		{
-			label: __('Descending order', 'arkhe-blocks'),
-			value: 'DESC',
-		},
-	];
-
-	const hTags = [
-		{
-			label: 'h2',
-			val: 'h2',
-		},
-		{
-			label: 'h3',
-			val: 'h3',
-		},
-		{
-			label: 'div',
-			val: 'div',
-		},
-	];
+	const toggleData = useMemo(
+		() => [
+			{
+				name: 'showDate',
+				label: __('Show release date', 'arkhe-blocks'),
+				description: '',
+				value: showDate,
+			},
+			{
+				name: 'showModified',
+				label: __('Show update date', 'arkhe-blocks'),
+				description: '',
+				value: showModified,
+			},
+			{
+				name: 'showCat',
+				label: __('Show category', 'arkhe-blocks'),
+				value: showCat,
+			},
+			{
+				name: 'showAuthor',
+				label: __('Show author', 'arkhe-blocks'),
+				value: showAuthor,
+			},
+			{
+				name: 'showStickyPosts',
+				label: __('Show sticky posts', 'arkhe-blocks'),
+				value: showStickyPosts,
+			},
+		],
+		[showDate, showModified, showCat, showAuthor, showStickyPosts]
+	);
 
 	// パネル生成
 	return (
@@ -242,4 +247,4 @@ export default function (props) {
 			</PanelBody>
 		</>
 	);
-}
+};

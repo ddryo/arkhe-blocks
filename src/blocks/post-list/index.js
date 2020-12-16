@@ -45,9 +45,7 @@ registerBlockType(name, {
 	example,
 	supports,
 	attributes: metadata.attributes,
-	edit: (props) => {
-		const { attributes, setAttributes } = props;
-
+	edit: ({ attributes, setAttributes }) => {
 		const authors = useSelect((select) => select('core').getAuthors());
 
 		const blockProps = useBlockProps({
@@ -91,9 +89,11 @@ registerBlockType(name, {
 					>
 						{(tab) => {
 							if ('pickup' === tab.name) {
-								return <PickupControl {...props} authors={authors} />;
+								return (
+									<PickupControl {...{ attributes, setAttributes, authors }} />
+								);
 							} else if ('display' === tab.name) {
-								return <DisplayControl {...props} />;
+								return <DisplayControl {...{ attributes, setAttributes }} />;
 							}
 						}}
 					</TabPanel>

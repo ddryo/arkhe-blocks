@@ -18,6 +18,10 @@
             "type": "string",
             "default": ""
         },
+        "listType": {
+            "type": "string",
+            "default": "card"
+        },
         "target": {
             "type": "string",
             "default": "children"
@@ -28,7 +32,7 @@
         },
         "hTag": {
             "type": "string",
-            "default": "h2"
+            "default": "div"
         },
         "excerptLength": {
             "type": "number"

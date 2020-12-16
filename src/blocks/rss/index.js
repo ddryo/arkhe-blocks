@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
-import { BlockControls, useBlockProps } from '@wordpress/block-editor';
+import { BlockControls, InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import ServerSideRender from '@wordpress/server-side-render';
 
 /**
@@ -32,7 +32,7 @@ const { apiVersion, name, category, keywords, supports } = metadata;
  */
 registerBlockType(name, {
 	apiVersion,
-	title: __('RSS', 'arkhe-blocks'),
+	title: __('RSS list', 'arkhe-blocks'),
 	description: __('Create a list of RSS feeds.', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
@@ -43,9 +43,7 @@ registerBlockType(name, {
 	example,
 	supports,
 	attributes: metadata.attributes,
-	edit: (props) => {
-		const { attributes, setAttributes } = props;
-
+	edit: ({ attributes, setAttributes }) => {
 		const blockProps = useBlockProps({
 			className: blockName,
 		});
@@ -55,7 +53,9 @@ registerBlockType(name, {
 				<BlockControls>
 					<ArkheMarginControl {...{ className: attributes.className, setAttributes }} />
 				</BlockControls>
-				<TheSidebar {...props} />
+				<InspectorControls>
+					<TheSidebar {...{ attributes, setAttributes }} />
+				</InspectorControls>
 				<div {...blockProps}>
 					<ServerSideRender block={name} attributes={attributes} />
 				</div>

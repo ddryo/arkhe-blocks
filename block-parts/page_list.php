@@ -2,21 +2,25 @@
 /**
  * 固定ページリスト
  */
-$query_args = isset( $args['query_args'] ) ? $args['query_args'] : null;
-$list_args  = isset( $args['list_args'] ) ? $args['list_args'] : [];
+$query_args = $args['query_args'] ?? null;
+$list_args  = $args['list_args'] ?? [];
 
+// リスト設定
+$h_tag     = $list_args['h_tag'] ?? 'div';
+$list_type = $list_args['list_type'] ?? 'card';
+
+// クエリ生成
 $the_query = new \WP_Query( $query_args );
 
 if ( $the_query->have_posts() ) :
 ?>
-	<ul class="p-postList -type-card">
+	<ul class="p-postList -type-<?=esc_attr( $list_type )?>">
 	<?php
 	while ( $the_query->have_posts() ) :
 		$the_query->the_post();
 
 		$the_id = get_the_ID();
 		$url    = get_permalink( $the_id );
-		$h_tag  = isset( $list_args['h_tag'] ) ? $list_args['h_tag'] : 'h2';
 		?>
 			<li class="p-postList__item">
 				<a href="<?php the_permalink( $the_id ); ?>" class="p-postList__link">

@@ -73,6 +73,10 @@
             "type": "boolean",
             "default": false
         },
+        "isContain": {
+            "type": "boolean",
+            "default": false
+        },
         "href": {
             "type": "string",
             "source": "attribute",

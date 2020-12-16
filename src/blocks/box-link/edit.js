@@ -13,7 +13,8 @@ import { useSelect } from '@wordpress/data';
 
 import {
 	RichText,
-	// InnerBlocks,
+	BlockControls,
+	InspectorControls,
 	useBlockProps,
 	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
 } from '@wordpress/block-editor';
@@ -22,9 +23,10 @@ import {
  * @Internal dependencies
  */
 import { Figure } from '@components/Figure';
-import getResizedImages from '@helper/getResizedImages';
-import ThisControls from './_controls';
 import { IconContent } from './components/IconContent';
+import getResizedImages from '@helper/getResizedImages';
+import TheSidebar from './_sidebar';
+import TheToolbar from './_toolbar';
 
 /**
  * @Others dependencies
@@ -46,6 +48,7 @@ export default function (props) {
 		imgAlt,
 		imgSize,
 		fixRatio,
+		isContain,
 		ratio,
 		title,
 		more,
@@ -68,6 +71,7 @@ export default function (props) {
 	useEffect(() => {
 		if (isBannerStyle) {
 			setAttributes({ fixRatio: false });
+			setAttributes({ isContain: false });
 		}
 	}, [isBannerStyle]);
 
@@ -175,7 +179,7 @@ export default function (props) {
 	const updateImagesSize = useCallback(
 		(sizeSlug) => {
 			// console.log(sizeSlug, resizedImages[sizeSlug]);
-			const newSizeData = resizedImages[sizeSlug];
+			const newSizeData = resizedImages[sizeSlug] || resizedImages.full;
 
 			setAttributes({
 				imgSize: sizeSlug,
@@ -224,7 +228,8 @@ export default function (props) {
 				figureClass={classnames('arkb-boxLink__figure', { 'is-fixed-ratio': fixRatio })}
 				figureStyle={figureStyle || null}
 				imgClass={classnames('arkb-boxLink__img', {
-					'u-obf-cover': fixRatio || !isVertical,
+					'u-obf-cover': (fixRatio || !isVertical) && !isContain,
+					'u-obf-contain': (fixRatio || !isVertical) && isContain,
 				})}
 				onSelect={onSelectImage}
 				onSelectURL={onSelectURL}
@@ -247,22 +252,32 @@ export default function (props) {
 
 	return (
 		<>
-			<ThisControls
-				{...{
-					attributes,
-					isBannerStyle,
-					setAttributes,
-					onSelectImage,
-					onSelectURL,
-					onRemoveImage,
-					updateImagesSize,
-					sizeOptions,
-					isURLPickerOpen,
-					setIsURLPickerOpen,
-					useIconHtml,
-					setUseIconHtml,
-				}}
-			/>
+			<BlockControls>
+				<TheToolbar
+					{...{
+						attributes,
+						setAttributes,
+						onSelectImage,
+						onSelectURL,
+						onRemoveImage,
+						isURLPickerOpen,
+						setIsURLPickerOpen,
+					}}
+				/>
+			</BlockControls>
+			<InspectorControls>
+				<TheSidebar
+					{...{
+						attributes,
+						isBannerStyle,
+						setAttributes,
+						updateImagesSize,
+						sizeOptions,
+						useIconHtml,
+						setUseIconHtml,
+					}}
+				/>
+			</InspectorControls>
 			<div {...blockProps}>
 				<div className='arkb-boxLink__inner'>
 					{figureContent}

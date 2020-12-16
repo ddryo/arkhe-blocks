@@ -40,7 +40,7 @@ export const BgImage = ({ attributes }) => {
 	}
 
 	const styleSP = {};
-	if (!!focalPoint) {
+	if (!!focalPointSP) {
 		const pX = (focalPointSP.x * 100).toFixed();
 		const pY = (focalPointSP.y * 100).toFixed();
 		styleSP.objectPosition = `${pX}% ${pY}%`;

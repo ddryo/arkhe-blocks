@@ -10,20 +10,6 @@
 	@include sp {
 		padding: var(--arkb-section-pad--sp) var(--ark-pad--container, 4vw);
 	}
-
-	&.has-bg-img {
-
-		&::before {
-			position: absolute;
-			top: 0;
-			left: 0;
-			z-index: 1;
-			width: 100%;
-			height: 100%;
-			background-color: inherit;
-			content: "";
-		}
-	}
 }
 
 .ark-block-section__inner {
@@ -47,6 +33,17 @@
 	// width: 100%;
 	// height: 100%;
 	// object-fit: cover;
+}
+
+.ark-block-section__color {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+	// background-color: inherit;
+	content: "";
 }
 
 // fill の詳細度をあげる

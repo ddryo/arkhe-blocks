@@ -12,14 +12,7 @@ import {
 	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
 } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
-import {
-	PanelBody,
-	// Button,
-	// ButtonGroup,
-	// BaseControl,
-	// TextControl,
-	RangeControl,
-} from '@wordpress/components';
+import { PanelBody, RangeControl } from '@wordpress/components';
 
 /**
  * @Internal dependencies
@@ -111,30 +104,36 @@ registerBlockType(name, {
 					<PanelBody title={__('Settings', 'arkhe-blocks')}>
 						<RangeControl
 							label={__('Column width', 'arkhe-blocks') + ' [%] (PC)'}
+							className='arkb-range--useReset'
 							value={widthPC}
 							onChange={(val) => {
 								setAttributes({ widthPC: val });
 							}}
 							min={10}
 							max={100}
+							allowReset={true}
 						/>
 						<RangeControl
 							label={__('Column width', 'arkhe-blocks') + ' [%] (Tab)'}
+							className='arkb-range--useReset'
 							value={widthTab}
 							onChange={(val) => {
 								setAttributes({ widthTab: val });
 							}}
 							min={10}
 							max={100}
+							allowReset={true}
 						/>
 						<RangeControl
 							label={__('Column width', 'arkhe-blocks') + ' [%] (Mobile)'}
+							className='arkb-range--useReset'
 							value={widthMobile}
 							onChange={(val) => {
 								setAttributes({ widthMobile: val });
 							}}
 							min={10}
 							max={100}
+							allowReset={true}
 						/>
 					</PanelBody>
 				</InspectorControls>

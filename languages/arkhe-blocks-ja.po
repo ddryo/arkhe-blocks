@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Arkhe Blocks\n"
-"POT-Creation-Date: 2020-12-02 21:42+0900\n"
-"PO-Revision-Date: 2020-12-02 22:38+0900\n"
+"POT-Creation-Date: 2020-12-16 18:21+0900\n"
+"PO-Revision-Date: 2020-12-16 18:21+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -31,7 +31,7 @@ msgstr "アコーディオン項目"
 
 #: src/__55/accordion-item/index.js:54 src/__55/dl-dt/index.js:50
 #: src/__55/faq-item/index.js:48 src/blocks/accordion-item/index.js:121
-#: src/blocks/box-link/edit.js:271 src/blocks/dl-dt/index.js:55
+#: src/blocks/box-link/edit.js:288 src/blocks/dl-dt/index.js:55
 #: src/blocks/faq-item/index.js:66 src/blocks/notice/index.js:153
 #: src/blocks/step-item/index.js:133 src/blocks/timeline-item/index.js:131
 msgid "Enter text"
@@ -74,7 +74,7 @@ msgid "Create Q & A format content."
 msgstr "Q&A形式のコンテンツを作成します。"
 
 #: src/blocks/accordion-item/index.js:87 src/blocks/blog-card/index.js:156
-#: src/blocks/box-links/index.js:97 src/blocks/column/index.js:111
+#: src/blocks/box-links/index.js:97 src/blocks/column/index.js:104
 #: src/blocks/page-list/index.js:124
 msgid "Settings"
 msgstr "設定"
@@ -111,23 +111,23 @@ msgstr "URLを入力してください。"
 msgid "Caption at the bottom right of the card"
 msgstr "カード右下のキャプション"
 
-#: src/blocks/blog-card/index.js:165 src/blocks/rss/_sidebar.js:125
+#: src/blocks/blog-card/index.js:165 src/blocks/rss/_sidebar.js:118
 msgid "Use the cache"
 msgstr "キャッシュを利用する"
 
-#: src/blocks/blog-card/index.js:167 src/blocks/rss/_sidebar.js:127
+#: src/blocks/blog-card/index.js:167 src/blocks/rss/_sidebar.js:120
 msgid "If you want to clear the cache, turn it off only once."
 msgstr "キャッシュを削除したい時、一度だけオフにしてください。"
 
-#: src/blocks/blog-card/index.js:176 src/blocks/box-link/_controls.js:338
+#: src/blocks/blog-card/index.js:176 src/blocks/box-link/_sidebar.js:281
 msgid "Link settings"
 msgstr "リンク設定"
 
-#: src/blocks/blog-card/index.js:179 src/blocks/box-link/_controls.js:340
+#: src/blocks/blog-card/index.js:179 src/blocks/box-link/_sidebar.js:283
 msgid "Open in new tab"
 msgstr ""
 
-#: src/blocks/blog-card/index.js:190 src/blocks/box-link/_controls.js:351
+#: src/blocks/blog-card/index.js:190 src/blocks/box-link/_sidebar.js:294
 msgid "Link rel"
 msgstr ""
 
@@ -135,91 +135,91 @@ msgstr ""
 msgid "Specify the page."
 msgstr "ページを指定してください。"
 
-#: src/blocks/box-link/_controls.js:47
+#: src/blocks/box-link/_sidebar.js:36
 msgid "Vertical"
 msgstr "縦並び"
 
-#: src/blocks/box-link/_controls.js:51
+#: src/blocks/box-link/_sidebar.js:40
 msgid "Horizontal"
 msgstr "横並び"
 
-#: src/blocks/box-link/_controls.js:120
+#: src/blocks/box-link/_sidebar.js:101
 msgid "By default, it has the same ratio as thumbnails in the archive list."
 msgstr "デフォルトではアーカイブリストのサムネイルと同じ比率になります。"
 
-#: src/blocks/box-link/_controls.js:129
+#: src/blocks/box-link/_sidebar.js:110
 msgid "Fix image ratio"
 msgstr "画像比率を固定する"
 
-#: src/blocks/box-link/_controls.js:139
+#: src/blocks/box-link/_sidebar.js:123
+msgid "Show the entire image"
+msgstr "画像全体を表示する"
+
+#: src/blocks/box-link/_sidebar.js:131
 msgid "Image ratio"
 msgstr "画像比率"
 
-#: src/blocks/box-link/_controls.js:169
-msgid "Center the text"
-msgstr "テキストセンター寄せ"
-
-#: src/blocks/box-link/_controls.js:181
-msgid "Link"
-msgstr ""
-
-#: src/blocks/box-link/_controls.js:220
-msgid "Delete image"
-msgstr "画像を削除"
-
-#: src/blocks/box-link/_controls.js:231
+#: src/blocks/box-link/_sidebar.js:156
 msgid "Box Settings"
 msgstr "ボックス設定"
 
-#: src/blocks/box-link/_controls.js:234
+#: src/blocks/box-link/_sidebar.js:159
 msgid "Layout"
 msgstr "レイアウト"
 
-#: src/blocks/box-link/_controls.js:258 src/blocks/page-list/index.js:166
-#: src/blocks/post-list/panel/_display.js:204 src/blocks/rss/_sidebar.js:194
+#: src/blocks/box-link/_sidebar.js:186 src/blocks/page-list/index.js:166
+#: src/blocks/post-list/panel/_display.js:209 src/blocks/rss/_sidebar.js:187
 msgid "HTML tag for title"
 msgstr "タイトルのHTMLタグ"
 
-#: src/blocks/box-link/_controls.js:279
+#: src/blocks/box-link/_sidebar.js:207
+msgid "\"READ MORE\" text"
+msgstr "「READ MORE」テキスト"
+
+#: src/blocks/box-link/_sidebar.js:215
+msgid "Show arrow icon"
+msgstr "矢印アイコンを表示する"
+
+#: src/blocks/box-link/_sidebar.js:222
 msgid "Image settings"
 msgstr "画像設定"
 
-#: src/blocks/box-link/_controls.js:282
+#: src/blocks/box-link/_sidebar.js:226
 msgid "Image size"
 msgstr ""
 
-#: src/blocks/box-link/_controls.js:290 src/blocks/notice/index.js:143
+#: src/blocks/box-link/_sidebar.js:233 src/blocks/notice/index.js:143
 #: src/blocks/timeline-item/index.js:113
 msgid "Icon settings"
 msgstr "アイコン設定"
 
-#: src/blocks/box-link/_controls.js:292
+#: src/blocks/box-link/_sidebar.js:235
 msgid "Use icon"
 msgstr "アイコンを使用する"
 
-#: src/blocks/box-link/_controls.js:301
+#: src/blocks/box-link/_sidebar.js:244
 msgid "Write the icon in HTML"
 msgstr "HTMLでアイコンを書く"
 
-#: src/blocks/box-link/_controls.js:313
+#: src/blocks/box-link/_sidebar.js:256
 msgid "HTML for icons"
 msgstr "アイコン用HTML"
 
-#: src/blocks/box-link/_controls.js:325
+#: src/blocks/box-link/_sidebar.js:268
 msgid "Icon size"
 msgstr "アイコンサイズ"
 
-#: src/blocks/box-link/_controls.js:358
-msgid "\"READ MORE\" settings"
-msgstr "「READ MORE」設定"
+#: src/blocks/box-link/_toolbar.js:58
+msgid "Center the text"
+msgstr "テキストセンター寄せ"
 
-#: src/blocks/box-link/_controls.js:360
-msgid "\"READ MORE\" text"
-msgstr "「READ MORE」テキスト"
+#: src/blocks/box-link/_toolbar.js:72
+msgid "Link"
+msgstr ""
 
-#: src/blocks/box-link/_controls.js:368
-msgid "Show arrow icon"
-msgstr "矢印アイコンを表示する"
+#: src/blocks/box-link/_toolbar.js:111
+msgid "Delete image"
+msgstr "画像を削除"
 
 #: src/blocks/box-link/index.js:26
 msgid "Box link"
@@ -245,12 +245,12 @@ msgstr "ボックスリンク"
 msgid "Number of columns"
 msgstr "列数"
 
-#: src/blocks/column/index.js:48
+#: src/blocks/column/index.js:41
 msgid "Column item"
 msgstr "カラム項目"
 
-#: src/blocks/column/index.js:113 src/blocks/column/index.js:122
-#: src/blocks/column/index.js:131
+#: src/blocks/column/index.js:106 src/blocks/column/index.js:117
+#: src/blocks/column/index.js:128
 msgid "Column width"
 msgstr "カラム横幅"
 
@@ -299,19 +299,19 @@ msgstr "IDで指定する"
 msgid "\"Order\" setting"
 msgstr "「順序」設定"
 
-#: src/blocks/page-list/index.js:74 src/blocks/post-list/panel/_display.js:88
+#: src/blocks/page-list/index.js:74 src/blocks/post-list/panel/_display.js:40
 msgid "Release date"
 msgstr "公開日"
 
-#: src/blocks/page-list/index.js:78 src/blocks/post-list/panel/_display.js:96
+#: src/blocks/page-list/index.js:78 src/blocks/post-list/panel/_display.js:48
 msgid "Random"
 msgstr "ランダム"
 
-#: src/blocks/page-list/index.js:85 src/blocks/post-list/panel/_display.js:103
+#: src/blocks/page-list/index.js:85 src/blocks/post-list/panel/_display.js:55
 msgid "Ascending order"
 msgstr "昇順"
 
-#: src/blocks/page-list/index.js:89 src/blocks/post-list/panel/_display.js:107
+#: src/blocks/page-list/index.js:89 src/blocks/post-list/panel/_display.js:59
 msgid "Descending order"
 msgstr "降順"
 
@@ -327,28 +327,28 @@ msgstr "指定した条件で固定ページリストを作成します。"
 msgid "The page you want to display"
 msgstr "表示したいページ"
 
-#: src/blocks/page-list/index.js:139 src/blocks/post-list/panel/_pickup.js:162
-#: src/blocks/post-list/panel/_pickup.js:176
+#: src/blocks/page-list/index.js:139 src/blocks/post-list/panel/_pickup.js:164
+#: src/blocks/post-list/panel/_pickup.js:178
 msgid "If there are multiple, enter them separated by \",\"."
 msgstr "複数の場合は「,」区切りで入力して下さい。"
 
-#: src/blocks/page-list/index.js:150 src/blocks/post-list/panel/_display.js:187
+#: src/blocks/page-list/index.js:150 src/blocks/post-list/panel/_display.js:192
 msgid "Number of characters in the excerpt"
 msgstr "抜粋文の文字数"
 
-#: src/blocks/page-list/index.js:152 src/blocks/post-list/panel/_display.js:190
+#: src/blocks/page-list/index.js:152 src/blocks/post-list/panel/_display.js:195
 msgid "If \"Excerpt\" is entered, its contents will be displayed."
 msgstr "「抜粋」が入力されている場合は、その内容が表示されます。"
 
-#: src/blocks/page-list/index.js:188 src/blocks/post-list/panel/_display.js:225
+#: src/blocks/page-list/index.js:188 src/blocks/post-list/panel/_display.js:230
 msgid "Sorting order setting"
 msgstr "並び順の設定"
 
-#: src/blocks/page-list/index.js:192 src/blocks/post-list/panel/_display.js:227
+#: src/blocks/page-list/index.js:192 src/blocks/post-list/panel/_display.js:232
 msgid "What to arrange based on"
 msgstr "何を基準に並べるか"
 
-#: src/blocks/page-list/index.js:200 src/blocks/post-list/panel/_display.js:235
+#: src/blocks/page-list/index.js:200 src/blocks/post-list/panel/_display.js:240
 msgid "Descending or Ascending"
 msgstr "降順か昇順か"
 
@@ -360,123 +360,123 @@ msgstr "投稿リスト"
 msgid "Create a post list with the specified conditions."
 msgstr "指定した条件で投稿リストを作成します。"
 
-#: src/blocks/post-list/index.js:74
+#: src/blocks/post-list/index.js:72
 msgctxt "tab-panel"
 msgid "Settings"
 msgstr "表示設定"
 
-#: src/blocks/post-list/index.js:84
+#: src/blocks/post-list/index.js:82
 msgctxt "tab-panel"
 msgid "Pickup"
 msgstr "絞り込み"
 
-#: src/blocks/post-list/panel/_display.js:42 src/blocks/rss/_sidebar.js:57
-msgid "Show release date"
-msgstr "公開日を表示する"
-
-#: src/blocks/post-list/panel/_display.js:48
-msgid "Show update date"
-msgstr "更新日を表示する"
-
-#: src/blocks/post-list/panel/_display.js:54
-msgid "Show category"
-msgstr "カテゴリーを表示する"
-
-#: src/blocks/post-list/panel/_display.js:59 src/blocks/rss/_sidebar.js:63
-msgid "Show author"
-msgstr "著者を表示する"
-
-#: src/blocks/post-list/panel/_display.js:64
-msgid "Show sticky posts"
-msgstr "先頭固定表示の記事を表示する"
-
-#: src/blocks/post-list/panel/_display.js:72 src/blocks/rss/_sidebar.js:79
+#: src/blocks/post-list/panel/_display.js:24 src/blocks/rss/_sidebar.js:25
 msgid "Card type"
 msgstr "カード型"
 
-#: src/blocks/post-list/panel/_display.js:76 src/blocks/rss/_sidebar.js:83
+#: src/blocks/post-list/panel/_display.js:28 src/blocks/rss/_sidebar.js:29
 msgid "List type"
 msgstr "リスト型"
 
-#: src/blocks/post-list/panel/_display.js:80 src/blocks/rss/_sidebar.js:87
+#: src/blocks/post-list/panel/_display.js:32 src/blocks/rss/_sidebar.js:33
 msgid "Text type"
 msgstr "テキスト型"
 
-#: src/blocks/post-list/panel/_display.js:92
+#: src/blocks/post-list/panel/_display.js:44
 msgid "Update date"
 msgstr "更新日"
 
-#: src/blocks/post-list/panel/_display.js:130 src/blocks/rss/_sidebar.js:137
+#: src/blocks/post-list/panel/_display.js:103 src/blocks/rss/_sidebar.js:80
+msgid "Show release date"
+msgstr "公開日を表示する"
+
+#: src/blocks/post-list/panel/_display.js:109
+msgid "Show update date"
+msgstr "更新日を表示する"
+
+#: src/blocks/post-list/panel/_display.js:115
+msgid "Show category"
+msgstr "カテゴリーを表示する"
+
+#: src/blocks/post-list/panel/_display.js:120 src/blocks/rss/_sidebar.js:86
+msgid "Show author"
+msgstr "著者を表示する"
+
+#: src/blocks/post-list/panel/_display.js:125
+msgid "Show sticky posts"
+msgstr "先頭固定表示の記事を表示する"
+
+#: src/blocks/post-list/panel/_display.js:135 src/blocks/rss/_sidebar.js:130
 msgid "Display settings"
 msgstr "表示設定"
 
-#: src/blocks/post-list/panel/_display.js:132
-#: src/blocks/post-list/panel/_display.js:141 src/blocks/rss/_sidebar.js:139
-#: src/blocks/rss/_sidebar.js:148
+#: src/blocks/post-list/panel/_display.js:137
+#: src/blocks/post-list/panel/_display.js:146 src/blocks/rss/_sidebar.js:132
+#: src/blocks/rss/_sidebar.js:141
 msgid "Number of posts to display"
 msgstr "表示する投稿数"
 
-#: src/blocks/post-list/panel/_display.js:150 src/blocks/rss/_sidebar.js:157
+#: src/blocks/post-list/panel/_display.js:155 src/blocks/rss/_sidebar.js:150
 msgid "List layout"
 msgstr "リストレイアウト"
 
-#: src/blocks/post-list/panel/_display.js:160 src/blocks/rss/_sidebar.js:167
+#: src/blocks/post-list/panel/_display.js:165 src/blocks/rss/_sidebar.js:160
 msgid "What to display"
 msgstr "何を表示するか"
 
-#: src/blocks/post-list/panel/_pickup.js:69
+#: src/blocks/post-list/panel/_pickup.js:68
 msgid "All"
 msgstr "全て"
 
-#: src/blocks/post-list/panel/_pickup.js:112
+#: src/blocks/post-list/panel/_pickup.js:114
 msgid "Having at least one"
 msgstr "1つでも含む"
 
-#: src/blocks/post-list/panel/_pickup.js:123
+#: src/blocks/post-list/panel/_pickup.js:125
 msgid "Having all"
 msgstr "全て含む"
 
-#: src/blocks/post-list/panel/_pickup.js:136
+#: src/blocks/post-list/panel/_pickup.js:138
 msgid "Having"
 msgstr "含む"
 
-#: src/blocks/post-list/panel/_pickup.js:148
+#: src/blocks/post-list/panel/_pickup.js:150
 msgid "Not having"
 msgstr "含まない"
 
-#: src/blocks/post-list/panel/_pickup.js:156
+#: src/blocks/post-list/panel/_pickup.js:158
 msgid "Narrow down by post ID"
 msgstr "投稿IDでの絞り込み"
 
-#: src/blocks/post-list/panel/_pickup.js:158
+#: src/blocks/post-list/panel/_pickup.js:160
 msgid "Specify the post ID directly"
 msgstr "投稿IDを直接指定する"
 
-#: src/blocks/post-list/panel/_pickup.js:172
+#: src/blocks/post-list/panel/_pickup.js:174
 msgid "Post ID to exclude"
 msgstr "除外する投稿ID"
 
-#: src/blocks/post-list/panel/_pickup.js:190
+#: src/blocks/post-list/panel/_pickup.js:192
 msgid "Narrow down by post type"
 msgstr "投稿タイプでの絞り込み"
 
-#: src/blocks/post-list/panel/_pickup.js:202
+#: src/blocks/post-list/panel/_pickup.js:204
 msgid "Taxonomy condition setting"
 msgstr "タクソノミーの条件設定"
 
-#: src/blocks/post-list/panel/_pickup.js:207
+#: src/blocks/post-list/panel/_pickup.js:209
 msgid "For the following taxonomy conditions,"
 msgstr "以下のタクソノミー条件に対して、"
 
-#: src/blocks/post-list/panel/_pickup.js:211
+#: src/blocks/post-list/panel/_pickup.js:213
 msgid "Whether at least one is true"
 msgstr "少なくとも１つ当てはまるかどうか"
 
-#: src/blocks/post-list/panel/_pickup.js:215
+#: src/blocks/post-list/panel/_pickup.js:217
 msgid "Whether all is true"
 msgstr "全てに当てはまるかどうか"
 
-#: src/blocks/post-list/panel/_pickup.js:228
+#: src/blocks/post-list/panel/_pickup.js:230
 msgid ""
 "You can select multiple categories and tags by holding down the \"command\" "
 "key on Mac and the \"ctrl\" key on Windows."
@@ -484,141 +484,141 @@ msgstr ""
 "カテゴリーやタグは、Macなら”command”キー、Windowsなら”ctrl”キーを押しながらク"
 "リックすると複数選択できます。"
 
-#: src/blocks/post-list/panel/_pickup.js:233
+#: src/blocks/post-list/panel/_pickup.js:235
 msgid "Categories"
 msgstr "カテゴリー"
 
-#: src/blocks/post-list/panel/_pickup.js:246
+#: src/blocks/post-list/panel/_pickup.js:248
 msgid "Exclude articles in child categories only"
 msgstr "子カテゴリのみの記事を除外"
 
-#: src/blocks/post-list/panel/_pickup.js:257
+#: src/blocks/post-list/panel/_pickup.js:259
 msgid "Relationship of selected categories"
 msgstr "選択したカテゴリーの関係"
 
-#: src/blocks/post-list/panel/_pickup.js:265
+#: src/blocks/post-list/panel/_pickup.js:267
 msgid "Tags"
 msgstr "タグ"
 
-#: src/blocks/post-list/panel/_pickup.js:276
+#: src/blocks/post-list/panel/_pickup.js:278
 msgid "Relationship of selected tags"
 msgstr "選択したタグの関係"
 
-#: src/blocks/post-list/panel/_pickup.js:283
+#: src/blocks/post-list/panel/_pickup.js:285
 msgid "Taxonomy"
 msgstr "タクソノミー"
 
-#: src/blocks/post-list/panel/_pickup.js:284
+#: src/blocks/post-list/panel/_pickup.js:286
 msgid "Enter the taxonomy name (slug)"
 msgstr "タクソノミー名（slug）を入力"
 
-#: src/blocks/post-list/panel/_pickup.js:300
+#: src/blocks/post-list/panel/_pickup.js:302
 msgid "Terms"
 msgstr "ターム"
 
-#: src/blocks/post-list/panel/_pickup.js:315
+#: src/blocks/post-list/panel/_pickup.js:317
 msgid "Relationship of selected terms"
 msgstr "選択したタームの関係"
 
-#: src/blocks/post-list/panel/_pickup.js:326
+#: src/blocks/post-list/panel/_pickup.js:328
 msgid "Narrowing down by author"
 msgstr "著者での絞り込み"
 
-#: src/blocks/rss/_sidebar.js:52
+#: src/blocks/rss/_sidebar.js:75
 msgid "Show page name of site"
 msgstr "サイトのページ名を表示する"
 
-#: src/blocks/rss/_sidebar.js:71
+#: src/blocks/rss/_sidebar.js:93
 msgid "Show thumbnail"
 msgstr "サムネイルを表示する"
 
-#: src/blocks/rss/_sidebar.js:109
+#: src/blocks/rss/_sidebar.js:102
 msgid "RSS settings"
 msgstr "RSS設定"
 
-#: src/blocks/rss/_sidebar.js:111
+#: src/blocks/rss/_sidebar.js:104
 msgid "RSS feed URL"
 msgstr "RSSフィードのURL"
 
-#: src/blocks/rss/_sidebar.js:118
+#: src/blocks/rss/_sidebar.js:111
 msgid "RSS feed page name"
 msgstr "RSSフィードのページ名"
 
 #: src/blocks/rss/index.js:35
-msgid "RSS"
-msgstr ""
+msgid "RSS list"
+msgstr "RSSリスト"
 
 #: src/blocks/rss/index.js:36
 msgid "Create a list of RSS feeds."
 msgstr "RSSフィードのリストを作成します。"
 
-#: src/blocks/section/_sidebar.js:38
+#: src/blocks/section/_sidebar.js:39
 msgid "White"
 msgstr "白"
 
-#: src/blocks/section/_sidebar.js:42
+#: src/blocks/section/_sidebar.js:43
 msgid "Black"
 msgstr "黒"
 
-#: src/blocks/section/_sidebar.js:105
+#: src/blocks/section/_sidebar.js:116
 msgid "Padding settings"
 msgstr "余白設定"
 
-#: src/blocks/section/_sidebar.js:108 src/blocks/section/_sidebar.js:130
+#: src/blocks/section/_sidebar.js:119 src/blocks/section/_sidebar.js:141
 msgid "Upper and lower padding amount"
 msgstr "上下のpadding量"
 
-#: src/blocks/section/_sidebar.js:151 src/blocks/step-item/index.js:112
+#: src/blocks/section/_sidebar.js:163 src/blocks/step-item/index.js:112
 #: src/blocks/timeline-item/index.js:100
 msgid "Color settings"
 msgstr "カラー設定"
 
-#: src/blocks/section/_sidebar.js:154
-msgid "Text color"
-msgstr "文字色"
-
-#: src/blocks/section/_sidebar.js:167
+#: src/blocks/section/_sidebar.js:172
 msgid "Overlay color"
 msgstr "オーバーレイカラー"
 
-#: src/blocks/section/_sidebar.js:168
+#: src/blocks/section/_sidebar.js:173
 msgid "Background color"
 msgstr "背景色"
 
-#: src/blocks/section/_sidebar.js:184
+#: src/blocks/section/_sidebar.js:180
 msgid "Overlay opacity"
 msgstr "オーバーレイの不透明度"
 
-#: src/blocks/section/_sidebar.js:185
+#: src/blocks/section/_sidebar.js:181
 msgid "Background opacity"
 msgstr "背景色の不透明度"
 
-#: src/blocks/section/_sidebar.js:197
+#: src/blocks/section/_sidebar.js:194
+msgid "Text color"
+msgstr "文字色"
+
+#: src/blocks/section/_sidebar.js:205
 msgid "Background media setting"
 msgstr "背景メディア設定"
 
-#: src/blocks/section/_sidebar.js:206
+#: src/blocks/section/_sidebar.js:214
 msgid "Repeat the background image"
 msgstr "背景画像をリピートする"
 
-#: src/blocks/section/_sidebar.js:217
+#: src/blocks/section/_sidebar.js:225
 msgid "Top border"
 msgstr "上部の境界"
 
-#: src/blocks/section/_sidebar.js:219 src/blocks/section/_sidebar.js:264
+#: src/blocks/section/_sidebar.js:227 src/blocks/section/_sidebar.js:272
 msgid "Shape"
 msgstr "形状"
 
-#: src/blocks/section/_sidebar.js:238 src/blocks/section/_sidebar.js:283
+#: src/blocks/section/_sidebar.js:246 src/blocks/section/_sidebar.js:291
 msgid "Height level"
 msgstr "高さレベル"
 
-#: src/blocks/section/_sidebar.js:251 src/blocks/section/_sidebar.js:294
+#: src/blocks/section/_sidebar.js:259 src/blocks/section/_sidebar.js:301
 #: src/blocks/step-item/index.js:117 src/blocks/timeline-item/index.js:105
 msgid "Color"
 msgstr "色"
 
-#: src/blocks/section/_sidebar.js:262
+#: src/blocks/section/_sidebar.js:270
 msgid "Bottom border"
 msgstr "下部の境界"
 
@@ -637,15 +637,15 @@ msgstr "メディアを選択"
 msgid "Delete"
 msgstr "削除"
 
-#: src/blocks/section/index.js:259
+#: src/blocks/section/index.js:107
 msgid "Section"
 msgstr "セクション"
 
-#: src/blocks/section/index.js:260
+#: src/blocks/section/index.js:108
 msgid "Create a content area to use as a section."
 msgstr "セクションとして使うコンテンツエリアを作成します。"
 
-#: src/blocks/section/index.js:357
+#: src/blocks/section/index.js:209
 msgid "To full-width content"
 msgstr "コンテンツを全幅にする"
 
@@ -733,11 +733,11 @@ msgstr "ブロック上の余白"
 msgid "Edit image"
 msgstr ""
 
-#: src/extension/headbar.js:35
+#: src/extension/headbar.js:36
 msgid "View Post"
 msgstr "投稿を表示"
 
-#: src/extension/headbar.js:37
+#: src/extension/headbar.js:38
 msgid "View Page"
 msgstr "ページを表示"
 
@@ -765,7 +765,7 @@ msgstr "RSSフィードのURLが正しくありません。"
 msgid "The article was not found."
 msgstr "記事が見つかりませんでした。"
 
-#: inc/gutenberg.php:104
+#: inc/gutenberg.php:102
 msgid "Arkhe Blocks"
 msgstr ""
 
@@ -796,6 +796,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "https://loos.co.jp/"
 msgstr ""
+
+#~ msgid "\"READ MORE\" settings"
+#~ msgstr "「READ MORE」設定"
 
 #~ msgid ""
 #~ "If you use \"Arkhe\", you will be able to select the icons provided in "

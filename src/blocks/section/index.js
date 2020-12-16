@@ -5,6 +5,7 @@ import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 import {
 	BlockControls,
+	InspectorControls,
 	InnerBlocks,
 	useBlockProps,
 	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
@@ -30,7 +31,7 @@ import { ArkheMarginControl } from '@components/ArkheMarginControl';
  * @others dependencies
  */
 import classnames from 'classnames';
-import hexToRgba from 'hex-to-rgba';
+// import hexToRgba from 'hex-to-rgba';
 
 /**
  * metadata
@@ -39,44 +40,15 @@ const blockName = 'ark-block-section';
 const { apiVersion, name, category, keywords, supports } = metadata;
 
 /**
- * 背景色生成
- */
-const getBgColor = (bgColor, opacity) => {
-	if (0 === opacity) {
-		// backgroundColorなし
-		return '';
-	} else if (100 === opacity) {
-		return bgColor;
-	}
-	return hexToRgba(bgColor, opacity / 100);
-};
-
-/**
  * スタイルをセットする関数
  */
 const getBlockStyle = (attributes) => {
-	const {
-		textColor,
-		padPC,
-		padSP,
-		padUnitPC,
-		padUnitSP,
-		isRepeat,
-		mediaUrl,
-		bgColor,
-		opacity,
-	} = attributes;
-
-	// console.log('Do getBlockStyle');
+	const { textColor, padPC, padSP, padUnitPC, padUnitSP, isRepeat, mediaUrl } = attributes;
 
 	const style = {};
 
 	// textColorがセットされているか
 	if (textColor) style.color = textColor;
-
-	// 背景色
-	const _bgColor = getBgColor(bgColor, opacity);
-	if (_bgColor) style.backgroundColor = _bgColor;
 
 	// padding
 	const paddingPC = `${padPC}${padUnitPC}`;
@@ -98,17 +70,18 @@ const getBlockStyle = (attributes) => {
 	return style;
 };
 
-// const getInnerStyle = (svgLevelTop, svgLevelBottom) => {
-// 	const innerStyle = {};
-// 	if (0 !== svgLevelTop) {
-// 		innerStyle.marginTop = `${Math.abs(svgLevelTop)}vw`;
-// 	}
-// 	if (0 !== svgLevelBottom) {
-// 		innerStyle.marginBottom = `${Math.abs(svgLevelBottom)}vw`;
-// 	}
+const getColorStyle = ({ bgColor, bgGradient, opacity }) => {
+	const style = {};
 
-// 	return innerStyle;
-// };
+	// グラデーションかどうか
+	if (bgGradient) {
+		style.background = bgGradient;
+	} else {
+		style.backgroundColor = bgColor || '#f7f7f7';
+	}
+	style.opacity = (opacity * 0.01).toFixed(2);
+	return style;
+};
 
 const getSvgData = (svgLevel) => {
 	if (0 === svgLevel) {
@@ -144,6 +117,7 @@ registerBlockType(name, {
 	attributes: metadata.attributes,
 	edit: (props) => {
 		const { attributes, setAttributes, isSelected } = props;
+
 		const {
 			align,
 			mediaUrl,
@@ -163,6 +137,9 @@ registerBlockType(name, {
 
 		// スタイルデータ
 		const style = useMemo(() => getBlockStyle(attributes), [attributes]);
+
+		// カラーレイヤーのスタイル
+		const colorStyle = useMemo(() => getColorStyle(attributes), [attributes]);
 
 		// 背景画像
 		const bgImg = useMemo(() => <BgImage attributes={attributes} />, [attributes]);
@@ -244,15 +221,18 @@ registerBlockType(name, {
 
 					<ArkheMarginControl {...{ className: attributes.className, setAttributes }} />
 				</BlockControls>
-				<TheSidebar
-					attributes={attributes}
-					setAttributes={setAttributes}
-					isSelected={isSelected}
-				/>
+				<InspectorControls>
+					<TheSidebar
+						attributes={attributes}
+						setAttributes={setAttributes}
+						isSelected={isSelected}
+					/>
+				</InspectorControls>
 				<div {...blockProps}>
 					{bgImg}
-					{svgSrcTop}
+					<div className={`${blockName}__color`} style={colorStyle}></div>
 					<div {...innerBlocksProps} />
+					{svgSrcTop}
 					{svgSrcBottom}
 				</div>
 			</>
@@ -275,6 +255,9 @@ registerBlockType(name, {
 
 		// styleデータ
 		const style = getBlockStyle(attributes);
+
+		// カラーレイヤーのスタイル
+		const colorStyle = getColorStyle(attributes);
 
 		// svgデータ
 		const svgTop = getSvgData(svgLevelTop);
@@ -300,6 +283,10 @@ registerBlockType(name, {
 		return (
 			<div {...blockProps}>
 				<BgImage attributes={attributes} />
+				<div className={`${blockName}__color`} style={colorStyle}></div>
+				<div className={`${blockName}__inner ark-keep-mt`} style={innerStyle || null}>
+					<InnerBlocks.Content />
+				</div>
 				{0 !== svgLevelTop && (
 					<SectionSVG
 						position='top'
@@ -309,9 +296,6 @@ registerBlockType(name, {
 						fillColor={svgColorTop}
 					/>
 				)}
-				<div className={`${blockName}__inner ark-keep-mt`} style={innerStyle || null}>
-					<InnerBlocks.Content />
-				</div>
 				{0 !== svgLevelBottom && (
 					<SectionSVG
 						position='bottom'

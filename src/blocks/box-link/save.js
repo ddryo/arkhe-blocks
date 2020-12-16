@@ -29,6 +29,7 @@ export default function ({ attributes }) {
 		imgW,
 		imgH,
 		fixRatio,
+		isContain,
 		ratio,
 		title,
 		htag,
@@ -87,7 +88,9 @@ export default function ({ attributes }) {
 			>
 				<img
 					className={classnames(`arkb-boxLink__img wp-image-${imgId}`, {
-						'u-obf-cover': fixRatio || !isVertical,
+						// 'u-obf-cover': fixRatio || !isVertical,
+						'u-obf-cover': (fixRatio || !isVertical) && !isContain,
+						'u-obf-contain': (fixRatio || !isVertical) && isContain,
 					})}
 					src={imgUrl}
 					alt={imgAlt}

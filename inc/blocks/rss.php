@@ -84,7 +84,7 @@ function cb_rss( $attrs, $content ) {
 	echo '<div class="' . esc_attr( $list_wrapper_class ) . '">';
 
 	// 投稿リスト
-	\Arkhe::get_part( 'post_list/rss', [
+	\Arkhe_Blocks::get_part( 'rss', [
 		'rss_items' => $rss_data['items'],
 		'list_args' => $list_args,
 	] );

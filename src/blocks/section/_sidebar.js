@@ -3,15 +3,16 @@
  */
 import { __ } from '@wordpress/i18n';
 import {
-	InspectorControls,
 	ColorPalette as WpColorPalette,
+	// __experimentalUseGradient,
+	__experimentalPanelColorGradientSettings as PanelColorGradientSettings,
 	// MediaPlaceholder,
 } from '@wordpress/block-editor';
 import {
 	PanelBody,
 	ToggleControl,
 	TextControl,
-	ColorPicker,
+	// ColorPicker,
 	ColorPalette,
 	BaseControl,
 	RangeControl,
@@ -20,7 +21,7 @@ import {
 	Button,
 } from '@wordpress/components';
 
-import { memo, useMemo } from '@wordpress/element';
+import { useMemo, useCallback } from '@wordpress/element';
 
 /**
  * @Inner dependencies
@@ -46,7 +47,7 @@ const textColorSet = [
 
 const svgTypes = ['line', 'circle', 'wave', 'zigzag'];
 
-export default memo(({ attributes, setAttributes, isSelected }) => {
+export default ({ attributes, setAttributes, isSelected }) => {
 	const {
 		mediaId,
 		mediaUrl,
@@ -59,6 +60,7 @@ export default memo(({ attributes, setAttributes, isSelected }) => {
 		isRepeat,
 		opacity,
 		bgColor,
+		bgGradient,
 		textColor,
 		padPC,
 		padSP,
@@ -85,6 +87,21 @@ export default memo(({ attributes, setAttributes, isSelected }) => {
 		setAttributes,
 	};
 
+	const setOverlayColor = useCallback(
+		(newColor) => {
+			setAttributes({ bgColor: newColor });
+		},
+		[bgColor]
+	);
+
+	const setGradientColor = useCallback(
+		(newGradient) => {
+			// console.log('newGradient', newGradient);
+			setAttributes({ bgGradient: newGradient });
+		},
+		[bgGradient]
+	);
+
 	// 初回の状態を記憶
 	const isOpenSvgTop = useMemo(() => {
 		// console.log('memo: isOpenSvgTop');
@@ -94,14 +111,8 @@ export default memo(({ attributes, setAttributes, isSelected }) => {
 		return 0 !== svgLevelBottom;
 	}, [isSelected]);
 
-	// useEffect(() => {
-	// 	console.log('useEffect !');
-	// }, [isSelected]);
-
-	// console.log('InspectorControls');
-
 	return (
-		<InspectorControls>
+		<>
 			<PanelBody title={__('Padding settings', 'arkhe-blocks')}>
 				<div className='ark-control--padding'>
 					<div className='__label'>
@@ -148,36 +159,21 @@ export default memo(({ attributes, setAttributes, isSelected }) => {
 					/>
 				</div>
 			</PanelBody>
-			<PanelBody title={__('Color settings', 'arkhe-blocks')}>
-				<BaseControl>
-					<BaseControl.VisualLabel>
-						{__('Text color', 'arkhe-blocks')}
-					</BaseControl.VisualLabel>
-					<ColorPalette
-						value={textColor}
-						colors={textColorSet}
-						onChange={(val) => {
-							setAttributes({ textColor: val });
-						}}
-					/>
-				</BaseControl>
-				<BaseControl>
-					<BaseControl.VisualLabel>
-						{mediaUrl
+			<PanelColorGradientSettings
+				title={__('Color settings', 'arkhe-blocks')}
+				initialOpen={true}
+				settings={[
+					{
+						colorValue: bgColor,
+						gradientValue: bgGradient,
+						onColorChange: setOverlayColor,
+						onGradientChange: setGradientColor,
+						label: mediaUrl
 							? __('Overlay color', 'arkhe-blocks')
-							: __('Background color', 'arkhe-blocks')}
-					</BaseControl.VisualLabel>
-					<ColorPicker
-						className='arkb-colorPicker'
-						clearable={false}
-						color={bgColor}
-						disableAlpha
-						onChangeComplete={(val) => {
-							// 不透明度の考慮はしなくていい
-							setAttributes({ bgColor: val.hex });
-						}}
-					/>
-				</BaseControl>
+							: __('Background color', 'arkhe-blocks'),
+					},
+				]}
+			>
 				<RangeControl
 					label={
 						mediaUrl
@@ -193,7 +189,19 @@ export default memo(({ attributes, setAttributes, isSelected }) => {
 					min={0}
 					max={100}
 				/>
-			</PanelBody>
+				<BaseControl>
+					<BaseControl.VisualLabel>
+						{__('Text color', 'arkhe-blocks')}
+					</BaseControl.VisualLabel>
+					<ColorPalette
+						value={textColor}
+						colors={textColorSet}
+						onChange={(val) => {
+							setAttributes({ textColor: val });
+						}}
+					/>
+				</BaseControl>
+			</PanelColorGradientSettings>
 			<PanelBody title={__('Background media setting', 'arkhe-blocks')}>
 				{isRepeat && mediaUrl && (
 					<div className='arkb-imgPreview'>
@@ -289,10 +297,8 @@ export default memo(({ attributes, setAttributes, isSelected }) => {
 					max={100}
 					step={1}
 				/>
-				<div className='components-base-control'>
-					<div className='components-base-control__label'>
-						{__('Color', 'arkhe-blocks')}
-					</div>
+				<BaseControl>
+					<BaseControl.VisualLabel>{__('Color', 'arkhe-blocks')}</BaseControl.VisualLabel>
 					<WpColorPalette
 						value={svgColorBottom}
 						onChange={(color) => {
@@ -300,8 +306,8 @@ export default memo(({ attributes, setAttributes, isSelected }) => {
 						}}
 						clearable={true}
 					/>
-				</div>
+				</BaseControl>
 			</PanelBody>
-		</InspectorControls>
+		</>
 	);
-});
+};

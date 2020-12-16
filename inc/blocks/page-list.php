@@ -43,7 +43,8 @@ function cb_page_list( $attrs, $content ) {
 	}
 
 	$list_args = [
-		'h_tag' => $attrs['hTag'],
+		'list_type' => $attrs['listType'],
+		'h_tag'     => $attrs['hTag'],
 	];
 
 	if ( isset( $attrs['excerptLength'] ) ) {
@@ -63,6 +64,8 @@ function cb_page_list( $attrs, $content ) {
 		'query_args' => $query_args,
 		'list_args'  => $list_args,
 	] );
+
+	echo '</div>';
 
 	// リセット
 	\Arkhe::$excerpt_length = ARKHE_EXCERPT_LENGTH;

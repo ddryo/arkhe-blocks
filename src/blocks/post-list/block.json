@@ -115,7 +115,7 @@
         },
         "hTag": {
             "type": "string",
-            "default": "h2"
+            "default": "div"
         }
     },
     "editorScript": "file:../../../dist/blocks/post-list/index.js",

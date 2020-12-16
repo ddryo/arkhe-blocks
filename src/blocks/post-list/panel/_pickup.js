@@ -20,8 +20,7 @@ import {
  */
 import buildTermsTree from '@src/helper/build-terms-tree';
 
-export default function (props) {
-	const { attributes, setAttributes, authors } = props;
+export default ({ attributes, setAttributes, authors }) => {
 	const {
 		postID,
 		catID,
@@ -61,32 +60,35 @@ export default function (props) {
 	);
 
 	// 全ポストタイプを取得
-	const postTypes = useSelect((select) => select('core').getPostTypes({ per_page: -1 }), []);
-	// console.log( 'postTypes', postTypes );
+	const postTypeList = useSelect((select) => {
+		const postTypes = select('core').getPostTypes({ per_page: -1 });
 
-	const postTypeList = [
-		{
-			label: __('All', 'arkhe-blocks'),
-			value: 'any',
-		},
-	];
-	if (postTypes !== null) {
-		for (const pt of postTypes) {
-			// publicな投稿タイプかどうか
-			const isViewable = pt.viewable;
+		const _postTypeList = [
+			{
+				label: __('All', 'arkhe-blocks'),
+				value: 'any',
+			},
+		];
+		if (postTypes !== null) {
+			for (const pt of postTypes) {
+				// publicな投稿タイプかどうか
+				const isViewable = pt.viewable;
 
-			// 表示しない投稿タイプ
-			const ignoreTypes = ['attachment', 'lp'];
+				// 表示しない投稿タイプ
+				const ignoreTypes = ['attachment', 'lp'];
 
-			//配列につっこむ
-			if (isViewable && ignoreTypes.indexOf(pt.slug) === -1) {
-				postTypeList.push({
-					label: pt.name,
-					value: pt.slug,
-				});
+				//配列につっこむ
+				if (isViewable && ignoreTypes.indexOf(pt.slug) === -1) {
+					_postTypeList.push({
+						label: pt.name,
+						value: pt.slug,
+					});
+				}
 			}
 		}
-	}
+		return _postTypeList;
+	}, []);
+	// console.log( 'postTypes', postTypes );
 
 	// 著者の選択用セレクトボックスのデータ
 	const authorsArray = [{ label: '----', value: 0 }];
@@ -337,4 +339,4 @@ export default function (props) {
 			</PanelBody>
 		</>
 	);
-}
+};
