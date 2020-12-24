@@ -1,25 +1,86 @@
-:root {
-	--arkb-section-pad--pc: 4rem;
-	--arkb-section-pad--sp: 4rem;
-}
+// :root {
+// 	--arkb-section-pad--pc: 4rem;
+// 	--arkb-section-pad--sp: 4rem;
+// }
 
 .ark-block-section {
 	position: relative;
-	padding: var(--arkb-section-pad--pc) var(--ark-pad--container, 48px);
+	// min-height: var(--arkb-section-minH--pc, "none");
+	// padding: var(--arkb-section-pad--pc, 4rem) var(--ark-pad--container, 48px);
 
-	@include sp {
-		padding: var(--arkb-section-pad--sp) var(--ark-pad--container, 4vw);
-	}
+	// @include sp {
+	// 	min-height: var(--arkb-section-minH--sp, "none");
+	// 	padding: var(--arkb-section-pad--sp, 4rem) var(--ark-pad--container, 4vw);
+	// }
 }
+
 
 .ark-block-section__inner {
 	position: relative;
 	z-index: 2;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 	max-width: var(--ark-article_width, 1000px);
+
+	min-height: var(--arkb-section-minH--pc, "none");
 	margin: 0 auto;
+	padding: var(--arkb-section-pad--pc, 4rem) var(--ark-pad--container, 48px);
+
+	@include sp {
+		min-height: var(--arkb-section-minH--sp, "none");
+		padding: var(--arkb-section-pad--sp, 4rem) var(--ark-pad--container, 4vw);
+	}
 
 	[data-inner="full"] > & {
 		max-width: 100%;
+	}
+
+	// .has-position > & {}
+
+	.is-position-top-left > & {
+		align-items: flex-start;
+		justify-content: flex-start;
+	}
+
+	.is-position-top-center > & {
+		align-items: center;
+		justify-content: flex-start;
+	}
+
+	.is-position-top-right > & {
+		align-items: flex-end;
+		justify-content: flex-start;
+	}
+
+	.is-position-center-left > & {
+		align-items: flex-start;
+		justify-content: center;
+	}
+
+	.is-position-center-center > & {
+		align-items: center;
+		justify-content: center;
+	}
+
+	.is-position-center-right > & {
+		align-items: flex-end;
+		justify-content: center;
+	}
+
+	.is-position-bottom-left > & {
+		align-items: flex-start;
+		justify-content: flex-end;
+	}
+
+	.is-position-bottom-center > & {
+		align-items: center;
+		justify-content: flex-end;
+	}
+
+	.is-position-bottom-right > & {
+		align-items: flex-end;
+		justify-content: flex-end;
 	}
 
 }

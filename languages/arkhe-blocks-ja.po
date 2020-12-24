@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Arkhe Blocks\n"
-"POT-Creation-Date: 2020-12-24 17:38+0900\n"
-"PO-Revision-Date: 2020-12-24 17:39+0900\n"
+"POT-Creation-Date: 2020-12-24 21:48+0900\n"
+"PO-Revision-Date: 2020-12-24 21:48+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -32,7 +32,7 @@ msgstr "アコーディオン項目"
 #: src/__55/accordion-item/index.js:54 src/__55/dl-dt/index.js:50
 #: src/__55/faq-item/index.js:48 src/blocks/accordion-item/index.js:121
 #: src/blocks/box-link/edit.js:288 src/blocks/dl-dt/index.js:55
-#: src/blocks/faq-item/index.js:66 src/blocks/notice/index.js:153
+#: src/blocks/faq-item/index.js:66 src/blocks/notice/index.js:168
 #: src/blocks/step-item/index.js:133 src/blocks/timeline-item/index.js:131
 msgid "Enter text"
 msgstr "テキストを入力"
@@ -188,7 +188,7 @@ msgstr "画像設定"
 msgid "Image size"
 msgstr ""
 
-#: src/blocks/box-link/_sidebar.js:233 src/blocks/notice/index.js:143
+#: src/blocks/box-link/_sidebar.js:233 src/blocks/notice/index.js:158
 #: src/blocks/timeline-item/index.js:113
 msgid "Icon settings"
 msgstr "アイコン設定"
@@ -283,7 +283,7 @@ msgstr "強調"
 msgid "Simple"
 msgstr "シンプル"
 
-#: src/blocks/notice/index.js:122
+#: src/blocks/notice/index.js:137
 msgid "Notification type"
 msgstr "通知タイプ"
 
@@ -564,65 +564,73 @@ msgstr "白"
 msgid "Black"
 msgstr "黒"
 
-#: src/blocks/section/_sidebar.js:116
+#: src/blocks/section/_sidebar.js:120
+msgid "Height settings"
+msgstr "高さ設定"
+
+#: src/blocks/section/_sidebar.js:122 src/blocks/section/_sidebar.js:145
+msgid "Min height"
+msgstr "最小の高さ"
+
+#: src/blocks/section/_sidebar.js:168
 msgid "Padding settings"
 msgstr "余白設定"
 
-#: src/blocks/section/_sidebar.js:119 src/blocks/section/_sidebar.js:141
-msgid "Upper and lower padding amount"
-msgstr "上下のpadding量"
+#: src/blocks/section/_sidebar.js:171 src/blocks/section/_sidebar.js:196
+msgid "Top and bottom padding"
+msgstr "上下のpadding"
 
-#: src/blocks/section/_sidebar.js:163 src/blocks/step-item/index.js:112
+#: src/blocks/section/_sidebar.js:221 src/blocks/step-item/index.js:112
 #: src/blocks/timeline-item/index.js:100
 msgid "Color settings"
 msgstr "カラー設定"
 
-#: src/blocks/section/_sidebar.js:172
+#: src/blocks/section/_sidebar.js:230
 msgid "Overlay color"
 msgstr "オーバーレイカラー"
 
-#: src/blocks/section/_sidebar.js:173
+#: src/blocks/section/_sidebar.js:231
 msgid "Background color"
 msgstr "背景色"
 
-#: src/blocks/section/_sidebar.js:180
+#: src/blocks/section/_sidebar.js:238
 msgid "Overlay opacity"
 msgstr "オーバーレイの不透明度"
 
-#: src/blocks/section/_sidebar.js:181
+#: src/blocks/section/_sidebar.js:239
 msgid "Background opacity"
 msgstr "背景色の不透明度"
 
-#: src/blocks/section/_sidebar.js:194
+#: src/blocks/section/_sidebar.js:252
 msgid "Text color"
 msgstr "文字色"
 
-#: src/blocks/section/_sidebar.js:205
+#: src/blocks/section/_sidebar.js:263
 msgid "Background media setting"
 msgstr "背景メディア設定"
 
-#: src/blocks/section/_sidebar.js:214
+#: src/blocks/section/_sidebar.js:272
 msgid "Repeat the background image"
 msgstr "背景画像をリピートする"
 
-#: src/blocks/section/_sidebar.js:225
+#: src/blocks/section/_sidebar.js:283
 msgid "Top border"
 msgstr "上部の境界"
 
-#: src/blocks/section/_sidebar.js:227 src/blocks/section/_sidebar.js:272
+#: src/blocks/section/_sidebar.js:285 src/blocks/section/_sidebar.js:330
 msgid "Shape"
 msgstr "形状"
 
-#: src/blocks/section/_sidebar.js:246 src/blocks/section/_sidebar.js:291
+#: src/blocks/section/_sidebar.js:304 src/blocks/section/_sidebar.js:349
 msgid "Height level"
 msgstr "高さレベル"
 
-#: src/blocks/section/_sidebar.js:259 src/blocks/section/_sidebar.js:301
+#: src/blocks/section/_sidebar.js:317 src/blocks/section/_sidebar.js:359
 #: src/blocks/step-item/index.js:117 src/blocks/timeline-item/index.js:105
 msgid "Color"
 msgstr "色"
 
-#: src/blocks/section/_sidebar.js:270
+#: src/blocks/section/_sidebar.js:328
 msgid "Bottom border"
 msgstr "下部の境界"
 
@@ -641,17 +649,25 @@ msgstr "メディアを選択"
 msgid "Delete"
 msgstr "削除"
 
-#: src/blocks/section/index.js:107
+#: src/blocks/section/index.js:129
 msgid "Section"
 msgstr "セクション"
 
-#: src/blocks/section/index.js:108
+#: src/blocks/section/index.js:130
 msgid "Create a content area to use as a section."
 msgstr "セクションとして使うコンテンツエリアを作成します。"
 
-#: src/blocks/section/index.js:209
+#: src/blocks/section/index.js:237
 msgid "To full-width content"
 msgstr "コンテンツを全幅にする"
+
+#: src/blocks/section/index.js:250
+msgid "Change content position"
+msgstr ""
+
+#: src/blocks/section/index.js:260
+msgid "Delete position"
+msgstr "位置を削除"
 
 #: src/blocks/step-item/index.js:40
 msgid "Step item"
@@ -800,6 +816,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "https://loos.co.jp/"
 msgstr ""
+
+#~ msgid "Upper and lower padding amount"
+#~ msgstr "上下のpadding量"
 
 #~ msgid "Icon"
 #~ msgstr "アイコン"

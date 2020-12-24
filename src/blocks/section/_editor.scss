@@ -30,8 +30,10 @@
 
 .ark-block-section__inner {
 
-	.wp-block {
+	& > .wp-block {
 		max-width: 100%;
+		margin-right: 0;
+		margin-left: 0;
 	}
 }
 

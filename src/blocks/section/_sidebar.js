@@ -32,7 +32,7 @@ import { getButtonSVG } from './components/SectionSVG';
 /**
  * 設定
  */
-const padUnits = ['px', 'rem', 'em', '%', 'vw', 'vh'];
+const units = ['px', 'rem', 'em', '%', 'vw', 'vh'];
 
 const textColorSet = [
 	{
@@ -62,6 +62,10 @@ export default ({ attributes, setAttributes, isSelected }) => {
 		bgColor,
 		bgGradient,
 		textColor,
+		heightPC,
+		heightSP,
+		heightUnitPC,
+		heightUnitSP,
 		padPC,
 		padSP,
 		padUnitPC,
@@ -113,22 +117,73 @@ export default ({ attributes, setAttributes, isSelected }) => {
 
 	return (
 		<>
+			<PanelBody title={__('Height settings', 'arkhe-blocks')}>
+				<div className='ark-control--padding'>
+					<div className='__label'>{__('Min height', 'arkhe-blocks') + '(PC)'}</div>
+					<TextControl
+						autoComplete='off'
+						className='__input'
+						value={heightPC}
+						type='number'
+						// step={'px' === heightUnitPC ? 1 : 0.1}
+						min={0}
+						onChange={(val) => {
+							setAttributes({ heightPC: parseFloat(val) }); // intに変換してから保存
+						}}
+					/>
+					<SelectControl
+						value={heightUnitPC}
+						options={units.map((unit) => {
+							return { label: unit, value: unit };
+						})}
+						onChange={(val) => {
+							setAttributes({ heightUnitPC: val });
+						}}
+					/>
+				</div>
+				<div className='ark-control--padding'>
+					<div className='__label'>{__('Min height', 'arkhe-blocks') + '(SP)'}</div>
+					<TextControl
+						autoComplete='off'
+						className='__input'
+						value={heightSP}
+						type='number'
+						// step={0.1}
+						min={0}
+						onChange={(val) => {
+							setAttributes({ heightSP: parseFloat(val) }); // intに変換してから保存
+						}}
+					/>
+					<SelectControl
+						value={heightUnitSP}
+						options={units.map((unit) => {
+							return { label: unit, value: unit };
+						})}
+						onChange={(val) => {
+							setAttributes({ heightUnitSP: val });
+						}}
+					/>
+				</div>
+			</PanelBody>
 			<PanelBody title={__('Padding settings', 'arkhe-blocks')}>
 				<div className='ark-control--padding'>
 					<div className='__label'>
-						{__('Upper and lower padding amount', 'arkhe-blocks') + '(PC)'}
+						{__('Top and bottom padding', 'arkhe-blocks') + '(PC)'}
 					</div>
 					<TextControl
+						autoComplete='off'
 						className='__input'
 						value={padPC}
 						type='number'
+						// step={0.1}
+						min={0}
 						onChange={(val) => {
-							setAttributes({ padPC: parseInt(val) }); // intに変換してから保存
+							setAttributes({ padPC: parseFloat(val) }); // intに変換してから保存
 						}}
 					/>
 					<SelectControl
 						value={padUnitPC}
-						options={padUnits.map((unit) => {
+						options={units.map((unit) => {
 							return { label: unit, value: unit };
 						})}
 						onChange={(val) => {
@@ -138,19 +193,22 @@ export default ({ attributes, setAttributes, isSelected }) => {
 				</div>
 				<div className='ark-control--padding'>
 					<div className='__label'>
-						{__('Upper and lower padding amount', 'arkhe-blocks') + '(SP)'}
+						{__('Top and bottom padding', 'arkhe-blocks') + '(SP)'}
 					</div>
 					<TextControl
+						autoComplete='off'
 						className='__input'
 						value={padSP}
 						type='number'
+						// step={0.1}
+						min={0}
 						onChange={(val) => {
-							setAttributes({ padSP: parseInt(val) }); // intに変換してから保存
+							setAttributes({ padSP: parseFloat(val) }); // intに変換してから保存
 						}}
 					/>
 					<SelectControl
 						value={padUnitSP}
-						options={padUnits.map((unit) => {
+						options={units.map((unit) => {
 							return { label: unit, value: unit };
 						})}
 						onChange={(val) => {

@@ -9,6 +9,7 @@ import {
 	InnerBlocks,
 	useBlockProps,
 	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
+	__experimentalBlockAlignmentMatrixToolbar as BlockAlignmentMatrixToolbar,
 } from '@wordpress/block-editor';
 import { useMemo } from '@wordpress/element';
 
@@ -20,12 +21,13 @@ import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { iconColor } from '@blocks/config';
 import metadata from './block.json';
 import blockIcon from './_icon';
-// import example from './_example';
+import example from './_example';
 
 import TheSidebar from './_sidebar';
 import { SectionSVG } from './components/SectionSVG';
 import { BgImage } from './components/BgImage';
 import { ArkheMarginControl } from '@components/ArkheMarginControl';
+import { getPositionClassName } from '@helper/getPositionClassName';
 
 /**
  * @others dependencies
@@ -43,22 +45,42 @@ const { apiVersion, name, category, keywords, supports } = metadata;
  * スタイルをセットする関数
  */
 const getBlockStyle = (attributes) => {
-	const { textColor, padPC, padSP, padUnitPC, padUnitSP, isRepeat, mediaUrl } = attributes;
+	const {
+		textColor,
+		heightPC,
+		heightSP,
+		heightUnitPC,
+		heightUnitSP,
+		padPC,
+		padSP,
+		padUnitPC,
+		padUnitSP,
+		isRepeat,
+		mediaUrl,
+	} = attributes;
 
 	const style = {};
 
 	// textColorがセットされているか
 	if (textColor) style.color = textColor;
 
-	// padding
-	const paddingPC = `${padPC}${padUnitPC}`;
-	const paddingSP = `${padSP}${padUnitSP}`;
-
-	if ('4rem' !== paddingPC) {
-		style['--arkb-section-pad--pc'] = paddingPC;
+	// 内部minheight
+	if (heightPC) {
+		style['--arkb-section-minH--pc'] = `${heightPC}${heightUnitPC}`;
 	}
-	if ('4rem' !== paddingSP) {
-		style['--arkb-section-pad--sp'] = paddingSP;
+	if (heightSP) {
+		style['--arkb-section-minH--sp'] = `${heightSP}${heightUnitSP}`;
+	}
+
+	// 内部padding用の変数
+	const _varPadPC = `${padPC}${padUnitPC}`;
+	const _varPadSP = `${padSP}${padUnitSP}`;
+
+	if ('4rem' !== _varPadPC) {
+		style['--arkb-section-pad--pc'] = _varPadPC;
+	}
+	if ('4rem' !== _varPadSP) {
+		style['--arkb-section-pad--sp'] = _varPadSP;
 	}
 
 	// リピート背景画像
@@ -113,7 +135,7 @@ registerBlockType(name, {
 	category,
 	keywords,
 	supports,
-	// example,
+	example,
 	attributes: metadata.attributes,
 	edit: (props) => {
 		const { attributes, setAttributes, isSelected } = props;
@@ -128,11 +150,14 @@ registerBlockType(name, {
 			svgTypeBottom,
 			svgColorTop,
 			svgColorBottom,
+			contentPosition,
 		} = attributes;
 
 		// クラス名
-		const blockClass = classnames(blockName, {
+		const positionClass = getPositionClassName(contentPosition, '');
+		const blockClass = classnames(blockName, positionClass, {
 			'has-bg-img': !!mediaUrl,
+			'has-position': !!positionClass,
 		});
 
 		// スタイルデータ
@@ -148,10 +173,13 @@ registerBlockType(name, {
 		const svgTop = useMemo(() => getSvgData(svgLevelTop), [svgLevelTop]);
 		const svgBottom = useMemo(() => getSvgData(svgLevelBottom), [svgLevelBottom]);
 
-		const innerStyle = {
-			...(0 !== svgLevelTop ? { marginTop: `${svgTop.height}vw` } : {}),
-			...(0 !== svgLevelBottom ? { marginBottom: `${svgBottom.height}vw` } : {}),
-		};
+		// SVG分のpadding
+		if (0 !== svgLevelTop) {
+			style.paddingTop = `${svgTop.height}vw`;
+		}
+		if (0 !== svgLevelBottom) {
+			style.paddingBottom = `${svgBottom.height}vw`;
+		}
 
 		// ブロックProps
 		const blockProps = useBlockProps({
@@ -162,7 +190,7 @@ registerBlockType(name, {
 		const innerBlocksProps = useInnerBlocksProps(
 			{
 				className: `${blockName}__inner ark-keep-mt`,
-				style: innerStyle || null,
+				// style: innerStyle || null,
 			},
 			{
 				template: [['core/heading']], // arkhe-blocks/section-heading にする
@@ -218,6 +246,26 @@ registerBlockType(name, {
 							/>
 						</ToolbarGroup>
 					)}
+					<BlockAlignmentMatrixToolbar
+						label={__('Change content position')}
+						value={contentPosition || 'null'}
+						onChange={(nextPosition) => {
+							setAttributes({ contentPosition: nextPosition });
+						}}
+					/>
+					{contentPosition && (
+						<ToolbarGroup>
+							<ToolbarButton
+								className='components-toolbar__control'
+								label={__('Delete position', 'arkhe-blocks')}
+								icon={blockIcon.removePosition}
+								// icon={<Icon icon={cancelCircleFilled} />}
+								onClick={() => {
+									setAttributes({ contentPosition: undefined });
+								}}
+							/>
+						</ToolbarGroup>
+					)}
 
 					<ArkheMarginControl {...{ className: attributes.className, setAttributes }} />
 				</BlockControls>
@@ -251,6 +299,7 @@ registerBlockType(name, {
 			svgTypeBottom,
 			svgColorTop,
 			svgColorBottom,
+			contentPosition,
 		} = attributes;
 
 		// styleデータ
@@ -263,14 +312,19 @@ registerBlockType(name, {
 		const svgTop = getSvgData(svgLevelTop);
 		const svgBottom = getSvgData(svgLevelBottom);
 
-		const innerStyle = {
-			...(0 !== svgLevelTop ? { marginTop: `${svgTop.height}vw` } : {}),
-			...(0 !== svgLevelBottom ? { marginBottom: `${svgBottom.height}vw` } : {}),
-		};
+		// SVG分のpadding
+		if (0 !== svgLevelTop) {
+			style.paddingTop = `${svgTop.height}vw`;
+		}
+		if (0 !== svgLevelBottom) {
+			style.paddingBottom = `${svgBottom.height}vw`;
+		}
 
 		// クラス名
-		const blockClass = classnames(blockName, {
+		const positionClass = getPositionClassName(contentPosition, '');
+		const blockClass = classnames(blockName, positionClass, {
 			'has-bg-img': !!mediaUrl,
+			'has-position': !!positionClass,
 		});
 
 		// ブロックProps
@@ -284,7 +338,7 @@ registerBlockType(name, {
 			<div {...blockProps}>
 				<BgImage attributes={attributes} />
 				<div className={`${blockName}__color`} style={colorStyle}></div>
-				<div className={`${blockName}__inner ark-keep-mt`} style={innerStyle || null}>
+				<div className={`${blockName}__inner ark-keep-mt`}>
 					<InnerBlocks.Content />
 				</div>
 				{0 !== svgLevelTop && (
