@@ -39,6 +39,16 @@ function hook_enqueue_block_editor_assets( $hook_suffix ) {
 		ARKHE_BLOCKS_VERSION
 	);
 
+	// @FontAwesom
+	$asset = include ARKHE_BLOCKS_PATH . 'dist/blocks/fa.asset.php';
+	wp_enqueue_script(
+		'arkhe-blocks-fa',
+		ARKHE_BLOCKS_URL . 'dist/blocks/fa.js',
+		$asset['dependencies'],
+		$asset['version'],
+		true
+	);
+
 	$asset = include ARKHE_BLOCKS_PATH . 'dist/blocks/index.asset.php';
 	wp_enqueue_script(
 		'arkhe-blocks-script',

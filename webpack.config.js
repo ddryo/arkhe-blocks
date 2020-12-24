@@ -4,7 +4,8 @@ const path = require('path');
 const srcDir = './src/blocks';
 
 const entries = {};
-// entries.index = './src/blocks/index.js';
+// entries.fa = './src/blocks/fa.js';
+entries.index = './src/blocks/index.js';
 
 const blocks = [
 	// 'accordion',
@@ -21,9 +22,9 @@ const blocks = [
 	// 'faq',
 	// 'faq-item',
 	// 'notice',
-	'page-list',
-	'post-list',
-	'rss',
+	// 'page-list',
+	// 'post-list',
+	// 'rss',
 	// 'section',
 	// 'step',
 	// 'step-item',
