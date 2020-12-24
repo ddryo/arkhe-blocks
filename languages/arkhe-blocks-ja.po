@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Arkhe Blocks\n"
-"POT-Creation-Date: 2020-12-16 18:21+0900\n"
-"PO-Revision-Date: 2020-12-16 18:21+0900\n"
+"POT-Creation-Date: 2020-12-24 17:38+0900\n"
+"PO-Revision-Date: 2020-12-24 17:39+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -75,7 +75,7 @@ msgstr "Q&A形式のコンテンツを作成します。"
 
 #: src/blocks/accordion-item/index.js:87 src/blocks/blog-card/index.js:156
 #: src/blocks/box-links/index.js:97 src/blocks/column/index.js:104
-#: src/blocks/page-list/index.js:124
+#: src/blocks/page-list/index.js:142
 msgid "Settings"
 msgstr "設定"
 
@@ -167,7 +167,7 @@ msgstr "ボックス設定"
 msgid "Layout"
 msgstr "レイアウト"
 
-#: src/blocks/box-link/_sidebar.js:186 src/blocks/page-list/index.js:166
+#: src/blocks/box-link/_sidebar.js:186 src/blocks/page-list/index.js:193
 #: src/blocks/post-list/panel/_display.js:209 src/blocks/rss/_sidebar.js:187
 msgid "HTML tag for title"
 msgstr "タイトルのHTMLタグ"
@@ -315,40 +315,60 @@ msgstr "昇順"
 msgid "Descending order"
 msgstr "降順"
 
-#: src/blocks/page-list/index.js:99
+#: src/blocks/page-list/index.js:99 src/blocks/post-list/panel/_display.js:24
+#: src/blocks/rss/_sidebar.js:25
+msgid "Card type"
+msgstr "カード型"
+
+#: src/blocks/page-list/index.js:103 src/blocks/post-list/panel/_display.js:28
+#: src/blocks/rss/_sidebar.js:29
+msgid "List type"
+msgstr "リスト型"
+
+#: src/blocks/page-list/index.js:107 src/blocks/post-list/panel/_display.js:32
+#: src/blocks/rss/_sidebar.js:33
+msgid "Text type"
+msgstr "テキスト型"
+
+#: src/blocks/page-list/index.js:117
 msgid "Page list"
 msgstr "固定ページリスト"
 
-#: src/blocks/page-list/index.js:100
+#: src/blocks/page-list/index.js:118
 msgid "Create a page list with the specified conditions."
 msgstr "指定した条件で固定ページリストを作成します。"
 
-#: src/blocks/page-list/index.js:126
+#: src/blocks/page-list/index.js:144
 msgid "The page you want to display"
 msgstr "表示したいページ"
 
-#: src/blocks/page-list/index.js:139 src/blocks/post-list/panel/_pickup.js:164
+#: src/blocks/page-list/index.js:157 src/blocks/post-list/panel/_pickup.js:164
 #: src/blocks/post-list/panel/_pickup.js:178
 msgid "If there are multiple, enter them separated by \",\"."
 msgstr "複数の場合は「,」区切りで入力して下さい。"
 
-#: src/blocks/page-list/index.js:150 src/blocks/post-list/panel/_display.js:192
+#: src/blocks/page-list/index.js:169 src/blocks/post-list/panel/_display.js:155
+#: src/blocks/rss/_sidebar.js:150
+msgid "List layout"
+msgstr "リストレイアウト"
+
+#: src/blocks/page-list/index.js:177 src/blocks/post-list/panel/_display.js:192
 msgid "Number of characters in the excerpt"
 msgstr "抜粋文の文字数"
 
-#: src/blocks/page-list/index.js:152 src/blocks/post-list/panel/_display.js:195
+#: src/blocks/page-list/index.js:179 src/blocks/post-list/panel/_display.js:195
 msgid "If \"Excerpt\" is entered, its contents will be displayed."
 msgstr "「抜粋」が入力されている場合は、その内容が表示されます。"
 
-#: src/blocks/page-list/index.js:188 src/blocks/post-list/panel/_display.js:230
+#: src/blocks/page-list/index.js:215 src/blocks/post-list/panel/_display.js:230
 msgid "Sorting order setting"
 msgstr "並び順の設定"
 
-#: src/blocks/page-list/index.js:192 src/blocks/post-list/panel/_display.js:232
+#: src/blocks/page-list/index.js:219 src/blocks/post-list/panel/_display.js:232
 msgid "What to arrange based on"
 msgstr "何を基準に並べるか"
 
-#: src/blocks/page-list/index.js:200 src/blocks/post-list/panel/_display.js:240
+#: src/blocks/page-list/index.js:227 src/blocks/post-list/panel/_display.js:240
 msgid "Descending or Ascending"
 msgstr "降順か昇順か"
 
@@ -369,18 +389,6 @@ msgstr "表示設定"
 msgctxt "tab-panel"
 msgid "Pickup"
 msgstr "絞り込み"
-
-#: src/blocks/post-list/panel/_display.js:24 src/blocks/rss/_sidebar.js:25
-msgid "Card type"
-msgstr "カード型"
-
-#: src/blocks/post-list/panel/_display.js:28 src/blocks/rss/_sidebar.js:29
-msgid "List type"
-msgstr "リスト型"
-
-#: src/blocks/post-list/panel/_display.js:32 src/blocks/rss/_sidebar.js:33
-msgid "Text type"
-msgstr "テキスト型"
 
 #: src/blocks/post-list/panel/_display.js:44
 msgid "Update date"
@@ -415,10 +423,6 @@ msgstr "表示設定"
 #: src/blocks/rss/_sidebar.js:141
 msgid "Number of posts to display"
 msgstr "表示する投稿数"
-
-#: src/blocks/post-list/panel/_display.js:155 src/blocks/rss/_sidebar.js:150
-msgid "List layout"
-msgstr "リストレイアウト"
 
 #: src/blocks/post-list/panel/_display.js:165 src/blocks/rss/_sidebar.js:160
 msgid "What to display"
@@ -722,8 +726,8 @@ msgid "The <a>Font Awesome icon</a> is also available. (Output with svg)"
 msgstr "<a>Font Awesome のアイコン</a>も利用可能です。(svgで出力されます)"
 
 #: src/components/ArkheIconPicker.js:88
-msgid "Icon"
-msgstr "アイコン"
+msgid "Icon class"
+msgstr "アイコンクラス"
 
 #: src/components/ArkheMarginControl.js:127
 msgid "Margins on the block"
@@ -797,6 +801,9 @@ msgstr ""
 msgid "https://loos.co.jp/"
 msgstr ""
 
+#~ msgid "Icon"
+#~ msgstr "アイコン"
+
 #~ msgid "\"READ MORE\" settings"
 #~ msgstr "「READ MORE」設定"
 
@@ -818,9 +825,6 @@ msgstr ""
 #~| msgid "Settings"
 #~ msgid "settings"
 #~ msgstr "表示設定"
-
-#~ msgid "Icon class"
-#~ msgstr "アイコンクラス"
 
 #~ msgid "Tag"
 #~ msgstr "タグ"

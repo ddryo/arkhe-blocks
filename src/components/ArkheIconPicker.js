@@ -85,7 +85,7 @@ const ArkheIconPicker = memo(({ icon, setIcon }) => {
 				</ButtonGroup>
 			</BaseControl>
 			<TextControl
-				label={__('Icon', 'arkhe-blocks')}
+				label={__('Icon class', 'arkhe-blocks')}
 				value={icon}
 				help={faNote}
 				onChange={(val) => {
