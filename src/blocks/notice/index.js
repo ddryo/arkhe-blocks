@@ -2,7 +2,7 @@
  * @WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { registerBlockType } from '@wordpress/blocks';
+import { createBlock, registerBlockType } from '@wordpress/blocks';
 import {
 	BlockControls,
 	RichText,
@@ -84,6 +84,21 @@ registerBlockType(name, {
 	],
 	attributes: metadata.attributes,
 	example,
+	transforms: {
+		from: [
+			//どのブロックタイプから変更できるようにするか
+			{
+				type: 'block',
+				blocks: ['core/paragraph'],
+				transform: (attributes) => {
+					const innerP = createBlock('core/paragraph', {
+						content: attributes.content,
+					});
+					return createBlock(name, { className: 'is-style-simple' }, [innerP]);
+				},
+			},
+		],
+	},
 	edit: (props) => {
 		const { attributes, setAttributes } = props;
 		const { type, icon, title } = attributes;
