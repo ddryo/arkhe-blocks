@@ -28,8 +28,12 @@
 .arkb-panel--pickupTax {
 
 	.components-select-control__input[multiple] {
-		min-height: 8em;
+		min-height: 8em !important;
 		padding: 8px;
+
+		& + .components-input-control__suffix {
+			display: none;
+		}
 	}
 
 	.arkb-btns--relation {
