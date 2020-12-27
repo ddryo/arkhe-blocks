@@ -44,10 +44,7 @@ registerBlockType(name, {
 	category,
 	keywords,
 	supports,
-	// styles: [
-	// 	{ name: 'default', label: __('Default', 'arkhe-blocks'), isDefault: true },
-	// 	{ name: 'bigq', label: __('Big Q', 'arkhe-blocks') },
-	// ],
+	// styles: [],
 	example,
 	attributes: metadata.attributes,
 	edit: ({ attributes, setAttributes }) => {

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Arkhe Blocks\n"
-"POT-Creation-Date: 2020-12-27 13:02+0900\n"
-"PO-Revision-Date: 2020-12-27 13:03+0900\n"
+"POT-Creation-Date: 2020-12-27 16:48+0900\n"
+"PO-Revision-Date: 2020-12-27 16:48+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -73,7 +73,7 @@ msgstr "Q&A項目"
 msgid "Create Q & A format content."
 msgstr "Q&A形式のコンテンツを作成します。"
 
-#: src/blocks/accordion-item/index.js:87 src/blocks/blog-card/index.js:156
+#: src/blocks/accordion-item/index.js:87 src/blocks/blog-card/index.js:158
 #: src/blocks/box-links/index.js:97 src/blocks/column/index.js:107
 #: src/blocks/page-list/index.js:142 src/blocks/section-heading/index.js:193
 msgid "Settings"
@@ -91,47 +91,51 @@ msgstr "ブログカード"
 msgid "Create a card-type link for related articles."
 msgstr "関連記事のカード型リンクを作成します。"
 
-#: src/blocks/blog-card/index.js:75
+#: src/blocks/blog-card/index.js:77
 msgid "Link to an external site"
 msgstr "外部サイトへリンクする"
 
-#: src/blocks/blog-card/index.js:86
+#: src/blocks/blog-card/index.js:88
 msgid "Post ID"
 msgstr "投稿ID"
 
-#: src/blocks/blog-card/index.js:102
+#: src/blocks/blog-card/index.js:104
 msgid "Enter a title to search for articles"
 msgstr "タイトルを入力して記事を検索"
 
-#: src/blocks/blog-card/index.js:130 src/blocks/blog-card/index.js:210
+#: src/blocks/blog-card/index.js:132 src/blocks/blog-card/index.js:226
 msgid "Enter the URL."
 msgstr "URLを入力してください。"
 
-#: src/blocks/blog-card/index.js:158
+#: src/blocks/blog-card/index.js:160 src/blocks/blog-card/index.js:167
+msgid "Show excerpt"
+msgstr "抜粋文を表示する"
+
+#: src/blocks/blog-card/index.js:174
 msgid "Caption at the bottom right of the card"
 msgstr "カード右下のキャプション"
 
-#: src/blocks/blog-card/index.js:165 src/blocks/rss/_sidebar.js:118
+#: src/blocks/blog-card/index.js:181 src/blocks/rss/_sidebar.js:118
 msgid "Use the cache"
 msgstr "キャッシュを利用する"
 
-#: src/blocks/blog-card/index.js:167 src/blocks/rss/_sidebar.js:120
+#: src/blocks/blog-card/index.js:183 src/blocks/rss/_sidebar.js:120
 msgid "If you want to clear the cache, turn it off only once."
 msgstr "キャッシュを削除したい時、一度だけオフにしてください。"
 
-#: src/blocks/blog-card/index.js:176 src/blocks/box-link/_sidebar.js:281
+#: src/blocks/blog-card/index.js:192 src/blocks/box-link/_sidebar.js:281
 msgid "Link settings"
 msgstr "リンク設定"
 
-#: src/blocks/blog-card/index.js:179 src/blocks/box-link/_sidebar.js:283
+#: src/blocks/blog-card/index.js:195 src/blocks/box-link/_sidebar.js:283
 msgid "Open in new tab"
 msgstr ""
 
-#: src/blocks/blog-card/index.js:190 src/blocks/box-link/_sidebar.js:294
+#: src/blocks/blog-card/index.js:206 src/blocks/box-link/_sidebar.js:294
 msgid "Link rel"
 msgstr ""
 
-#: src/blocks/blog-card/index.js:209
+#: src/blocks/blog-card/index.js:225
 msgid "Specify the page."
 msgstr "ページを指定してください。"
 
@@ -226,8 +230,7 @@ msgid "Box link"
 msgstr "ボックス"
 
 #: src/blocks/box-link/index.js:37 src/blocks/columns/index.js:59
-#: src/blocks/faq/index.js:48 src/blocks/notice/index.js:81
-#: src/blocks/step/index.js:52
+#: src/blocks/notice/index.js:81 src/blocks/step/index.js:52
 msgid "Default"
 msgstr "デフォルト"
 
@@ -270,10 +273,6 @@ msgstr "リッチカラム"
 msgctxt "style"
 msgid "Shadow"
 msgstr "影付き"
-
-#: src/blocks/faq/index.js:49
-msgid "Big Q"
-msgstr ""
 
 #: src/blocks/notice/index.js:71
 msgid "Notice"
@@ -564,13 +563,11 @@ msgstr "RSSリスト"
 msgid "Create a list of RSS feeds."
 msgstr "RSSフィードのリストを作成します。"
 
-#: src/blocks/section-heading/heading-level-dropdown copy.js:57 copy.js:67
 #: src/blocks/section-heading/heading-level-dropdown.js:57
 #: src/blocks/section-heading/heading-level-dropdown.js:67
 msgid "Change heading level"
 msgstr ""
 
-#: src/blocks/section-heading/heading-level-dropdown copy.js:77
 #: src/blocks/section-heading/heading-level-dropdown.js:77
 #, python-format
 msgid "Heading %d"
@@ -609,13 +606,12 @@ msgstr "文字色"
 msgid "Line Color"
 msgstr "線の色"
 
-#: src/blocks/section-heading/index.js:242
-#: src/blocks/section-heading/index.js:283
-msgid "Write sub title…"
-msgstr ""
-
 #: src/blocks/section-heading/index.js:265
 msgid "Write heading…"
+msgstr ""
+
+#: src/blocks/section-heading/index.js:283
+msgid "Write sub title…"
 msgstr ""
 
 #: src/blocks/section/_sidebar.js:39

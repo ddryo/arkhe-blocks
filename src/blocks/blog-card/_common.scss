@@ -31,12 +31,8 @@
 		padding: 0;
 	}
 
-	.arkb-boxLink__content {
-
-		@include mobile {
-			display: none;
-		}
-	}
+	// .arkb-boxLink__content {
+	// }
 
 	.arkb-boxLink__more {
 		margin-bottom: -4px;

@@ -26,6 +26,14 @@
             "type": "string",
             "default": ""
         },
+        "showExerptPC": {
+            "type": "boolean",
+            "default": true
+        },
+        "showExerptSP": {
+            "type": "boolean",
+            "default": true
+        },
         "caption": {
             "type": "string",
             "default": ""

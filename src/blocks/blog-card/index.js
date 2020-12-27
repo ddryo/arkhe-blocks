@@ -57,6 +57,8 @@ registerBlockType(name, {
 			isNewTab,
 			rel,
 			useCache,
+			showExerptPC,
+			showExerptSP,
 		} = attributes;
 
 		// プレビュー中
@@ -154,6 +156,20 @@ registerBlockType(name, {
 				</BlockControls>
 				<InspectorControls>
 					<PanelBody title={__('Settings', 'arkhe-blocks')} initialOpen={true}>
+						<ToggleControl
+							label={__('Show excerpt', 'arkhe-blocks') + ' (PC)'}
+							checked={showExerptPC}
+							onChange={(val) => {
+								setAttributes({ showExerptPC: val });
+							}}
+						/>
+						<ToggleControl
+							label={__('Show excerpt', 'arkhe-blocks') + ' (SP)'}
+							checked={showExerptSP}
+							onChange={(val) => {
+								setAttributes({ showExerptSP: val });
+							}}
+						/>
 						<TextControl
 							label={__('Caption at the bottom right of the card', 'arkhe-blocks')}
 							value={caption}

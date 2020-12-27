@@ -3,17 +3,18 @@
  * ブログカード
  */
 $args = array_merge([
-	'url'        => '',
-	'excerpt'    => '',
-	'title'      => '',
-	'caption'    => '',
-	'thumb_id'   => 0,
-	'thumb_url'  => '',
-	'icon'       => '',
-	'is_newtab'  => false,
-	'rel'        => '',
-	'type'       => '',
-	'class'      => '',
+	'url'          => '',
+	'excerpt'      => '',
+	'title'        => '',
+	'caption'      => '',
+	'thumb_id'     => 0,
+	'thumb_url'    => '',
+	'icon'         => '',
+	'is_newtab'    => false,
+	'rel'          => '',
+	'type'         => '',
+	'class'        => '',
+	'show_excerpt' => 'both',
 ], $args );
 
 $url    = $args['url'];
@@ -30,7 +31,8 @@ if ( 'external' === $args['type'] ) {
 	$favicon = $args['icon'] ? esc_url( $args['icon'] ) : 'https://www.google.com/s2/favicons?domain_url=' . esc_url( $url );
 }
 
-$add_class = $args['class'] ? ' ' . $args['class'] : '';
+$add_class     = $args['class'] ? ' ' . $args['class'] : '';
+$excerpt_class = 'both' !== $args['show_excerpt'] ? ' u-only-' . $args['show_excerpt'] : '';
 
 // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 ?>
@@ -45,7 +47,11 @@ $add_class = $args['class'] ? ' ' . $args['class'] : '';
 		<?php endif; ?>
 		<div class="arkb-boxLink__body">
 			<div class="arkb-boxLink__title"><?=esc_html( $args['title'] )?></div>
-			<div class="arkb-boxLink__content"><?=esc_html( $args['excerpt'] )?></div>
+			<?php if ( 'none' !== $args['show_excerpt'] ) : ?>
+				<div class="arkb-boxLink__content<?=esc_attr( $excerpt_class )?>">
+					<?=esc_html( $args['excerpt'] )?>
+				</div>
+			<?php endif; ?>
 			<?php if ( $args['caption'] ) : ?>
 				<div class="arkb-boxLink__more">
 					<?php if ( $favicon ) : ?>
