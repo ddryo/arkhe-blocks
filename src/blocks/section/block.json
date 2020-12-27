@@ -94,6 +94,23 @@
             "type": "string",
             "default": ""
         },
+        "contentPosition": {
+            "type": "string"
+        },
+        "heightPC": {
+            "type": "number"
+        },
+        "heightSP": {
+            "type": "number"
+        },
+        "heightUnitPC": {
+            "type": "string",
+            "default": "px"
+        },
+        "heightUnitSP": {
+            "type": "string",
+            "default": "px"
+        },
         "padPC": {
             "type": "number",
             "default": 4

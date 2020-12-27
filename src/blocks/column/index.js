@@ -12,7 +12,7 @@ import {
 	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
 } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
-import { PanelBody, RangeControl } from '@wordpress/components';
+import { PanelBody, RangeControl, ToggleControl } from '@wordpress/components';
 
 /**
  * @Internal dependencies
@@ -50,14 +50,17 @@ registerBlockType(name, {
 	attributes: metadata.attributes,
 	edit: (props) => {
 		const { attributes, setAttributes, clientId } = props;
-		const { vAlign, widthPC, widthTab, widthMobile } = attributes;
+		const { vAlign, widthPC, widthTab, widthMobile, isBreakAll } = attributes;
 
 		// 子ブロックの設定
 		const blockClass = classnames(
 			blockName,
 			'arkb-columns__item',
 			'ark-keep-mt--s',
-			'ark-has-guide'
+			'ark-has-guide',
+			{
+				'is-breadk-all': isBreakAll,
+			}
 		);
 
 		const columnStyle = {};
@@ -135,6 +138,17 @@ registerBlockType(name, {
 							max={100}
 							allowReset={true}
 						/>
+						<ToggleControl
+							label={__(
+								'Forcibly breaks the character string according to the display range',
+								'arkhe-blocks'
+							)}
+							help={__('"word-break: break-all" is applied.', 'arkhe-blocks')}
+							checked={isBreakAll}
+							onChange={(val) => {
+								setAttributes({ isBreakAll: val });
+							}}
+						/>
 					</PanelBody>
 				</InspectorControls>
 				<div {...innerBlocksProps} />
@@ -142,7 +156,7 @@ registerBlockType(name, {
 		);
 	},
 	save: ({ attributes }) => {
-		const { vAlign, widthPC, widthTab, widthMobile } = attributes;
+		const { vAlign, widthPC, widthTab, widthMobile, isBreakAll } = attributes;
 
 		const columnStyle = {};
 		if (widthMobile) {
@@ -156,7 +170,9 @@ registerBlockType(name, {
 		}
 
 		const blockProps = useBlockProps.save({
-			className: `${blockName} arkb-columns__item ark-keep-mt--s`,
+			className: classnames(`${blockName} arkb-columns__item ark-keep-mt--s`, {
+				'is-breadk-all': isBreakAll,
+			}),
 			'data-valign': vAlign || null,
 			style: columnStyle || null,
 		});

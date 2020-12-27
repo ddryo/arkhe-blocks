@@ -28,6 +28,10 @@
         },
         "widthMobile": {
             "type": "number"
+        },
+        "isBreakAll": {
+            "type": "boolean",
+            "default": false
         }
     },
     "editorScript": "file:../../../dist/blocks/column/index.js",

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Arkhe Blocks\n"
-"POT-Creation-Date: 2020-12-24 21:48+0900\n"
-"PO-Revision-Date: 2020-12-24 21:48+0900\n"
+"POT-Creation-Date: 2020-12-27 12:52+0900\n"
+"PO-Revision-Date: 2020-12-27 12:52+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -74,7 +74,7 @@ msgid "Create Q & A format content."
 msgstr "Q&A形式のコンテンツを作成します。"
 
 #: src/blocks/accordion-item/index.js:87 src/blocks/blog-card/index.js:156
-#: src/blocks/box-links/index.js:97 src/blocks/column/index.js:104
+#: src/blocks/box-links/index.js:97 src/blocks/column/index.js:107
 #: src/blocks/page-list/index.js:142
 msgid "Settings"
 msgstr "設定"
@@ -249,10 +249,18 @@ msgstr "列数"
 msgid "Column item"
 msgstr "カラム項目"
 
-#: src/blocks/column/index.js:106 src/blocks/column/index.js:117
-#: src/blocks/column/index.js:128
+#: src/blocks/column/index.js:109 src/blocks/column/index.js:120
+#: src/blocks/column/index.js:131
 msgid "Column width"
 msgstr "カラム横幅"
+
+#: src/blocks/column/index.js:143
+msgid "Forcibly breaks the character string according to the display range"
+msgstr "表示範囲に合わせて強制的に文字列を改行する"
+
+#: src/blocks/column/index.js:146
+msgid "\"word-break: break-all\" is applied."
+msgstr "“word-break: break-all” が適用されます。"
 
 #: src/blocks/columns/index.js:50
 msgid "Rich columns"
@@ -271,7 +279,7 @@ msgstr ""
 msgid "Notice"
 msgstr "通知"
 
-#: src/blocks/notice/index.js:72
+#: src/blocks/notice/index.js:72 src/blocks/section-heading/index.js:70
 msgid "Create content that is prominently emphasized."
 msgstr "目立つように強調されたコンテンツを作成します。"
 
@@ -556,6 +564,79 @@ msgstr "RSSリスト"
 msgid "Create a list of RSS feeds."
 msgstr "RSSフィードのリストを作成します。"
 
+#: src/blocks/section-heading/heading-level-dropdown copy.js:57 copy.js:67
+#: src/blocks/section-heading/heading-level-dropdown.js:57
+#: src/blocks/section-heading/heading-level-dropdown.js:67
+#, fuzzy
+#| msgid "Change media"
+msgid "Change heading level"
+msgstr "メディアを変更"
+
+#: src/blocks/section-heading/heading-level-dropdown copy.js:77
+#: src/blocks/section-heading/heading-level-dropdown.js:77
+#, fuzzy, python-format
+#| msgid "Having all"
+msgid "Heading %d"
+msgstr "全て含む"
+
+#: src/blocks/section-heading/index.js:55
+msgid "Top"
+msgstr ""
+
+#: src/blocks/section-heading/index.js:59
+#, fuzzy
+#| msgid "Bottom border"
+msgid "Bottom"
+msgstr "下部の境界"
+
+#: src/blocks/section-heading/index.js:69
+#, fuzzy
+#| msgid "Section"
+msgid "Section Heading"
+msgstr "セクション"
+
+#: src/blocks/section-heading/index.js:193
+#, fuzzy
+#| msgid "Color settings"
+msgid "Block settings"
+msgstr "カラー設定"
+
+#: src/blocks/section-heading/index.js:195
+msgid "subPositions"
+msgstr ""
+
+#: src/blocks/section-heading/index.js:203
+#, fuzzy
+#| msgid "Use icon"
+msgid "Use line"
+msgstr "アイコンを使用する"
+
+#: src/blocks/section-heading/index.js:210 src/blocks/section/_sidebar.js:221
+#: src/blocks/step-item/index.js:112 src/blocks/timeline-item/index.js:100
+msgid "Color settings"
+msgstr "カラー設定"
+
+#: src/blocks/section-heading/index.js:213
+#, fuzzy
+#| msgid "Text color"
+msgid "Text Color"
+msgstr "文字色"
+
+#: src/blocks/section-heading/index.js:224
+#, fuzzy
+#| msgid "Color"
+msgid "Line Color"
+msgstr "色"
+
+#: src/blocks/section-heading/index.js:242
+#: src/blocks/section-heading/index.js:283
+msgid "Write sub title…"
+msgstr ""
+
+#: src/blocks/section-heading/index.js:265
+msgid "Write heading…"
+msgstr ""
+
 #: src/blocks/section/_sidebar.js:39
 msgid "White"
 msgstr "白"
@@ -579,11 +660,6 @@ msgstr "余白設定"
 #: src/blocks/section/_sidebar.js:171 src/blocks/section/_sidebar.js:196
 msgid "Top and bottom padding"
 msgstr "上下のpadding"
-
-#: src/blocks/section/_sidebar.js:221 src/blocks/step-item/index.js:112
-#: src/blocks/timeline-item/index.js:100
-msgid "Color settings"
-msgstr "カラー設定"
 
 #: src/blocks/section/_sidebar.js:230
 msgid "Overlay color"
@@ -785,7 +861,7 @@ msgstr "RSSフィードのURLが正しくありません。"
 msgid "The article was not found."
 msgstr "記事が見つかりませんでした。"
 
-#: inc/gutenberg.php:102
+#: inc/gutenberg.php:103
 msgid "Arkhe Blocks"
 msgstr ""
 
