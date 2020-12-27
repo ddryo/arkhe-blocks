@@ -1,0 +1,22 @@
+
+.ark-block-heading {
+
+	// セレクト中、ラインがボーダーで隠れないように。
+	padding-bottom: 1px;
+
+	.is-root-container > & {
+		margin-top: var(--ark-mt--h);
+	}
+
+	// .ark-block-heading__main {}
+
+	// .ark-block-heading__sub {}
+
+	&:not(.is-selected) {
+
+		.ark-block-heading__sub.is-empty {
+			display: none;
+		}
+	}
+
+}

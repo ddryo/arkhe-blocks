@@ -58,6 +58,7 @@ function register_blocks() {
 		if ( IS_ARKHE_THEME ) {
 			// apiv2 の β版
 			$arkhe_blocks_pro[] = 'section';
+			$arkhe_blocks_pro[] = 'section-heading';
 			$arkhe_blocks_pro[] = 'box-link';
 			$arkhe_blocks_pro[] = 'box-links';
 			$arkhe_blocks_pro[] = 'column';

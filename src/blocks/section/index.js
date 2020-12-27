@@ -193,7 +193,7 @@ registerBlockType(name, {
 				// style: innerStyle || null,
 			},
 			{
-				template: [['core/heading']], // arkhe-blocks/section-heading にする
+				template: [['arkhe-blocks/section-heading'], ['core/paragraph']],
 				templateLock: false,
 				// renderAppender: InnerBlocks.ButtonBlockAppender,
 			}

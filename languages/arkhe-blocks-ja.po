@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Arkhe Blocks\n"
-"POT-Creation-Date: 2020-12-27 12:52+0900\n"
-"PO-Revision-Date: 2020-12-27 12:52+0900\n"
+"POT-Creation-Date: 2020-12-27 13:02+0900\n"
+"PO-Revision-Date: 2020-12-27 13:03+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -75,7 +75,7 @@ msgstr "Q&A形式のコンテンツを作成します。"
 
 #: src/blocks/accordion-item/index.js:87 src/blocks/blog-card/index.js:156
 #: src/blocks/box-links/index.js:97 src/blocks/column/index.js:107
-#: src/blocks/page-list/index.js:142
+#: src/blocks/page-list/index.js:142 src/blocks/section-heading/index.js:193
 msgid "Settings"
 msgstr "設定"
 
@@ -567,49 +567,34 @@ msgstr "RSSフィードのリストを作成します。"
 #: src/blocks/section-heading/heading-level-dropdown copy.js:57 copy.js:67
 #: src/blocks/section-heading/heading-level-dropdown.js:57
 #: src/blocks/section-heading/heading-level-dropdown.js:67
-#, fuzzy
-#| msgid "Change media"
 msgid "Change heading level"
-msgstr "メディアを変更"
+msgstr ""
 
 #: src/blocks/section-heading/heading-level-dropdown copy.js:77
 #: src/blocks/section-heading/heading-level-dropdown.js:77
-#, fuzzy, python-format
-#| msgid "Having all"
+#, python-format
 msgid "Heading %d"
-msgstr "全て含む"
+msgstr ""
 
 #: src/blocks/section-heading/index.js:55
 msgid "Top"
-msgstr ""
+msgstr "上部"
 
 #: src/blocks/section-heading/index.js:59
-#, fuzzy
-#| msgid "Bottom border"
 msgid "Bottom"
-msgstr "下部の境界"
+msgstr "下部"
 
 #: src/blocks/section-heading/index.js:69
-#, fuzzy
-#| msgid "Section"
 msgid "Section Heading"
-msgstr "セクション"
-
-#: src/blocks/section-heading/index.js:193
-#, fuzzy
-#| msgid "Color settings"
-msgid "Block settings"
-msgstr "カラー設定"
+msgstr "セクション見出し"
 
 #: src/blocks/section-heading/index.js:195
-msgid "subPositions"
-msgstr ""
+msgid "Subtext position"
+msgstr "サブテキストの位置"
 
 #: src/blocks/section-heading/index.js:203
-#, fuzzy
-#| msgid "Use icon"
-msgid "Use line"
-msgstr "アイコンを使用する"
+msgid "Show line"
+msgstr "線を表示"
 
 #: src/blocks/section-heading/index.js:210 src/blocks/section/_sidebar.js:221
 #: src/blocks/step-item/index.js:112 src/blocks/timeline-item/index.js:100
@@ -617,16 +602,12 @@ msgid "Color settings"
 msgstr "カラー設定"
 
 #: src/blocks/section-heading/index.js:213
-#, fuzzy
-#| msgid "Text color"
 msgid "Text Color"
 msgstr "文字色"
 
 #: src/blocks/section-heading/index.js:224
-#, fuzzy
-#| msgid "Color"
 msgid "Line Color"
-msgstr "色"
+msgstr "線の色"
 
 #: src/blocks/section-heading/index.js:242
 #: src/blocks/section-heading/index.js:283
@@ -892,6 +873,16 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "https://loos.co.jp/"
 msgstr ""
+
+#, fuzzy
+#~| msgid "Color settings"
+#~ msgid "Block settings"
+#~ msgstr "カラー設定"
+
+#, fuzzy
+#~| msgid "Use icon"
+#~ msgid "Use line"
+#~ msgstr "アイコンを使用する"
 
 #~ msgid "Upper and lower padding amount"
 #~ msgstr "上下のpadding量"
