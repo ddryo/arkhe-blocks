@@ -1,19 +1,11 @@
-// :root {
-// 	--arkb-section-pad--pc: 4rem;
-// 	--arkb-section-pad--sp: 4rem;
-// }
-
 .ark-block-section {
 	position: relative;
-	// min-height: var(--arkb-section-minH--pc, "none");
-	// padding: var(--arkb-section-pad--pc, 4rem) var(--ark-pad--container, 48px);
-
-	// @include sp {
-	// 	min-height: var(--arkb-section-minH--sp, "none");
-	// 	padding: var(--arkb-section-pad--sp, 4rem) var(--ark-pad--container, 4vw);
-	// }
+	// セクションを入れ子にした時に、親セクションの影響を受けないようにする
+	--arkb-section-pad--pc: 4rem;
+	--arkb-section-pad--sp: 4rem;
+	--arkb-section-minH--pc: "none";
+	--arkb-section-minH--sp: "none";
 }
-
 
 .ark-block-section__inner {
 	position: relative;
@@ -23,12 +15,12 @@
 	justify-content: center;
 	max-width: var(--ark-article_width, 1000px);
 
-	min-height: var(--arkb-section-minH--pc, "none");
+	min-height: var(--arkb-section-minH--pc);
 	margin: 0 auto;
 	padding: var(--arkb-section-pad--pc, 4rem) var(--ark-pad--container, 48px);
 
 	@include sp {
-		min-height: var(--arkb-section-minH--sp, "none");
+		min-height: var(--arkb-section-minH--sp);
 		padding: var(--arkb-section-pad--sp, 4rem) var(--ark-pad--container, 4vw);
 	}
 

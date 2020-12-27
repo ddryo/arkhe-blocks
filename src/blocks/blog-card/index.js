@@ -35,7 +35,7 @@ const { apiVersion, name, category, keywords, supports } = metadata;
  */
 registerBlockType(name, {
 	apiVersion,
-	title: __('Blog card', 'arkhe-blocks') + '(β)',
+	title: __('Blog card', 'arkhe-blocks'),
 	description: __('Create a card-type link for related articles.', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,

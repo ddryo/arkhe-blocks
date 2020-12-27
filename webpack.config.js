@@ -1,39 +1,49 @@
 const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 const path = require('path');
+const srcDir = 'src/blocks';
 
-const srcDir = './src/blocks';
+let entries = {}; // ビルドするファイル群
+let myEntries = null; // ビルドするファイルを限定したい時に使う
+try {
+	myEntries = require('./webpack.config.entries');
+} catch (err) {}
 
-const entries = {};
-// entries.fa = './src/blocks/fa.js';
-entries.index = './src/blocks/index.js';
+// entries
+if (myEntries) {
+	entries = myEntries;
+} else {
+	entries.fa = './src/blocks/fa.js';
+	entries.index = './src/blocks/index.js';
 
-const blocks = [
-	// 'accordion',
-	// 'accordion-item',
-	// 'box-link',
-	// 'box-links',
-	// 'blog-card',
-	// 'column',
-	// 'columns',
-	// 'dl',
-	// 'dl-dt',
-	// 'dl-dd',
-	// 'dl-div',
-	// 'faq',
-	// 'faq-item',
-	// 'notice',
-	// 'page-list',
-	// 'post-list',
-	// 'rss',
-	// 'section',
-	// 'step',
-	// 'step-item',
-	// 'timeline',
-	// 'timeline-item',
-];
-blocks.forEach((key) => {
-	entries[key + '/index'] = path.resolve(srcDir, key + '/index.js');
-});
+	const blocks = [
+		'accordion',
+		'accordion-item',
+		'box-link',
+		'box-links',
+		'blog-card',
+		'column',
+		'columns',
+		'dl',
+		'dl-dt',
+		'dl-dd',
+		'dl-div',
+		'faq',
+		'faq-item',
+		'notice',
+		'page-list',
+		'post-list',
+		'rss',
+		'section',
+		'section-heading',
+		'step',
+		'step-item',
+		'timeline',
+		'timeline-item',
+	];
+	blocks.forEach((key) => {
+		entries[key + '/index'] = path.resolve(srcDir, key + '/index.js');
+	});
+}
 
 /**
  * CleanWebpackPlugin （ビルド先のほかのファイルを勝手に削除するやつ） はオフに。
