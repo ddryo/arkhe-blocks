@@ -41,6 +41,7 @@ export default function (props) {
 		useIcon,
 		icon,
 		iconSize,
+		iconColor,
 		iconHtml,
 		layout,
 		imgId,
@@ -51,6 +52,7 @@ export default function (props) {
 		isContain,
 		ratio,
 		title,
+		opacity,
 		more,
 		showMoreArrow,
 	} = attributes;
@@ -205,11 +207,20 @@ export default function (props) {
 						onSelect={onSelectImage}
 						onSelectURL={onSelectURL}
 					/>
-					<IconContent {...{ icon, iconSize, iconHtml, useIcon, useIconHtml }} />
+					<div
+						className='arkb-boxLink__layer'
+						aria-hidden='true'
+						style={{ opacity: '' + (opacity * 0.01).toFixed(2) }}
+					></div>
+					<IconContent
+						{...{ icon, iconSize, iconColor, iconHtml, useIcon, useIconHtml }}
+					/>
 				</>
 			);
 		} else if (useIcon) {
-			return <IconContent {...{ icon, iconSize, iconHtml, useIcon, useIconHtml }} />;
+			return (
+				<IconContent {...{ icon, iconSize, iconColor, iconHtml, useIcon, useIconHtml }} />
+			);
 		}
 
 		// figure の style

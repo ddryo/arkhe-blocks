@@ -8,14 +8,17 @@ import { RawHTML } from '@wordpress/element';
  */
 import { ArkheIcon } from '@components/ArkheIcon';
 
-export const IconContent = ({ icon, iconSize, iconHtml, useIcon, useIconHtml }) => {
+export const IconContent = ({ icon, iconSize, iconColor, iconHtml, useIcon, useIconHtml }) => {
+	if (!useIcon) {
+		return null;
+	}
+
 	const iconStyle = {};
 	if (iconSize) {
 		iconStyle['--arkb-boxlink_icon_size'] = iconSize + 'px';
 	}
-
-	if (!useIcon) {
-		return null;
+	if (iconColor) {
+		iconStyle.color = iconColor;
 	}
 
 	if (useIconHtml) {

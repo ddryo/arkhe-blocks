@@ -66,7 +66,7 @@ const subPositions = [
  */
 registerBlockType(name, {
 	apiVersion,
-	title: __('Section Heading', 'arkhe-blocks') + '【β】',
+	title: __('Section Heading', 'arkhe-blocks'),
 	// description: __('Create content that is prominently emphasized.', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,

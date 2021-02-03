@@ -13,6 +13,7 @@ import {
 	ToggleControl,
 	RangeControl,
 	TextareaControl,
+	ColorPalette,
 } from '@wordpress/components';
 
 /**
@@ -61,6 +62,17 @@ const hTags = [
 	},
 ];
 
+const iconColorSet = [
+	{
+		name: __('White', 'arkhe-blocks'),
+		color: '#fff',
+	},
+	{
+		name: __('Black', 'arkhe-blocks'),
+		color: '#000',
+	},
+];
+
 /**
  * コンポーネント
  */
@@ -80,8 +92,10 @@ export default (props) => {
 		iconHtml,
 		icon,
 		iconSize,
+		iconColor,
 		layout,
 		imgId,
+		imgUrl,
 		imgSize,
 		fixRatio,
 		isContain,
@@ -91,6 +105,7 @@ export default (props) => {
 		isNewTab,
 		more,
 		showMoreArrow,
+		opacity,
 	} = attributes;
 
 	// 縦並びか横並びかを変数化
@@ -102,48 +117,48 @@ export default (props) => {
 		: null;
 
 	let ratioSettings = null;
-	if (!isBannerStyle) {
-		ratioSettings = (
-			<>
-				{isVertical && (
+	// if (!isBannerStyle) {
+	ratioSettings = (
+		<div data-ark-disabled={isBannerStyle || null}>
+			{isVertical && (
+				<ToggleControl
+					label={__('Fix image ratio', 'arkhe-blocks')}
+					checked={fixRatio}
+					onChange={(val) => {
+						setAttributes({ fixRatio: val });
+						if (!val) {
+							setAttributes({ ratio: undefined });
+						}
+					}}
+				/>
+			)}
+			{(!isVertical || fixRatio) && (
+				<>
 					<ToggleControl
-						label={__('Fix image ratio', 'arkhe-blocks')}
-						checked={fixRatio}
+						label={__('Show the entire image', 'arkhe-blocks')}
+						// help={<code className='u-fz-n'>object-fit: contain;</code>}
+						checked={isContain}
 						onChange={(val) => {
-							setAttributes({ fixRatio: val });
-							if (!val) {
-								setAttributes({ ratio: undefined });
-							}
+							setAttributes({ isContain: val });
 						}}
 					/>
-				)}
-				{(!isVertical || fixRatio) && (
-					<>
-						<ToggleControl
-							label={__('Show the entire image', 'arkhe-blocks')}
-							// help={<code className='u-fz-n'>object-fit: contain;</code>}
-							checked={isContain}
-							onChange={(val) => {
-								setAttributes({ isContain: val });
-							}}
-						/>
-						<RangeControl
-							label={__('Image ratio', 'arkhe-blocks')}
-							help={rationHelp}
-							value={ratio}
-							onChange={(val) => {
-								setAttributes({ ratio: val });
-							}}
-							min={1}
-							max={100}
-							allowReset={true}
-							className='arkb-range--useReset'
-						/>
-					</>
-				)}
-			</>
-		);
-	}
+					<RangeControl
+						label={__('Image ratio', 'arkhe-blocks')}
+						help={rationHelp}
+						value={ratio}
+						onChange={(val) => {
+							setAttributes({ ratio: val });
+						}}
+						min={1}
+						max={100}
+						allowReset={true}
+						className='arkb-range--useReset'
+					/>
+				</>
+			)}
+		</div>
+	);
+	// }
 
 	// アイコン選択時
 	const setIcon = useCallback((val, isSelected) => {
@@ -203,6 +218,17 @@ export default (props) => {
 						})}
 					</ButtonGroup>
 				</BaseControl>
+				{isBannerStyle && (
+					<RangeControl
+						label={__('Overlay opacity', 'arkhe-blocks')}
+						value={opacity}
+						onChange={(val) => {
+							setAttributes({ opacity: val });
+						}}
+						min={0}
+						max={100}
+					/>
+				)}
 				<TextControl
 					label={__('"READ MORE" text', 'arkhe-blocks')}
 					// help={faNote}
@@ -211,25 +237,30 @@ export default (props) => {
 						setAttributes({ more: val });
 					}}
 				/>
-				<ToggleControl
-					label={__('Show arrow icon', 'arkhe-blocks')}
-					checked={showMoreArrow}
-					onChange={(val) => {
-						setAttributes({ showMoreArrow: val });
-					}}
-				/>
-			</PanelBody>
-			<PanelBody title={__('Image settings', 'arkhe-blocks')} initialOpen={true}>
-				{ratioSettings}
-				{0 !== imgId && (
-					<SelectControl
-						label={__('Image size')}
-						value={imgSize}
-						options={sizeOptions}
-						onChange={updateImagesSize}
+				<div data-ark-disabled={'' === more || null}>
+					<ToggleControl
+						label={__('Show arrow icon', 'arkhe-blocks')}
+						checked={showMoreArrow}
+						onChange={(val) => {
+							setAttributes({ showMoreArrow: val });
+						}}
 					/>
-				)}
+				</div>
 			</PanelBody>
+			{imgUrl && (
+				<PanelBody title={__('Image settings', 'arkhe-blocks')} initialOpen={true}>
+					{ratioSettings}
+					{0 !== imgId && (
+						<SelectControl
+							label={__('Image size')}
+							value={imgSize}
+							options={sizeOptions}
+							onChange={updateImagesSize}
+						/>
+					)}
+				</PanelBody>
+			)}
+
 			<PanelBody title={__('Icon settings', 'arkhe-blocks')} initialOpen={true}>
 				<ToggleControl
 					label={__('Use icon', 'arkhe-blocks')}
@@ -264,6 +295,18 @@ export default (props) => {
 						) : (
 							<ArkheIconPicker icon={icon} setIcon={setIcon} />
 						)}
+						<BaseControl>
+							<BaseControl.VisualLabel>
+								{__('Icon color', 'arkhe-blocks')}
+							</BaseControl.VisualLabel>
+							<ColorPalette
+								value={iconColor}
+								colors={iconColorSet}
+								onChange={(val) => {
+									setAttributes({ iconColor: val });
+								}}
+							/>
+						</BaseControl>
 						<RangeControl
 							label={__('Icon size', 'arkhe-blocks')}
 							value={iconSize}

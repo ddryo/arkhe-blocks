@@ -36,6 +36,9 @@
         "iconSize": {
             "type": "number"
         },
+        "iconColor": {
+            "type": "string"
+        },
         "layout": {
             "type": "string",
             "default": "vertical"
@@ -101,6 +104,10 @@
         "htag": {
             "type": "string",
             "default": "div"
+        },
+        "opacity": {
+            "type": "number",
+            "default": 50
         },
         "more": {
             "type": "string",

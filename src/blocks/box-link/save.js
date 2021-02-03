@@ -20,6 +20,7 @@ export default function ({ attributes }) {
 		useIcon,
 		icon,
 		iconSize,
+		iconColor,
 		iconHtml,
 		layout,
 		imgId,
@@ -38,6 +39,7 @@ export default function ({ attributes }) {
 		isNewTab,
 		more,
 		showMoreArrow,
+		opacity,
 	} = attributes;
 
 	const blockClass = classnames(blockName, 'arkb-boxLink', 'arkb-columns__item', '-' + layout, {
@@ -52,6 +54,9 @@ export default function ({ attributes }) {
 
 	let figureContent = null;
 	if (isBannerStyle) {
+		const layerStyle = {};
+		if (50 !== opacity) layerStyle.opacity = '' + (opacity * 0.01).toFixed(2);
+
 		figureContent = (
 			<>
 				{imgUrl && (
@@ -65,12 +70,21 @@ export default function ({ attributes }) {
 						/>
 					</figure>
 				)}
-				<IconContent {...{ icon, iconSize, iconHtml, useIcon, useIconHtml: !!iconHtml }} />
+				<div
+					className='arkb-boxLink__layer'
+					aria-hidden='true'
+					style={layerStyle || null}
+				></div>
+				<IconContent
+					{...{ icon, iconSize, iconColor, iconHtml, useIcon, useIconHtml: !!iconHtml }}
+				/>
 			</>
 		);
 	} else if (useIcon) {
 		figureContent = (
-			<IconContent {...{ icon, iconSize, iconHtml, useIcon, useIconHtml: !!iconHtml }} />
+			<IconContent
+				{...{ icon, iconSize, iconColor, iconHtml, useIcon, useIconHtml: !!iconHtml }}
+			/>
 		);
 	} else if (imgUrl) {
 		// figure の style

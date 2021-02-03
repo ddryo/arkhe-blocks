@@ -49,6 +49,7 @@ const svgTypes = ['line', 'circle', 'wave', 'zigzag'];
 
 export default ({ attributes, setAttributes, isSelected }) => {
 	const {
+		align,
 		mediaId,
 		mediaUrl,
 		mediaIdSP,
@@ -76,6 +77,7 @@ export default ({ attributes, setAttributes, isSelected }) => {
 		svgTypeBottom,
 		svgColorTop,
 		svgColorBottom,
+		isFullscreen,
 	} = attributes;
 
 	// 画像設定タブに渡す情報
@@ -118,7 +120,16 @@ export default ({ attributes, setAttributes, isSelected }) => {
 	return (
 		<>
 			<PanelBody title={__('Height settings', 'arkhe-blocks')}>
-				<div className='ark-control--padding'>
+				{'full' === align && (
+					<ToggleControl
+						label={__('View in fullscreen', 'arkhe-blocks')}
+						checked={isFullscreen}
+						onChange={(val) => {
+							setAttributes({ isFullscreen: val });
+						}}
+					/>
+				)}
+				<div className='ark-control--padding' data-ark-disabled={isFullscreen || null}>
 					<div className='__label'>{__('Min height', 'arkhe-blocks') + '(PC)'}</div>
 					<TextControl
 						autoComplete='off'
@@ -141,7 +152,7 @@ export default ({ attributes, setAttributes, isSelected }) => {
 						}}
 					/>
 				</div>
-				<div className='ark-control--padding'>
+				<div className='ark-control--padding' data-ark-disabled={isFullscreen || null}>
 					<div className='__label'>{__('Min height', 'arkhe-blocks') + '(SP)'}</div>
 					<TextControl
 						autoComplete='off'

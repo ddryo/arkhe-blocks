@@ -111,6 +111,10 @@
             "type": "string",
             "default": "px"
         },
+        "isFullscreen": {
+            "type": "boolean",
+            "default": false
+        },
         "padPC": {
             "type": "number",
             "default": 4

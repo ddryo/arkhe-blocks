@@ -3,6 +3,8 @@
  */
 import { __ } from '@wordpress/i18n';
 import {
+	// MediaUpload,
+	// MediaUploadCheck,
 	MediaReplaceFlow,
 	__experimentalLinkControl as LinkControl,
 } from '@wordpress/block-editor';
@@ -95,6 +97,25 @@ export default (props) => {
 					/>
 				</Popover>
 			)}
+			{/* {!imgUrl && (
+				<ToolbarGroup>
+					<MediaUploadCheck>
+						<MediaUpload
+							onSelect={onSelectImage}
+							allowedTypes={'image'}
+							value={imgId}
+							render={({ open }) => (
+								<ToolbarButton
+									className='components-toolbar__control'
+									label='画像を選択'
+									icon='edit'
+									onClick={open}
+								/>
+							)}
+						/>
+					</MediaUploadCheck>
+				</ToolbarGroup>
+			)} */}
 			{!!imgUrl && (
 				<>
 					<MediaReplaceFlow

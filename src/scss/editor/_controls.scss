@@ -1,3 +1,9 @@
+// 操作を不可能にする設定
+[data-ark-disabled] {
+	opacity: .5;
+	pointer-events: none;
+}
+
 
 // トグルコントロールが集まったエリア
 .arkb-toggles {

@@ -3,6 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
+import { useMemo, useEffect } from '@wordpress/element';
 import {
 	BlockControls,
 	InspectorControls,
@@ -11,9 +12,9 @@ import {
 	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
 	__experimentalBlockAlignmentMatrixToolbar as BlockAlignmentMatrixToolbar,
 } from '@wordpress/block-editor';
-import { useMemo } from '@wordpress/element';
 
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
+import { Icon, fullscreen } from '@wordpress/icons';
 
 /**
  * @Internal dependencies
@@ -51,6 +52,7 @@ const getBlockStyle = (attributes) => {
 		heightSP,
 		heightUnitPC,
 		heightUnitSP,
+		isFullscreen,
 		padPC,
 		padSP,
 		padUnitPC,
@@ -65,11 +67,16 @@ const getBlockStyle = (attributes) => {
 	if (textColor) style.color = textColor;
 
 	// 内部minheight
-	if (heightPC) {
-		style['--arkb-section-minH--pc'] = `${heightPC}${heightUnitPC}`;
-	}
-	if (heightSP) {
-		style['--arkb-section-minH--sp'] = `${heightSP}${heightUnitSP}`;
+	if (isFullscreen) {
+		style['--arkb-section-minH--pc'] = `100vh`;
+		style['--arkb-section-minH--sp'] = `100vh`;
+	} else {
+		if (heightPC) {
+			style['--arkb-section-minH--pc'] = `${heightPC}${heightUnitPC}`;
+		}
+		if (heightSP) {
+			style['--arkb-section-minH--sp'] = `${heightSP}${heightUnitSP}`;
+		}
 	}
 
 	// 内部padding用の変数
@@ -126,7 +133,7 @@ const getSvgData = (svgLevel) => {
  */
 registerBlockType(name, {
 	apiVersion,
-	title: __('Section', 'arkhe-blocks') + '(β)',
+	title: __('Section', 'arkhe-blocks'),
 	description: __('Create a content area to use as a section.', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
@@ -151,7 +158,14 @@ registerBlockType(name, {
 			svgColorTop,
 			svgColorBottom,
 			contentPosition,
+			isFullscreen,
 		} = attributes;
+
+		useEffect(() => {
+			if ('full' !== align && isFullscreen) {
+				setAttributes({ isFullscreen: false });
+			}
+		}, [align, isFullscreen]);
 
 		// クラス名
 		const positionClass = getPositionClassName(contentPosition, '');
@@ -186,6 +200,7 @@ registerBlockType(name, {
 			className: blockClass,
 			style: style || null,
 			'data-inner': innerSize || null,
+			'data-fullscreen': isFullscreen ? '1' : null,
 		});
 		const innerBlocksProps = useInnerBlocksProps(
 			{
@@ -229,22 +244,36 @@ registerBlockType(name, {
 			<>
 				<BlockControls>
 					{'full' === align && (
-						<ToolbarGroup>
-							<ToolbarButton
-								className={classnames('components-toolbar__control', {
-									'is-pressed': 'full' === innerSize,
-								})}
-								label={__('To full-width content', 'arkhe-blocks')}
-								icon={blockIcon.fullInner}
-								onClick={() => {
-									if ('full' !== innerSize) {
-										setAttributes({ innerSize: 'full' });
-									} else {
-										setAttributes({ innerSize: '' });
-									}
-								}}
-							/>
-						</ToolbarGroup>
+						<>
+							<ToolbarGroup>
+								<ToolbarButton
+									className={classnames('components-toolbar__control', {
+										'is-pressed': 'full' === innerSize,
+									})}
+									label={__('To full-width content', 'arkhe-blocks')}
+									icon={blockIcon.fullInner}
+									onClick={() => {
+										if ('full' !== innerSize) {
+											setAttributes({ innerSize: 'full' });
+										} else {
+											setAttributes({ innerSize: '' });
+										}
+									}}
+								/>
+							</ToolbarGroup>
+							<ToolbarGroup>
+								<ToolbarButton
+									className={classnames('components-toolbar__control', {
+										'is-pressed': isFullscreen,
+									})}
+									label={__('Toggle fullscreen', 'arkhe-blocks')}
+									icon={<Icon icon={fullscreen} />}
+									onClick={() => {
+										setAttributes({ isFullscreen: !isFullscreen });
+									}}
+								/>
+							</ToolbarGroup>
+						</>
 					)}
 					<BlockAlignmentMatrixToolbar
 						label={__('Change content position')}
@@ -300,6 +329,7 @@ registerBlockType(name, {
 			svgColorTop,
 			svgColorBottom,
 			contentPosition,
+			isFullscreen,
 		} = attributes;
 
 		// styleデータ
@@ -332,6 +362,7 @@ registerBlockType(name, {
 			className: blockClass,
 			style: style || null,
 			'data-inner': innerSize || null,
+			'data-fullscreen': isFullscreen ? '1' : null,
 		});
 
 		return (

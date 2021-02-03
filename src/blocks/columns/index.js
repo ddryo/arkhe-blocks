@@ -47,7 +47,7 @@ const basisSet = {
  */
 registerBlockType(name, {
 	apiVersion,
-	title: __('Rich columns', 'arkhe-blocks') + '(β)',
+	title: __('Rich columns', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
 		src: blockIcon,

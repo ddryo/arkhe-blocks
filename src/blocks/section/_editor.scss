@@ -48,6 +48,10 @@
 	flex-wrap: wrap;
 	// align-items: center;
 
+	& + .ark-control--padding {
+		margin-top: -8px;
+	}
+
 	.__label {
 		flex-basis: 100%;
 		margin-bottom: 8px;
