@@ -53,6 +53,8 @@ function register_blocks() {
 			'step-item',
 			'timeline',
 			'timeline-item',
+			'tab',
+			'tab-body',
 		];
 
 		if ( IS_ARKHE_THEME ) {

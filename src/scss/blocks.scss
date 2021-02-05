@@ -71,3 +71,14 @@
 	}
 }
 
+// アラートメッセージ
+.arkb-alert--doubleId {
+	color: #fa1414;
+
+	[data-type="arkhe-blocks/tab"] & {
+		position: relative;
+		top: -24px;
+		font-weight: bold;
+		font-size: 14px;
+	}
+}

@@ -1,0 +1,213 @@
+
+// Gutenberg
+[data-type="arkhe-blocks/tab"] {
+
+	position: relative;
+	padding: 32px 24px 24px;
+	border: dashed 1px $color_guide;
+
+	// &.is-selected,
+	// &.has-child-selected {}
+
+	// tab-bodyを追加するボタンは非表示に。
+	.arkb-tabBody > .block-list-appender {
+		display: none !important;
+	}
+
+	// タブ追加ボタン
+	&:not(.is-selected) {
+
+		.arkb-tabList__item--add {
+			visibility: hidden;
+			pointer-events: none;
+		}
+	}
+
+	.arkb-tabList {
+		position: relative;
+		margin: 0;
+		padding: 0;
+	}
+
+	// タブ追加ボタン
+	.arkb-tabList__item--add {
+		position: relative;
+		left: 8px;
+		z-index: 1;
+		display: flex;
+		align-items: center;
+		width: 0;
+		margin: 0;
+		margin-right: 0;
+		list-style: none !important;
+
+		.arkb-tabBtn--add {
+			padding: 2px;
+			border-radius: 50%;
+		}
+
+		svg {
+			display: block;
+			width: 20px;
+			height: 20px;
+		}
+	}
+
+
+	.arkb-tabList__item {
+		position: relative;
+		display: flex;
+		align-items: center;
+		list-style: none !important;
+		cursor: pointer;
+
+		p {
+			cursor: text;
+		}
+	}
+
+	// 選択するまでタブのホバーエフェクト動作させない。 -> これがあるとたまにタブブロック全体がクリックできなくなるっぽい...？
+	// &:not(.is-selected):not(.has-child-selected) {
+
+	//     .arkb-tabList__item {
+	//         pointer-events: none;
+	//     }
+	// }
+
+	// タブブロックが選択 or タブボディが選択してる時だけ表示。かつ、アクティブなタブのみ表示。
+	&:not(.is-selected):not(.has-child-selected),
+	.arkb-tabList__item:not(.is-active) {
+
+		.arkb-tab__tooltips {
+			display: none;
+		}
+	}
+
+	.arkb-tabList__button {
+		display: flex;
+		align-items: center;
+		text-align: center;
+
+		& > .rich-text {
+			width: 100%;
+			margin: 0 !important;
+		}
+	}
+
+	.is-style-balloon .swell-block-tab__addBtn {
+		margin-bottom: 16px;
+	}
+
+	.is-style-bb .swell-block-tab__addBtn {
+		margin-bottom: .75em;
+	}
+
+}
+
+// スクロール可能な時
+// [data-scroll-pc] {
+
+// 	@include pc {
+
+// 		.swell-block-tab {
+// 			padding-top: 0 !important;
+// 		}
+
+// 		.arkb-tabList {
+// 			padding-top: 40px !important;
+// 		}
+// 	}
+// }
+
+// [data-scroll-sp] {
+
+// 	@include sp {
+
+// 		.swell-block-tab {
+// 			padding-top: 0 !important;
+// 		}
+
+// 		.arkb-tabList {
+// 			padding-top: 40px !important;
+// 		}
+// 	}
+// }
+
+// タブコンテンツ
+[data-type="arkhe-blocks/tab-body"] {
+
+	display: none;
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+
+	&[data-open] {
+		display: block;
+	}
+
+}
+
+// 各種ボタン
+.arkb-tab__tooltips {
+	position: absolute;
+	top: -30px;
+	left: 0;
+	z-index: 1;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	width: auto;
+	color: #000;
+	cursor: auto;
+
+	svg {
+		display: block;
+		margin: 0 auto;
+	}
+}
+
+
+.arkb-tabBtn--add,
+.arkb-tabBtn--remove,
+.arkb-tabBtn--moveUp,
+.arkb-tabBtn--moveDown {
+	display: block;
+	color: #000;
+	background: #fff;
+	border: solid 1px #000;
+	cursor: pointer;
+	transition: border-color .25s, opacity .25s;
+
+	&:not(:hover) {
+		border-color: transparent;
+		opacity: .5;
+	}
+}
+
+
+.arkb-tabBtn--remove,
+.arkb-tabBtn--moveUp,
+.arkb-tabBtn--moveDown {
+	width: 28px;
+	margin-right: 2px;
+	padding: 2px;
+	color: #000;
+	background: #fff;
+	border-radius: 4px;
+
+	svg {
+		width: 20px;
+		height: 20px;
+	}
+}
+
+
+.arkb-tabBtn--moveUp,
+.arkb-tabBtn--moveDown {
+
+	&[data-active="false"] {
+		opacity: .1 !important;
+		pointer-events: none;
+	}
+
+}
+
