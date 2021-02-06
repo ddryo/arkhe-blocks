@@ -2,19 +2,13 @@
  * @WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-// import { memo } from '@wordpress/element';
-
 import { PanelBody, ToggleControl, TextControl, RadioControl } from '@wordpress/components';
 import { useDispatch } from '@wordpress/data';
 
 /**
- * @Inner dependencies
+ * sidebar
  */
-
 export default ({ attributes, setAttributes, clientId }) => {
-	// useDispatch が使えなければ null
-	if (useDispatch === undefined) return null;
-
 	const { tabId, activeTab, tabHeaders, tabWidth, isScrollPC, isScrollSP } = attributes;
 
 	const { getBlockOrder } = wp.data.select('core/block-editor');

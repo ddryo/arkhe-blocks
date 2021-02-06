@@ -80,13 +80,6 @@
 		}
 	}
 
-	// 選択するまでタブのホバーエフェクト動作させない。 -> これがあるとたまにタブブロック全体がクリックできなくなるっぽい...？
-	// &:not(.is-selected):not(.has-child-selected) {
-
-	//     .arkb-tabList__item {
-	//         pointer-events: none;
-	//     }
-	// }
 
 	// タブブロックが選択 or タブボディが選択してる時だけ表示。かつ、アクティブなタブのみ表示。
 	&:not(.is-selected):not(.has-child-selected),
@@ -108,44 +101,16 @@
 		}
 	}
 
-	.is-style-balloon .swell-block-tab__addBtn {
-		margin-bottom: 16px;
-	}
 
-	.is-style-bb .swell-block-tab__addBtn {
-		margin-bottom: .75em;
+	&[data-is-example] {
+
+		.arkb-tabBody__content:first-child {
+			display: block;
+		}
 	}
 
 }
 
-// スクロール可能な時
-// [data-scroll-pc] {
-
-// 	@include pc {
-
-// 		.swell-block-tab {
-// 			padding-top: 0 !important;
-// 		}
-
-// 		.arkb-tabList {
-// 			padding-top: 40px !important;
-// 		}
-// 	}
-// }
-
-// [data-scroll-sp] {
-
-// 	@include sp {
-
-// 		.swell-block-tab {
-// 			padding-top: 0 !important;
-// 		}
-
-// 		.arkb-tabList {
-// 			padding-top: 40px !important;
-// 		}
-// 	}
-// }
 
 // タブコンテンツ
 [data-type="arkhe-blocks/tab-body"] {

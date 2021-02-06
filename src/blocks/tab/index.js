@@ -277,6 +277,7 @@ registerBlockType(name, {
 				'-scrollable-sp': isScrollSP,
 			}),
 			'data-tabid': tabId,
+			'data-is-example': isExample ? '1' : null,
 		});
 
 		const innerBlocksProps = useInnerBlocksProps(
@@ -327,13 +328,6 @@ registerBlockType(name, {
 					</ul>
 					<div {...innerBlocksProps} />
 				</div>
-				{!isExample && (
-					<style>
-						{`[data-block="${clientId}"] [data-type="${childBlockType}"]:nth-child(${
-							actTab + 1
-						}){ display:block; }`}
-					</style>
-				)}
 			</>
 		);
 	},

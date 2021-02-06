@@ -19,12 +19,11 @@ import metadata from './block.json';
 /**
  * @Others dependencies
  */
-import classnames from 'classnames';
+// import classnames from 'classnames';
 
 /**
  * metadata
  */
-const blockName = 'ark-block-tab';
 const { apiVersion, name, category, supports, parent } = metadata;
 
 /**

@@ -9,8 +9,7 @@ const LoremP = {
 export default {
 	attributes: {
 		isExample: true,
-		tabWidthPC: '25',
-		className: 'is-style-default',
+		tabWidthPC: 'fix',
 	},
 	innerBlocks: [
 		{
