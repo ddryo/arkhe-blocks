@@ -40,7 +40,6 @@ export default memo((props) => {
 					}`}
 				>
 					<button
-						// style={{ color: headerTextColor }}
 						role='tab'
 						className='arkb-tabList__button'
 						aria-selected={actTab === index ? 'true' : 'false'}
@@ -50,14 +49,14 @@ export default memo((props) => {
 					>
 						<RichText
 							tagName='p'
-							placeholder={__('Title', 'arkhe-blocks') + '...'}
+							placeholder={__('Tab', 'arkhe-blocks') + '...'}
 							value={item}
 							onChange={(value) => updateTabsHeader(value, index)}
 							// unstableOnSplit={() => null} // ?
 						/>
 					</button>
 					<div className='arkb-tab__tooltips'>
-						<Tooltip text={__('タブを前に移動する', 'arkhe-blocks')}>
+						<Tooltip text={__('Move tab forward', 'arkhe-blocks')}>
 							<button
 								className='arkb-tabBtn--moveUp'
 								data-active={0 === index ? 'false' : 'true'}
@@ -70,7 +69,7 @@ export default memo((props) => {
 						</Tooltip>
 						{/* 一個以上の時、削除ボタンも追加 */}
 						{1 < tabHeaders.length && (
-							<Tooltip text={__('タブを削除する', 'arkhe-blocks')}>
+							<Tooltip text={__('Delete tab', 'arkhe-blocks')}>
 								<button
 									className='arkb-tabBtn--remove'
 									onClick={() => {
@@ -81,7 +80,7 @@ export default memo((props) => {
 								</button>
 							</Tooltip>
 						)}
-						<Tooltip text={__('タブを後ろに移動する', 'arkhe-blocks')}>
+						<Tooltip text={__('Move tab back', 'arkhe-blocks')}>
 							<button
 								className='arkb-tabBtn--moveDown'
 								data-active={tabHeaders.length - 1 === index ? 'false' : 'true'}
@@ -97,7 +96,7 @@ export default memo((props) => {
 			))}
 			{/* ナビ追加ボタン */}
 			<li className='arkb-tabList__item--add'>
-				<Tooltip text={__('タブを追加', 'arkhe-blocks')}>
+				<Tooltip text={__('Add tab', 'arkhe-blocks')}>
 					<button
 						className='arkb-tabBtn--add'
 						onClick={() => {

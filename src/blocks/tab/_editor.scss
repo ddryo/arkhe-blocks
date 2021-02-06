@@ -29,6 +29,20 @@
 		padding: 0;
 	}
 
+	// スクロール可能時、overflow:hidden的な感じになるので調整
+	&.-scrollable-pc {
+
+		@include pc {
+
+			.arkb-tabList {
+				margin-top: -28px;
+				padding-top: 28px;
+			}
+		}
+
+	}
+
+
 	// タブ追加ボタン
 	.arkb-tabList__item--add {
 		position: relative;

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Arkhe Blocks\n"
-"POT-Creation-Date: 2021-02-03 17:30+0900\n"
-"PO-Revision-Date: 2021-02-03 17:31+0900\n"
+"POT-Creation-Date: 2021-02-06 21:20+0900\n"
+"PO-Revision-Date: 2021-02-06 21:21+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -155,7 +155,7 @@ msgstr "レイアウト"
 msgid "HTML tag for title"
 msgstr "タイトルのHTMLタグ"
 
-#: src/blocks/box-link/_sidebar.js:223 src/blocks/section/_sidebar.js:246
+#: src/blocks/box-link/_sidebar.js:223 src/blocks/section/_sidebar.js:249
 msgid "Overlay opacity"
 msgstr "オーバーレイの不透明度"
 
@@ -200,15 +200,15 @@ msgstr "アイコンカラー"
 msgid "Icon size"
 msgstr "アイコンサイズ"
 
-#: src/blocks/box-link/_toolbar.js:58
+#: src/blocks/box-link/_toolbar.js:60
 msgid "Center the text"
 msgstr "テキストセンター寄せ"
 
-#: src/blocks/box-link/_toolbar.js:72
+#: src/blocks/box-link/_toolbar.js:74
 msgid "Link"
 msgstr ""
 
-#: src/blocks/box-link/_toolbar.js:111
+#: src/blocks/box-link/_toolbar.js:132
 msgid "Delete image"
 msgstr "画像を削除"
 
@@ -218,6 +218,7 @@ msgstr "ボックス"
 
 #: src/blocks/box-link/index.js:37 src/blocks/columns/index.js:59
 #: src/blocks/notice/index.js:81 src/blocks/step/index.js:52
+#: src/blocks/tab/index.js:81
 msgid "Default"
 msgstr "デフォルト"
 
@@ -608,7 +609,7 @@ msgstr "サブテキストの位置"
 msgid "Show line"
 msgstr "線を表示"
 
-#: src/blocks/section-heading/index.js:210 src/blocks/section/_sidebar.js:229
+#: src/blocks/section-heading/index.js:210 src/blocks/section/_sidebar.js:232
 #: src/blocks/step-item/index.js:112 src/blocks/timeline-item/index.js:100
 msgid "Color settings"
 msgstr "カラー設定"
@@ -629,68 +630,68 @@ msgstr ""
 msgid "Write sub title…"
 msgstr ""
 
-#: src/blocks/section/_sidebar.js:121
+#: src/blocks/section/_sidebar.js:122
 msgid "Height settings"
 msgstr "高さ設定"
 
-#: src/blocks/section/_sidebar.js:123
+#: src/blocks/section/_sidebar.js:125
 msgid "View in fullscreen"
 msgstr "フルスクリーンで表示する"
 
-#: src/blocks/section/_sidebar.js:130 src/blocks/section/_sidebar.js:153
+#: src/blocks/section/_sidebar.js:133 src/blocks/section/_sidebar.js:156
 msgid "Min height"
 msgstr "最小の高さ"
 
-#: src/blocks/section/_sidebar.js:176
+#: src/blocks/section/_sidebar.js:179
 msgid "Padding settings"
 msgstr "余白設定"
 
-#: src/blocks/section/_sidebar.js:179 src/blocks/section/_sidebar.js:204
+#: src/blocks/section/_sidebar.js:182 src/blocks/section/_sidebar.js:207
 msgid "Top and bottom padding"
 msgstr "上下のpadding"
 
-#: src/blocks/section/_sidebar.js:238
+#: src/blocks/section/_sidebar.js:241
 msgid "Overlay color"
 msgstr "オーバーレイカラー"
 
-#: src/blocks/section/_sidebar.js:239
+#: src/blocks/section/_sidebar.js:242
 msgid "Background color"
 msgstr "背景色"
 
-#: src/blocks/section/_sidebar.js:247
+#: src/blocks/section/_sidebar.js:250
 msgid "Background opacity"
 msgstr "背景色の不透明度"
 
-#: src/blocks/section/_sidebar.js:260
+#: src/blocks/section/_sidebar.js:263
 msgid "Text color"
 msgstr "文字色"
 
-#: src/blocks/section/_sidebar.js:271
+#: src/blocks/section/_sidebar.js:274
 msgid "Background media setting"
 msgstr "背景メディア設定"
 
-#: src/blocks/section/_sidebar.js:280
+#: src/blocks/section/_sidebar.js:283
 msgid "Repeat the background image"
 msgstr "背景画像をリピートする"
 
-#: src/blocks/section/_sidebar.js:291
+#: src/blocks/section/_sidebar.js:294
 msgid "Top border"
 msgstr "上部の境界"
 
-#: src/blocks/section/_sidebar.js:293 src/blocks/section/_sidebar.js:338
+#: src/blocks/section/_sidebar.js:296 src/blocks/section/_sidebar.js:341
 msgid "Shape"
 msgstr "形状"
 
-#: src/blocks/section/_sidebar.js:312 src/blocks/section/_sidebar.js:357
+#: src/blocks/section/_sidebar.js:315 src/blocks/section/_sidebar.js:360
 msgid "Height level"
 msgstr "高さレベル"
 
-#: src/blocks/section/_sidebar.js:325 src/blocks/section/_sidebar.js:367
+#: src/blocks/section/_sidebar.js:328 src/blocks/section/_sidebar.js:370
 #: src/blocks/step-item/index.js:117 src/blocks/timeline-item/index.js:105
 msgid "Color"
 msgstr "色"
 
-#: src/blocks/section/_sidebar.js:336
+#: src/blocks/section/_sidebar.js:339
 msgid "Bottom border"
 msgstr "下部の境界"
 
@@ -717,19 +718,19 @@ msgstr "セクション"
 msgid "Create a content area to use as a section."
 msgstr "セクションとして使うコンテンツエリアを作成します。"
 
-#: src/blocks/section/index.js:246
+#: src/blocks/section/index.js:253
 msgid "To full-width content"
 msgstr "コンテンツを全幅にする"
 
-#: src/blocks/section/index.js:262
+#: src/blocks/section/index.js:269
 msgid "Toggle fullscreen"
 msgstr "フルスクリーンの切り替え"
 
-#: src/blocks/section/index.js:272
+#: src/blocks/section/index.js:279
 msgid "Change content position"
 msgstr ""
 
-#: src/blocks/section/index.js:282
+#: src/blocks/section/index.js:289
 msgid "Delete position"
 msgstr "位置を削除"
 
@@ -780,6 +781,81 @@ msgstr "ステップ設定"
 #: src/blocks/step/index.js:112
 msgid "Start number"
 msgstr "スタート番号"
+
+#: src/blocks/tab-body/index.js:35
+msgid "Tab content"
+msgstr "タブコンテンツ"
+
+#: src/blocks/tab/_sidebar.js:25
+msgid "Tab settings"
+msgstr "タブ設定"
+
+#: src/blocks/tab/_sidebar.js:27
+msgid "Tab block ID"
+msgstr "タブブロックID"
+
+#: src/blocks/tab/_sidebar.js:29
+msgid "Do not duplicate it with other tab blocks on the same page."
+msgstr "同じページ内の他のタブブロックと重複しないようにしてください。"
+
+#: src/blocks/tab/_sidebar.js:44
+msgid "Number of tabs to open first"
+msgstr "最初に開いておくタブの番号"
+
+#: src/blocks/tab/_sidebar.js:63
+msgid "Tab size setting"
+msgstr "タブサイズ設定"
+
+#: src/blocks/tab/_sidebar.js:68
+msgid "Fit to text"
+msgstr "テキストにあわせる"
+
+#: src/blocks/tab/_sidebar.js:72
+msgid "Fixed width"
+msgstr "固定幅"
+
+#: src/blocks/tab/_sidebar.js:76
+msgid "Equal width"
+msgstr "均等幅"
+
+#: src/blocks/tab/_sidebar.js:85 src/blocks/tab/_sidebar.js:92
+msgid "Make it scrollable"
+msgstr "スクロール可能にする"
+
+#: src/blocks/tab/components/TabNavList.js:52 src/blocks/tab/index.js:68
+#: src/blocks/tab/index.js:94 src/blocks/tab/index.js:243
+msgid "Tab"
+msgstr "タブ"
+
+#: src/blocks/tab/components/TabNavList.js:59
+msgid "Move tab forward"
+msgstr "タブを前へ移動する"
+
+#: src/blocks/tab/components/TabNavList.js:72
+msgid "Delete tab"
+msgstr "タブを削除する"
+
+#: src/blocks/tab/components/TabNavList.js:83
+msgid "Move tab back"
+msgstr "タブを後ろへ移動する"
+
+#: src/blocks/tab/components/TabNavList.js:99
+msgid "Add tab"
+msgstr "タブを追加"
+
+#: src/blocks/tab/index.js:69
+msgid "Create tab content."
+msgstr "タブコンテンツを作成します。"
+
+#: src/blocks/tab/index.js:86
+msgctxt "style"
+msgid "Box"
+msgstr "ボックス"
+
+#: src/blocks/tab/index.js:309
+msgid ""
+"The ID is duplicated with other tab blocks. Please specify a different ID."
+msgstr "他のタブブロックとIDが重複しています。別のIDを指定してください。"
 
 #: src/blocks/timeline-item/index.js:43
 msgid "Timeline item"
@@ -849,7 +925,7 @@ msgstr "RSSフィードのURLが正しくありません。"
 msgid "The article was not found."
 msgstr "記事が見つかりませんでした。"
 
-#: inc/gutenberg.php:102
+#: inc/gutenberg.php:104
 msgid "Arkhe Blocks"
 msgstr ""
 
@@ -918,9 +994,6 @@ msgstr ""
 #~| msgid "Settings"
 #~ msgid "settings"
 #~ msgstr "表示設定"
-
-#~ msgid "Tag"
-#~ msgstr "タグ"
 
 #~ msgid "投稿を表示"
 #~ msgstr "View post"

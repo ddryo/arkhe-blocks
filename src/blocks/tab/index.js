@@ -1,7 +1,7 @@
 /**
  * @WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __, _x } from '@wordpress/i18n';
 import { registerBlockType, createBlock } from '@wordpress/blocks';
 import {
 	InnerBlocks,
@@ -11,7 +11,10 @@ import {
 	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
 } from '@wordpress/block-editor';
 import { RawHTML, useMemo, useEffect, useState, useCallback } from '@wordpress/element';
-import { useDispatch, useSelect } from '@wordpress/data';
+import {
+	useDispatch,
+	//useSelect,
+} from '@wordpress/data';
 
 /**
  * @Internal dependencies
@@ -75,12 +78,12 @@ registerBlockType(name, {
 	styles: [
 		{
 			name: 'default',
-			label: 'ノーマル',
+			label: __('Default', 'arkhe-blocks'),
 			isDefault: true,
 		},
 		{
-			name: 'balloon',
-			label: 'ふきだし',
+			name: 'box',
+			label: _x('Box', 'style', 'arkhe-blocks'),
 		},
 	],
 	attributes: {
@@ -303,7 +306,7 @@ registerBlockType(name, {
 					{isSelected && isDoubleRegisterdId && (
 						<div className='arkb-alert--doubleId'>
 							{__(
-								'他のタブブロックとIDが重複しています。別のIDを指定してください。',
+								'The ID is duplicated with other tab blocks. Please specify a different ID.',
 								'arkhe-blocks'
 							)}
 						</div>

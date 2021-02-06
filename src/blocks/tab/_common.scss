@@ -9,7 +9,6 @@
 	// 詳細度高める
 	.ark-block-tab > & {
 		padding: 0;
-		// padding-left: 0;
 	}
 
 
@@ -78,12 +77,12 @@
 	width: 100%;
 	height: 100%;
 	padding: 1em;
-	// color: var(--ark-color_text);
 	color: inherit;
 	font-size: 13px;
 	line-height: 1;
-	background-color: var(--ark-color_gray, rgba(200, 200, 200, .15));
+	background: none;
 	border: none;
+	border-bottom: solid 2px transparent;
 	transition: background-color .25s, color .25s;
 
 
@@ -96,14 +95,13 @@
 	}
 
 	&[aria-selected="true"] {
-		color: #fff;
-		background-color: #000;
+		border-bottom-color: currentColor;
 	}
 }
 
 
 
-@keyframes FloatHorizontal {
+@keyframes ArkbFloatHorizontal {
 
 	0% {
 		transform: translate3d(4px, 0, 0);
@@ -127,24 +125,23 @@
 
 			&::after {
 				position: absolute;
-				right: -2px;
+				right: 0;
 				bottom: 100%;
-				padding: 2px 12px 2px 4px;
-				color: #333;
-				font-weight: 400;
-				font-size: 13px;
-				// font-family: icomoon !important;
+				display: block;
+				width: 18px;
+				height: 18px;
+				padding: 0;
 				line-height: 1;
-				letter-spacing: -2px;
-				background: #fff;
+				background-color: #fff;
+				background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path fill="%23000" d="M30.4 16.664l-4.528-4.528-1.128 1.136 3.392 3.392h-26.536v1.6h28.8v-1.6z" /></svg>');
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: 14px 14px;
 				border-radius: 8px;
-				box-shadow: 0 0 8px rgba(0, 0, 0, .1);
-				animation: FloatHorizontal 3s ease-in-out infinite alternate;
-				// content: "\e921\e921"; //930
-				content: ">>"; //930
-				-webkit-font-smoothing: antialiased;
-				-moz-osx-font-smoothing: grayscale;
-				// @extend .icon-file-empty::before;
+				box-shadow: 0 0 0 1px rgba(0, 0, 0, .4);
+				opacity: .75;
+				animation: ArkbFloatHorizontal 2.5s ease-in-out infinite alternate;
+				content: "";
 			}
 		}
 
@@ -209,5 +206,25 @@
 
 	&[aria-hidden="true"] {
 		display: none;
+	}
+}
+
+
+// -----------------------------------------
+// スタイル
+// -----------------------------------------
+.ark-block-tab.is-style-box {
+
+	// & > .arkb-tabBody{}
+
+	.arkb-tabList__button {
+		background-color: var(--ark-color_gray, rgba(200, 200, 200, .15));
+		border-bottom: none;
+	}
+
+	.arkb-tabList__button[aria-selected="true"] {
+		color: #fff;
+		background-color: var(--ark-color_text, #000);
+		border-bottom: none;
 	}
 }

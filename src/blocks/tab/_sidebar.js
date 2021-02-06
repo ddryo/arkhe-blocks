@@ -1,7 +1,7 @@
 /**
  * @WordPress dependencies
  */
-// import { __ } from '@wordpress/i18n';
+import { __ } from '@wordpress/i18n';
 // import { memo } from '@wordpress/element';
 
 import { PanelBody, ToggleControl, TextControl, RadioControl } from '@wordpress/components';
@@ -22,10 +22,13 @@ export default ({ attributes, setAttributes, clientId }) => {
 
 	return (
 		<>
-			<PanelBody title='タブ設定' initialOpen={true}>
+			<PanelBody title={__('Tab settings', 'arkhe-blocks')} initialOpen={true}>
 				<TextControl
-					label='タブブロックのID'
-					help='※ 同じページにある他のタブブロックと被らないIDにしてください'
+					label={__('Tab block ID', 'arkhe-blocks')}
+					help={__(
+						'Do not duplicate it with other tab blocks on the same page.',
+						'arkhe-blocks'
+					)}
 					value={tabId}
 					onChange={(val) => {
 						setAttributes({ tabId: val });
@@ -38,12 +41,11 @@ export default ({ attributes, setAttributes, clientId }) => {
 					}}
 				/>
 				<TextControl
-					label='何番目のタブを最初に開いておくか'
+					label={__('Number of tabs to open first', 'arkhe-blocks')}
 					type='number'
 					min='1'
 					max={tabHeaders.length}
 					style={{ maxWidth: '6em' }}
-					// help='※ 1始まり'
 					value={activeTab + 1}
 					onChange={(val) => {
 						const newActiveNum = parseInt(val) - 1;
@@ -58,21 +60,20 @@ export default ({ attributes, setAttributes, clientId }) => {
 					}}
 				/>
 			</PanelBody>
-			<PanelBody title='タブサイズ設定' initialOpen={true}>
+			<PanelBody title={__('Tab size setting', 'arkhe-blocks')} initialOpen={true}>
 				<RadioControl
-					// label='PCサイズ'
 					selected={tabWidth}
 					options={[
 						{
-							label: 'テキストに合わせる',
+							label: __('Fit to text', 'arkhe-blocks'),
 							value: 'auto',
 						},
 						{
-							label: '固定幅(PC:25%, SP:50%)',
+							label: __('Fixed width', 'arkhe-blocks') + '(PC:25%, SP:50%)',
 							value: 'fix',
 						},
 						{
-							label: '均等幅',
+							label: __('Equal width', 'arkhe-blocks'),
 							value: 'equal',
 						},
 					]}
@@ -81,21 +82,17 @@ export default ({ attributes, setAttributes, clientId }) => {
 					}}
 				/>
 				<ToggleControl
-					label='ナビをスクロール可能にする(PC)'
+					label={__('Make it scrollable', 'arkhe-blocks') + '(PC)'}
 					checked={isScrollPC}
 					onChange={(value) => {
-						setAttributes({
-							isScrollPC: value,
-						});
+						setAttributes({ isScrollPC: value });
 					}}
 				/>
 				<ToggleControl
-					label='ナビをスクロール可能にする(SP)'
+					label={__('Make it scrollable', 'arkhe-blocks') + '(SP)'}
 					checked={isScrollSP}
 					onChange={(value) => {
-						setAttributes({
-							isScrollSP: value,
-						});
+						setAttributes({ isScrollSP: value });
 					}}
 				/>
 			</PanelBody>
