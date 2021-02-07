@@ -103,4 +103,5 @@ if ( ! class_exists( 'Arkhe_Blocks' ) ) {
 	add_action( 'plugins_loaded', function() {
 		new Arkhe_Blocks();
 	} );
+
 }

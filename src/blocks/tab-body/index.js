@@ -43,7 +43,7 @@ registerBlockType(name, {
 
 	edit: () => {
 		const blockProps = useBlockProps({
-			className: 'arkb-tabBody__content',
+			className: 'arkb-tabBody__content ark-keep-mt--s',
 		});
 
 		const innerBlocksProps = useInnerBlocksProps(blockProps, {
@@ -58,7 +58,7 @@ registerBlockType(name, {
 		const { tabId, bodyId, activeTab } = attributes;
 
 		const blockProps = useBlockProps.save({
-			className: 'arkb-tabBody__content',
+			className: 'arkb-tabBody__content ark-keep-mt--s',
 			id: `tab-${tabId}-${bodyId}`,
 			role: 'tabpanel',
 			'aria-hidden': activeTab === bodyId ? 'false' : 'true',

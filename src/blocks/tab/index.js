@@ -328,6 +328,13 @@ registerBlockType(name, {
 					</ul>
 					<div {...innerBlocksProps} />
 				</div>
+				{!isExample && (
+					<style>
+						{`[data-block="${clientId}"] [data-type="${childBlockType}"]:nth-child(${
+							actTab + 1
+						}){ display:block; }`}
+					</style>
+				)}
 			</>
 		);
 	},
