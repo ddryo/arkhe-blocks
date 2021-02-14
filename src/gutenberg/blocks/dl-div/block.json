@@ -1,0 +1,16 @@
+{
+    "apiVersion": 2,
+    "name": "arkhe-blocks/dl-div",
+    "title": "Side-by-side items",
+    "category": "arkhe-blocks",
+    "supports": {
+        "className": false,
+        "reusable": false
+    },
+    "parent": [
+        "arkhe-blocks/dl"
+    ],
+    "attributes": {},
+    "editorScript": "file:../../../../dist/gutenberg/blocks/dl-div/index.js",
+    "textdomain": "arkhe-blocks"
+}

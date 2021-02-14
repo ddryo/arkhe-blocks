@@ -40,19 +40,40 @@ function hook_enqueue_block_editor_assets( $hook_suffix ) {
 	);
 
 	// @FontAwesom
-	$asset = include ARKHE_BLOCKS_PATH . 'dist/blocks/fa.asset.php';
+	$asset = include ARKHE_BLOCKS_PATH . 'dist/gutenberg/fa.asset.php';
 	wp_enqueue_script(
 		'arkhe-blocks-fa',
-		ARKHE_BLOCKS_URL . 'dist/blocks/fa.js',
+		ARKHE_BLOCKS_URL . 'dist/gutenberg/fa.js',
 		$asset['dependencies'],
 		$asset['version'],
 		true
 	);
 
-	$asset = include ARKHE_BLOCKS_PATH . 'dist/blocks/index.asset.php';
+	// コアの拡張
+	$asset = include ARKHE_BLOCKS_PATH . 'dist/gutenberg/ex_core.asset.php';
+	wp_enqueue_script(
+		'arkhe-blocks-ex_core',
+		ARKHE_BLOCKS_URL . 'dist/gutenberg/ex_core.js',
+		$asset['dependencies'],
+		$asset['version'],
+		true
+	);
+
+	// その他基本的なスクリプト
+	$asset = include ARKHE_BLOCKS_PATH . 'dist/gutenberg/index.asset.php';
 	wp_enqueue_script(
 		'arkhe-blocks-script',
-		ARKHE_BLOCKS_URL . 'dist/blocks/index.js',
+		ARKHE_BLOCKS_URL . 'dist/gutenberg/index.js',
+		$asset['dependencies'],
+		$asset['version'],
+		true
+	);
+
+	// その他基本的なスクリプト
+	$asset = include ARKHE_BLOCKS_PATH . 'dist/gutenberg/index.asset.php';
+	wp_enqueue_script(
+		'arkhe-blocks-script',
+		ARKHE_BLOCKS_URL . 'dist/gutenberg/index.js',
 		$asset['dependencies'],
 		$asset['version'],
 		true

@@ -1,0 +1,51 @@
+{
+    "apiVersion": 2,
+    "name": "arkhe-blocks/page-list",
+    "title": "Page list",
+    "category": "arkhe-blocks",
+    "keywords": [
+        "arkhe",
+        "page",
+        "list"
+    ],
+    "supports": {
+        "anchor": true,
+        "className": false,
+        "html": false
+    },
+    "attributes": {
+        "className": {
+            "type": "string",
+            "default": ""
+        },
+        "listType": {
+            "type": "string",
+            "default": "card"
+        },
+        "target": {
+            "type": "string",
+            "default": "children"
+        },
+        "postID": {
+            "type": "string",
+            "default": ""
+        },
+        "hTag": {
+            "type": "string",
+            "default": "div"
+        },
+        "excerptLength": {
+            "type": "number"
+        },
+        "order": {
+            "type": "string",
+            "default": "ASC"
+        },
+        "orderby": {
+            "type": "string",
+            "default": "menu_order"
+        }
+    },
+    "editorScript": "file:../../../../dist/gutenberg/blocks/page-list/index.js",
+    "textdomain": "arkhe-blocks"
+}

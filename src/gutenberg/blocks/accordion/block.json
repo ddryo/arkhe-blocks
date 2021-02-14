@@ -1,0 +1,17 @@
+{
+    "apiVersion": 2,
+    "name": "arkhe-blocks/accordion",
+    "title": "Accordion",
+    "category": "arkhe-blocks",
+    "keywords": [
+        "arkhe",
+        "accordion"
+    ],
+    "supports": {
+        "anchor": true,
+        "className": false
+    },
+    "attributes": {},
+    "editorScript": "file:../../../../dist/gutenberg/blocks/accordion/index.js",
+    "textdomain": "arkhe-blocks"
+}

@@ -1,0 +1,18 @@
+{
+    "apiVersion": 2,
+    "name": "arkhe-blocks/faq",
+    "title": "Q&A",
+    "category": "arkhe-blocks",
+    "keywords": [
+        "arkhe",
+        "faq",
+        "qa"
+    ],
+    "supports": {
+        "anchor": true,
+        "className": false
+    },
+    "attributes": {},
+    "editorScript": "file:../../../../dist/gutenberg/blocks/faq/index.js",
+    "textdomain": "arkhe-blocks"
+}

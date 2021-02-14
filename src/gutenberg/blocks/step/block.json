@@ -1,0 +1,26 @@
+{
+    "apiVersion": 2,
+    "name": "arkhe-blocks/step",
+    "title": "Step",
+    "category": "arkhe-blocks",
+    "keywords": [
+        "arkhe",
+        "step"
+    ],
+    "supports": {
+        "anchor": true,
+        "className": false
+    },
+    "attributes": {
+        "startNum": {
+            "type": "number",
+            "default": 1
+        },
+        "stepLabel": {
+            "type": "string",
+            "default": "STEP"
+        }
+    },
+    "editorScript": "file:../../../../dist/gutenberg/blocks/step/index.js",
+    "textdomain": "arkhe-blocks"
+}

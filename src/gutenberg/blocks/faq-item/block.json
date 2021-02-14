@@ -1,0 +1,24 @@
+{
+    "apiVersion": 2,
+    "name": "arkhe-blocks/faq-item",
+    "title": "Q&A Item",
+    "category": "arkhe-blocks",
+    "supports": {
+        "anchor": true,
+        "className": false,
+        "reusable": false
+    },
+    "parent": [
+        "arkhe-blocks/faq-item"
+    ],
+    "attributes": {
+        "textQ": {
+            "type": "string",
+            "source": "html",
+            "selector": "dt",
+            "default": ""
+        }
+    },
+    "editorScript": "file:../../../../dist/gutenberg/blocks/faq-item/index.js",
+    "textdomain": "arkhe-blocks"
+}

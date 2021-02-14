@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
 $block_name = 'post-list';
 
 register_block_type_from_metadata(
-	ARKHE_BLOCKS_PATH . 'src/blocks/' . $block_name,
+	ARKHE_BLOCKS_PATH . 'src/gutenberg/blocks/' . $block_name,
 	[
 		'render_callback'  => '\Arkhe_Blocks\cb_post_list',
 	]

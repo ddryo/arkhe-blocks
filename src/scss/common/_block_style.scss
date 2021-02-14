@@ -1,0 +1,267 @@
+:root {
+	--arkb-list_color_num: var(--ark-color_main, #000);
+	--arkb-list_color_icon: var(--ark-color_main, #000);
+}
+
+// ----------------------------------------
+// 画像ブロックのスタイル
+// ----------------------------------------
+.is-style-ark-media-shadow {
+
+	img,
+	video {
+		box-shadow: var(--arkb-shadow);
+	}
+
+}
+
+.is-style-ark-media-border {
+
+	img,
+	video {
+		border: solid 1px var(--ark-color_border, rgba(200, 200, 200, .5));
+	}
+
+}
+
+.is-style-ark-media-frame {
+	width: fit-content;
+	margin-right: auto;
+	margin-left: auto;
+	padding: 12px;
+	background-color: #fff;
+	box-shadow: var(--arkb-shadow);
+
+	figcaption {
+		margin-top: 8px;
+		margin-bottom: -4px;
+	}
+}
+
+// ----------------------------------------
+// メディアと文章ブロックのスタイル
+// ----------------------------------------
+// カード型
+.is-style-ark-card {
+
+	// 詳細度
+	&.wp-block-media-text {
+		color: #333;
+		background: #fff;
+		box-shadow: var(--arkb-shadow);
+	}
+
+	& > .wp-block-media-text__media {
+		height: 100%;
+
+		& > img {
+			height: 100%;
+			object-fit: cover;
+			font-family: "object-fit: cover;";
+		}
+	}
+
+	& > .wp-block-media-text__content {
+		padding: 1.75em 2em;
+	}
+}
+
+
+// ブロークン
+.is-style-ark-broken {
+
+	// ブロークングリッド
+	& > .wp-block-media-text__content {
+		z-index: 1;
+		padding: 2em 0;
+	}
+
+	&:not(.has-media-on-the-right) .wp-block-media-text__content {
+		margin-left: -4em;
+	}
+
+	&.has-media-on-the-right .wp-block-media-text__content {
+		margin-right: -4em;
+	}
+
+	// モバイル縦並びの時
+	&.is-stacked-on-mobile {
+
+		@media (max-width: 600px) {
+
+			.wp-block-media-text__content {
+				margin: -4em 0 0;
+				padding: 0 1em;
+			}
+		}
+	}
+}
+
+
+// ----------------------------------------
+// listブロックのスタイル
+// ----------------------------------------
+[class*="is-style-ark-list-"] {
+	padding-left: 0 !important;
+	list-style: none !important;
+
+	ul,
+	ol {
+		padding-left: 0 !important;
+		list-style: none !important;
+	}
+
+	li {
+		position: relative;
+	}
+}
+
+[class*="is-style-ark-list-icon"] {
+
+	li {
+		padding-left: 1.75em;
+
+		&::before {
+			position: absolute;
+			top: 0;
+			left: .25em;
+			display: block;
+			width: 1em;
+			height: auto;
+			color: var(--arkb-list_color_icon);
+			font-family: arkb-icon;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+		}
+
+		// 子リストは薄く表示
+		li::before {
+			opacity: .8;
+		}
+	}
+}
+
+.is-style-ark-list-icon--check {
+	--arkb-list_color_icon: #be8a28;
+
+	li::before {
+		content: "\e901";
+	}
+}
+
+.is-style-ark-list-icon--good {
+	--arkb-list_color_icon: #53be28;
+
+	li::before {
+		content: "\e902";
+	}
+}
+
+.is-style-ark-list-icon--bad {
+	--arkb-list_color_icon: #3378d3;
+
+	li::before {
+		content: "\e900";
+	}
+}
+
+
+.is-style-ark-list-note {
+
+	&:not(.has-text-color) {
+		opacity: .8;
+	}
+
+	li {
+		padding-left: 1em;
+
+		&::before {
+			position: absolute;
+			top: 0;
+			left: 0;
+			transform: scale(.75);
+			content: "※";
+		}
+	}
+}
+
+[class*="is-style-ark-list-num"] {
+	counter-reset: li;
+
+	li {
+		padding-left: 2em;
+		line-height: 1.8;
+
+		&::before {
+			position: absolute;
+			top: 0;
+			left: .25em;
+			display: block;
+			box-sizing: content-box;
+			width: 1.8em;
+			height: 1.8em;
+			padding: 0;
+			color: #fff;
+			line-height: 1.8;
+			text-align: center;
+			background-color: var(--arkb-list_color_num);
+			border-radius: 50%;
+			transform: scale(.75);
+			transform-origin: 0% 50%;
+			content: counter(li);
+			counter-increment: li;
+		}
+
+		// &::before {
+		// 	color: var(--arkb-list_color_num);
+		// 	background: none;
+		// 	box-shadow: inset 0 0 0 1px currentColor;
+		// }
+	}
+
+
+	ol {
+		counter-reset: li2;
+
+		// 子要素は塗り潰しではなくボーダー
+		li::before {
+			color: var(--arkb-list_color_num);
+			background: none;
+			box-shadow: inset 0 0 0 1px currentColor;
+		}
+
+		& > li::before {
+			content: counter(li2);
+			counter-increment: li2;
+		}
+
+		ol {
+			counter-reset: li3;
+
+			& > li::before {
+				content: counter(li3);
+				counter-increment: li3;
+			}
+		}
+	}
+
+	ul {
+
+		li {
+			padding-left: 1.25em;
+		}
+
+		li::before {
+			transform: scale(.25);
+			content: "";
+			counter-increment: none;
+		}
+	}
+}
+
+// .is-style-ark-list-num--circle {
+
+// 	li::before {
+// 		border-radius: 50%;
+// 	}
+// }

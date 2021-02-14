@@ -1,0 +1,58 @@
+{
+    "apiVersion": 2,
+    "name": "arkhe-blocks/section-heading",
+    "title": "Notice",
+    "category": "arkhe-blocks",
+    "keywords": [
+        "heading",
+        "title"
+    ],
+    "supports": {
+        "anchor": true,
+        "className": false
+    },
+    "attributes": {
+        "textAlign": {
+            "type": "string",
+            "default": "center"
+        },
+        "content": {
+            "type": "string",
+            "source": "html",
+            "selector": ".ark-block-heading__main",
+            "default": ""
+        },
+        "level": {
+            "type": "number",
+            "default": 2
+        },
+        "subContent": {
+            "type": "string",
+            "source": "html",
+            "selector": ".ark-block-heading__sub",
+            "default": ""
+        },
+        "subPosition": {
+            "type": "string",
+            "default": "bottom"
+        },
+        "color": {
+            "type": "string"
+        },
+        "colorSlug": {
+            "type": "string"
+        },
+        "lineColor": {
+            "type": "string"
+        },
+        "lineColorSlug": {
+            "type": "string"
+        },
+        "useLine": {
+            "type": "boolean",
+            "default": true
+        }
+    },
+    "editorScript": "file:../../../../dist/gutenberg/blocks/section-heading/index.js",
+    "textdomain": "arkhe-blocks"
+}

@@ -1,0 +1,123 @@
+{
+    "apiVersion": 2,
+    "name": "arkhe-blocks/post-list",
+    "title": "Post list",
+    "category": "arkhe-blocks",
+    "keywords": [
+        "arkhe",
+        "post",
+        "list"
+    ],
+    "supports": {
+        "anchor": true,
+        "className": false,
+        "html": false
+    },
+    "attributes": {
+        "className": {
+            "type": "string",
+            "default": ""
+        },
+        "listType": {
+            "type": "string",
+            "default": "card"
+        },
+        "postID": {
+            "type": "string",
+            "default": ""
+        },
+        "catID": {
+            "type": "string",
+            "default": ""
+        },
+        "tagID": {
+            "type": "string",
+            "default": ""
+        },
+        "taxName": {
+            "type": "string",
+            "default": ""
+        },
+        "termID": {
+            "type": "string",
+            "default": ""
+        },
+        "catRelation": {
+            "type": "string",
+            "default": "IN"
+        },
+        "tagRelation": {
+            "type": "string",
+            "default": "IN"
+        },
+        "termRelation": {
+            "type": "string",
+            "default": "IN"
+        },
+        "queryRelation": {
+            "type": "string",
+            "default": "AND"
+        },
+        "excID": {
+            "type": "string",
+            "default": ""
+        },
+        "listCountPC": {
+            "type": "number",
+            "default": 3
+        },
+        "listCountSP": {
+            "type": "number",
+            "default": 3
+        },
+        "showCat": {
+            "type": "boolean",
+            "default": true
+        },
+        "showDate": {
+            "type": "boolean",
+            "default": true
+        },
+        "showModified": {
+            "type": "boolean",
+            "default": false
+        },
+        "showAuthor": {
+            "type": "boolean",
+            "default": false
+        },
+        "showStickyPosts": {
+            "type": "boolean",
+            "default": false
+        },
+        "excerptLength": {
+            "type": "number"
+        },
+        "order": {
+            "type": "string",
+            "default": "DESC"
+        },
+        "orderby": {
+            "type": "string",
+            "default": "date"
+        },
+        "exCatChildren": {
+            "type": "boolean",
+            "default": false
+        },
+        "authorID": {
+            "type": "number",
+            "default": 0
+        },
+        "postType": {
+            "type": "string",
+            "default": "post"
+        },
+        "hTag": {
+            "type": "string",
+            "default": "div"
+        }
+    },
+    "editorScript": "file:../../../../dist/gutenberg/blocks/post-list/index.js",
+    "textdomain": "arkhe-blocks"
+}

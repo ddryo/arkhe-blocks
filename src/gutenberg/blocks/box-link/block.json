@@ -1,0 +1,123 @@
+{
+    "apiVersion": 2,
+    "name": "arkhe-blocks/box-link",
+    "title": "Box link",
+    "category": "arkhe-blocks",
+    "keywords": [
+        "arkhe",
+        "box-link"
+    ],
+    "supports": {
+        "anchor": true,
+        "className": false,
+        "reusable": false
+    },
+    "parent": [
+        "arkhe-blocks/box-links"
+    ],
+    "attributes": {
+        "textAlign": {
+            "type": "string",
+            "default": ""
+        },
+        "useIcon": {
+            "type": "boolean",
+            "default": false
+        },
+        "iconHtml": {
+            "type": "string",
+            "source": "html",
+            "selector": ".arkb-boxLink__figure.-html"
+        },
+        "icon": {
+            "type": "string",
+            "default": ""
+        },
+        "iconSize": {
+            "type": "number"
+        },
+        "iconColor": {
+            "type": "string"
+        },
+        "layout": {
+            "type": "string",
+            "default": "vertical"
+        },
+        "imgId": {
+            "type": "number",
+            "default": 0
+        },
+        "imgUrl": {
+            "type": "string",
+            "source": "attribute",
+            "selector": "img.arkb-boxLink__img",
+            "attribute": "src"
+        },
+        "imgAlt": {
+            "type": "string",
+            "source": "attribute",
+            "selector": "img.arkb-boxLink__img",
+            "attribute": "alt"
+        },
+        "imgSize": {
+            "type": "string",
+            "default": "full"
+        },
+        "imgW": {
+            "type": "number"
+        },
+        "imgH": {
+            "type": "number"
+        },
+        "ratio": {
+            "type": "number"
+        },
+        "fixRatio": {
+            "type": "boolean",
+            "default": false
+        },
+        "isContain": {
+            "type": "boolean",
+            "default": false
+        },
+        "href": {
+            "type": "string",
+            "source": "attribute",
+            "selector": "a.arkb-boxLink__inner",
+            "attribute": "href"
+        },
+        "isNewTab": {
+            "type": "boolean",
+            "default": false
+        },
+        "rel": {
+            "type": "string",
+            "source": "attribute",
+            "selector": "a.arkb-boxLink__inner",
+            "attribute": "rel"
+        },
+        "title": {
+            "type": "string",
+            "source": "html",
+            "selector": ".arkb-boxLink__title"
+        },
+        "htag": {
+            "type": "string",
+            "default": "div"
+        },
+        "opacity": {
+            "type": "number",
+            "default": 50
+        },
+        "more": {
+            "type": "string",
+            "default": "READ MORE"
+        },
+        "showMoreArrow": {
+            "type": "boolean",
+            "default": true
+        }
+    },
+    "editorScript": "file:../../../../dist/gutenberg/blocks/box-link/index.js",
+    "textdomain": "arkhe-blocks"
+}

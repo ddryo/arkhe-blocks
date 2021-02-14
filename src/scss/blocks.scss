@@ -4,11 +4,10 @@
  * エディターのみで読み込むCSS
  */
 @import "mixin/**";
-// @import "icon";
 @import "./common/**";
 @import "./editor/**";
-@import "../blocks/**/_common.scss";
-@import "../blocks/**/_editor.scss";
+@import "../gutenberg/**/_common.scss";
+@import "../gutenberg/**/_editor.scss";
 
 .ark-iconPicker {
 

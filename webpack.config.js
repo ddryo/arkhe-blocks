@@ -12,8 +12,10 @@ try {
 if (myEntries) {
 	entries = myEntries;
 } else {
-	entries.fa = './src/blocks/fa.js';
-	entries.index = './src/blocks/index.js';
+	entries.fa = path.resolve(srcDir, 'fa.js');
+	entries.index = path.resolve(srcDir, 'index.js');
+	entries.ex_core = path.resolve(srcDir, 'ex_core.js');
+	entries.format = path.resolve(srcDir, 'format.js');
 
 	const blocks = [
 		'accordion',
@@ -37,11 +39,13 @@ if (myEntries) {
 		'section-heading',
 		'step',
 		'step-item',
+		'tab',
+		'tab-body',
 		'timeline',
 		'timeline-item',
 	];
 	blocks.forEach((key) => {
-		entries[key + '/index'] = path.resolve(srcDir, key + '/index.js');
+		entries['blocks/' + key + '/index'] = path.resolve(srcDir, 'blocks/' + key + '/index.js');
 	});
 }
 
@@ -68,15 +72,15 @@ module.exports = {
 
 	//アウトプット先
 	output: {
-		path: path.resolve(__dirname, 'dist/blocks'),
+		path: path.resolve(__dirname, 'dist/gutenberg'),
 		filename: '[name].js',
 	},
 
 	resolve: {
 		alias: {
-			'@blocks': path.resolve(__dirname, 'src/blocks/'),
-			'@components': path.resolve(__dirname, 'src/components/'),
-			'@helper': path.resolve(__dirname, 'src/helper/'),
+			'@blocks': path.resolve(__dirname, 'src/gutenberg/blocks/'),
+			'@components': path.resolve(__dirname, 'src/gutenberg/components/'),
+			'@helper': path.resolve(__dirname, 'src/gutenberg/helper/'),
 			'@src': path.resolve(__dirname, 'src/'),
 		},
 	},

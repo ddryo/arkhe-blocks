@@ -1,0 +1,36 @@
+{
+    "apiVersion": 2,
+    "name": "arkhe-blocks/accordion-item",
+    "title": "Accordion Item",
+    "category": "arkhe-blocks",
+    "supports": {
+        "anchor": true,
+        "className": false,
+        "reusable": false
+    },
+    "parent": [
+        "arkhe-blocks/accordion"
+    ],
+    "attributes": {
+        "title": {
+            "type": "string",
+            "source": "html",
+            "selector": ".ark-block-accordion__label",
+            "default": ""
+        },
+        "iconOpened": {
+            "type": "string",
+            "default": "arkb-svg-minus"
+        },
+        "iconClosed": {
+            "type": "string",
+            "default": "arkb-svg-plus"
+        }
+    },
+    "usesContext": [
+        "arkhe-block/accordion/iconOpened",
+        "arkhe-block/accordion/iconClosed"
+    ],
+    "editorScript": "file:../../../../dist/gutenberg/blocks/accordion-item/index.js",
+    "textdomain": "arkhe-blocks"
+}

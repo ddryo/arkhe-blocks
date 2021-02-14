@@ -1,0 +1,31 @@
+{
+    "apiVersion": 2,
+    "name": "arkhe-blocks/tab-body",
+    "title": "Step item",
+    "category": "arkhe-blocks",
+    "supports": {
+        "className": false,
+        "reusable": false,
+        "customClassName": false,
+        "html": false
+    },
+    "parent": [
+        "arkhe-blocks/tab"
+    ],
+    "attributes": {
+        "bodyId": {
+            "type": "number",
+            "default": 0
+        },
+        "tabId": {
+            "type": "string",
+            "default": ""
+        },
+        "activeTab": {
+            "type": "number",
+            "default": 0
+        }
+    },
+    "editorScript": "file:../../../../dist/gutenberg/blocks/tab-body/index.js",
+    "textdomain": "arkhe-blocks"
+}

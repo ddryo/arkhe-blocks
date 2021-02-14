@@ -1,0 +1,47 @@
+{
+    "apiVersion": 2,
+    "name": "arkhe-blocks/step-item",
+    "title": "Step item",
+    "category": "arkhe-blocks",
+    "supports": {
+        "anchor": true,
+        "className": false,
+        "reusable": false
+    },
+    "parent": [
+        "arkhe-blocks/step"
+    ],
+    "attributes": {
+        "title": {
+            "type": "string",
+            "source": "html",
+            "selector": ".ark-block-step__title"
+        },
+        "stepLabel": {
+            "type": "string",
+            "default": "STEP"
+        },
+        "theLabel": {
+            "type": "string",
+            "default": ""
+        },
+        "theNum": {
+            "type": "string",
+            "default": ""
+        },
+        "numColor": {
+            "type": "string",
+            "default": ""
+        },
+        "isHideLabel": {
+            "type": "boolean",
+            "default": false
+        },
+        "isHideNum": {
+            "type": "boolean",
+            "default": false
+        }
+    },
+    "editorScript": "file:../../../../dist/gutenberg/blocks/step-item/index.js",
+    "textdomain": "arkhe-blocks"
+}

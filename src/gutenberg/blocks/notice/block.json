@@ -1,0 +1,32 @@
+{
+    "apiVersion": 2,
+    "name": "arkhe-blocks/notice",
+    "title": "Notice",
+    "category": "arkhe-blocks",
+    "keywords": [
+        "arkhe",
+        "notice"
+    ],
+    "supports": {
+        "anchor": true,
+        "className": false
+    },
+    "attributes": {
+        "title": {
+            "type": "string",
+            "source": "html",
+            "selector": ".ark-block-notice__title",
+            "default": ""
+        },
+        "type": {
+            "type": "string",
+            "default": "point"
+        },
+        "icon": {
+            "type": "string",
+            "default": "arkb-svg-point"
+        }
+    },
+    "editorScript": "file:../../../../dist/gutenberg/blocks/notice/index.js",
+    "textdomain": "arkhe-blocks"
+}

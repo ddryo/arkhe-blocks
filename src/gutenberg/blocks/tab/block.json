@@ -1,0 +1,45 @@
+{
+    "apiVersion": 2,
+    "name": "arkhe-blocks/tab",
+    "title": "Tab",
+    "category": "arkhe-blocks",
+    "keywords": [
+        "arkhe",
+        "tab"
+    ],
+    "supports": {
+        "className": false
+    },
+    "attributes": {
+        "isExample": {
+            "type": "boolean",
+            "default": false
+        },
+        "tabId": {
+            "type": "string",
+            "default": ""
+        },
+        "activeTab": {
+            "type": "number",
+            "default": 0
+        },
+        "tabWidth": {
+            "type": "string",
+            "default": "auto"
+        },
+        "isScrollPC": {
+            "type": "boolean",
+            "default": false
+        },
+        "isScrollSP": {
+            "type": "boolean",
+            "default": false
+        },
+        "tabColor": {
+            "type": "string",
+            "default": ""
+        }
+    },
+    "editorScript": "file:../../../../dist/gutenberg/blocks/tab/index.js",
+    "textdomain": "arkhe-blocks"
+}

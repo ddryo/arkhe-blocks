@@ -1,0 +1,39 @@
+{
+    "apiVersion": 2,
+    "name": "arkhe-blocks/column",
+    "title": "Column",
+    "category": "arkhe-blocks",
+    "keywords": [
+        "arkhe",
+        "column"
+    ],
+    "supports": {
+        "anchor": true,
+        "className": false,
+        "reusable": false
+    },
+    "parent": [
+        "arkhe-blocks/columns"
+    ],
+    "attributes": {
+        "vAlign": {
+            "type": "string",
+            "default": ""
+        },
+        "widthPC": {
+            "type": "number"
+        },
+        "widthTab": {
+            "type": "number"
+        },
+        "widthMobile": {
+            "type": "number"
+        },
+        "isBreakAll": {
+            "type": "boolean",
+            "default": false
+        }
+    },
+    "editorScript": "file:../../../../dist/gutenberg/blocks/column/index.js",
+    "textdomain": "arkhe-blocks"
+}

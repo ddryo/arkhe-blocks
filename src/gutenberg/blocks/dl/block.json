@@ -1,0 +1,17 @@
+{
+    "apiVersion": 2,
+    "name": "arkhe-blocks/dl",
+    "title": "Description list",
+    "category": "arkhe-blocks",
+    "keywords": [
+        "arkhe",
+        "dl"
+    ],
+    "supports": {
+        "anchor": true,
+        "className": false
+    },
+    "attributes": {},
+    "editorScript": "file:../../../../dist/gutenberg/blocks/dl/index.js",
+    "textdomain": "arkhe-blocks"
+}

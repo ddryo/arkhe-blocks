@@ -9,7 +9,7 @@ version=$1
 cd ..
 
 #zプラグインファイルをip化
-zip -r arkhe-blocks-pro.zip arkhe-blocks-pro -x "*/.*" "*/__*" "*bin*" "*node_modules*" "*vendor*" "*/src/blocks/*.js" "*/src/helper*" "*/src/extension*" "*/src/components*" "*phpcs.xml" "*gulpfile.js" "*README.md"
+zip -r arkhe-blocks-pro.zip arkhe-blocks-pro -x "*/.*" "*/__*" "*bin*" "*node_modules*" "*vendor*" "*/src/**/*.js" "*phpcs.xml" "*gulpfile.js" "*README.md"
 
 #設定ファイル系削除
 zip --delete arkhe-blocks-pro.zip  "arkhe-blocks-pro/composer*" "arkhe-blocks-pro/webpack*" "arkhe-blocks-pro/package*"

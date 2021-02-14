@@ -1,0 +1,17 @@
+{
+    "apiVersion": 2,
+    "name": "arkhe-blocks/dl-dd",
+    "title": "Description",
+    "category": "arkhe-blocks",
+    "supports": {
+        "className": false,
+        "reusable": false
+    },
+    "parent": [
+        "arkhe-blocks/dl",
+        "arkhe-blocks/dl-div"
+    ],
+    "attributes": {},
+    "editorScript": "file:../../../../dist/gutenberg/blocks/dl-dd/index.js",
+    "textdomain": "arkhe-blocks"
+}
