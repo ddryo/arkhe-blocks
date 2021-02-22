@@ -239,7 +239,7 @@ registerBlockType(name, {
 							className={subTextClass}
 							value={subContent}
 							onChange={(value) => setAttributes({ subContent: value })}
-							placeholder='Write sub title…'
+							placeholder={__('Write sub title…', 'arkhe-blocks')}
 							textAlign={textAlign}
 						/>
 					)}
@@ -280,7 +280,7 @@ registerBlockType(name, {
 							className={subTextClass}
 							value={subContent}
 							onChange={(value) => setAttributes({ subContent: value })}
-							placeholder={__('Write sub title…')}
+							placeholder={__('Write sub title…', 'arkhe-blocks')}
 							textAlign={textAlign}
 						/>
 					)}

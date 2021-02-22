@@ -32,57 +32,32 @@ function hook_wp_enqueue_scripts() {
  * Gutenberg用ファイル
  */
 function hook_enqueue_block_editor_assets( $hook_suffix ) {
-	wp_enqueue_style(
-		'arkhe-blocks-style',
-		ARKHE_BLOCKS_URL . 'dist/css/blocks.css',
-		[],
-		ARKHE_BLOCKS_VERSION
-	);
+
+	$dist_url = ARKHE_BLOCKS_URL . 'dist/';
+
+	// ブロック用CSS
+	wp_enqueue_style( 'arkhe-blocks-style', $dist_url . 'css/blocks.css', [], ARKHE_BLOCKS_VERSION );
 
 	// @FontAwesom
 	$asset = include ARKHE_BLOCKS_PATH . 'dist/gutenberg/fa.asset.php';
-	wp_enqueue_script(
-		'arkhe-blocks-fa',
-		ARKHE_BLOCKS_URL . 'dist/gutenberg/fa.js',
-		$asset['dependencies'],
-		$asset['version'],
-		true
-	);
+	wp_enqueue_script( 'arkhe-blocks-fa', $dist_url . 'gutenberg/fa.js', $asset['dependencies'], $asset['version'], true );
 
-	// コアの拡張
-	$asset = include ARKHE_BLOCKS_PATH . 'dist/gutenberg/ex_core.asset.php';
-	wp_enqueue_script(
-		'arkhe-blocks-ex_core',
-		ARKHE_BLOCKS_URL . 'dist/gutenberg/ex_core.js',
-		$asset['dependencies'],
-		$asset['version'],
-		true
-	);
+	// コアブロックの拡張
+	$is_ex_core = apply_filters( 'arkhe_blocks_is_ex_core', 1 );
+	if ( $is_ex_core ) {
+		$asset = include ARKHE_BLOCKS_PATH . 'dist/gutenberg/ex_core.asset.php';
+		wp_enqueue_script( 'arkhe-blocks-ex_core', $dist_url . 'gutenberg/ex_core.js', $asset['dependencies'], $asset['version'], true );
+	}
 
 	// その他基本的なスクリプト
 	$asset = include ARKHE_BLOCKS_PATH . 'dist/gutenberg/index.asset.php';
-	wp_enqueue_script(
-		'arkhe-blocks-script',
-		ARKHE_BLOCKS_URL . 'dist/gutenberg/index.js',
-		$asset['dependencies'],
-		$asset['version'],
-		true
-	);
+	wp_enqueue_script( 'arkhe-blocks-script', $dist_url . 'gutenberg/index.js', $asset['dependencies'], $asset['version'], true );
 
-	// その他基本的なスクリプト
-	$asset = include ARKHE_BLOCKS_PATH . 'dist/gutenberg/index.asset.php';
-	wp_enqueue_script(
-		'arkhe-blocks-script',
-		ARKHE_BLOCKS_URL . 'dist/gutenberg/index.js',
-		$asset['dependencies'],
-		$asset['version'],
-		true
-	);
 }
 
 
 /**
- * ページテンプレートの情報などをhtmlタグに。
+ * エディター側の<html>に[data-sidebar]を付与( 投稿リストブロック用 )
  */
 function hook_admin_head() {
 
@@ -109,7 +84,9 @@ function hook_admin_head() {
 		}
 		$show_sidebar = \Arkhe::get_setting( $side_key ) ? 'on' : 'off';
 	}
-	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-	echo '<script>document.documentElement.setAttribute("data-sidebar", "' . $show_sidebar . '");</script>';
+
+	echo PHP_EOL . '<!-- Arkhe Blocks -->' . PHP_EOL;
+	echo '<script>document.documentElement.setAttribute("data-sidebar", "' . $show_sidebar . '");</script>' . PHP_EOL; // phpcs:ignore
+	echo '<!-- / Arkhe Blocks -->' . PHP_EOL;
 
 }

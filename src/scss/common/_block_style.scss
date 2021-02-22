@@ -142,15 +142,15 @@
 }
 
 .is-style-ark-list-icon--check {
-	--arkb-list_color_icon: #be8a28;
+	--arkb-list_color_icon: #7dd872;
 
 	li::before {
-		content: "\e901";
+		content: "\e900";
 	}
 }
 
 .is-style-ark-list-icon--good {
-	--arkb-list_color_icon: #53be28;
+	--arkb-list_color_icon: #7dd872;
 
 	li::before {
 		content: "\e902";
@@ -158,10 +158,10 @@
 }
 
 .is-style-ark-list-icon--bad {
-	--arkb-list_color_icon: #3378d3;
+	--arkb-list_color_icon: #ef6b6b;
 
 	li::before {
-		content: "\e900";
+		content: "\e901";
 	}
 }
 
@@ -185,8 +185,23 @@
 	}
 }
 
-[class*="is-style-ark-list-num"] {
-	counter-reset: li;
+ol.is-style-ark-list-note {
+	counter-reset: arkb-ct;
+
+	li {
+		padding-left: 1.5em;
+
+		&::before {
+			letter-spacing: 4px;
+			content: "※" counter(arkb-ct);
+			counter-increment: arkb-ct;
+		}
+	}
+}
+
+
+.is-style-ark-list-numbered {
+	counter-reset: arkb-ct;
 
 	li {
 		padding-left: 2em;
@@ -208,8 +223,8 @@
 			border-radius: 50%;
 			transform: scale(.75);
 			transform-origin: 0% 50%;
-			content: counter(li);
-			counter-increment: li;
+			content: counter(arkb-ct);
+			counter-increment: arkb-ct;
 		}
 
 		// &::before {
@@ -219,9 +234,13 @@
 		// }
 	}
 
+	&[reversed] > li::before {
+		counter-increment: arkb-ct -1;
+	}
+
 
 	ol {
-		counter-reset: li2;
+		counter-reset: arkb-ct2;
 
 		// 子要素は塗り潰しではなくボーダー
 		li::before {
@@ -231,16 +250,16 @@
 		}
 
 		& > li::before {
-			content: counter(li2);
-			counter-increment: li2;
+			content: counter(arkb-ct2);
+			counter-increment: arkb-ct2;
 		}
 
 		ol {
-			counter-reset: li3;
+			counter-reset: arkb-ct3;
 
 			& > li::before {
-				content: counter(li3);
-				counter-increment: li3;
+				content: counter(arkb-ct3);
+				counter-increment: arkb-ct3;
 			}
 		}
 	}
@@ -258,10 +277,3 @@
 		}
 	}
 }
-
-// .is-style-ark-list-num--circle {
-
-// 	li::before {
-// 		border-radius: 50%;
-// 	}
-// }

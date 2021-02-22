@@ -1,64 +1,25 @@
 /**
- * @WordPress dependencies
+ * マージンコントロールを表示するブロックかどうか
  */
-// import { __ } from '@wordpress/i18n';
-import { addFilter } from '@wordpress/hooks';
-// import { useSelect } from '@wordpress/data';
-import { createHigherOrderComponent } from '@wordpress/compose';
-import {
-	BlockControls,
-	//InspectorControls
-} from '@wordpress/block-editor';
+export const getIsShowMarginBtn = (name) => {
+	// コアブロックかどうか
+	const isCore = -1 !== name.indexOf('core/');
+	if (!isCore) return false;
 
-/**
- * @Self dependencies
- */
-import { ArkheMarginControl } from '@components/ArkheMarginControl';
-// import MarginPanel from './components/MarginPanel';
+	// 除去するブロック
+	const removalBlocks = ['core/shortcode', 'core/html', 'core/block'];
+	const isRemovalBlocks = -1 !== removalBlocks.indexOf(name);
 
-/**
- * マージンコントロール
- */
-const addMarginControls = createHigherOrderComponent((BlockEdit) => {
-	return (props) => {
-		const { name, attributes, setAttributes, isSelected } = props;
+	if (isRemovalBlocks) return false;
 
-		// コアブロックかどうか
-		const isCore = -1 !== name.indexOf('core/');
+	// マージンコントロールを表示するかどうかの設定を取得
+	// const arkheBlockSettings = useSelect((select) => {
+	// 	return select(swellStore).getSettings();
+	// }, []);
+	// const showMarginToolBtn = arkheBlockSettings.show_margin_toolbtn;
+	// const showMarginToolBtn = 1;
+	// if (!showMarginToolBtn) return false;
 
-		// 除去するブロック
-		const removalBlocks = ['core/shortcode', 'core/html', 'core/block'];
-		const isRemovalBlocks = -1 !== removalBlocks.indexOf(name);
-
-		// 条件似合わない場合は返す
-		if (!isSelected || !isCore || isRemovalBlocks) {
-			return <BlockEdit {...props} />;
-		}
-
-		// マージンコントロールを表示するかどうか
-		// const arkheBlockSettings = useSelect((select) => {
-		// 	return select(swellStore).getSettings();
-		// }, []);
-		// const showMarginToolBtn = arkheBlockSettings.show_margin_toolbtn;
-		const showMarginToolBtn = 1;
-
-		return (
-			<>
-				<BlockEdit {...props} />
-				{showMarginToolBtn && (
-					<BlockControls>
-						<ArkheMarginControl
-							className={attributes.className}
-							setAttributes={setAttributes}
-						/>
-					</BlockControls>
-				)}
-
-				{/* <InspectorControls>
-					<MarginPanel className={attributes.className} setAttributes={setAttributes} />
-				</InspectorControls> */}
-			</>
-		);
-	};
-}, 'addMarginControls');
-addFilter('editor.BlockEdit', 'swell-hook/add-margin-control', addMarginControls, 99);
+	// ok.
+	return true;
+};

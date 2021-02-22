@@ -30,8 +30,7 @@ const coreListStyles = {
 	'ark-list-icon--check': _x('Check', 'style', 'arkhe-blocks'),
 	'ark-list-icon--good': _x('Good', 'style', 'arkhe-blocks'),
 	'ark-list-icon--bad': _x('Bad', 'style', 'arkhe-blocks'),
-	'ark-list-num--circle': _x('Round number', 'style', 'arkhe-blocks'),
-	// 'ark-list-num--square': _x('Square number', 'style', 'arkhe-blocks'),
+	'ark-list-numbered': _x('Numbered', 'style', 'arkhe-blocks'),
 	'ark-list-note': _x('Notes', 'style', 'arkhe-blocks'),
 };
 for (const key in coreListStyles) {

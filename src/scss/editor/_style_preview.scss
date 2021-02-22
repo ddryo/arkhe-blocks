@@ -1,0 +1,22 @@
+
+// サイドバーと変換パネルのプレビューにのみ適用する。（パターンプレビューに影響がないようにする。）
+.edit-post-sidebar,
+.block-editor-block-switcher__styles__menugroup {
+
+	.block-editor-block-preview__container {
+
+		// リスト : 拡大する
+		[data-type="core/list"] {
+
+			li {
+				font-size: 2.5em;
+
+				// 表示リストを３つまでに制限
+				&:nth-of-type(4),
+				&:nth-of-type(5) {
+					display: none;
+				}
+			}
+		}
+	}
+}

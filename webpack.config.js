@@ -1,6 +1,6 @@
 const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 const path = require('path');
-const srcDir = 'src/blocks';
+const srcDir = 'src/gutenberg';
 
 let entries = {}; // ビルドするファイル群
 let myEntries = null; // ビルドするファイルを限定したい時に使う

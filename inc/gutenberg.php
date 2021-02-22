@@ -46,6 +46,7 @@ function register_blocks() {
 		'dl-div',
 	];
 
+	// Pro版のみ
 	if ( \Arkhe_Blocks::IS_PRO ) {
 		$arkhe_blocks_pro = [
 			'notice', // -> freeへ？
@@ -57,6 +58,7 @@ function register_blocks() {
 			'tab-body',
 		];
 
+		// かつ、Arkheでのみ利用可能
 		if ( IS_ARKHE_THEME ) {
 			$arkhe_blocks_pro[] = 'section';
 			$arkhe_blocks_pro[] = 'section-heading';

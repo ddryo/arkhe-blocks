@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Arkhe Blocks\n"
-"POT-Creation-Date: 2021-02-09 18:39+0900\n"
-"PO-Revision-Date: 2021-02-09 18:39+0900\n"
+"POT-Creation-Date: 2021-02-22 17:12+0900\n"
+"PO-Revision-Date: 2021-02-22 17:16+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -282,6 +282,7 @@ msgid "Rich columns"
 msgstr "リッチカラム"
 
 #: src/gutenberg/blocks/columns/index.js:60
+#: src/gutenberg/extension/block_styles.js:12
 msgctxt "style"
 msgid "Shadow"
 msgstr "影付き"
@@ -674,7 +675,7 @@ msgstr ""
 
 #: src/gutenberg/blocks/section-heading/index.js:283
 msgid "Write sub title…"
-msgstr ""
+msgstr "サブタイトルを入力…"
 
 #: src/gutenberg/blocks/section/_sidebar.js:122
 msgid "Height settings"
@@ -948,6 +949,51 @@ msgstr "ブロック上の余白"
 msgid "Edit image"
 msgstr ""
 
+#: src/gutenberg/extension/block_styles.js:13
+msgctxt "style"
+msgid "Border"
+msgstr "枠線"
+
+#: src/gutenberg/extension/block_styles.js:14
+msgctxt "style"
+msgid "Frame"
+msgstr "フレーム"
+
+#: src/gutenberg/extension/block_styles.js:30
+msgctxt "style"
+msgid "Check"
+msgstr "チェック"
+
+#: src/gutenberg/extension/block_styles.js:31
+msgctxt "style"
+msgid "Good"
+msgstr "グッド"
+
+#: src/gutenberg/extension/block_styles.js:32
+msgctxt "style"
+msgid "Bad"
+msgstr "バッド"
+
+#: src/gutenberg/extension/block_styles.js:33
+msgctxt "style"
+msgid "Numbered"
+msgstr "番号付き"
+
+#: src/gutenberg/extension/block_styles.js:34
+msgctxt "style"
+msgid "Notes"
+msgstr "注釈"
+
+#: src/gutenberg/extension/block_styles.js:45
+msgctxt "style"
+msgid "Card type"
+msgstr "カード型"
+
+#: src/gutenberg/extension/block_styles.js:46
+msgctxt "style"
+msgid "Broken Grid"
+msgstr "ブロークングリッド"
+
 #: src/gutenberg/extension/headbar.js:36
 msgid "View Post"
 msgstr "投稿を表示"
@@ -982,7 +1028,7 @@ msgstr "記事が見つかりませんでした。"
 
 #: inc/gutenberg.php:104
 msgid "Arkhe Blocks"
-msgstr ""
+msgstr "Arkhe Blocks"
 
 #: inc/notice.php:48
 msgid "Both the free and PRO versions of Arkhe Blocks are running."
@@ -994,7 +1040,7 @@ msgstr "PRO版をご利用の方は、無料版は無効化してご利用くだ
 
 #. Plugin Name of the plugin/theme
 msgid "Arkhe Blocks Pro"
-msgstr ""
+msgstr "Arkhe Blocks Pro"
 
 #. Plugin URI of the plugin/theme
 msgid "https://arkhe-theme.com"
@@ -1006,11 +1052,11 @@ msgstr "“Arkhe”テーマに最適化された、Gutenbergを拡張するプ�
 
 #. Author of the plugin/theme
 msgid "LOOS,Inc."
-msgstr ""
+msgstr "LOOS,Inc."
 
 #. Author URI of the plugin/theme
 msgid "https://loos.co.jp/"
-msgstr ""
+msgstr "https://loos.co.jp/"
 
 #, fuzzy
 #~| msgid "Color settings"
