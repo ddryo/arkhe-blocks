@@ -11,4 +11,12 @@
 		box-shadow: var(--arkb-shadow);
 	}
 
+
+	.ark-block-column > .wp-block-image {
+		max-width: 100%;
+	}
+
+	// .components-resizable-box__container {
+	// 	display: block !important;
+	// }
 }

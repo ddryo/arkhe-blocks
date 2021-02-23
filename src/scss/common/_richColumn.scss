@@ -22,19 +22,22 @@
 	&[data-valign="bottom"] {
 		align-items: flex-end;
 	}
+
 }
 
 .arkb-columns__item {
 
-	flex-basis: calc(var(--arkb-fb, 100%) - 1.5rem);
+	// flex-basis だと redized画像がエディターでだけはみ出るので、 width使う
+	width: calc(var(--arkb-fb, 100%) - 1.5rem);
+	// flex-grow: 0;
 	margin: 0 .75rem 1.5rem;
 
 	@include tab {
-		flex-basis: calc(var(--arkb-fb_tab, 50%) - 1.5rem);
+		width: calc(var(--arkb-fb_tab, 50%) - 1.5rem);
 	}
 
 	@include pc {
-		flex-basis: calc(var(--arkb-fb_pc, 50%) - 1.5rem);
+		width: calc(var(--arkb-fb_pc, 50%) - 1.5rem);
 	}
 
 	&[data-valign="top"] {

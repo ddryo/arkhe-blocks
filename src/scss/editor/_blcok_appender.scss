@@ -8,10 +8,13 @@
 .ark-block-faq {
 
 	& > .block-list-appender {
-		flex-basis: 80% !important;
-		margin: 1rem 10% 0;
+		flex-basis: 100% !important;
 		padding: 8px;
 	}
+}
+
+.arkb-columns > .block-editor-block-list__layout > .block-list-appender {
+	margin-top: 0;
 }
 
 .ark-block-accordion,
@@ -23,6 +26,7 @@
 		display: none;
 	}
 }
+
 
 .arkb-columns:not(.is-selected):not(.has-child-selected) {
 
