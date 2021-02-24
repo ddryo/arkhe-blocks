@@ -54,8 +54,6 @@ function register_blocks() {
 			'step-item',
 			'timeline',
 			'timeline-item',
-			'tab',
-			'tab-body',
 		];
 
 		// かつ、Arkheでのみ利用可能
@@ -66,6 +64,8 @@ function register_blocks() {
 			$arkhe_blocks_pro[] = 'box-links';
 			$arkhe_blocks_pro[] = 'column';
 			$arkhe_blocks_pro[] = 'columns';
+			$arkhe_blocks_pro[] = 'tab';
+			$arkhe_blocks_pro[] = 'tab-body';
 		}
 
 		$arkhe_blocks = array_merge( $arkhe_blocks, $arkhe_blocks_pro );
