@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Arkhe Blocks\n"
-"POT-Creation-Date: 2021-02-22 17:12+0900\n"
-"PO-Revision-Date: 2021-02-22 17:16+0900\n"
+"POT-Creation-Date: 2021-02-28 21:10+0900\n"
+"PO-Revision-Date: 2021-02-28 21:10+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -24,6 +24,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-2: node_modules\n"
 "X-Poedit-SearchPathExcluded-3: inc/update\n"
 "X-Poedit-SearchPathExcluded-4: *_icon*\n"
+"X-Poedit-SearchPathExcluded-5: *icon.js\n"
 
 #: src/gutenberg/blocks/accordion-item/index.js:53
 msgid "Accordion item"
@@ -669,13 +670,14 @@ msgstr "文字色"
 msgid "Line Color"
 msgstr "線の色"
 
-#: src/gutenberg/blocks/section-heading/index.js:265
-msgid "Write heading…"
-msgstr ""
-
+#: src/gutenberg/blocks/section-heading/index.js:242
 #: src/gutenberg/blocks/section-heading/index.js:283
 msgid "Write sub title…"
 msgstr "サブタイトルを入力…"
+
+#: src/gutenberg/blocks/section-heading/index.js:265
+msgid "Write heading…"
+msgstr ""
 
 #: src/gutenberg/blocks/section/_sidebar.js:122
 msgid "Height settings"
@@ -994,13 +996,42 @@ msgctxt "style"
 msgid "Broken Grid"
 msgstr "ブロークングリッド"
 
-#: src/gutenberg/extension/headbar.js:36
+#: src/gutenberg/extension/headbar.js:37
 msgid "View Post"
 msgstr "投稿を表示"
 
-#: src/gutenberg/extension/headbar.js:38
+#: src/gutenberg/extension/headbar.js:39
 msgid "View Page"
 msgstr "ページを表示"
+
+#: src/gutenberg/format.js:56
+msgid "Arkhe Format"
+msgstr "Arkhe書式"
+
+#: src/gutenberg/format.js:62
+msgid "Shortcodes"
+msgstr "ショートコード"
+
+#: src/gutenberg/format/btn/clear/index.js:10
+msgid "Clear format"
+msgstr "書式クリア"
+
+#: src/gutenberg/format/btn/font-size/index.js:98
+#: src/gutenberg/format/btn/letter-spacing/index.js:81
+msgid "Clear"
+msgstr ""
+
+#: src/gutenberg/format/btn/font-size/index.js:110
+msgid "Font size"
+msgstr "フォントサイズ"
+
+#: src/gutenberg/format/btn/letter-spacing/index.js:93
+msgid "Kerning"
+msgstr "カーニング"
+
+#: src/gutenberg/format/btn/mini-note/index.js:14
+msgid "Annotation size"
+msgstr "注釈サイズ"
 
 #: inc/admin_toolbar.php:18
 msgid "Get license"
@@ -1026,7 +1057,7 @@ msgstr "RSSフィードのURLが正しくありません。"
 msgid "The article was not found."
 msgstr "記事が見つかりませんでした。"
 
-#: inc/gutenberg.php:104
+#: inc/gutenberg.php:106
 msgid "Arkhe Blocks"
 msgstr "Arkhe Blocks"
 
@@ -1057,6 +1088,11 @@ msgstr "LOOS,Inc."
 #. Author URI of the plugin/theme
 msgid "https://loos.co.jp/"
 msgstr "https://loos.co.jp/"
+
+#, fuzzy
+#~| msgid "Arkhe Blocks"
+#~ msgid "Arkhe Formats"
+#~ msgstr "Arkhe Blocks"
 
 #, fuzzy
 #~| msgid "Color settings"

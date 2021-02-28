@@ -1,5 +1,4 @@
 <?php
-
 namespace Arkhe_Blocks;
 
 defined( 'ABSPATH' ) || exit;
@@ -47,6 +46,13 @@ function hook_enqueue_block_editor_assets( $hook_suffix ) {
 	if ( $is_ex_core ) {
 		$asset = include ARKHE_BLOCKS_PATH . 'dist/gutenberg/ex_core.asset.php';
 		wp_enqueue_script( 'arkhe-blocks-ex_core', $dist_url . 'gutenberg/ex_core.js', $asset['dependencies'], $asset['version'], true );
+	}
+
+	// 書式フォーマットの拡張
+	$is_ex_format = apply_filters( 'arkhe_blocks_is_ex_format', 1 );
+	if ( $is_ex_format ) {
+		$asset = include ARKHE_BLOCKS_PATH . 'dist/gutenberg/format.asset.php';
+		wp_enqueue_script( 'arkhe-blocks-format', $dist_url . 'gutenberg/format.js', $asset['dependencies'], $asset['version'], true );
 	}
 
 	// その他基本的なスクリプト

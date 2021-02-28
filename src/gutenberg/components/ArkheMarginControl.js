@@ -116,7 +116,7 @@ export const ArkheMarginControl = memo(({ className, setAttributes }) => {
 			isCollapsed={true}
 			icon={
 				activeBtn ? (
-					<span className='swl-toolbtn--margin'>
+					<span className='arkb-toolbtn--margin'>
 						{icons.mbCtrolSeted}
 						{activeBtn.size}
 					</span>

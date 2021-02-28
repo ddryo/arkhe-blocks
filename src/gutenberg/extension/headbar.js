@@ -18,6 +18,7 @@ wp.domReady(function () {
 	setTimeout(() => {
 		// ヘッダーツールバーを取得
 		const headerToolbar = document.querySelector('.edit-post-header__toolbar');
+
 		if (null === headerToolbar) return;
 		// 投稿データ
 		const currentPost = wp.data.select('core/editor').getCurrentPost();
@@ -50,5 +51,5 @@ wp.domReady(function () {
 			<PostlinkBtn currentPostLink={currentPostLink} linkText={linkText} />,
 			document.querySelector('.ark-custom-header-toolbar')
 		);
-	}, 100);
+	}, 20);
 });

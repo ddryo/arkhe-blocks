@@ -56,6 +56,7 @@ registerBlockType(name, {
 			template: [['arkhe-blocks/faq-item'], ['arkhe-blocks/faq-item']],
 			templateLock: false,
 			renderAppender: InnerBlocks.ButtonBlockAppender,
+			// templateInsertUpdatesSelection: true,
 		});
 
 		return (

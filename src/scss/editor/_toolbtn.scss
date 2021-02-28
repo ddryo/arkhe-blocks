@@ -1,8 +1,14 @@
 // ヘッダーツールバー（「投稿を表示する」）。
 .ark-custom-header-toolbar {
+	flex-basis: 100%; // 5.7~のため
 	align-self: center;
 	margin-left: 12px;
+
+	@media screen and (max-width: 782px) {
+		display: none;
+	}
 }
+
 
 // マージンコントロールのnullアイコン
 .arkb-null-icon {

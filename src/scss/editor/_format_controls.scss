@@ -1,0 +1,76 @@
+.arkb-format-toolbar {
+	order: 1;
+}
+
+[class*="arkb-popover"] {
+
+	.components-popover__content {
+		min-width: 280px;
+		max-width: 100%;
+		height: auto;
+	}
+
+}
+
+// letter-spacing設定
+.arkb-format-controls--ls {
+	display: flex;
+	align-items: center;
+
+	& > div {
+		flex-basis: auto;
+	}
+
+	& > div + div {
+		flex-shrink: 0;
+		margin-left: 8px;
+	}
+
+	.components-base-control__field {
+		margin-top: 0 !important;
+		margin-bottom: 0 !important;
+	}
+
+}
+
+
+// font-size設定
+.arkb-popover--fz {
+
+	.components-button-group {
+		display: flex;
+		width: 100%;
+
+		.components-button {
+			display: block;
+			flex-basis: 25%;
+			padding: 0;
+			text-align: center;
+
+			&.-xs {
+				flex-basis: 22%;
+				font-size: .8em;
+			}
+
+			&.-s {
+				flex-basis: 23%;
+				font-size: .9em;
+			}
+
+			&.-xl {
+				font-size: 1.1em;
+			}
+
+			&.-xxl {
+				flex-basis: 28%;
+				font-size: 1.25em;
+			}
+		}
+	}
+
+	.arkb-format-clear {
+		display: flex;
+		justify-content: center;
+		margin-top: 12px;
+	}
+}

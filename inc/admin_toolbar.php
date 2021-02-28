@@ -1,6 +1,8 @@
 <?php
 namespace Arkhe_Blocks;
 
+defined( 'ABSPATH' ) || exit;
+
 add_filter( 'admin_bar_menu', function ( $wp_admin_bar ) {
 
 	if ( ! class_exists( 'Arkhe' ) ) return;

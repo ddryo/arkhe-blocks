@@ -48,8 +48,9 @@ spl_autoload_register(
  * プラグイン実行クラス
  */
 if ( ! class_exists( 'Arkhe_Blocks' ) ) {
-	class Arkhe_Blocks {
+	class Arkhe_Blocks extends \Arkhe_Blocks\Data {
 
+		use \Arkhe_Blocks\Admin_Menu;
 		use \Arkhe_Blocks\Template_Parts;
 
 		const IS_PRO = true;
@@ -73,6 +74,9 @@ if ( ! class_exists( 'Arkhe_Blocks' ) ) {
 				load_plugin_textdomain( 'arkhe-blocks' );
 			}
 
+			// データセット
+			self::init();
+
 			// setup
 			require_once ARKHE_BLOCKS_PATH . 'inc/setup.php';
 
@@ -84,6 +88,7 @@ if ( ! class_exists( 'Arkhe_Blocks' ) ) {
 
 			// 管理メニュー
 			require_once ARKHE_BLOCKS_PATH . 'inc/admin_toolbar.php';
+			require_once ARKHE_BLOCKS_PATH . 'inc/admin_menu.php';
 
 			if ( is_admin() ) {
 				require_once ARKHE_BLOCKS_PATH . 'inc/notice.php';

@@ -80,6 +80,7 @@ module.exports = {
 		alias: {
 			'@blocks': path.resolve(__dirname, 'src/gutenberg/blocks/'),
 			'@components': path.resolve(__dirname, 'src/gutenberg/components/'),
+			'@format': path.resolve(__dirname, 'src/gutenberg/format'),
 			'@helper': path.resolve(__dirname, 'src/gutenberg/helper/'),
 			'@src': path.resolve(__dirname, 'src/'),
 		},
