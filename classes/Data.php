@@ -11,16 +11,15 @@ class Data {
 
 	// DB名
 	const DB_NAMES = [
-		'general' => 'arkhe_blocks_general',
-		'format'  => 'arkhe_blocks_format',
+		'general'   => 'arkhe_blocks_general',
+		'format'    => 'arkhe_blocks_format',
+		'shortcode' => 'arkhe_blocks_shortcode',
 	];
 
 	// 設定ページスラッグ
-	const MENU_SLUG = 'arkhe_blocks_settings';
-	const MENU_PAGE_PREFIX = 'arkb_menu_page_';
+	const MENU_SLUG         = 'arkhe_blocks_settings';
+	const MENU_PAGE_PREFIX  = 'arkb_menu_page_';
 	const MENU_GROUP_PREFIX = 'arkb_menu_group_';
-
-	
 
 	// メニューの設定タブ
 	public static $menu_tabs = [];
@@ -46,12 +45,16 @@ class Data {
 
 		self::$defaults = [
 			'general' => [
-				'test'  => '',
-				'test2' => '1',
+				'disable_ex_core'     => '',
+				'disable_format'      => '',
+				'disable_shortcode'   => '',
+				'disable_header_link' => '',
 			],
 			'format' => [
-				'drawer_move'           => 'fade',
-				'header_above_drawer'   => false,
+				'custom_format_css'   => '',
+			],
+			'shortcode' => [
+				// 'custom_format_css'   => '',
 			],
 		];
 	}

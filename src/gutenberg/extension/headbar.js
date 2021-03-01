@@ -15,6 +15,8 @@ const PostlinkBtn = ({ currentPostLink, linkText }) => {
 };
 
 wp.domReady(function () {
+	if (window.arkbSettings.disableHeaderLink) return;
+
 	setTimeout(() => {
 		// ヘッダーツールバーを取得
 		const headerToolbar = document.querySelector('.edit-post-header__toolbar');

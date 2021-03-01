@@ -3,13 +3,10 @@ namespace Arkhe_Blocks;
 
 defined( 'ABSPATH' ) || exit;
 
-add_action( 'init', '\Arkhe_Blocks\register_blocks' );
-add_filter( 'block_categories', '\Arkhe_Blocks\add_block_categories', 5 );
-
-
 /**
  * ダイナミックブロック用ファイルの読み込み
  */
+add_action( 'init', '\Arkhe_Blocks\register_blocks' );
 function register_blocks() {
 
 	global $wp_version;
@@ -17,22 +14,15 @@ function register_blocks() {
 	if ( ! $is_wp56 ) return;
 
 	// 翻訳登録用の空ファイル
-	wp_enqueue_script(
-		'arkhe-blocks-lang',
-		ARKHE_BLOCKS_URL . 'assets/js/translations.js',
-		[],
-		ARKHE_BLOCKS_VERSION,
-		false
-	);
+	wp_enqueue_script( 'arkhe-blocks-lang', ARKHE_BLOCKS_URL . 'assets/js/translations.js', [], ARKHE_BLOCKS_VERSION, false );
 
 	// JS用翻訳ファイルの読み込み
 	if ( function_exists( 'wp_set_script_translations' ) ) {
-		wp_set_script_translations(
-			'arkhe-blocks-lang',
-			'arkhe-blocks',
-			ARKHE_BLOCKS_PATH . 'languages'
-		);
+		wp_set_script_translations( 'arkhe-blocks-lang', 'arkhe-blocks', ARKHE_BLOCKS_PATH . 'languages' );
 	}
+
+	// その他、グローバル変数も紐づけておく
+	wp_localize_script( 'arkhe-blocks-lang', 'arkbSettings', \Arkhe_Blocks\get_localize_vars() );
 
 	// render_callback 不要な通常ブロック
 	$arkhe_blocks = [
@@ -99,6 +89,7 @@ function register_blocks() {
 /**
  * ブロックカテゴリー追加
  */
+add_filter( 'block_categories', '\Arkhe_Blocks\add_block_categories', 5 );
 function add_block_categories( $categories ) {
 	$my_category = [
 		[
@@ -109,4 +100,29 @@ function add_block_categories( $categories ) {
 	];
 	array_splice( $categories, 3, 0, $my_category );
 	return $categories;
+}
+
+
+/**
+ * ブロックエディターで使うグローバル変数
+ */
+function get_localize_vars() {
+	$custom_formats = [];
+	for ( $i = 1; $i < 4; $i++ ) {
+		$format_class = \Arkhe_Blocks::get_data( 'format', 'format_class_' . $i );
+		$format_title = \Arkhe_Blocks::get_data( 'format', 'format_title_' . $i );
+		if ( $format_class ) {
+				$custom_formats[] = [
+					'name'      => 'arkhe-blocks/custom' . $i,
+					'title'     => $format_title ?: 'Custom ' . $i,
+					'tagName'   => 'span',
+					'className' => 'arkb-' . $format_class,
+				];
+		}
+	}
+
+	return [
+		'customFormats'     => apply_filters( 'arkhe_blocks_custom_formats', $custom_formats ),
+		'disableHeaderLink' => \Arkhe_Blocks::get_data( 'general', 'disable_header_link' ),
+	];
 }

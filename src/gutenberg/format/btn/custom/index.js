@@ -10,20 +10,7 @@ import { RichTextToolbarButton } from '@wordpress/block-editor';
  */
 import { formatIcon } from '@format/icon';
 
-const formats = [
-	{
-		name: 'arkhe-blocks/custom01',
-		title: 'カスタム01',
-		tagName: 'span',
-		className: 'arkb-custom01',
-	},
-	{
-		name: 'arkhe-blocks/custom02',
-		title: 'カスタム02',
-		tagName: 'span',
-		className: 'arkb-custom02',
-	},
-];
+const formats = window.arkbSettings.customFormats || [];
 
 formats.forEach((format) => {
 	const formatName = format.name;

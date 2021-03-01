@@ -25,8 +25,7 @@ import '@format/btn/letter-spacing'; // カーニング
 // import '@format/btn/bg-color'; // 背景色
 // import '@format/btn/marker'; // マーカー
 
-// import '@format/btn/custom'; // カスタムボタン
-
+import '@format/btn/custom'; // カスタムボタン
 // import '@format/doropdown/shortcode'; // ショートコード用ドロップダウンメニューの登録
 
 const fillNames = [

@@ -1,0 +1,262 @@
+
+@charset "utf-8";
+
+/*
+ * 管理画面で読み込むCSS
+ */
+
+// mixin
+// @import "mixin/**";
+
+// 設定ページ
+$bg: #eff0f3;
+$headline:#0d0d0d;
+$text: #2a2a2a;
+$white: #fffffe;
+
+#wpwrap {
+	color: $text;
+	background: $bg;
+}
+
+#wpcontent {
+	padding-left: 0;
+}
+
+#arkhe-menu {
+	margin: 0;
+	font-size: 14px;
+
+	.notice:not(.updated) {
+		margin: 1em 0;
+		padding: 0;
+		background: none;
+		border: none;
+		box-shadow: none;
+	}
+
+	.notice.updated {
+		margin: 1em 0;
+		border: solid 1px #efefef;
+		border-left: solid 3px #00a32a;
+		border-radius: 1px;
+	}
+
+	.nav-tab-wrapper {
+		padding-top: 1em;
+		border-bottom: none;
+	}
+
+	.nav-tab {
+		margin: 0;
+		padding: .5em 1.5em;
+		background: $white;
+		border: none;
+		border-radius: 3px;
+		opacity: .7;
+
+		&.nav-tab-active {
+			background: $bg;
+			opacity: 1;
+		}
+	}
+
+
+	.arkhe-menu__head {
+		padding: 24px 24px 0;
+		color: $text;
+		background: $white;
+	}
+
+	h1.arkhe-menu__title {
+		color: $headline;
+		font-size: 2em;
+	}
+
+	h2 {
+		position: relative;
+		margin: 2em 0 1em;
+		padding: 8px 12px;
+		padding-left: 1.5em;
+		color: $headline;
+		font-size: 1.5em;
+	}
+
+	h2::before {
+		position: absolute;
+		top: calc(50% - .5em - 1px);
+		left: 0;
+		width: 1em;
+		height: 1em;
+		background: currentColor;
+		border: solid 2px #fff;
+		box-shadow: 0 0 0 1px #000;
+		transform: scale(.6) rotate(45deg);
+		content: "";
+	}
+
+	.h3 {
+		position: relative;
+		padding-left: 1.2em;
+		font-size: 1.2em;
+
+		&::before {
+			position: absolute;
+			top: calc(50% - .5em);
+			left: 0;
+			width: 1em;
+			height: 1em;
+			background: currentColor;
+			-webkit-transform: scale(.5) rotate(45deg);
+			transform: scale(.5) rotate(45deg);
+			content: "";
+		}
+	}
+
+
+	td > :first-child {
+		margin-top: 0 !important;
+	}
+
+	.form-table {
+		display: block;
+		padding: 1em;
+		background: $white;
+		box-shadow: 0 0 8px -2px rgba(0, 0, 0, .1);
+
+		th {
+			display: none;
+		}
+
+		tbody,
+		tr,
+		td {
+			display: block;
+		}
+	}
+
+	.arkhe-menu__help {
+		margin-top: 1em;
+	}
+
+
+}
+
+.arkhe-menu__body {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+.arkhe-menu__field {
+
+	margin-top: 24px;
+
+	&.-checkbox + &.-checkbox {
+		margin-top: 16px;
+	}
+
+	.arkhe-menu__description {
+		margin-top: 8px;
+		margin-left: 8px;
+		font-style: italic;
+		opacity: .8;
+	}
+
+	&.-text {
+		display: flex;
+
+		.arkhe-menu__label {
+			display: block;
+			min-width: 12em;
+		}
+	}
+
+
+	&.-textarea {
+
+		textarea {
+			margin-left: 8px;
+		}
+
+		.arkhe-menu__label {
+			display: block;
+			margin-bottom: 8px;
+		}
+
+		.large-text {
+			max-width: 800px;
+		}
+	}
+
+	&.-codemirror {
+
+		// 実際表示されるのは.CodeMirror
+		textarea,
+		.CodeMirror {
+			box-sizing: border-box;
+			width: 100%;
+			height: 50vh;
+			min-height: 25vh;
+			font-size: 14px;
+			border: 1px solid #ddd;
+		}
+	}
+
+
+	&.-radio {
+
+		.arkhe-menu__label {
+			display: block;
+			padding: 8px 0;
+		}
+	}
+
+	&.-checkbox {
+
+		[type="checkbox"] {
+			margin: 0 4px 0 0;
+		}
+
+		.arkhe-menu__label {
+			display: block;
+			padding: 4px 0;
+		}
+	}
+}
+
+.arkhe-menu__customFormat {
+
+	margin-bottom: 2em;
+
+	@media (min-width: 783px) {
+		display: flex;
+		flex-wrap: wrap;
+
+		.arkhe-menu__field + .arkhe-menu__field {
+			margin-left: 2em;
+		}
+	}
+
+	.__label {
+		width: 100%;
+	}
+
+	.arkhe-menu__field {
+		display: flex;
+		align-items: center;
+		// width: 50%;
+		margin-left: 1em;
+
+		.arkhe-menu__label {
+			display: block;
+			min-width: 4em;
+			margin-right: 1em;
+		}
+
+		input {
+			max-width: 12em;
+		}
+	}
+}
+

@@ -48,8 +48,9 @@ function display_setting_page() {
 add_action( 'admin_init', function() {
 
 	$menu_tabs = [
-		'general' => __( 'General settings', 'arkhe-blocks' ),
-		'format'  => __( 'Format settings', 'arkhe-blocks' ),
+		'general'   => __( 'General settings', 'arkhe-blocks' ),
+		'format'    => __( 'Format', 'arkhe-blocks' ),
+		// 'shortcode' => __( 'Shortcode', 'arkhe-blocks' ),
 	];
 
 	\Arkhe_Blocks::$menu_tabs = $menu_tabs;
