@@ -42,7 +42,6 @@ class Data {
 	 * デフォルト値をセット
 	 */
 	private static function set_defaults() {
-
 		self::$defaults = [
 			'general' => [
 				'disable_ex_core'     => '',
@@ -51,7 +50,8 @@ class Data {
 				'disable_header_link' => '',
 			],
 			'format' => [
-				'custom_format_css'   => '',
+				'format_title_1'    => __( 'Custom 01', 'arkhe-blocks' ),
+				'custom_format_css' => '',
 			],
 			'shortcode' => [
 				// 'custom_format_css'   => '',

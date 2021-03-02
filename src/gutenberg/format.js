@@ -29,10 +29,10 @@ import '@format/btn/custom'; // カスタムボタン
 // import '@format/doropdown/shortcode'; // ショートコード用ドロップダウンメニューの登録
 
 const fillNames = [
-	//'bg-color',
-	//'arkb-marker',
 	'arkb-fz',
 	'arkb-ls',
+	//'bg-color',
+	//'arkb-marker',
 ];
 
 /**

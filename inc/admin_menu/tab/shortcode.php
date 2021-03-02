@@ -9,30 +9,31 @@ $page_name = \Arkhe_Blocks::MENU_PAGE_PREFIX . $db_name;
 
 
 \Arkhe_Blocks::add_menu_section( [
-	'title'      => __( 'カスタムショートコード', 'arkhe-blocks' ),
+	'title'      => __( 'Custom shortcode', 'arkhe-blocks' ),
 	'key'        => 'custom_shortcode',
 	'page_name'  => $page_name,
 	'db'         => $db_name,
 	'page_cb'    => '\Arkhe_Blocks\Menu\cb_custom_shortcode',
-	'section_cb' => function() {
-		echo '<p>' . esc_html__( 'ブロックツールバーから呼び出せるインライン用ショートコードを定義できます。', 'arkhe-blocks' ) . '</p>';
-	},
+	// 'section_cb' => function() {
+	// 	echo '<p>' . esc_html__( 'ブロックツールバーから呼び出せるインライン用ショートコードを定義できます。', 'arkhe-blocks' ) . '</p>';
+	// },
 ] );
 
 function cb_custom_shortcode( $args ) {
 
 	for ( $i = 1; $i < 4; $i++ ) {
+		$label = __( 'Custom shortcode', 'arkhe-blocks' ) . ' - ' . $i;
 		echo '<div class="arkhe-menu__customFormat">';
-			echo '<div class="h3 __label">カスタム書式 - ' . esc_html( $i ) . '</div>';
+			echo '<div class="h3 __label">' . esc_html( $label ) . '</div>';
 			\Arkhe_Blocks::output_text_field([
 				'db'    => $args['db'],
 				'key'   => 'shortcode_title_' . $i,
-				'label' => __( '表示名', 'arkhe-blocks' ),
+				'label' => __( 'Display name', 'arkhe-blocks' ),
 			]);
 			\Arkhe_Blocks::output_text_field([
 				'db'    => $args['db'],
 				'key'   => 'shortcode_class_' . $i,
-				'label' => __( 'クラス名', 'arkhe-blocks' ),
+				'label' => __( 'Code to call', 'arkhe-blocks' ),
 			]);
 		echo '</div>';
 	}

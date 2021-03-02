@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Arkhe Blocks\n"
-"POT-Creation-Date: 2021-02-28 21:10+0900\n"
-"PO-Revision-Date: 2021-02-28 21:10+0900\n"
+"POT-Creation-Date: 2021-03-02 11:17+0900\n"
+"PO-Revision-Date: 2021-03-02 11:17+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -996,19 +996,19 @@ msgctxt "style"
 msgid "Broken Grid"
 msgstr "ブロークングリッド"
 
-#: src/gutenberg/extension/headbar.js:37
+#: src/gutenberg/extension/headbar.js:39
 msgid "View Post"
 msgstr "投稿を表示"
 
-#: src/gutenberg/extension/headbar.js:39
+#: src/gutenberg/extension/headbar.js:41
 msgid "View Page"
 msgstr "ページを表示"
 
-#: src/gutenberg/format.js:56
+#: src/gutenberg/format.js:55
 msgid "Arkhe Format"
 msgstr "Arkhe書式"
 
-#: src/gutenberg/format.js:62
+#: src/gutenberg/format.js:61
 msgid "Shortcodes"
 msgstr "ショートコード"
 
@@ -1033,11 +1033,81 @@ msgstr "カーニング"
 msgid "Annotation size"
 msgstr "注釈サイズ"
 
-#: inc/admin_toolbar.php:18
+#: classes/Data.php:55
+msgid "Custom 01"
+msgstr "カスタム01"
+
+#: inc/admin_menu.php:51
+msgid "General settings"
+msgstr "一般設定"
+
+#: inc/admin_menu.php:52
+msgctxt "tab"
+msgid "Format"
+msgstr "書式設定"
+
+#: inc/admin_menu/menu_page.php:15
+msgid "Your settings have been saved."
+msgstr "設定を保存しました。"
+
+#: inc/admin_menu/menu_page.php:25
+msgid "Arkhe Blocks Settings"
+msgstr "Arkhe Blocks設定"
+
+#: inc/admin_menu/tab/format.php:12 inc/admin_menu/tab/format.php:25
+msgid "Custom format"
+msgstr "カスタム書式"
+
+#: inc/admin_menu/tab/format.php:18
+msgid "You can define formats that can be applied from the block toolbar."
+msgstr "ブロックツールバーから適用できる書式フォーマットを定義できます。"
+
+#: inc/admin_menu/tab/format.php:30
+msgid "Class name"
+msgstr "クラス名"
+
+#: inc/admin_menu/tab/format.php:36 inc/admin_menu/tab/shortcode.php:31
+msgid "Display name"
+msgstr "表示名"
+
+#: inc/admin_menu/tab/format.php:49
+msgid "CSS for custom format"
+msgstr "カスタム書式用CSS"
+
+#: inc/admin_menu/tab/format.php:55
+msgid ""
+"The CSS written here is loaded on both the front side and the editor side."
+msgstr "ここに書いたCSSは、フロント側とエディター側の両方で読み込まれます。"
+
+#: inc/admin_menu/tab/general.php:11
+msgid "Disable editor extensions"
+msgstr "エディター拡張機能の無効化"
+
+#: inc/admin_menu/tab/general.php:20
+msgid "Disable core block extensions"
+msgstr "コアブロック拡張機能を無効化する"
+
+#: inc/admin_menu/tab/general.php:21
+msgid "Disable format extensions"
+msgstr "フォーマット拡張機能を無効化する"
+
+#: inc/admin_menu/tab/general.php:23
+msgid "Hide the link to the page placed on the header toolbar"
+msgstr "ヘッダーツールバーに設置しているページへのリンクを非表示にする"
+
+#: inc/admin_menu/tab/shortcode.php:12 inc/admin_menu/tab/shortcode.php:25
+msgid "Custom shortcode"
+msgstr "カスタムショートコード"
+
+#: inc/admin_menu/tab/shortcode.php:36
+msgid "Code to call"
+msgstr "呼び出すコード"
+
+#: inc/admin_toolbar.php:20
 msgid "Get license"
 msgstr "ライセンス取得"
 
-#: inc/admin_toolbar.php:32
+#: inc/admin_toolbar.php:34
 msgid "License key registration"
 msgstr "ライセンスキー登録"
 
@@ -1057,7 +1127,7 @@ msgstr "RSSフィードのURLが正しくありません。"
 msgid "The article was not found."
 msgstr "記事が見つかりませんでした。"
 
-#: inc/gutenberg.php:106
+#: inc/gutenberg.php:97
 msgid "Arkhe Blocks"
 msgstr "Arkhe Blocks"
 
@@ -1089,15 +1159,13 @@ msgstr "LOOS,Inc."
 msgid "https://loos.co.jp/"
 msgstr "https://loos.co.jp/"
 
+#~ msgid "Disable editor function"
+#~ msgstr "エディター機能の無効化"
+
 #, fuzzy
 #~| msgid "Arkhe Blocks"
 #~ msgid "Arkhe Formats"
 #~ msgstr "Arkhe Blocks"
-
-#, fuzzy
-#~| msgid "Color settings"
-#~ msgid "Block settings"
-#~ msgstr "カラー設定"
 
 #, fuzzy
 #~| msgid "Use icon"

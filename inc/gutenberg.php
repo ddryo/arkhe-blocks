@@ -109,15 +109,15 @@ function add_block_categories( $categories ) {
 function get_localize_vars() {
 	$custom_formats = [];
 	for ( $i = 1; $i < 4; $i++ ) {
-		$format_class = \Arkhe_Blocks::get_data( 'format', 'format_class_' . $i );
 		$format_title = \Arkhe_Blocks::get_data( 'format', 'format_title_' . $i );
-		if ( $format_class ) {
-				$custom_formats[] = [
-					'name'      => 'arkhe-blocks/custom' . $i,
-					'title'     => $format_title ?: 'Custom ' . $i,
-					'tagName'   => 'span',
-					'className' => 'arkb-' . $format_class,
-				];
+		// $format_class = \Arkhe_Blocks::get_data( 'format', 'format_class_' . $i );
+		if ( $format_title ) {
+			$custom_formats[] = [
+				'name'      => 'arkhe-blocks/custom' . $i,
+				'title'     => $format_title,
+				'tagName'   => 'span',
+				'className' => 'arkb-format-' . $i,
+			];
 		}
 	}
 
