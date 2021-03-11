@@ -32,7 +32,7 @@ define( 'ARKHE_BLOCKS_PATH', plugin_dir_path( __FILE__ ) );
 spl_autoload_register(
 	function( $classname ) {
 
-		// 名前に Arkhe_Theme がなければオートロードしない。
+		// 名前に Arkhe_Blocks がなければオートロードしない。
 		if ( strpos( $classname, 'Arkhe_Blocks' ) === false && strpos( $classname, 'Arkhe_Blocks' ) === false) return;
 
 		$classname = str_replace( '\\', '/', $classname );
@@ -46,6 +46,7 @@ spl_autoload_register(
 
 /**
  * プラグイン実行クラス
+ *   無料版とPRO版の両方実行されないように注意。
  */
 if ( ! class_exists( 'Arkhe_Blocks' ) ) {
 	class Arkhe_Blocks extends \Arkhe_Blocks\Data {
@@ -53,15 +54,13 @@ if ( ! class_exists( 'Arkhe_Blocks' ) ) {
 		use \Arkhe_Blocks\Admin_Menu;
 		use \Arkhe_Blocks\Template_Parts;
 
-		const IS_PRO = true;
-
 		public function __construct() {
 
 			// テーマチェック : IS_ARKHE_THEME は Arkheプラグインで共通
 			if ( ! defined( 'IS_ARKHE_THEME' ) ) {
 				$theme_data     = wp_get_theme();
 				$theme_name     = $theme_data->get( 'Name' );
-				$theme_template = $theme_data->get( 'Template' ); // 子テーマが使われている時、'arkhe' になる
+				$theme_template = $theme_data->get( 'Template' );
 
 				$is_arkhe_theme = ( 'Arkhe' === $theme_name || 'arkhe' === $theme_template );
 				define( 'IS_ARKHE_THEME', $is_arkhe_theme );
@@ -98,7 +97,6 @@ if ( ! class_exists( 'Arkhe_Blocks' ) ) {
 			if ( self::IS_PRO ) {
 				require_once ARKHE_BLOCKS_PATH . 'inc/update.php';
 			}
-
 		}
 	}
 

@@ -22,7 +22,7 @@ cd ./_version/arkhe-blocks-pro
 unzip arkhe-blocks-pro.zip
 
 #IS_PROのセットミスを防止する
-sed -i '' -e "s/IS_PRO = false/IS_PRO = true/g" arkhe-blocks-pro/arkhe-blocks-pro.php
+sed -i '' -e "s/IS_PRO = false/IS_PRO = true/g" arkhe-blocks-pro/classes/Data.php
 
 #再度zip化
 zip -r arkhe-blocks-pro-${version}.zip arkhe-blocks-pro

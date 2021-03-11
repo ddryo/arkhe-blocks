@@ -5,9 +5,8 @@ defined( 'ABSPATH' ) || exit;
 
 class Data {
 
-	// 設定データを保持する変数
-	protected static $data     = [];
-	protected static $defaults = [];
+	// is pro
+	const IS_PRO = true;
 
 	// DB名
 	const DB_NAMES = [
@@ -20,6 +19,10 @@ class Data {
 	const MENU_SLUG         = 'arkhe_blocks_settings';
 	const MENU_PAGE_PREFIX  = 'arkb_menu_page_';
 	const MENU_GROUP_PREFIX = 'arkb_menu_group_';
+
+	// 設定データを保持する変数
+	protected static $data     = [];
+	protected static $defaults = [];
 
 	// メニューの設定タブ
 	public static $menu_tabs = [];

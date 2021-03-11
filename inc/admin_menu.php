@@ -30,7 +30,6 @@ add_action( 'admin_menu', function () {
 		\Arkhe_Blocks::MENU_SLUG,
 		'\Arkhe_Blocks\Menu\display_setting_page'
 	);
-
 }, 11 );
 
 
@@ -49,9 +48,11 @@ add_action( 'admin_init', function() {
 
 	$menu_tabs = [
 		'general'   => __( 'General settings', 'arkhe-blocks' ),
-		'format'    => _x( 'Format', 'tab', 'arkhe-blocks' ),
-		// 'shortcode' => __( 'Shortcode', 'arkhe-blocks' ),
 	];
+	if ( \Arkhe_Blocks::IS_PRO ) {
+		$menu_tabs['format'] = _x( 'Format', 'tab', 'arkhe-blocks' );
+		// $menu_tabs['shortcode'] = _x( 'Shortcode', 'tab', 'arkhe-blocks' );
+	}
 
 	\Arkhe_Blocks::$menu_tabs = $menu_tabs;
 

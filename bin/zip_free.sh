@@ -10,13 +10,25 @@ version=${version//-/.}
 cd ..
 
 #zプラグインファイルをip化
-zip -r arkhe-blocks.zip arkhe-blocks-pro -x "*/.*" "*/__*" "*/bin*" "*/node_modules*" "*/vendor*" "*/src/blocks/*.js" "*/src/components*" "*phpcs.xml" "*gulpfile.js" "*README.md"
+zip -r arkhe-blocks.zip arkhe-blocks-pro -x "*/.*" "*/__*" "*/bin*" "*/node_modules*" "*/vendor*" "*/src/blocks/*.js" "*/src/components*" "*phpcs.xml" "*gulpfile.js"
 
 #設定ファイル系削除
 zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/composer*" "arkhe-blocks-pro/webpack*" "arkhe-blocks-pro/package*"
 
-#PROブロック & アップデート系 削除
-zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/inc/update*" "arkhe-blocks-pro/*/blocks/notice*" "arkhe-blocks-pro/*/blocks/step*" "arkhe-blocks-pro/*/blocks/timeline*" "arkhe-blocks-pro/*/blocks/post-list*" "arkhe-blocks-pro/*/blocks/rss*" "arkhe-blocks-pro/*/blocks/column*" "arkhe-blocks-pro/*/blocks/box-link*" "arkhe-blocks-pro/*/blocks/blog-card*" "arkhe-blocks-pro/*/blocks/page-list*"
+#アップデートフォルダ削除
+zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/inc/update*"
+
+#PROブロック削除
+zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/*/blocks/box-link*"
+zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/*/blocks/blog-card*"
+zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/*/blocks/column*"
+zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/*/blocks/page-list*"
+zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/*/blocks/post-list*"
+zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/*/blocks/section*"
+zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/*/blocks/step*"
+zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/*/blocks/tab*"
+zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/*/blocks/timeline*"
+zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/*/blocks/rss*"
 
 #zipファイルを移動
 mv arkhe-blocks.zip ./arkhe-blocks-free/arkhe-blocks.zip
@@ -33,7 +45,7 @@ mv arkhe-blocks/arkhe-blocks-pro.php arkhe-blocks/arkhe-blocks.php
 sed -i '' -e "s/Arkhe Blocks Pro/Arkhe Blocks/g" arkhe-blocks/arkhe-blocks.php
 
 #IS_PROのセットミスを防止する
-sed -i '' -e "s/IS_PRO = true/IS_PRO = false/g" arkhe-blocks/arkhe-blocks.php
+sed -i '' -e "s/IS_PRO = true/IS_PRO = false/g" arkhe-blocks/classes/Data.php
 
 # style.css のバージョン書き換え
 sed -i '' -e "s/Version: .*/Version: ${version}/g" arkhe-blocks/arkhe-blocks.php

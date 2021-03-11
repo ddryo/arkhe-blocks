@@ -34,12 +34,12 @@ function register_blocks() {
 		'dl-dt',
 		'dl-dd',
 		'dl-div',
+		'notice',
 	];
 
 	// Pro版のみ
 	if ( \Arkhe_Blocks::IS_PRO ) {
 		$arkhe_blocks_pro = [
-			'notice', // -> freeへ？
 			'step',
 			'step-item',
 			'timeline',
@@ -108,16 +108,18 @@ function add_block_categories( $categories ) {
  */
 function get_localize_vars() {
 	$custom_formats = [];
-	for ( $i = 1; $i < 4; $i++ ) {
-		$format_title = \Arkhe_Blocks::get_data( 'format', 'format_title_' . $i );
-		// $format_class = \Arkhe_Blocks::get_data( 'format', 'format_class_' . $i );
-		if ( $format_title ) {
-			$custom_formats[] = [
-				'name'      => 'arkhe-blocks/custom' . $i,
-				'title'     => $format_title,
-				'tagName'   => 'span',
-				'className' => 'arkb-format-' . $i,
-			];
+	if ( \Arkhe_Blocks::IS_PRO ) {
+		for ( $i = 1; $i < 4; $i++ ) {
+			$format_title = \Arkhe_Blocks::get_data( 'format', 'format_title_' . $i );
+			// $format_class = \Arkhe_Blocks::get_data( 'format', 'format_class_' . $i );
+			if ( $format_title ) {
+				$custom_formats[] = [
+					'name'      => 'arkhe-blocks/custom' . $i,
+					'title'     => $format_title,
+					'tagName'   => 'span',
+					'className' => 'arkb-format-' . $i,
+				];
+			}
 		}
 	}
 
