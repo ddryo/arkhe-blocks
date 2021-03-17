@@ -28,7 +28,7 @@ class Data {
 	public static $menu_tabs = [];
 
 	// JSの読み込みを制御する変数
-	// public static $use_swiper = false;
+	public static $use_swiper = false;
 
 	// 外部からインスタンス化させない
 	private function __construct() {}

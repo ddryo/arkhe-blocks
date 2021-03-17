@@ -17,6 +17,19 @@ function hook_wp_enqueue_scripts() {
 	if ( $custom_format_css ) {
 		wp_add_inline_style( 'arkhe-blocks-front', $custom_format_css );
 	}
+
+}
+
+/**
+ * フロントで読み込むファイル
+ */
+add_action( 'wp_footer', '\Arkhe_Blocks\hook_enqueue_footer', 1 );
+function hook_enqueue_footer() {
+	if ( \Arkhe_Blocks::$use_swiper ) {
+		wp_enqueue_style( 'arkhe-blocks-swiper', ARKHE_BLOCKS_URL . 'assets/css/swiper.min.css', [], ARKHE_BLOCKS_VERSION );
+		wp_enqueue_script( 'arkhe-blocks-swiper', ARKHE_BLOCKS_URL . 'assets/js/swiper.min.js', [], ARKHE_BLOCKS_VERSION, true );
+		wp_enqueue_script( 'arkhe-blocks-slider', ARKHE_BLOCKS_URL . 'dist/gutenberg/swiper.js', ['arkhe-blocks-swiper' ], ARKHE_BLOCKS_VERSION, true );
+	}
 }
 
 

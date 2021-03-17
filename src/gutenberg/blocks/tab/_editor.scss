@@ -14,6 +14,38 @@
 		display: none !important;
 	}
 
+	&[data-is-example] {
+
+		.arkb-tabBody__content:first-child {
+			display: block;
+		}
+	}
+
+}
+
+
+// タブコンテンツ
+[data-type="arkhe-blocks/tab-body"] {
+
+	display: none;
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+
+	// &[data-open] {
+	// 	display: block;
+	// }
+
+}
+
+
+[data-type^="arkhe-blocks"] {
+
+	.arkb-tabList {
+		position: relative;
+		margin: 0;
+		padding: 0;
+	}
+
 	// タブ追加ボタン
 	&:not(.is-selected) {
 
@@ -23,11 +55,6 @@
 		}
 	}
 
-	.arkb-tabList {
-		position: relative;
-		margin: 0;
-		padding: 0;
-	}
 
 	// スクロール可能時、overflow:hidden的な感じになるので調整
 	&.-scrollable-pc {
@@ -101,29 +128,8 @@
 		}
 	}
 
-
-	&[data-is-example] {
-
-		.arkb-tabBody__content:first-child {
-			display: block;
-		}
-	}
-
 }
 
-
-// タブコンテンツ
-[data-type="arkhe-blocks/tab-body"] {
-
-	display: none;
-	margin-top: 0 !important;
-	margin-bottom: 0 !important;
-
-	// &[data-open] {
-	// 	display: block;
-	// }
-
-}
 
 // 各種ボタン
 .arkb-tab__tooltips {

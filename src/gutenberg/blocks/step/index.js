@@ -12,6 +12,7 @@ import {
 } from '@wordpress/block-editor';
 import { PanelBody, TextControl } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
+// import { useMemo, useCallback } from '@wordpress/element';
 
 /**
  * @Internal dependencies
@@ -56,23 +57,18 @@ registerBlockType(name, {
 	attributes: metadata.attributes,
 	edit: (props) => {
 		const { attributes, setAttributes, clientId } = props;
+		const { stepLabel, startNum } = attributes;
 
 		// デフォルトクラスを強制セット
-		// console.log(props.className, attributes.className);
 		if (!attributes.className) setAttributes({ className: 'is-style-default' });
-
-		const { stepLabel, startNum } = attributes;
 
 		const { updateBlockAttributes } = useDispatch('core/block-editor');
 
-		// ステップブロック（親）のデータを取得
-		const stepBlocksData = useSelect(
-			(select) => select('core/block-editor').getBlocksByClientId(clientId)[0],
-			[clientId]
-		);
+		// 子ブロックを取得
+		const getChildBlocks = useSelect((select) => select('core/block-editor').getBlocks, []);
 
-		// 始まり番号
-		// const startNum = parseInt(attributes.startNum);
+		// ▼ 5.7から無限ループになる
+		// const childBlocks = useSelect((select) => select('core/block-editor').getBlocks(clientId), [clientId]);
 
 		// ブロックProps
 		const blockProps = useBlockProps({
@@ -100,14 +96,14 @@ registerBlockType(name, {
 								setAttributes({ stepLabel: val });
 
 								// 子ブロックにも反映
-								stepBlocksData.innerBlocks.forEach((block) => {
+								const childBlocks = getChildBlocks(clientId);
+								childBlocks.forEach((block) => {
 									updateBlockAttributes(block.clientId, {
 										stepLabel: val,
 									});
 								});
 							}}
 						/>
-
 						<TextControl
 							label={__('Start number', 'arkhe-blocks')}
 							value={startNum}
@@ -117,7 +113,6 @@ registerBlockType(name, {
 								setAttributes({ startNum: parseInt(val) });
 							}}
 						/>
-						{/* <div className='u-mt-40'></div> */}
 					</PanelBody>
 				</InspectorControls>
 				<div {...innerBlocksProps} />

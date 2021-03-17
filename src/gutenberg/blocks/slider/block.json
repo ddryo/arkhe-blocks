@@ -1,0 +1,29 @@
+{
+    "apiVersion": 2,
+    "name": "arkhe-blocks/slider",
+    "title": "Slider",
+    "category": "arkhe-blocks",
+    "keywords": [
+        "arkhe",
+        "slider"
+    ],
+    "supports": {
+        "className": false
+    },
+    "attributes": {
+        "isExample": {
+            "type": "boolean",
+            "default": false
+        },
+        "sliderId": {
+            "type": "string",
+            "default": ""
+        },
+        "activeSlider": {
+            "type": "number",
+            "default": 0
+        }
+    },
+    "editorScript": "file:../../../../dist/gutenberg/blocks/slider/index.js",
+    "textdomain": "arkhe-blocks"
+}

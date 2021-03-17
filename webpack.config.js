@@ -16,6 +16,7 @@ if (myEntries) {
 	entries.index = path.resolve(srcDir, 'index.js');
 	entries.ex_core = path.resolve(srcDir, 'ex_core.js');
 	entries.format = path.resolve(srcDir, 'format.js');
+	entries.swiper = path.resolve(srcDir, 'swiper.js');
 
 	const blocks = [
 		'accordion',

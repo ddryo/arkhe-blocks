@@ -47,13 +47,17 @@ export default memo((props) => {
 							setActTab(index);
 						}}
 					>
-						<RichText
-							tagName='p'
-							placeholder={__('Tab', 'arkhe-blocks') + '...'}
-							value={item}
-							onChange={(value) => updateTabsHeader(value, index)}
-							// unstableOnSplit={() => null} // ?
-						/>
+						{updateTabsHeader ? (
+							<RichText
+								tagName='p'
+								placeholder={__('Tab', 'arkhe-blocks') + '...'}
+								value={item}
+								onChange={(value) => updateTabsHeader(value, index)}
+								// unstableOnSplit={() => null} // ?
+							/>
+						) : (
+							<span>{item}</span>
+						)}
 					</button>
 					<div className='arkb-tab__tooltips'>
 						<Tooltip text={__('Move tab forward', 'arkhe-blocks')}>
