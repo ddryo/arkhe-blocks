@@ -90,12 +90,12 @@
         "focalPointSP": {
             "type": "object"
         },
+        "contentPosition": {
+            "type": "string"
+        },
         "innerSize": {
             "type": "string",
             "default": ""
-        },
-        "contentPosition": {
-            "type": "string"
         },
         "heightPC": {
             "type": "number"
@@ -131,13 +131,13 @@
             "type": "string",
             "default": "rem"
         },
-        "svgTypeTop": {
-            "type": "string",
-            "default": "line"
-        },
         "isRepeat": {
             "type": "boolean",
             "default": false
+        },
+        "svgTypeTop": {
+            "type": "string",
+            "default": "line"
         },
         "svgLevelTop": {
             "type": "number",

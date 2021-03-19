@@ -5,6 +5,8 @@ import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 import {
 	InnerBlocks,
+	InspectorControls,
+	// BlockControls,
 	useBlockProps,
 	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
 } from '@wordpress/block-editor';
@@ -15,6 +17,7 @@ import {
 import { iconColor } from '@blocks/config';
 import blockIcon from './_icon';
 import metadata from './block.json';
+import SlideSidebar from './_sidebar';
 
 /**
  * @Others dependencies
@@ -42,7 +45,7 @@ registerBlockType(name, {
 	supports,
 	attributes: metadata.attributes,
 
-	edit: () => {
+	edit: ({ attributes, setAttributes, clientId }) => {
 		const blockProps = useBlockProps({
 			className: `${blockName}__slide`,
 		});
@@ -56,11 +59,19 @@ registerBlockType(name, {
 		);
 
 		return (
-			<div {...blockProps}>
-				<div className={`${blockName}__imgLayer`}>
-					<div {...innerBlocksProps} />
+			<>
+				{/* <BlockControls>
+					<ArkheMarginControl {...{ className: attributes.className, setAttributes }} />
+				</BlockControls> */}
+				<InspectorControls>
+					<SlideSidebar {...{ attributes, setAttributes, clientId }} />
+				</InspectorControls>
+				<div {...blockProps}>
+					<div className={`${blockName}__imgLayer`}>
+						<div {...innerBlocksProps} />
+					</div>
 				</div>
-			</div>
+			</>
 		);
 	},
 

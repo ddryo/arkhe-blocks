@@ -24,7 +24,7 @@ import blockIcon from './_icon';
 // import example from './_example';
 import metadata from './block.json';
 import { ArkheMarginControl } from '@components/ArkheMarginControl';
-// import SliderSidebar from './_sidebar';
+import SliderSidebar from './_sidebar';
 import TabNavList from '../tab/components/TabNavList';
 
 /**
@@ -97,7 +97,9 @@ registerBlockType(name, {
 	},
 
 	edit: ({ attributes, setAttributes, clientId, isSelected }) => {
-		const { isExample } = attributes;
+		const { isExample, align } = attributes;
+
+		// console.log(align);
 
 		// 子ブロックの clientId 配列を取得（useSelectで取得すると更新のタイミングが遅くなる
 		const { getBlockOrder } = wp.data.select('core/block-editor');
@@ -112,7 +114,7 @@ registerBlockType(name, {
 			const _slideHeaders = [];
 			const slideIDs = getBlockOrder(clientId); // 子ブロックである tab-body の clientId の配列を取得
 			for (let i = 1; i <= slideIDs.length; i++) {
-				_slideHeaders.push(__('Slide', 'arkhe-blocks') + i);
+				_slideHeaders.push(__('Slide', 'arkhe-blocks'));
 			}
 			setSlideHeaders(_slideHeaders);
 		}, [clientId]);
@@ -208,7 +210,7 @@ registerBlockType(name, {
 
 			const nowSlideNum = slideHeaders.length;
 			insertBlocks(newSlide, nowSlideNum, clientId);
-			setSlideHeaders([...slideHeaders, __('Slide', 'arkhe-blocks') + (nowSlideNum + 1)]);
+			setSlideHeaders([...slideHeaders, __('Slide', 'arkhe-blocks')]);
 			resetOrder();
 
 			// 新しく追加されたタブにフォーカス
@@ -245,7 +247,7 @@ registerBlockType(name, {
 
 		const innerBlocksProps = useInnerBlocksProps(
 			{
-				className: `${blockName}__item`,
+				className: `${blockName}__inner`,
 			},
 			{
 				allowedBlocks: [childBlockType],
@@ -254,7 +256,7 @@ registerBlockType(name, {
 					[childBlockType, { bodyId: 0 }],
 					[childBlockType, { bodyId: 1 }],
 				],
-				// renderAppender: undefined,
+				renderAppender: null,
 			}
 		);
 
@@ -263,9 +265,9 @@ registerBlockType(name, {
 				<BlockControls>
 					<ArkheMarginControl {...{ className: attributes.className, setAttributes }} />
 				</BlockControls>
-				{/* <InspectorControls>
+				<InspectorControls>
 					<SliderSidebar {...{ attributes, setAttributes, clientId }} />
-				</InspectorControls> */}
+				</InspectorControls>
 				<div {...blockProps}>
 					<ul role='tablist' className='arkb-tabList'>
 						<TabNavList
@@ -295,13 +297,47 @@ registerBlockType(name, {
 	},
 
 	save: ({ attributes }) => {
-		const { isScrollPC, isScrollSP } = attributes;
+		const {
+			height,
+			heightPC,
+			heightSP,
+			isLoop,
+			isAuto,
+			isCenter,
+			effect,
+			speed,
+			delay,
+			space,
+			slideNumPC,
+			slideNumSP,
+			pagination,
+			isClickable,
+			isDynamic,
+		} = attributes;
+
+		const options = {
+			isLoop: isLoop ? 1 : 0,
+			isAuto: isAuto ? 1 : 0,
+			isCenter: isCenter ? 1 : 0,
+			effect,
+			speed,
+			delay,
+			space,
+			slideNumPC,
+			slideNumSP,
+			pagination,
+		};
+		if ('bullets' === pagination) {
+			options.isClickable = isClickable ? 1 : 0;
+			options.isDynamic = isDynamic ? 1 : 0;
+		}
+
+		let optionsData = JSON.stringify(options);
+		optionsData = optionsData.replaceAll('"', '');
 
 		const blockProps = useBlockProps.save({
-			className: classnames(blockName, {
-				'-scrollable-pc': isScrollPC,
-				'-scrollable-sp': isScrollSP,
-			}),
+			className: blockName,
+			'data-option': optionsData,
 		});
 
 		return (
@@ -310,9 +346,8 @@ registerBlockType(name, {
 					<div className='swiper-wrapper'>
 						<InnerBlocks.Content />
 					</div>
-					{/* <?php if ( $SETTING['mv_on_pagination'] ) : ?>
-						<div class="swiper-pagination"></div>
-					<?php endif; ?>
+					{'off' !== pagination && <div className='swiper-pagination'></div>}
+					{/* 
 
 					<?php if ( $SETTING['mv_on_nav'] ) : ?>
 						<div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide">

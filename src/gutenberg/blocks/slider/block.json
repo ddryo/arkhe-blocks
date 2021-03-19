@@ -8,20 +8,116 @@
         "slider"
     ],
     "supports": {
-        "className": false
+        "className": false,
+        "align": [
+            "wide",
+            "full"
+        ]
     },
     "attributes": {
-        "isExample": {
-            "type": "boolean",
-            "default": false
-        },
         "sliderId": {
             "type": "string",
             "default": ""
         },
+        "isFullscreen": {
+            "type": "boolean",
+            "default": false
+        },
         "activeSlider": {
             "type": "number",
             "default": 0
+        },
+        "height": {
+            "type": "string",
+            "default": "content"
+        },
+        "heightPC": {
+            "type": "string",
+            "default": ""
+        },
+        "heightSP": {
+            "type": "string",
+            "default": ""
+        },
+        "heightUnitPC": {
+            "type": "string",
+            "default": "px"
+        },
+        "heightUnitSP": {
+            "type": "string",
+            "default": "px"
+        },
+        "padPC": {
+            "type": "number",
+            "default": 4
+        },
+        "padSP": {
+            "type": "number",
+            "default": 4
+        },
+        "padUnitPC": {
+            "type": "string",
+            "default": "rem"
+        },
+        "padUnitSP": {
+            "type": "string",
+            "default": "rem"
+        },
+        "innerSize": {
+            "type": "string",
+            "default": ""
+        },
+        "isAuto": {
+            "type": "boolean",
+            "default": true
+        },
+        "isLoop": {
+            "type": "boolean",
+            "default": true
+        },
+        "effect": {
+            "type": "string",
+            "default": "slide"
+        },
+        "speed": {
+            "type": "number",
+            "default": 1200
+        },
+        "delay": {
+            "type": "number",
+            "default": 5000
+        },
+        "space": {
+            "type": "number",
+            "default": 0
+        },
+        "slideNumPC": {
+            "type": "number",
+            "default": 1
+        },
+        "slideNumSP": {
+            "type": "number",
+            "default": 1
+        },
+        "isCenter": {
+            "type": "boolean",
+            "default": true
+        },
+        "pagination": {
+            "type": "string",
+            "default": "bullets"
+        },
+        "isClickable": {
+            "type": "boolean",
+            "default": false
+        },
+        "isDynamic": {
+            "type": "boolean",
+            "default": false
+        },
+        "isExample": {
+            "type": "boolean",
+            "default": false
         }
     },
     "editorScript": "file:../../../../dist/gutenberg/blocks/slider/index.js",

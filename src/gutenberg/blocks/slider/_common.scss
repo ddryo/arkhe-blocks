@@ -1,229 +1,28 @@
-.arkb-tabList {
-	position: relative;
-	display: flex;
-	justify-content: center;
-	margin: 0;
-	// padding: 0;
-	list-style: none !important;
+.ark-block-slider {
+	--arkb-slider-pad-x: 2em;
 
-	// 詳細度高める
-	.ark-block-tab > & {
-		padding: 0;
+	&.alignfull[data-inner="article"] {
+		--arkb-slider-pad-x: var(--ark-pad--container, 2em);
+		max-width: calc(var(--ark-article_width, 1000px) + var(--arkb-slider-pad-x) * 2);
+		padding: 2em var(--arkb-slider-pad-x);
 	}
 
-
-	&::-webkit-scrollbar {
-		height: 11px;
-		background-color: rgba(200, 200, 200, .15);
-		box-shadow: inset 0 0 2px 0 rgba(0, 0, 0, .15);
-	}
-
-	&::-webkit-scrollbar-thumb {
-		background: rgba(200, 200, 200, .9);
-		background-clip: padding-box;
-		border: solid 3px transparent;
-		border-bottom-width: 4px;
-		border-radius: 8px;
-	}
-
-}
-
-.arkb-tabList__item {
-	text-align: center;
-
-}
-
-[data-tab-width="auto"] {
-
-	.arkb-tabList {
-		flex-wrap: wrap;
-	}
-
-	.arkb-tabList__button {
-		min-width: 5em;
-		padding-right: 1.25em;
-		padding-left: 1.25em;
+	.swiper-container {
+		width: 100%;
+		height: auto;
 	}
 }
 
-[data-tab-width="fix"] {
+.ark-block-slider__slide {
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+	background-color: #cecece; // test
+}
 
-	.arkb-tabList {
-		flex-wrap: wrap;
-	}
-
-	.arkb-tabList__item {
-		flex-basis: 50%;
-
-		@include pc {
-			flex-basis: 25%;
-		}
-
-	}
+.ark-block-slider__txtLayer {
+	margin: 0 auto;
+	padding: 2em var(--arkb-slider-pad-x);
+	// min-height: var(--arkb-section-minH--pc);
 
 }
 
-[data-tab-width="equal"] {
-
-	.arkb-tabList__item {
-		flex-basis: 50%;
-	}
-}
-
-
-.arkb-tabList__button {
-	position: relative;
-	display: block;
-	width: 100%;
-	height: 100%;
-	padding: 1em;
-	color: inherit;
-	font-size: 13px;
-	line-height: 1;
-	background: none;
-	border: none;
-	border-bottom: solid 2px transparent;
-	transition: background-color .25s, color .25s;
-
-
-	@include tab {
-		font-size: 14px;
-	}
-
-	&:hover {
-		outline: none; //マウス操作ではアウトライン非表示
-	}
-
-	&[aria-selected="true"] {
-		border-bottom-color: currentColor;
-	}
-}
-
-
-
-@keyframes ArkbFloatHorizontal {
-
-	0% {
-		transform: translate3d(4px, 0, 0);
-	}
-
-	50% {
-		transform: translate3d(-4px, 0, 0);
-	}
-
-	100% {
-		transform: translate3d(4px, 0, 0);
-	}
-}
-
-@include sp {
-
-	.-scrollable-sp {
-
-		&.ark-block-tab {
-			position: relative;
-
-			&::after {
-				position: absolute;
-				right: 0;
-				bottom: 100%;
-				display: block;
-				width: 18px;
-				height: 18px;
-				padding: 0;
-				line-height: 1;
-				background-color: #fff;
-				background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path fill="%23000" d="M30.4 16.664l-4.528-4.528-1.128 1.136 3.392 3.392h-26.536v1.6h28.8v-1.6z" /></svg>');
-				background-repeat: no-repeat;
-				background-position: center;
-				background-size: 14px 14px;
-				border-radius: 8px;
-				box-shadow: 0 0 0 1px rgba(0, 0, 0, .4);
-				opacity: .75;
-				animation: ArkbFloatHorizontal 2.5s ease-in-out infinite alternate;
-				content: "";
-			}
-		}
-
-		.arkb-tabList {
-			z-index: 1;
-			flex-wrap: nowrap !important;
-			justify-content: flex-start;
-			overflow-x: auto;
-			-webkit-overflow-scrolling: touch;
-			scroll-behavior: smooth;
-		}
-
-		.arkb-tabList__item {
-			flex-shrink: 0;
-		}
-
-		[data-tab-width="fix"] .arkb-tabList__item,
-		[data-tab-width="equal"] .arkb-tabList__item {
-			flex-basis: auto;
-			min-width: 30%;
-		}
-	}
-}
-
-@include pc {
-
-	.-scrollable-pc {
-
-		.arkb-tabList {
-			z-index: 1;
-			flex-wrap: nowrap !important;
-			justify-content: flex-start;
-			overflow-x: auto;
-			-webkit-overflow-scrolling: touch;
-			scroll-behavior: smooth;
-		}
-
-		.arkb-tabList__item {
-			flex-shrink: 0;
-		}
-
-		[data-tab-width="fix"] .arkb-tabList__item,
-		[data-tab-width="equal"] .arkb-tabList__item {
-			flex-basis: auto;
-			min-width: 20%;
-		}
-
-	}
-}
-
-
-.arkb-tabBody {
-	position: relative;
-	// margin-top: -1px;
-	padding: 1.5em;
-	// border: solid 1px var(--color_text);
-}
-
-.arkb-tabBody__content {
-	position: relative;
-	width: 100%;
-
-	&[aria-hidden="true"] {
-		display: none;
-	}
-}
-
-
-// -----------------------------------------
-// スタイル
-// -----------------------------------------
-.ark-block-tab.is-style-box {
-
-	// & > .arkb-tabBody{}
-
-	.arkb-tabList__button {
-		background-color: var(--ark-color_gray, rgba(200, 200, 200, .15));
-		border-bottom: none;
-	}
-
-	.arkb-tabList__button[aria-selected="true"] {
-		color: #fff;
-		background-color: var(--ark-color_text, #000);
-	}
-}

@@ -99,6 +99,7 @@
 		position: relative;
 		display: flex;
 		align-items: center;
+		margin-top: 0 !important;
 		list-style: none !important;
 		cursor: pointer;
 
@@ -121,6 +122,7 @@
 		display: flex;
 		align-items: center;
 		text-align: center;
+		cursor: pointer;
 
 		& > .rich-text {
 			width: 100%;
@@ -128,26 +130,6 @@
 		}
 	}
 
-}
-
-
-// 各種ボタン
-.arkb-tab__tooltips {
-	position: absolute;
-	top: -30px;
-	left: 0;
-	z-index: 1;
-	display: flex;
-	align-items: center;
-	width: 100%;
-	width: auto;
-	color: #000;
-	cursor: auto;
-
-	svg {
-		display: block;
-		margin: 0 auto;
-	}
 }
 
 
@@ -168,22 +150,47 @@
 	}
 }
 
-
-.arkb-tabBtn--remove,
-.arkb-tabBtn--moveUp,
-.arkb-tabBtn--moveDown {
-	width: 28px;
-	margin-right: 2px;
-	padding: 2px;
+// 各種ボタン
+.arkb-tab__tooltips {
+	position: absolute;
+	top: -30px;
+	left: 50%;
+	z-index: 1;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	width: auto;
 	color: #000;
-	background: #fff;
-	border-radius: 4px;
+	transform: translateX(-50%);
+	cursor: auto;
 
-	svg {
-		width: 20px;
-		height: 20px;
+	[class^="arkb-tabBtn"] {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 26px;
+		height: 26px;
+		margin-right: 1px;
+		padding: 0;
+		color: #000;
+		background: #fff;
+		border-radius: 4px;
+
+		svg {
+			display: block;
+			width: 20px;
+			height: 20px;
+			margin: 0 auto;
+		}
 	}
 }
+
+
+// .arkb-tabBtn--remove,
+// .arkb-tabBtn--moveUp,
+// .arkb-tabBtn--moveDown {
+
+// }
 
 
 .arkb-tabBtn--moveUp,

@@ -1,14 +1,31 @@
 // Gutenberg
 [data-type="arkhe-blocks/slider"] {
 	position: relative;
-	padding: 32px 24px 24px;
+	padding: 32px 0 24px;
 	border: dashed 1px $color_guide;
-}
 
-.ark-block-slider{}
+	[data-type="arkhe-blocks/slider-item"] {
+		max-width: 100%;
+	}
 
-.ark-block-slider__item {
-	padding: 2em;
-	background-color: #cecece;
+	.arkb-tabList {
+		margin-bottom: 8px !important;
+	}
+
+	.arkb-tabList__button {
+		padding: .5em 1em;
+	}
+
+
+	.ark-block-slider__inner {
+
+		& > .block-list-appender {
+			display: none !important;
+		}
+	}
+
+	.ark-block-slider__slide {
+
+	}
 
 }
