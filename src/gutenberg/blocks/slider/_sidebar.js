@@ -45,10 +45,10 @@ export default ({ attributes, setAttributes, clientId }) => {
 							label: __('Fit to content', 'arkhe-blocks'),
 							value: 'content',
 						},
-						{
-							label: __('Fit to media', 'arkhe-blocks'),
-							value: 'media',
-						},
+						// {
+						// 	label: __('Fit to media', 'arkhe-blocks'),
+						// 	value: 'media',
+						// },
 						{
 							label: __('Fit screen', 'arkhe-blocks'),
 							value: 'full',
@@ -162,7 +162,7 @@ export default ({ attributes, setAttributes, clientId }) => {
 					label={__('Slide Num', 'arkhe-blocks') + ' (PC)'}
 					type='number'
 					value={slideNumPC}
-					step='0.1'
+					step='1'
 					min='1'
 					autocomplete='off'
 					onChange={(val) => {
@@ -173,14 +173,14 @@ export default ({ attributes, setAttributes, clientId }) => {
 					label={__('Slide Num', 'arkhe-blocks') + ' (SP)'}
 					type='number'
 					value={slideNumSP}
-					step='0.1'
+					step='1'
 					min='1'
 					autocomplete='off'
 					onChange={(val) => {
 						setAttributes({ slideNumSP: parseFloat(val) });
 					}}
 				/>
-				{(slideNumPC > 1 || slideNumSP > 1) && (
+				<div data-ark-disabled={(slideNumPC === 1 && slideNumSP === 1) || null}>
 					<ToggleControl
 						label={__('center', 'arkhe-blocks')}
 						checked={isCenter}
@@ -188,7 +188,7 @@ export default ({ attributes, setAttributes, clientId }) => {
 							setAttributes({ isCenter: value });
 						}}
 					/>
-				)}
+				</div>
 			</PanelBody>
 			<PanelBody title={__('Pagenation', 'arkhe-blocks')} initialOpen={false}>
 				<SelectControl

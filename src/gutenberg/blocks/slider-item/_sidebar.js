@@ -26,7 +26,7 @@ import { useMemo, useCallback } from '@wordpress/element';
 /**
  * @Inner dependencies
  */
-import { ImageTab } from '../section/components/ImageTab';
+import { ImageTab } from './components/ImageTab';
 
 /**
  * 設定
@@ -65,18 +65,56 @@ export default ({ attributes, setAttributes, isSelected }) => {
 		padUnitSP,
 	} = attributes;
 
-	// 画像設定タブに渡す情報
-	const mediaProps = {
-		mediaId,
-		mediaUrl,
-		mediaIdSP,
-		mediaUrlSP,
-		focalPoint,
-		focalPointSP,
-		isRepeat,
-		opacity,
-		setAttributes,
-	};
+	const setImagePC = useCallback(
+		(media) => {
+			setAttributes({
+				mediaId: media.id,
+				mediaUrl: media.url,
+				mediaWidth: media.width,
+				mediaHeight: media.height,
+				mediaType: media.type,
+				...(100 === opacity ? { opacity: 50 } : {}),
+			});
+		},
+		[setAttributes, opacity]
+	);
+
+	const removeImagePC = useCallback(() => {
+		setAttributes({
+			mediaId: 0,
+			mediaUrl: '',
+			mediaWidth: undefined,
+			mediaHeight: undefined,
+			mediaType: '',
+			focalPoint: undefined,
+			...(!mediaUrlSP ? { opacity: 100 } : {}), // SP画像もなければ カラー100に。
+		});
+	}, [setAttributes, opacity, mediaUrlSP]);
+
+	const setImageSP = useCallback(
+		(media) => {
+			setAttributes({
+				mediaIdSP: media.id,
+				mediaUrlSP: media.url,
+				mediaWidthSP: media.width,
+				mediaHeightSP: media.height,
+				mediaTypeSP: media.type,
+			});
+		},
+		[setAttributes]
+	);
+
+	const removeImageSP = useCallback(() => {
+		setAttributes({
+			mediaIdSP: 0,
+			mediaUrlSP: undefined,
+			mediaWidthSP: undefined,
+			mediaHeightSP: undefined,
+			mediaTypeSP: '',
+			focalPointSP: undefined,
+			...(!mediaUrl ? { opacity: 100 } : {}), // PC画像もなければ カラー100に。
+		});
+	}, [setAttributes, opacity, mediaUrl]);
 
 	const setOverlayColor = useCallback(
 		(newColor) => {
@@ -196,7 +234,23 @@ export default ({ attributes, setAttributes, isSelected }) => {
 						<img src={mediaUrl} alt='' />
 					</div>
 				)}
-				<ImageTab {...mediaProps} />
+				<ImageTab
+					{...{
+						setImagePC,
+						removeImagePC,
+						setImageSP,
+						removeImageSP,
+						mediaId,
+						mediaUrl,
+						mediaIdSP,
+						mediaUrlSP,
+						focalPoint,
+						focalPointSP,
+						// isRepeat,
+						// opacity,
+						setAttributes,
+					}}
+				/>
 				{'video' !== mediaType && (
 					<ToggleControl
 						label={__('Repeat the background image', 'arkhe-blocks')}

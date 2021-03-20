@@ -97,7 +97,7 @@ registerBlockType(name, {
 	},
 
 	edit: ({ attributes, setAttributes, clientId, isSelected }) => {
-		const { isExample, align } = attributes;
+		const { isExample, align, height } = attributes;
 
 		// console.log(align);
 
@@ -242,6 +242,7 @@ registerBlockType(name, {
 		// ブロックprops
 		const blockProps = useBlockProps({
 			className: classnames(blockName),
+			'data-height': height,
 			// 'data-is-example': isExample ? '1' : null,
 		});
 

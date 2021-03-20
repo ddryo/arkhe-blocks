@@ -29,8 +29,23 @@ import SlideSidebar from './_sidebar';
  */
 const { apiVersion, name, category, supports, parent } = metadata;
 
+// https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/src/columns/variations.js
+
+const getColorStyle = ({ bgColor, bgGradient, opacity }) => {
+	const style = {};
+
+	// グラデーションかどうか
+	if (bgGradient) {
+		style.background = bgGradient;
+	} else {
+		style.backgroundColor = bgColor || '#f7f7f7';
+	}
+	style.opacity = (opacity * 0.01).toFixed(2);
+	return style;
+};
+
 /**
- * ステップ項目
+ * スライド
  */
 const blockName = 'ark-block-slider';
 registerBlockType(name, {
@@ -46,12 +61,51 @@ registerBlockType(name, {
 	attributes: metadata.attributes,
 
 	edit: ({ attributes, setAttributes, clientId }) => {
+		const {
+			bgColor,
+			bgGradient,
+			opacity,
+			textColor,
+			alt,
+			mediaId,
+			mediaUrl,
+			mediaWidth,
+			mediaHeight,
+			mediaIdSP,
+			mediaUrlSP,
+			mediaWidthSP,
+			mediaHeightSP,
+			mediaType,
+			mediaTypeSP,
+			focalPoint,
+			focalPointSP,
+			contentPosition,
+		} = attributes;
+
+		const colorLayerStyle = {
+			//backgroundColor: bgColor,
+			background: bgGradient || bgColor,
+			opacity: (opacity * 0.01).toFixed(2),
+		};
+		const txtLayerStyle = {
+			color: textColor,
+		};
+
+		const imgLayer = mediaUrl && (
+			<div className={`${blockName}__imgLayer c-filterLayer -filter-dot`}>
+				<picture className={`${blockName}__picture`}>
+					{mediaUrlSP && <source media='(max-width: 959px)' srcSet={mediaUrlSP} />}
+					<img src={mediaUrl} alt={alt} className={`${blockName}__img`} />
+				</picture>
+			</div>
+		);
+
 		const blockProps = useBlockProps({
 			className: `${blockName}__slide`,
 		});
 
 		const innerBlocksProps = useInnerBlocksProps(
-			{ className: `${blockName}__txtLayer ark-keep-mt--s` },
+			{ className: `${blockName}__txtLayer ark-keep-mt--s`, style: txtLayerStyle },
 			{
 				template: [['core/paragraph']],
 				templateLock: false,
@@ -67,28 +121,40 @@ registerBlockType(name, {
 					<SlideSidebar {...{ attributes, setAttributes, clientId }} />
 				</InspectorControls>
 				<div {...blockProps}>
-					<div className={`${blockName}__imgLayer`}>
-						<div {...innerBlocksProps} />
-					</div>
+					{imgLayer}
+					<div className={`${blockName}__colorLayer`} style={colorLayerStyle}></div>
+					<div {...innerBlocksProps} />
 				</div>
 			</>
 		);
 	},
 
 	save: ({ attributes }) => {
-		const {} = attributes;
+		const {
+			alt,
+			mediaId,
+			mediaUrl,
+			mediaWidth,
+			mediaHeight,
+			mediaIdSP,
+			mediaUrlSP,
+			mediaWidthSP,
+			mediaHeightSP,
+			mediaType,
+			mediaTypeSP,
+			focalPoint,
+			focalPointSP,
+			contentPosition,
+		} = attributes;
 
 		const blockProps = useBlockProps.save({
 			className: `${blockName}__slide swiper-slide`,
 		});
 
-		const pcImg = '';
-		const spImg = '';
-		const alt = '';
-		const imgLayer = pcImg && (
+		const imgLayer = mediaUrl && (
 			<picture className={`${blockName}__imgLayer`}>
-				{spImg && <source media='(max-width: 959px)' srcSet={spImg} />}
-				<img src={pcImg} alt={alt} className={`${blockName}__img`} />
+				{mediaUrlSP && <source media='(max-width: 959px)' srcSet={mediaUrlSP} />}
+				<img src={mediaUrl} alt={alt} className={`${blockName}__img`} />
 			</picture>
 		);
 		return (

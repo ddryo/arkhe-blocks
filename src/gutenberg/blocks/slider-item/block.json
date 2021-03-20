@@ -26,16 +26,21 @@
             "default": 0
         },
         "bgColor": {
-            "type": "string"
+            "type": "string",
+            "default": "#000000"
         },
         "bgGradient": {
             "type": "string"
         },
         "opacity": {
             "type": "number",
-            "default": 100
+            "default": 25
         },
         "textColor": {
+            "type": "string",
+            "default": ""
+        },
+        "alt": {
             "type": "string",
             "default": ""
         },
