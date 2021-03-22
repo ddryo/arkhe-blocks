@@ -33,11 +33,11 @@
         },
         "heightPC": {
             "type": "string",
-            "default": ""
+            "default": "400px"
         },
         "heightSP": {
             "type": "string",
-            "default": ""
+            "default": "56vw"
         },
         "heightUnitPC": {
             "type": "string",

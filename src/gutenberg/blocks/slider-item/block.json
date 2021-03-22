@@ -25,6 +25,14 @@
             "type": "number",
             "default": 0
         },
+        "padPC": {
+            "type": "string",
+            "default": ""
+        },
+        "padSP": {
+            "type": "string",
+            "default": ""
+        },
         "bgColor": {
             "type": "string",
             "default": "#000000"

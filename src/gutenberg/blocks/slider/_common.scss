@@ -1,6 +1,6 @@
 .ark-block-slider {
 	--arkb-slider-pad-x: 2em;
-	--arkb-layer-opacity: .5;
+	--arkb-slider-height: auto;
 
 	&.alignfull[data-inner="article"] {
 		--arkb-slider-pad-x: var(--ark-pad--container, 2em);
@@ -13,34 +13,95 @@
 		height: 100%;
 	}
 
-	&[data-height="content"] {
-
-		// .swiper-container {
-		// 	height: auto;
-		// }
-	}
+	// &[data-height="content"] {
+	// }
 
 	&[data-height="full"] {
 
-		// エディター側でタブリスト分下にずれるので、__innerへ指定する
-		.ark-block-slider__inner {
-			height: 100vh;
-		}
+		--arkb-slider-height: 100vh;
 	}
 
 	&[data-height="custom"] {
+		--arkb-slider-height: auto;
 
+		@include sp {
+
+			.ark-block-slider__inner {
+				height: var(--arkb-slider-height--sp);
+			}
+		}
 	}
 
+	// エディター側でタブリスト分下にずれるので、高さは__innerへ指定する
+	.ark-block-slider__inner {
+		height: var(--arkb-slider-height);
+	}
 
 }
 
+
 .ark-block-slider__slide {
 	position: relative;
+	// .has-position > & {}
 	height: 100%;
 	margin-top: 0 !important;
 	margin-bottom: 0 !important;
 	background-color: #cecece; // test
+
+	.wp-block {
+		width: 100%;
+	}
+
+	.ark-block-slider__txtLayer {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.is-position-top-left > & {
+		align-items: flex-start;
+		justify-content: flex-start;
+	}
+
+	.is-position-top-center > & {
+		align-items: center;
+		justify-content: flex-start;
+	}
+
+	.is-position-top-right > & {
+		align-items: flex-end;
+		justify-content: flex-start;
+	}
+
+	.is-position-center-left > & {
+		align-items: flex-start;
+		justify-content: center;
+	}
+
+	.is-position-center-center > & {
+		align-items: center;
+		justify-content: center;
+	}
+
+	.is-position-center-right > & {
+		align-items: flex-end;
+		justify-content: center;
+	}
+
+	.is-position-bottom-left > & {
+		align-items: flex-start;
+		justify-content: flex-end;
+	}
+
+	.is-position-bottom-center > & {
+		align-items: center;
+		justify-content: flex-end;
+	}
+
+	.is-position-bottom-right > & {
+		align-items: flex-end;
+		justify-content: flex-end;
+	}
 }
 
 .ark-block-slider__imgLayer {
@@ -84,6 +145,8 @@
 	// min-height: var(--arkb-section-minH--pc);
 	position: relative;
 	z-index: 2;
+	width: 100%;
+	height: 100%;
 	margin: 0 auto;
 	padding: 2em var(--arkb-slider-pad-x);
 

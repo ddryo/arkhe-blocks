@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import {
-	ColorPalette as WpColorPalette,
+	// ColorPalette as WpColorPalette,
 	// __experimentalUseGradient,
 	__experimentalPanelColorGradientSettings as PanelColorGradientSettings,
 	// MediaPlaceholder,
@@ -11,27 +11,27 @@ import {
 import {
 	PanelBody,
 	ToggleControl,
-	TextControl,
+	// TextControl,
 	// ColorPicker,
 	ColorPalette,
 	BaseControl,
 	RangeControl,
-	SelectControl,
-	ButtonGroup,
-	Button,
+	// SelectControl,
+	// ButtonGroup,
+	// Button,
 } from '@wordpress/components';
-
-import { useMemo, useCallback } from '@wordpress/element';
+import { useState, useCallback } from '@wordpress/element';
 
 /**
  * @Inner dependencies
  */
 import { ImageTab } from './components/ImageTab';
+import { getUnitNum, UnitNumber } from '@components/UnitNumber';
 
 /**
  * 設定
  */
-const units = ['px', 'rem', 'em', '%', 'vw', 'vh'];
+// const units = ['px', 'rem', 'em', '%', 'vw', 'vh'];
 
 const textColorSet = [
 	{
@@ -61,9 +61,14 @@ export default ({ attributes, setAttributes, isSelected }) => {
 		textColor,
 		padPC,
 		padSP,
-		padUnitPC,
-		padUnitSP,
 	} = attributes;
+
+	const unitNumPC = getUnitNum(padPC);
+	const unitNumSP = getUnitNum(padSP);
+	const [padNumPC, setNumPC] = useState(unitNumPC.num);
+	const [padUnitPC, setUnitPC] = useState(unitNumPC.unit);
+	const [padNumSP, setNumSP] = useState(unitNumSP.num);
+	const [padUnitSP, setUnitSP] = useState(unitNumSP.unit);
 
 	const setImagePC = useCallback(
 		(media) => {
@@ -134,11 +139,25 @@ export default ({ attributes, setAttributes, isSelected }) => {
 	return (
 		<>
 			<PanelBody title={__('Padding settings', 'arkhe-blocks')}>
-				<div className='ark-control--padding'>
-					<div className='__label'>
-						{__('Top and bottom padding', 'arkhe-blocks') + '(PC)'}
-					</div>
-					<TextControl
+				<UnitNumber
+					label={__('Top and bottom padding', 'arkhe-blocks') + '(PC)'}
+					attr='padPC'
+					num={padNumPC}
+					unit={padUnitPC}
+					setNum={setNumPC}
+					setUnit={setUnitPC}
+					setAttributes={setAttributes}
+				/>
+				<UnitNumber
+					label={__('Top and bottom padding', 'arkhe-blocks') + '(SP)'}
+					attr='padSP'
+					num={padNumSP}
+					unit={padUnitSP}
+					setNum={setNumSP}
+					setUnit={setUnitSP}
+					setAttributes={setAttributes}
+				/>
+				{/* <TextControl
 						autoComplete='off'
 						className='__input'
 						value={padPC}
@@ -157,9 +176,9 @@ export default ({ attributes, setAttributes, isSelected }) => {
 						onChange={(val) => {
 							setAttributes({ padUnitPC: val });
 						}}
-					/>
-				</div>
-				<div className='ark-control--padding'>
+					/> */}
+
+				{/* <div className='ark-control--padding'>
 					<div className='__label'>
 						{__('Top and bottom padding', 'arkhe-blocks') + '(SP)'}
 					</div>
@@ -183,7 +202,7 @@ export default ({ attributes, setAttributes, isSelected }) => {
 							setAttributes({ padUnitSP: val });
 						}}
 					/>
-				</div>
+				</div> */}
 			</PanelBody>
 			<PanelColorGradientSettings
 				title={__('Color settings', 'arkhe-blocks')}

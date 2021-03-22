@@ -6,10 +6,13 @@ import { registerBlockType } from '@wordpress/blocks';
 import {
 	InnerBlocks,
 	InspectorControls,
-	// BlockControls,
+	BlockControls,
 	useBlockProps,
 	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
+	__experimentalBlockAlignmentMatrixToolbar as BlockAlignmentMatrixToolbar,
 } from '@wordpress/block-editor';
+import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
+import { Icon, fullscreen } from '@wordpress/icons';
 
 /**
  * @Internal dependencies
@@ -18,11 +21,12 @@ import { iconColor } from '@blocks/config';
 import blockIcon from './_icon';
 import metadata from './block.json';
 import SlideSidebar from './_sidebar';
+import { getPositionClassName } from '@helper/getPositionClassName';
 
 /**
  * @Others dependencies
  */
-// import classnames from 'classnames';
+import classnames from 'classnames';
 
 /**
  * metadata
@@ -100,8 +104,15 @@ registerBlockType(name, {
 			</div>
 		);
 
+		// クラス名
+		const positionClass = getPositionClassName(contentPosition, '');
+		const blockClass = classnames(`${blockName}__slide`, positionClass, {
+			// 'has-bg-img': !!mediaUrl,
+			// 'has-position': !!positionClass,
+		});
+
 		const blockProps = useBlockProps({
-			className: `${blockName}__slide`,
+			className: blockClass,
 		});
 
 		const innerBlocksProps = useInnerBlocksProps(
@@ -114,9 +125,28 @@ registerBlockType(name, {
 
 		return (
 			<>
-				{/* <BlockControls>
-					<ArkheMarginControl {...{ className: attributes.className, setAttributes }} />
-				</BlockControls> */}
+				<BlockControls>
+					<BlockAlignmentMatrixToolbar
+						label={__('Change content position')}
+						value={contentPosition || 'null'}
+						onChange={(nextPosition) => {
+							setAttributes({ contentPosition: nextPosition });
+						}}
+					/>
+					{contentPosition && (
+						<ToolbarGroup>
+							<ToolbarButton
+								className='components-toolbar__control'
+								label={__('Delete position', 'arkhe-blocks')}
+								icon={blockIcon.removePosition}
+								// icon={<Icon icon={cancelCircleFilled} />}
+								onClick={() => {
+									setAttributes({ contentPosition: undefined });
+								}}
+							/>
+						</ToolbarGroup>
+					)}
+				</BlockControls>
 				<InspectorControls>
 					<SlideSidebar {...{ attributes, setAttributes, clientId }} />
 				</InspectorControls>

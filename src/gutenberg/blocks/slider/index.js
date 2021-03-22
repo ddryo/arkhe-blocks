@@ -97,7 +97,7 @@ registerBlockType(name, {
 	},
 
 	edit: ({ attributes, setAttributes, clientId, isSelected }) => {
-		const { isExample, align, height } = attributes;
+		const { isExample, align, height, heightPC, heightSP, contentPosition } = attributes;
 
 		// console.log(align);
 
@@ -239,10 +239,17 @@ registerBlockType(name, {
 			[clientId, slideHeaders, resetOrder, actSlider]
 		);
 
+		const bloclStyle = {};
+		if ('custom' === height) {
+			bloclStyle['--arkb-slider-height'] = heightPC;
+			bloclStyle['--arkb-slider-height--sp'] = heightSP;
+		}
+
 		// ブロックprops
 		const blockProps = useBlockProps({
 			className: classnames(blockName),
 			'data-height': height,
+			style: bloclStyle,
 			// 'data-is-example': isExample ? '1' : null,
 		});
 

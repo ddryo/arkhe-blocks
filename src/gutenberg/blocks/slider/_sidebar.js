@@ -9,7 +9,13 @@ import {
 	RadioControl,
 	SelectControl,
 } from '@wordpress/components';
+import { useState } from '@wordpress/element';
 // import { useDispatch } from '@wordpress/data';
+
+/**
+ * @Inner dependencies
+ */
+import { getUnitNum, UnitNumber } from '@components/UnitNumber';
 
 /**
  * sidebar
@@ -33,7 +39,12 @@ export default ({ attributes, setAttributes, clientId }) => {
 		isDynamic,
 	} = attributes;
 
-	// コンテンツの左右余白
+	const heightUnitNumPC = getUnitNum(heightPC);
+	const heightUnitNumSP = getUnitNum(heightSP);
+	const [heightNumPC, setHeightNumPC] = useState(heightUnitNumPC.num);
+	const [heightUnitPC, setHeightUnitPC] = useState(heightUnitNumPC.unit);
+	const [heightNumSP, setHeightNumSP] = useState(heightUnitNumSP.num);
+	const [heightUnitSP, setHeightUnitSP] = useState(heightUnitNumSP.unit);
 
 	return (
 		<>
@@ -64,7 +75,25 @@ export default ({ attributes, setAttributes, clientId }) => {
 				/>
 				{'custom' === height && (
 					<>
-						<TextControl
+						<UnitNumber
+							label={__('Height', 'arkhe-blocks') + '(PC)'}
+							attr='heightPC'
+							num={heightNumPC}
+							unit={heightUnitPC}
+							setNum={setHeightNumPC}
+							setUnit={setHeightUnitPC}
+							setAttributes={setAttributes}
+						/>
+						<UnitNumber
+							label={__('Height', 'arkhe-blocks') + '(SP)'}
+							attr='heightSP'
+							num={heightNumSP}
+							unit={heightUnitSP}
+							setNum={setHeightNumSP}
+							setUnit={setHeightUnitSP}
+							setAttributes={setAttributes}
+						/>
+						{/* <TextControl
 							label={__('Height', 'arkhe-blocks') + '(PC)'}
 							// type='number'
 							value={heightPC}
@@ -79,9 +108,9 @@ export default ({ attributes, setAttributes, clientId }) => {
 							value={heightSP}
 							autocomplete='off'
 							onChange={(val) => {
-								setAttributes({ heightPC: val });
+								setAttributes({ heightSP: val });
 							}}
-						/>
+						/> */}
 					</>
 				)}
 
@@ -108,7 +137,6 @@ export default ({ attributes, setAttributes, clientId }) => {
 						setAttributes({ isLoop: value });
 					}}
 				/>
-
 				<RadioControl
 					selected={effect}
 					options={[
@@ -122,7 +150,7 @@ export default ({ attributes, setAttributes, clientId }) => {
 						},
 					]}
 					onChange={(val) => {
-						setAttributes({ effect: parseInt(val) });
+						setAttributes({ effect: val });
 					}}
 				/>
 				<TextControl
