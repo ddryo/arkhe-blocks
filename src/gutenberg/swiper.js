@@ -33,6 +33,9 @@ arkSlider.forEach((slider) => {
 		// スライド枚数
 		const slidesPerView = isPC ? options.slideNumPC : options.slideNumSP;
 
+		// スライド間のスペース
+		const slidesSpace = isPC ? options.spacePC : options.spaceSP;
+
 		// 自動再生
 		const autoplay = parseInt(options.isAuto)
 			? {
@@ -47,6 +50,7 @@ arkSlider.forEach((slider) => {
 				? false
 				: {
 						el: '.swiper-pagination',
+						type: options.pagination,
 						clickable: parseInt(options.isClickable),
 						dynamicBullets: parseInt(options.isDynamic),
 				  };
@@ -57,7 +61,7 @@ arkSlider.forEach((slider) => {
 			loop: parseInt(options.isLoop),
 			speed: parseInt(options.speed) || 1200,
 			autoplay,
-			spaceBetween: parseInt(options.space) || 0,
+			spaceBetween: parseInt(slidesSpace) || 0,
 			slidesPerView: parseFloat(slidesPerView) || 1,
 			centeredSlides: parseInt(options.isCenter),
 			direction: options.direction || 'horizontal', // vertical
@@ -72,7 +76,7 @@ arkSlider.forEach((slider) => {
 			// },
 		};
 		console.log(swiperOptions);
-		const sw = new Swiper(swiperContainer, swiperOptions);
+		new Swiper(swiperContainer, swiperOptions);
 	}
 });
 

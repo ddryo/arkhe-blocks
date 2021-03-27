@@ -1,7 +1,7 @@
 /**
  * @WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __, _x } from '@wordpress/i18n';
 import {
 	PanelBody,
 	ToggleControl,
@@ -9,13 +9,14 @@ import {
 	RadioControl,
 	SelectControl,
 } from '@wordpress/components';
-import { useState } from '@wordpress/element';
+// import { useState } from '@wordpress/element';
 // import { useDispatch } from '@wordpress/data';
 
 /**
  * @Inner dependencies
  */
-import { getUnitNum, UnitNumber } from '@components/UnitNumber';
+import { UnitNumber } from '@components/UnitNumber';
+import { ArkDeviceTab } from '@components/ArkDeviceTab';
 
 /**
  * sidebar
@@ -27,10 +28,13 @@ export default ({ attributes, setAttributes, clientId }) => {
 		heightSP,
 		isAuto,
 		isLoop,
+		showNavigation,
 		effect,
 		speed,
 		delay,
-		space,
+		spacePC,
+		spaceSP,
+		direction,
 		slideNumPC,
 		slideNumSP,
 		isCenter,
@@ -39,18 +43,15 @@ export default ({ attributes, setAttributes, clientId }) => {
 		isDynamic,
 	} = attributes;
 
-	const heightUnitNumPC = getUnitNum(heightPC);
-	const heightUnitNumSP = getUnitNum(heightSP);
-	const [heightNumPC, setHeightNumPC] = useState(heightUnitNumPC.num);
-	const [heightUnitPC, setHeightUnitPC] = useState(heightUnitNumPC.unit);
-	const [heightNumSP, setHeightNumSP] = useState(heightUnitNumSP.num);
-	const [heightUnitSP, setHeightUnitSP] = useState(heightUnitNumSP.unit);
-
 	return (
 		<>
-			<PanelBody title={__('スライダーの高さ setting', 'arkhe-blocks')} initialOpen={true}>
-				<RadioControl
-					selected={height}
+			<PanelBody
+				title={__('スライダーの高さ setting', 'arkhe-blocks')}
+				className='arkb-panel--slideHeight'
+				initialOpen={true}
+			>
+				<SelectControl
+					value={height}
 					options={[
 						{
 							label: __('Fit to content', 'arkhe-blocks'),
@@ -71,56 +72,33 @@ export default ({ attributes, setAttributes, clientId }) => {
 					]}
 					onChange={(val) => {
 						setAttributes({ height: val });
+						if ('content' === val) {
+							setAttributes({ direction: 'horizontal' });
+						}
 					}}
 				/>
-				{'custom' === height && (
-					<>
-						<UnitNumber
-							label={__('Height', 'arkhe-blocks') + '(PC)'}
-							attr='heightPC'
-							num={heightNumPC}
-							unit={heightUnitPC}
-							setNum={setHeightNumPC}
-							setUnit={setHeightUnitPC}
-							setAttributes={setAttributes}
-						/>
-						<UnitNumber
-							label={__('Height', 'arkhe-blocks') + '(SP)'}
-							attr='heightSP'
-							num={heightNumSP}
-							unit={heightUnitSP}
-							setNum={setHeightNumSP}
-							setUnit={setHeightUnitSP}
-							setAttributes={setAttributes}
-						/>
-						{/* <TextControl
-							label={__('Height', 'arkhe-blocks') + '(PC)'}
-							// type='number'
-							value={heightPC}
-							autocomplete='off'
-							onChange={(val) => {
-								setAttributes({ heightPC: val });
-							}}
-						/>
-						<TextControl
-							label={__('Height', 'arkhe-blocks') + '(SP)'}
-							// type='number'
-							value={heightSP}
-							autocomplete='off'
-							onChange={(val) => {
-								setAttributes({ heightSP: val });
-							}}
-						/> */}
-					</>
-				)}
-
-				{/* <ToggleControl
-					label={__('Make it scrollable', 'arkhe-blocks') + '(PC)'}
-					checked={isScrollPC}
-					onChange={(value) => {
-						setAttributes({ isScrollPC: value });
-					}}
-				/> */}
+				<div data-ark-disabled={'custom' !== height || null}>
+					<ArkDeviceTab
+						controlPC={
+							<UnitNumber
+								// label={__('Height', 'arkhe-blocks')}
+								value={heightPC}
+								onChange={(newVal) => {
+									setAttributes({ heightPC: newVal });
+								}}
+							/>
+						}
+						controlSP={
+							<UnitNumber
+								// label={__('Height', 'arkhe-blocks')}
+								value={heightSP}
+								onChange={(newVal) => {
+									setAttributes({ heightSP: newVal });
+								}}
+							/>
+						}
+					/>
+				</div>
 			</PanelBody>
 			<PanelBody title={__('スライダー機能', 'arkhe-blocks')} initialOpen={true}>
 				<ToggleControl
@@ -137,8 +115,17 @@ export default ({ attributes, setAttributes, clientId }) => {
 						setAttributes({ isLoop: value });
 					}}
 				/>
-				<RadioControl
-					selected={effect}
+				<ToggleControl
+					label={__('Show navigation', 'arkhe-blocks')}
+					checked={showNavigation}
+					onChange={(value) => {
+						setAttributes({ showNavigation: value });
+					}}
+				/>
+
+				<SelectControl
+					label={__('Slider effect', 'arkhe-blocks')}
+					value={effect}
 					options={[
 						{
 							label: __('Slide', 'arkhe-blocks'),
@@ -153,6 +140,25 @@ export default ({ attributes, setAttributes, clientId }) => {
 						setAttributes({ effect: val });
 					}}
 				/>
+				<div data-ark-disabled={'content' === height || null}>
+					<SelectControl
+						label={__('Slider direction', 'arkhe-blocks')}
+						value={direction}
+						options={[
+							{
+								label: _x('Horizontal', 'slider', 'arkhe-blocks'),
+								value: 'horizontal',
+							},
+							{
+								label: _x('Vertical', 'slider', 'arkhe-blocks'),
+								value: 'vertical',
+							},
+						]}
+						onChange={(val) => {
+							setAttributes({ direction: val });
+						}}
+					/>
+				</div>
 				<TextControl
 					label={__('Slide speed', 'arkhe-blocks') + ' [ms]'}
 					type='number'
@@ -175,42 +181,9 @@ export default ({ attributes, setAttributes, clientId }) => {
 						setAttributes({ delay: parseInt(val) });
 					}}
 				/>
-				<TextControl
-					label={__('Space', 'arkhe-blocks') + ' [px]'}
-					type='number'
-					value={space}
-					step='1'
-					min='0'
-					autocomplete='off'
-					onChange={(val) => {
-						setAttributes({ space: parseFloat(val) });
-					}}
-				/>
-				<TextControl
-					label={__('Slide Num', 'arkhe-blocks') + ' (PC)'}
-					type='number'
-					value={slideNumPC}
-					step='1'
-					min='1'
-					autocomplete='off'
-					onChange={(val) => {
-						setAttributes({ slideNumPC: parseFloat(val) });
-					}}
-				/>
-				<TextControl
-					label={__('Slide Num', 'arkhe-blocks') + ' (SP)'}
-					type='number'
-					value={slideNumSP}
-					step='1'
-					min='1'
-					autocomplete='off'
-					onChange={(val) => {
-						setAttributes({ slideNumSP: parseFloat(val) });
-					}}
-				/>
 				<div data-ark-disabled={(slideNumPC === 1 && slideNumSP === 1) || null}>
 					<ToggleControl
-						label={__('center', 'arkhe-blocks')}
+						label={__('表示枚数が複数の時、センターに寄せる', 'arkhe-blocks')}
 						checked={isCenter}
 						onChange={(value) => {
 							setAttributes({ isCenter: value });
@@ -218,9 +191,69 @@ export default ({ attributes, setAttributes, clientId }) => {
 					/>
 				</div>
 			</PanelBody>
-			<PanelBody title={__('Pagenation', 'arkhe-blocks')} initialOpen={false}>
+			<PanelBody
+				title={__('デバイスごとの設定', 'arkhe-blocks')}
+				className='arkb-panel--slideHeight'
+				initialOpen={true}
+			>
+				<ArkDeviceTab
+					controlPC={
+						<>
+							<TextControl
+								label={__('Slide Num', 'arkhe-blocks')}
+								type='number'
+								value={slideNumPC}
+								step='1'
+								min='1'
+								autocomplete='off'
+								onChange={(val) => {
+									setAttributes({ slideNumPC: parseFloat(val) });
+								}}
+							/>
+							<TextControl
+								label={__('Space', 'arkhe-blocks') + ' [px]'}
+								type='number'
+								value={spacePC}
+								step='1'
+								min='0'
+								autocomplete='off'
+								onChange={(val) => {
+									setAttributes({ spacePC: parseFloat(val) });
+								}}
+							/>
+						</>
+					}
+					controlSP={
+						<>
+							<TextControl
+								label={__('Slide Num', 'arkhe-blocks')}
+								type='number'
+								value={slideNumSP}
+								step='1'
+								min='1'
+								autocomplete='off'
+								onChange={(val) => {
+									setAttributes({ slideNumSP: parseFloat(val) });
+								}}
+							/>
+							<TextControl
+								label={__('Space', 'arkhe-blocks') + ' [px]'}
+								type='number'
+								value={spaceSP}
+								step='1'
+								min='0'
+								autocomplete='off'
+								onChange={(val) => {
+									setAttributes({ spaceSP: parseFloat(val) });
+								}}
+							/>
+						</>
+					}
+				/>
+			</PanelBody>
+			<PanelBody title={__('Pagenation', 'arkhe-blocks')} initialOpen={true}>
 				<SelectControl
-					selected={pagination}
+					value={pagination}
 					options={[
 						{
 							label: __('Off', 'arkhe-blocks'),

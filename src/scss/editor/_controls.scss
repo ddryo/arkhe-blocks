@@ -83,6 +83,7 @@
 .arkb-tabPanel {
 
 	.components-tab-panel__tabs {
+		border-bottom: 1px solid #e0e0e0;
 
 		.components-button {
 			display: flex;
@@ -93,6 +94,10 @@
 				margin-right: 4px;
 			}
 		}
+	}
+
+	.components-tab-panel__tab-content {
+		padding-top: 16px;
 	}
 }
 

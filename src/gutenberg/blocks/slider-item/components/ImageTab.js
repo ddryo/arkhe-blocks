@@ -4,8 +4,13 @@
 import { __ } from '@wordpress/i18n';
 import { memo } from '@wordpress/element';
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
-import { Button, TabPanel, FocalPointPicker } from '@wordpress/components';
-import { Icon, mobile, desktop, video, image } from '@wordpress/icons';
+import { Button, FocalPointPicker } from '@wordpress/components';
+import { Icon, video, image } from '@wordpress/icons';
+
+/**
+ * @Inner dependencies
+ */
+import { ArkDeviceTab } from '@components/ArkDeviceTab';
 
 /**
  * export
@@ -16,7 +21,7 @@ export const ImageTab = memo((props) => {
 		removeImagePC,
 		setImageSP,
 		removeImageSP,
-		//,
+		mediaType,
 		mediaUrl,
 		mediaId,
 		focalPoint,
@@ -26,11 +31,24 @@ export const ImageTab = memo((props) => {
 		setAttributes,
 	} = props;
 
-	const noImageView = (
+	let noImageView = null;
+	if ('image' === mediaType) {
+		noImageView = (
+			<div className='arkb-imgPreview -noimage'>
+				<Icon icon={image} />
+			</div>
+		);
+	} else if ('video' === mediaType) {
+		noImageView = (
+			<div className='arkb-imgPreview -noimage'>
+				<Icon icon={video} />
+			</div>
+		);
+	} else {
 		<div className='arkb-imgPreview -noimage'>
 			<Icon icon={image} /> / <Icon icon={video} />
-		</div>
-	);
+		</div>;
+	}
 
 	const imageSettingPC = (
 		<>
@@ -102,7 +120,7 @@ export const ImageTab = memo((props) => {
 								removeImageSP();
 							}
 						}}
-						allowedTypes={['image', 'video']}
+						allowedTypes={[mediaType]}
 						value={mediaIdSP}
 						render={({ open }) => (
 							<Button isPrimary onClick={open}>
@@ -128,43 +146,12 @@ export const ImageTab = memo((props) => {
 		</>
 	);
 
-	const bgImgTabs = [
-		{
-			name: 'pc',
-			title: (
-				<>
-					<Icon icon={desktop} />
-					<span>PC</span>
-				</>
-			),
-			className: '__pc',
-		},
-		{
-			name: 'sp',
-			title: (
-				<>
-					<Icon icon={mobile} />
-					<span>SP</span>
-				</>
-			),
-			className: '__sp',
-		},
-	];
-
-	let tabClass = `arkb-tabPanel -slider`;
+	let addClass = `-media`;
 	if (!mediaUrl) {
-		tabClass += ' has-no-pcimg';
+		addClass += ' has-no-pcimg';
 	}
 
 	return (
-		<TabPanel className={tabClass} activeClass='is-active' tabs={bgImgTabs} initialTabName='pc'>
-			{(tab) => {
-				if ('pc' === tab.name) {
-					return imageSettingPC;
-				} else if ('sp' === tab.name) {
-					return imageSettingSP;
-				}
-			}}
-		</TabPanel>
+		<ArkDeviceTab className={addClass} controlPC={imageSettingPC} controlSP={imageSettingSP} />
 	);
 });

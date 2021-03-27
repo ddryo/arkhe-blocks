@@ -45,7 +45,7 @@ function register_blocks() {
 			'timeline',
 			'timeline-item',
 			'slider',
-			'slider-item',
+			// 'slider-item',
 		];
 
 		// かつ、Arkheでのみ利用可能
@@ -72,7 +72,10 @@ function register_blocks() {
 	if ( ! \Arkhe_Blocks::IS_PRO ) return;
 
 	// ダイナミックブロックの読み込み
-	$dynamic_blocks = [];
+	$dynamic_blocks = [
+		// 'slider',
+		'slider-item',
+	];
 
 	if ( IS_ARKHE_THEME ) {
 		$dynamic_blocks[] = 'page-list';

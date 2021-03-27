@@ -26,7 +26,8 @@ import { useState, useCallback } from '@wordpress/element';
  * @Inner dependencies
  */
 import { ImageTab } from './components/ImageTab';
-import { getUnitNum, UnitNumber } from '@components/UnitNumber';
+import { ArkDeviceTab } from '@components/ArkDeviceTab';
+import { UnitNumber } from '@components/UnitNumber';
 
 /**
  * 設定
@@ -51,7 +52,7 @@ export default ({ attributes, setAttributes, isSelected }) => {
 		mediaIdSP,
 		mediaUrlSP,
 		mediaType,
-		// mediaTypeSP,
+		mediaTypeSP,
 		focalPoint,
 		focalPointSP,
 		isRepeat,
@@ -61,31 +62,25 @@ export default ({ attributes, setAttributes, isSelected }) => {
 		textColor,
 		padPC,
 		padSP,
+		widthPC,
+		widthSP,
 	} = attributes;
 
-	const unitNumPC = getUnitNum(padPC);
-	const unitNumSP = getUnitNum(padSP);
-	const [padNumPC, setNumPC] = useState(unitNumPC.num);
-	const [padUnitPC, setUnitPC] = useState(unitNumPC.unit);
-	const [padNumSP, setNumSP] = useState(unitNumSP.num);
-	const [padUnitSP, setUnitSP] = useState(unitNumSP.unit);
-
-	const setImagePC = useCallback(
-		(media) => {
-			setAttributes({
-				mediaId: media.id,
-				mediaUrl: media.url,
-				mediaWidth: media.width,
-				mediaHeight: media.height,
-				mediaType: media.type,
-				...(100 === opacity ? { opacity: 50 } : {}),
-			});
-		},
-		[setAttributes, opacity]
-	);
+	const removeImageSP = useCallback(() => {
+		setAttributes({
+			mediaIdSP: 0,
+			mediaUrlSP: '',
+			mediaWidthSP: undefined,
+			mediaHeightSP: undefined,
+			mediaTypeSP: '',
+			focalPointSP: undefined,
+			...(!mediaUrl ? { opacity: 100 } : {}), // PC画像もなければ カラー100に。
+		});
+	}, [setAttributes, opacity, mediaUrl]);
 
 	const removeImagePC = useCallback(() => {
 		setAttributes({
+			alt: '',
 			mediaId: 0,
 			mediaUrl: '',
 			mediaWidth: undefined,
@@ -95,6 +90,25 @@ export default ({ attributes, setAttributes, isSelected }) => {
 			...(!mediaUrlSP ? { opacity: 100 } : {}), // SP画像もなければ カラー100に。
 		});
 	}, [setAttributes, opacity, mediaUrlSP]);
+
+	const setImagePC = useCallback(
+		(media) => {
+			console.log(media);
+			setAttributes({
+				alt: media.alt,
+				mediaId: media.id,
+				mediaUrl: media.url,
+				mediaWidth: media.width,
+				mediaHeight: media.height,
+				mediaType: media.type,
+				...(100 === opacity ? { opacity: 50 } : {}),
+			});
+			if (media.type !== mediaTypeSP) {
+				removeImageSP();
+			}
+		},
+		[setAttributes, opacity, mediaTypeSP, removeImageSP]
+	);
 
 	const setImageSP = useCallback(
 		(media) => {
@@ -108,18 +122,6 @@ export default ({ attributes, setAttributes, isSelected }) => {
 		},
 		[setAttributes]
 	);
-
-	const removeImageSP = useCallback(() => {
-		setAttributes({
-			mediaIdSP: 0,
-			mediaUrlSP: undefined,
-			mediaWidthSP: undefined,
-			mediaHeightSP: undefined,
-			mediaTypeSP: '',
-			focalPointSP: undefined,
-			...(!mediaUrl ? { opacity: 100 } : {}), // PC画像もなければ カラー100に。
-		});
-	}, [setAttributes, opacity, mediaUrl]);
 
 	const setOverlayColor = useCallback(
 		(newColor) => {
@@ -138,71 +140,91 @@ export default ({ attributes, setAttributes, isSelected }) => {
 
 	return (
 		<>
-			<PanelBody title={__('Padding settings', 'arkhe-blocks')}>
-				<UnitNumber
-					label={__('Top and bottom padding', 'arkhe-blocks') + '(PC)'}
-					attr='padPC'
-					num={padNumPC}
-					unit={padUnitPC}
-					setNum={setNumPC}
-					setUnit={setUnitPC}
-					setAttributes={setAttributes}
-				/>
-				<UnitNumber
-					label={__('Top and bottom padding', 'arkhe-blocks') + '(SP)'}
-					attr='padSP'
-					num={padNumSP}
-					unit={padUnitSP}
-					setNum={setNumSP}
-					setUnit={setUnitSP}
-					setAttributes={setAttributes}
-				/>
-				{/* <TextControl
-						autoComplete='off'
-						className='__input'
-						value={padPC}
-						type='number'
-						// step={0.1}
-						min={0}
-						onChange={(val) => {
-							setAttributes({ padPC: parseFloat(val) }); // intに変換してから保存
-						}}
-					/>
-					<SelectControl
-						value={padUnitPC}
-						options={units.map((unit) => {
-							return { label: unit, value: unit };
-						})}
-						onChange={(val) => {
-							setAttributes({ padUnitPC: val });
-						}}
-					/> */}
-
-				{/* <div className='ark-control--padding'>
-					<div className='__label'>
-						{__('Top and bottom padding', 'arkhe-blocks') + '(SP)'}
+			<PanelBody title={__('Background media setting', 'arkhe-blocks')}>
+				{isRepeat && mediaUrl && (
+					<div className='arkb-imgPreview'>
+						<img src={mediaUrl} alt='' />
 					</div>
-					<TextControl
-						autoComplete='off'
-						className='__input'
-						value={padSP}
-						type='number'
-						// step={0.1}
-						min={0}
-						onChange={(val) => {
-							setAttributes({ padSP: parseFloat(val) }); // intに変換してから保存
-						}}
-					/>
-					<SelectControl
-						value={padUnitSP}
-						options={units.map((unit) => {
-							return { label: unit, value: unit };
-						})}
-						onChange={(val) => {
-							setAttributes({ padUnitSP: val });
-						}}
-					/>
-				</div> */}
+				)}
+				<ImageTab
+					{...{
+						setImagePC,
+						removeImagePC,
+						setImageSP,
+						removeImageSP,
+						mediaType,
+						mediaId,
+						mediaUrl,
+						mediaIdSP,
+						mediaUrlSP,
+						focalPoint,
+						focalPointSP,
+						// isRepeat,
+						// opacity,
+						setAttributes,
+					}}
+				/>
+			</PanelBody>
+			<PanelBody title={__('Padding settings', 'arkhe-blocks')}>
+				<ArkDeviceTab
+					className='-padding'
+					controlPC={
+						<>
+							<UnitNumber
+								label={__('Top and bottom padding', 'arkhe-blocks')}
+								value={padPC.y}
+								units={['px', 'em', 'rem', '%', 'vw']}
+								onChange={(newVal) => {
+									setAttributes({ padPC: { ...padPC, y: newVal } });
+								}}
+							/>
+							<UnitNumber
+								label={__('Left and right padding', 'arkhe-blocks')}
+								value={padPC.x}
+								units={['px', 'em', 'rem', '%', 'vw']}
+								onChange={(newVal) => {
+									setAttributes({ padPC: { ...padPC, x: newVal } });
+								}}
+							/>
+							<UnitNumber
+								label={__('Content width', 'arkhe-blocks') + '(PC)'}
+								value={widthPC}
+								units={['%', 'px', 'vw']}
+								onChange={(newVal) => {
+									setAttributes({ widthPC: newVal });
+								}}
+							/>
+						</>
+					}
+					controlSP={
+						<>
+							<UnitNumber
+								label={__('Top and bottom padding', 'arkhe-blocks')}
+								value={padSP.y}
+								units={['px', 'em', 'rem', '%', 'vw']}
+								onChange={(newVal) => {
+									setAttributes({ padSP: { ...padSP, y: newVal } });
+								}}
+							/>
+							<UnitNumber
+								label={__('Left and right padding', 'arkhe-blocks')}
+								value={padSP.x}
+								units={['px', 'em', 'rem', '%', 'vw']}
+								onChange={(newVal) => {
+									setAttributes({ padSP: { ...padSP, x: newVal } });
+								}}
+							/>
+							<UnitNumber
+								label={__('Content width', 'arkhe-blocks') + '(SP)'}
+								value={widthSP}
+								units={['%', 'px', 'vw']}
+								onChange={(newVal) => {
+									setAttributes({ widthSP: newVal });
+								}}
+							/>
+						</>
+					}
+				/>
 			</PanelBody>
 			<PanelColorGradientSettings
 				title={__('Color settings', 'arkhe-blocks')}
@@ -247,42 +269,6 @@ export default ({ attributes, setAttributes, isSelected }) => {
 					/>
 				</BaseControl>
 			</PanelColorGradientSettings>
-			<PanelBody title={__('Background media setting', 'arkhe-blocks')}>
-				{isRepeat && mediaUrl && (
-					<div className='arkb-imgPreview'>
-						<img src={mediaUrl} alt='' />
-					</div>
-				)}
-				<ImageTab
-					{...{
-						setImagePC,
-						removeImagePC,
-						setImageSP,
-						removeImageSP,
-						mediaId,
-						mediaUrl,
-						mediaIdSP,
-						mediaUrlSP,
-						focalPoint,
-						focalPointSP,
-						// isRepeat,
-						// opacity,
-						setAttributes,
-					}}
-				/>
-				{'video' !== mediaType && (
-					<ToggleControl
-						label={__('Repeat the background image', 'arkhe-blocks')}
-						checked={isRepeat}
-						onChange={(val) => {
-							setAttributes({ isRepeat: val });
-							if (val) {
-								setAttributes({ focalPoint: undefined });
-							}
-						}}
-					/>
-				)}
-			</PanelBody>
 		</>
 	);
 };

@@ -13,7 +13,7 @@ const UNITS = ['px', 'rem', 'em', '%', 'vw', 'vh'];
 /**
  * attributes を数値と単位に分離する
  */
-export const getUnitNum = (val) => {
+const getUnitNum = (val) => {
 	if (!val) {
 		return { num: 0, unit: 'px' };
 	}
@@ -26,7 +26,10 @@ export const getUnitNum = (val) => {
  * コンポーネント
  */
 export const UnitNumber = (props) => {
-	const { label, attr, num, unit, setNum, setUnit, setAttributes } = props;
+	const { label, value, units, onChange } = props;
+	const _UNITS = units || UNITS;
+
+	const { num, unit } = getUnitNum(value);
 
 	return (
 		<div className='ark-control--padding'>
@@ -38,18 +41,16 @@ export const UnitNumber = (props) => {
 				type='number'
 				min={0}
 				onChange={(val) => {
-					setNum(parseFloat(val));
-					setAttributes({ [attr]: `${parseFloat(val)}${unit}` });
+					onChange(`${parseFloat(val)}${unit}`);
 				}}
 			/>
 			<SelectControl
 				value={unit}
-				options={UNITS.map((_unit) => {
+				options={_UNITS.map((_unit) => {
 					return { label: _unit, value: _unit };
 				})}
 				onChange={(val) => {
-					setUnit(val);
-					setAttributes({ [attr]: `${num}${val}` });
+					onChange(`${num}${val}`);
 				}}
 			/>
 		</div>

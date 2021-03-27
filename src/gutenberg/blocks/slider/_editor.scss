@@ -25,6 +25,17 @@
 
 	.ark-block-slider__slide {
 
+		.wp-block {
+			max-width: 100%;
+		}
+	}
+
+}
+
+.arkb-panel--slideHeight {
+
+	.components-base-control {
+		margin-bottom: 8px;
 	}
 
 }

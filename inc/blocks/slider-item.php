@@ -1,0 +1,147 @@
+<?php
+namespace Arkhe_Blocks;
+
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * 固定ページリストブロック
+ */
+$block_name = 'slider-item';
+
+register_block_type_from_metadata(
+	ARKHE_BLOCKS_PATH . 'src/gutenberg/blocks/' . $block_name,
+	[
+		'render_callback'  => '\Arkhe_Blocks\cb_slider_item',
+	]
+);
+// phpcs:disable WordPress.NamingConventions.ValidVariableName.InterpolatedVariableNotSnakeCase
+function cb_slider_item( $attrs, $content ) {
+	ob_start();
+
+	$position_class = \Arkhe_Blocks::get_position_class( $attrs['contentPosition'], 'center center' );
+	$block_class    = 'ark-block-slider__slide swiper-slide';
+	if ( $position_class ) {
+		$block_class .= " {$position_class}";
+	}
+
+	$block_style = [
+		'--arkb-slide-pad-x'     => $attrs['padPC']['x'],
+		'--arkb-slide-pad-y'     => $attrs['padPC']['y'],
+		'--arkb-slide-pad-y--sp' => $attrs['padSP']['y'],
+		'--arkb-slide-pad-x--sp' => $attrs['padSP']['x'],
+		'--arkb-slide-width'     => $attrs['widthPC'],
+		'--arkb-slide-width--sp' => $attrs['widthSP'],
+	];
+	$block_style = \Arkhe_Blocks::convert_style_props( $block_style );
+
+	$color_layer_style = [
+		'background' => $attrs['bgGradient'] || $attrs['bgColor'],
+		'opacity'    => $attrs['opacity'] * 0.01, // round()
+	];
+	$color_layer_style = \Arkhe_Blocks::convert_style_props( $color_layer_style );
+
+	$text_layer_style = [
+		'color' => $attrs['textColor'],
+	];
+	$text_layer_style = \Arkhe_Blocks::convert_style_props( $text_layer_style );
+
+	// ob_start();
+	?>
+	<div class="<?=esc_attr( $block_class )?>" style="<?=esc_attr( $block_style )?>">
+		<?php \Arkhe_Blocks\render_slide_media( $attrs ); ?>
+		<div class="ark-block-slider__colorLayer" style="<?=esc_attr( $color_layer_style )?>"></div>
+		<div class="ark-block-slider__txtLayer ark-keep-mt--s"<?php if ( $text_layer_style ) echo ' style="' . esc_attr( $text_layer_style ) . '"'; ?>>
+			<?=wp_kses_post( $content )?>
+		</div>
+	</div>
+<?php
+	return ob_get_clean();
+}
+
+function render_slide_media( $attrs ) {
+	// $attrs['widthSP'],
+	if ( ! $attrs['mediaUrl'] ) {
+		return '';
+	}
+
+	$mediaId     = $attrs['mediaId'];
+	$mediaIdSP   = $attrs['mediaIdSP'];
+	$mediaUrl    = $attrs['mediaUrl'];
+	$mediaUrlSP  = $attrs['mediaUrlSP'];
+	$mediaType   = $attrs['mediaType'];
+	$mediaTypeSP = $attrs['mediaTypeSP'];
+	$mediaWidth  = $attrs['mediaWidth'] ?? '';
+	$mediaHeight = $attrs['mediaHeight'] ?? '';
+	$alt         = $attrs['alt'];
+
+	$style = [];
+	if ( isset( $attrs['focalPoint'] ) ) {
+		$x = $attrs['focalPoint']['x'] * 100;
+		$y = $attrs['focalPoint']['y'] * 100;
+
+		$style['--arkb-object-position'] = "{$x}% {$y}%";
+	}
+	if ( isset( $attrs['focalPointSP'] ) ) {
+		$x = $attrs['focalPointSP']['x'] * 100;
+		$y = $attrs['focalPointSP']['y'] * 100;
+
+		$style['--arkb-object-position--sp'] = "{$x}% {$y}%";
+	}
+	$style = \Arkhe_Blocks::convert_style_props( $style );
+
+	$mediaSrc = '';
+
+	if ( 'video' === $mediaType && 'image' !== $mediaTypeSP ) {
+		// videoタグの属性
+		$video_props = ' autoPlay loop playsinline muted';
+		if ( $mediaWidth ) {
+			$video_props .= ' width="' . $mediaWidth . '"';
+		}
+		if ( $mediaHeight ) {
+			$video_props .= ' height="' . $mediaHeight . '"';
+		}
+		if ( $style ) {
+			$video_props .= ' style="' . $style . '"';
+		}
+
+		// 出力内容
+		$mediaSrc = '<video class="ark-block-slider__video u-obf-cover"' . $video_props . '>';
+		if ( $mediaUrlSP ) {
+			$mediaSrc .= '<source media="(max-width: 999px)" src="' . $mediaUrlSP . '" />';
+		}
+		$mediaSrc .= '<source src="' . $mediaUrl . '" class="ark-block-slider__source" /></video>';
+
+	} elseif ( 'image' === $mediaType && 'video' !== $mediaTypeSP ) {
+
+		// pictureタグの属性
+		$picture_props = '';
+		if ( $style ) {
+			$picture_props .= ' style="' . $style . '"';
+		}
+
+		// imgタグのクラス
+		$img_class = 'ark-block-slider__img';
+		if ( $mediaId ) {
+			$img_class .= " wp-image-{$mediaId}";
+		}
+
+		// imgタグの属性
+		$img_props = ' alt="' . $alt . '"';
+		if ( $mediaWidth ) {
+			$img_props .= ' width="' . $mediaWidth . '"';
+		}
+		if ( $mediaHeight ) {
+			$img_props .= ' height="' . $mediaHeight . '"';
+		}
+
+		// 出力内容
+		$mediaSrc = '<picture class="ark-block-slider__picture u-obf-cover"' . $picture_props . '>';
+		if ( $mediaUrlSP ) {
+			$mediaSrc .= '<source media="(max-width: 999px)" srcset="' . $mediaUrlSP . '" />';
+		}
+		$mediaSrc .= '<img src="' . $mediaUrl . '" class="' . $img_class . '"' . $img_props . '></picture>';
+	}
+
+	// $mediaSrc = apply_filters( 'arkb_slide_media_src', $mediaSrc, $attrs );
+	echo '<div class="ark-block-slider__imgLayer">' . wp_kses_post( $mediaSrc ) . '</div>';
+}

@@ -17,28 +17,35 @@
             "type": "number",
             "default": 0
         },
-        "tabId": {
-            "type": "string",
-            "default": ""
-        },
-        "activeTab": {
-            "type": "number",
-            "default": 0
-        },
         "padPC": {
-            "type": "string",
-            "default": ""
+            "type": "object",
+            "default": {
+                "y": "2em",
+                "x": "2em"
+            }
         },
         "padSP": {
+            "type": "object",
+            "default": {
+                "y": "2em",
+                "x": "2em"
+            }
+        },
+        "widthPC": {
             "type": "string",
-            "default": ""
+            "default": "100%"
+        },
+        "widthSP": {
+            "type": "string",
+            "default": "100%"
         },
         "bgColor": {
             "type": "string",
             "default": "#000000"
         },
         "bgGradient": {
-            "type": "string"
+            "type": "string",
+            "default": ""
         },
         "opacity": {
             "type": "number",
@@ -56,43 +63,29 @@
             "type": "number",
             "default": 0
         },
-        "mediaUrl": {
-            "type": "string",
-            "default": ""
-        },
-        "mediaWidth": {
-            "type": "string",
-            "source": "attribute",
-            "selector": ".ark-block-section__bg[data-for=\"pc\"]",
-            "attribute": "width"
-        },
-        "mediaHeight": {
-            "type": "string",
-            "source": "attribute",
-            "selector": ".ark-block-section__bg[data-for=\"pc\"]",
-            "attribute": "height"
-        },
         "mediaIdSP": {
             "type": "number",
             "default": 0
         },
+        "mediaUrl": {
+            "type": "string",
+            "default": ""
+        },
         "mediaUrlSP": {
             "type": "string",
-            "source": "attribute",
-            "selector": ".ark-block-section__bg[data-for=\"sp\"]",
-            "attribute": "src"
+            "default": ""
+        },
+        "mediaWidth": {
+            "type": "number"
+        },
+        "mediaHeight": {
+            "type": "number"
         },
         "mediaWidthSP": {
-            "type": "string",
-            "source": "attribute",
-            "selector": ".ark-block-section__bg[data-for=\"sp\"]",
-            "attribute": "width"
+            "type": "number"
         },
         "mediaHeightSP": {
-            "type": "string",
-            "source": "attribute",
-            "selector": ".ark-block-section__bg[data-for=\"sp\"]",
-            "attribute": "height"
+            "type": "number"
         },
         "mediaType": {
             "type": "string",
@@ -109,7 +102,8 @@
             "type": "object"
         },
         "contentPosition": {
-            "type": "string"
+            "type": "string",
+            "default": "center center"
         }
     },
     "editorScript": "file:../../../../dist/gutenberg/blocks/slider-item/index.js",

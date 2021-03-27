@@ -79,6 +79,10 @@
             "type": "string",
             "default": "slide"
         },
+        "direction": {
+            "type": "string",
+            "default": "horizontal"
+        },
         "speed": {
             "type": "number",
             "default": 1200
@@ -87,7 +91,11 @@
             "type": "number",
             "default": 5000
         },
-        "space": {
+        "spacePC": {
+            "type": "number",
+            "default": 0
+        },
+        "spaceSP": {
             "type": "number",
             "default": 0
         },
@@ -112,6 +120,10 @@
             "default": false
         },
         "isDynamic": {
+            "type": "boolean",
+            "default": false
+        },
+        "showNavigation": {
             "type": "boolean",
             "default": false
         },

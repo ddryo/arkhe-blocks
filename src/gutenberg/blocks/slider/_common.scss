@@ -1,11 +1,22 @@
 .ark-block-slider {
-	--arkb-slider-pad-x: 2em;
-	--arkb-slider-height: auto;
+
+	--arkb-slide-pad-x: 2em;
+	--arkb-slide-width: 100%;
+	--arkb-slide-width--sp: 100%;
+	--swiper-navigation-size: 32px;
+
+	@include sp {
+		--arkb-slide-pad-x: --arkb-slide-pad-x--sp;
+		--arkb-slide-pad-y: --arkb-slide-pad-y--sp;
+		--arkb-slide-width: --arkb-slide-width--sp;
+	}
+
+	// min-height: calc(100vh - var(--ark-offset_y));
 
 	&.alignfull[data-inner="article"] {
-		--arkb-slider-pad-x: var(--ark-pad--container, 2em);
-		max-width: calc(var(--ark-article_width, 1000px) + var(--arkb-slider-pad-x) * 2);
-		padding: 2em var(--arkb-slider-pad-x);
+		--arkb-slide-pad-x: var(--ark-pad--container, 2em);
+		max-width: calc(var(--ark-article_width, 1000px) + var(--arkb-slide-pad-x) * 2);
+		padding: var(--arkb-slide-pad-y) var(--arkb-slide-pad-x);
 	}
 
 	.swiper-container {
@@ -13,16 +24,15 @@
 		height: 100%;
 	}
 
-	// &[data-height="content"] {
-	// }
+	&[data-height="content"] {
+		--arkb-slider-height: auto;
+	}
 
 	&[data-height="full"] {
-
-		--arkb-slider-height: 100vh;
+		--arkb-slider-height: calc(100vh - var(--ark-offset_y, 0px));
 	}
 
 	&[data-height="custom"] {
-		--arkb-slider-height: auto;
 
 		@include sp {
 
@@ -34,7 +44,7 @@
 
 	// エディター側でタブリスト分下にずれるので、高さは__innerへ指定する
 	.ark-block-slider__inner {
-		height: var(--arkb-slider-height);
+		height: var(--arkb-slider-height, auto);
 	}
 
 }
@@ -42,80 +52,83 @@
 
 .ark-block-slider__slide {
 	position: relative;
-	// .has-position > & {}
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 	height: 100%;
 	margin-top: 0 !important;
 	margin-bottom: 0 !important;
 	background-color: #cecece; // test
 
-	.wp-block {
-		width: 100%;
-	}
+	// .ark-block-slider__txtLayer {
+	// 	display: flex;
+	// 	flex-direction: column;
+	// 	justify-content: center;
+	// }
 
-	.ark-block-slider__txtLayer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-	}
-
-	.is-position-top-left > & {
+	&.is-position-top-left {
 		align-items: flex-start;
 		justify-content: flex-start;
 	}
 
-	.is-position-top-center > & {
+	&.is-position-top-center {
 		align-items: center;
 		justify-content: flex-start;
 	}
 
-	.is-position-top-right > & {
+	&.is-position-top-right {
 		align-items: flex-end;
 		justify-content: flex-start;
 	}
 
-	.is-position-center-left > & {
+	&.is-position-center-left {
 		align-items: flex-start;
 		justify-content: center;
 	}
 
-	.is-position-center-center > & {
-		align-items: center;
-		justify-content: center;
-	}
+	// &.is-position-center-center {
+	// 	align-items: center;
+	// 	justify-content: center;
+	// }
 
-	.is-position-center-right > & {
+	&.is-position-center-right {
 		align-items: flex-end;
 		justify-content: center;
 	}
 
-	.is-position-bottom-left > & {
+	&.is-position-bottom-left {
 		align-items: flex-start;
 		justify-content: flex-end;
 	}
 
-	.is-position-bottom-center > & {
+	&.is-position-bottom-center {
 		align-items: center;
 		justify-content: flex-end;
 	}
 
-	.is-position-bottom-right > & {
+	&.is-position-bottom-right {
 		align-items: flex-end;
 		justify-content: flex-end;
 	}
 }
 
-.ark-block-slider__imgLayer {
+.ark-block-slider__imgLayer,
+.ark-block-slider__colorLayer {
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: 0;
+	display: block;
 	width: 100%;
 	height: 100%;
+}
+
+.ark-block-slider__imgLayer {
+	z-index: 0;
 
 	&.c-filterLayer::after {
 		background-color: unset;
 	}
-
 
 	.ark-block-slider__picture {
 		display: block;
@@ -132,23 +145,17 @@
 }
 
 .ark-block-slider__colorLayer {
-	position: absolute;
-	top: 0;
-	left: 0;
 	z-index: 1;
-	display: block;
-	width: 100%;
-	height: 100%;
 }
 
 .ark-block-slider__txtLayer {
 	// min-height: var(--arkb-section-minH--pc);
 	position: relative;
 	z-index: 2;
-	width: 100%;
-	height: 100%;
-	margin: 0 auto;
-	padding: 2em var(--arkb-slider-pad-x);
+	width: var(--arkb-slide-width);
+	max-width: 100%;
+	margin: 0;
+	padding: var(--arkb-slide-pad-y) var(--arkb-slide-pad-x);
 
 	// .ark-block-slider__imgLayer + & {
 	// 	position: absolute;
@@ -159,3 +166,12 @@
 	// }
 }
 
+// object-position
+.ark-block-slider__video,
+.ark-block-slider__img {
+	object-position: var(--arkb-object-position, center);
+
+	@include sp {
+		object-position: var(--arkb-object-position--sp, center);
+	}
+}

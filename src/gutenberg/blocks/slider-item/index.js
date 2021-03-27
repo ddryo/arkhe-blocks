@@ -12,7 +12,7 @@ import {
 	__experimentalBlockAlignmentMatrixToolbar as BlockAlignmentMatrixToolbar,
 } from '@wordpress/block-editor';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
-import { Icon, fullscreen } from '@wordpress/icons';
+// import { Icon, fullscreen } from '@wordpress/icons';
 
 /**
  * @Internal dependencies
@@ -21,6 +21,7 @@ import { iconColor } from '@blocks/config';
 import blockIcon from './_icon';
 import metadata from './block.json';
 import SlideSidebar from './_sidebar';
+import { SlideMedia } from './components/SlideMedia';
 import { getPositionClassName } from '@helper/getPositionClassName';
 
 /**
@@ -34,19 +35,6 @@ import classnames from 'classnames';
 const { apiVersion, name, category, supports, parent } = metadata;
 
 // https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/src/columns/variations.js
-
-const getColorStyle = ({ bgColor, bgGradient, opacity }) => {
-	const style = {};
-
-	// グラデーションかどうか
-	if (bgGradient) {
-		style.background = bgGradient;
-	} else {
-		style.backgroundColor = bgColor || '#f7f7f7';
-	}
-	style.opacity = (opacity * 0.01).toFixed(2);
-	return style;
-};
 
 /**
  * スライド
@@ -70,51 +58,37 @@ registerBlockType(name, {
 			bgGradient,
 			opacity,
 			textColor,
-			alt,
-			mediaId,
-			mediaUrl,
-			mediaWidth,
-			mediaHeight,
-			mediaIdSP,
-			mediaUrlSP,
-			mediaWidthSP,
-			mediaHeightSP,
-			mediaType,
-			mediaTypeSP,
-			focalPoint,
-			focalPointSP,
 			contentPosition,
+			padPC,
+			padSP,
+			widthPC,
+			widthSP,
 		} = attributes;
 
-		const colorLayerStyle = {
-			//backgroundColor: bgColor,
-			background: bgGradient || bgColor,
-			opacity: (opacity * 0.01).toFixed(2),
-		};
-		const txtLayerStyle = {
-			color: textColor,
-		};
-
-		const imgLayer = mediaUrl && (
-			<div className={`${blockName}__imgLayer c-filterLayer -filter-dot`}>
-				<picture className={`${blockName}__picture`}>
-					{mediaUrlSP && <source media='(max-width: 959px)' srcSet={mediaUrlSP} />}
-					<img src={mediaUrl} alt={alt} className={`${blockName}__img`} />
-				</picture>
-			</div>
-		);
-
-		// クラス名
-		const positionClass = getPositionClassName(contentPosition, '');
-		const blockClass = classnames(`${blockName}__slide`, positionClass, {
-			// 'has-bg-img': !!mediaUrl,
-			// 'has-position': !!positionClass,
-		});
+		// BlockProps
+		const positionClass = getPositionClassName(contentPosition, 'center center');
+		const blockClass = classnames(`${blockName}__slide`, positionClass);
 
 		const blockProps = useBlockProps({
 			className: blockClass,
+			style: {
+				'--arkb-slide-pad-x': padPC.x,
+				'--arkb-slide-pad-y': padPC.y,
+				'--arkb-slide-pad-y--sp': padSP.y,
+				'--arkb-slide-pad-x--sp': padSP.x,
+				'--arkb-slide-width': widthPC,
+				'--arkb-slide-width--sp': widthSP,
+			},
 		});
 
+		const colorLayerStyle = {
+			background: bgGradient || bgColor,
+			opacity: (opacity * 0.01).toFixed(2),
+		};
+		const txtLayerStyle = {};
+		if (textColor) {
+			txtLayerStyle.color = textColor;
+		}
 		const innerBlocksProps = useInnerBlocksProps(
 			{ className: `${blockName}__txtLayer ark-keep-mt--s`, style: txtLayerStyle },
 			{
@@ -128,12 +102,12 @@ registerBlockType(name, {
 				<BlockControls>
 					<BlockAlignmentMatrixToolbar
 						label={__('Change content position')}
-						value={contentPosition || 'null'}
+						value={contentPosition}
 						onChange={(nextPosition) => {
 							setAttributes({ contentPosition: nextPosition });
 						}}
 					/>
-					{contentPosition && (
+					{/* {contentPosition && (
 						<ToolbarGroup>
 							<ToolbarButton
 								className='components-toolbar__control'
@@ -141,17 +115,17 @@ registerBlockType(name, {
 								icon={blockIcon.removePosition}
 								// icon={<Icon icon={cancelCircleFilled} />}
 								onClick={() => {
-									setAttributes({ contentPosition: undefined });
+									setAttributes({ contentPosition: 'center center' });
 								}}
 							/>
 						</ToolbarGroup>
-					)}
+					)} */}
 				</BlockControls>
 				<InspectorControls>
 					<SlideSidebar {...{ attributes, setAttributes, clientId }} />
 				</InspectorControls>
 				<div {...blockProps}>
-					{imgLayer}
+					<SlideMedia {...{ attributes }} />
 					<div className={`${blockName}__colorLayer`} style={colorLayerStyle}></div>
 					<div {...innerBlocksProps} />
 				</div>
@@ -159,41 +133,7 @@ registerBlockType(name, {
 		);
 	},
 
-	save: ({ attributes }) => {
-		const {
-			alt,
-			mediaId,
-			mediaUrl,
-			mediaWidth,
-			mediaHeight,
-			mediaIdSP,
-			mediaUrlSP,
-			mediaWidthSP,
-			mediaHeightSP,
-			mediaType,
-			mediaTypeSP,
-			focalPoint,
-			focalPointSP,
-			contentPosition,
-		} = attributes;
-
-		const blockProps = useBlockProps.save({
-			className: `${blockName}__slide swiper-slide`,
-		});
-
-		const imgLayer = mediaUrl && (
-			<picture className={`${blockName}__imgLayer`}>
-				{mediaUrlSP && <source media='(max-width: 959px)' srcSet={mediaUrlSP} />}
-				<img src={mediaUrl} alt={alt} className={`${blockName}__img`} />
-			</picture>
-		);
-		return (
-			<div {...blockProps}>
-				{imgLayer}
-				<div className={`${blockName}__txtLayer ark-keep-mt--s`}>
-					<InnerBlocks.Content />
-				</div>
-			</div>
-		);
+	save: () => {
+		return <InnerBlocks.Content />;
 	},
 });

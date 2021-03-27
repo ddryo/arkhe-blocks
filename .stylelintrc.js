@@ -10,6 +10,7 @@ module.exports = {
     rules: {
         'max-line-length': null, //max文字数を無視
         'selector-class-pattern': null,
+        'length-zero-no-unit': null,
         // indentation: 4, //スペースでサイズは4
         // 'string-quotes': 'double', //ダブルクォーテーションに (wordpress でそうなってる)
         // 'no-duplicate-selectors': null, //同じセレクタの出現に関するエラーを出さない

@@ -15,6 +15,8 @@ import {
 	useDispatch,
 	//useSelect,
 } from '@wordpress/data';
+// import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
+// import { Icon, fullscreen } from '@wordpress/icons';
 
 /**
  * @Internal dependencies
@@ -97,9 +99,14 @@ registerBlockType(name, {
 	},
 
 	edit: ({ attributes, setAttributes, clientId, isSelected }) => {
-		const { isExample, align, height, heightPC, heightSP, contentPosition } = attributes;
-
-		// console.log(align);
+		const {
+			isExample,
+			align,
+			height,
+			heightPC,
+			heightSP,
+			//contentPosition,
+		} = attributes;
 
 		// 子ブロックの clientId 配列を取得（useSelectで取得すると更新のタイミングが遅くなる
 		const { getBlockOrder } = wp.data.select('core/block-editor');
@@ -139,20 +146,6 @@ registerBlockType(name, {
 				updateBlockAttributes(slideIDs[i], { bodyId: i });
 			}
 		}, [clientId]);
-
-		// ナビテキスト更新
-		// const () => {}) = useCallback(
-		// 	(header, index) => {
-		// 		const newHeaders = slideHeaders.map((item, idx) => {
-		// 			if (index === idx) {
-		// 				item = header;
-		// 			}
-		// 			return item;
-		// 		});
-		// 		setAttributes({ slideHeaders: newHeaders });
-		// 	},
-		// 	[slideHeaders]
-		// );
 
 		// タブを前に移動
 		const moveUpSlider = useCallback(
@@ -247,7 +240,7 @@ registerBlockType(name, {
 
 		// ブロックprops
 		const blockProps = useBlockProps({
-			className: classnames(blockName),
+			className: blockName,
 			'data-height': height,
 			style: bloclStyle,
 			// 'data-is-example': isExample ? '1' : null,
@@ -271,6 +264,11 @@ registerBlockType(name, {
 		return (
 			<>
 				<BlockControls>
+					{/* {'full' === align && (
+						<>
+							
+						</>
+					)} */}
 					<ArkheMarginControl {...{ className: attributes.className, setAttributes }} />
 				</BlockControls>
 				<InspectorControls>
@@ -315,25 +313,31 @@ registerBlockType(name, {
 			effect,
 			speed,
 			delay,
-			space,
+			spacePC,
+			spaceSP,
+			direction,
 			slideNumPC,
 			slideNumSP,
 			pagination,
 			isClickable,
 			isDynamic,
+			showNavigation,
 		} = attributes;
 
 		const options = {
 			isLoop: isLoop ? 1 : 0,
 			isAuto: isAuto ? 1 : 0,
 			isCenter: isCenter ? 1 : 0,
+			showNavigation: showNavigation ? 1 : 0,
 			effect,
 			speed,
 			delay,
-			space,
+			spacePC,
+			spaceSP,
 			slideNumPC,
 			slideNumSP,
 			pagination,
+			direction,
 		};
 		if ('bullets' === pagination) {
 			options.isClickable = isClickable ? 1 : 0;
@@ -343,10 +347,24 @@ registerBlockType(name, {
 		let optionsData = JSON.stringify(options);
 		optionsData = optionsData.replaceAll('"', '');
 
+		const bloclStyle = {};
+		if ('custom' === height) {
+			bloclStyle['--arkb-slider-height'] = heightPC;
+			bloclStyle['--arkb-slider-height--sp'] = heightSP;
+		}
+
+		// ブロックprops
 		const blockProps = useBlockProps.save({
 			className: blockName,
+			'data-height': height,
 			'data-option': optionsData,
+			style: bloclStyle,
+			// 'data-is-example': isExample ? '1' : null,
 		});
+
+		// --swiper-navigation-size
+		// var(--swiper-pagination-color,var(--swiper-theme-color))
+		//--swiper-navigation-color: #fff;
 
 		return (
 			<div {...blockProps}>
@@ -355,20 +373,22 @@ registerBlockType(name, {
 						<InnerBlocks.Content />
 					</div>
 					{'off' !== pagination && <div className='swiper-pagination'></div>}
-					{/* 
-
-					<?php if ( $SETTING['mv_on_nav'] ) : ?>
-						<div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide">
-							<svg x="0px" y="0px" viewBox="0 0 136 346" xml:space="preserve">
-								<polyline points="123.2,334.2 12.2,173.2 123.8,11.8 " fill="none" stroke="#fff" stroke-width="12" stroke-miterlimit="10"></polyline>
-							</svg>
-						</div>
-						<div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide">
-							<svg x="0px" y="0px" viewBox="0 0 136 346" xml:space="preserve">
-								<polyline class="st0" points="12.8,11.8 123.8,172.8 12.2,334.2" fill="none" stroke="#fff" stroke-width="12" stroke-miterlimit="10"></polyline>
-							</svg>
-						</div>
-					<?php endif; ?> */}
+					{showNavigation && (
+						<>
+							<div
+								className='swiper-button-prev'
+								tabIndex='0'
+								role='button'
+								aria-label='Previous slide'
+							></div>
+							<div
+								className='swiper-button-next'
+								tabIndex='0'
+								role='button'
+								aria-label='Next slide'
+							></div>
+						</>
+					)}
 				</div>
 			</div>
 		);

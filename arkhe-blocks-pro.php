@@ -53,6 +53,7 @@ if ( ! class_exists( 'Arkhe_Blocks' ) ) {
 
 		use \Arkhe_Blocks\Admin_Menu;
 		use \Arkhe_Blocks\Template_Parts;
+		use \Arkhe_Blocks\Utility;
 
 		public function __construct() {
 
@@ -106,6 +107,9 @@ if ( ! class_exists( 'Arkhe_Blocks' ) ) {
 	 */
 	add_action( 'plugins_loaded', function() {
 		new Arkhe_Blocks();
+
+		add_theme_support( 'experimental-custom-spacing' );
+		add_theme_support( 'custom-spacing' );
 	} );
 
 }
