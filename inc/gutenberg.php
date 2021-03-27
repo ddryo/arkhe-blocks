@@ -44,7 +44,7 @@ function register_blocks() {
 			'step-item',
 			'timeline',
 			'timeline-item',
-			'slider',
+			// 'slider',
 			// 'slider-item',
 		];
 
@@ -73,7 +73,7 @@ function register_blocks() {
 
 	// ダイナミックブロックの読み込み
 	$dynamic_blocks = [
-		// 'slider',
+		'slider',
 		'slider-item',
 	];
 
