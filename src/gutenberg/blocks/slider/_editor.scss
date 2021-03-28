@@ -24,11 +24,13 @@
 	}
 
 	.ark-block-slider__slide {
+		max-width: var(--arkb-slide-width, 100%);
 
 		.wp-block {
 			max-width: 100%;
 		}
 	}
+
 
 }
 

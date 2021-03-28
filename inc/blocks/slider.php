@@ -18,33 +18,12 @@ register_block_type_from_metadata(
 function cb_slider( $attrs, $content ) {
 	ob_start();
 
-	$height         = $attrs['height'];
-	$pagination     = $attrs['pagination'];
-	$showNavigation = $attrs['showNavigation'];
-
-	$options = [
-		'isLoop'         => $attrs['isLoop'] ? 1 : 0,
-		'isAuto'         => $attrs['isAuto'] ? 1 : 0,
-		'isCenter'       => $attrs['isCenter'] ? 1 : 0,
-		'showNavigation' => $showNavigation ? 1 : 0,
-		'effect'         => $attrs['effect'],
-		'speed'          => $attrs['speed'],
-		'delay'          => $attrs['delay'],
-		'spacePC'        => $attrs['spacePC'],
-		'spaceSP'        => $attrs['spaceSP'],
-		'slideNumPC'     => $attrs['slideNumPC'],
-		'slideNumSP'     => $attrs['slideNumSP'],
-		'pagination'     => $pagination,
-		'direction'      => $attrs['direction'],
-	];
-
-	// if ('bullets' === $pagination) {
-	// 	$options['isClickable'] = isClickable ? 1 : 0;
-	// 	$options['isDynamic'] = isDynamic ? 1 : 0;
-	// }
-
-	$optionsData = wp_json_encode( $options, JSON_UNESCAPED_UNICODE );
-	$optionsData = str_replace( '"', '', $optionsData );
+	$height     = $attrs['height'];
+	$options    = $attrs['options'];
+	$optionData = wp_json_encode( $options, JSON_UNESCAPED_UNICODE );
+	$optionData = str_replace( '"', '', $optionData );
+	$optionData = str_replace( 'true', '1', $optionData );
+	$optionData = str_replace( 'false', '0', $optionData );
 
 	$style = [];
 	if ( 'custom' === $height ) {
@@ -53,7 +32,7 @@ function cb_slider( $attrs, $content ) {
 	}
 	$style = \Arkhe_Blocks::convert_style_props( $style );
 
-	$props = ' data-option="' . esc_attr( $optionsData ) . '" data-height="' . esc_attr( $height ) . '"';
+	$props = ' data-option="' . esc_attr( $optionData ) . '" data-height="' . esc_attr( $height ) . '"';
 	if ( $style ) {
 		$props .= ' style="' . esc_attr( $style ) . '"';
 	}
@@ -69,10 +48,10 @@ function cb_slider( $attrs, $content ) {
 			<div class="swiper-wrapper">
 				<?=$content?>
 			</div>
-			<?php if ( 'off' !== $pagination ) : ?>
+			<?php if ( 'off' !== $options['pagination'] ) : ?>
 				<div class="swiper-pagination"></div>
 			<?php endif; ?>
-			<?php if ( $showNavigation ) : ?>
+			<?php if ( $options['showNavigation'] ) : ?>
 				<div class="swiper-button-prev" tabIndex="0" role="button" aria-label="Previous slide"></div>
 				<div class="swiper-button-next" tabIndex="0" role="button" aria-label="Next slide"></div>
 			<?php endif; ?>

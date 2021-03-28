@@ -13,9 +13,9 @@
         "arkhe-blocks/tab"
     ],
     "attributes": {
-        "bodyId": {
-            "type": "number",
-            "default": 0
+        "variation": {
+            "type": "string",
+            "default": ""
         },
         "padPC": {
             "type": "object",

@@ -20,9 +20,11 @@ import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { iconColor } from '@blocks/config';
 import blockIcon from './_icon';
 import metadata from './block.json';
+import SlideEdit from './block.json';
 import SlideSidebar from './_sidebar';
 import { SlideMedia } from './components/SlideMedia';
 import { getPositionClassName } from '@helper/getPositionClassName';
+import { MediaEdit, RichEdit } from './edit';
 
 /**
  * @Others dependencies
@@ -39,7 +41,7 @@ const { apiVersion, name, category, supports, parent } = metadata;
 /**
  * スライド
  */
-const blockName = 'ark-block-slider';
+
 registerBlockType(name, {
 	apiVersion,
 	title: __('Slider content', 'arkhe-blocks'),
@@ -52,85 +54,12 @@ registerBlockType(name, {
 	supports,
 	attributes: metadata.attributes,
 
-	edit: ({ attributes, setAttributes, clientId }) => {
-		const {
-			bgColor,
-			bgGradient,
-			opacity,
-			textColor,
-			contentPosition,
-			padPC,
-			padSP,
-			widthPC,
-			widthSP,
-		} = attributes;
-
-		// BlockProps
-		const positionClass = getPositionClassName(contentPosition, 'center center');
-		const blockClass = classnames(`${blockName}__slide`, positionClass);
-
-		const blockProps = useBlockProps({
-			className: blockClass,
-			style: {
-				'--arkb-slide-pad-x': padPC.x,
-				'--arkb-slide-pad-y': padPC.y,
-				'--arkb-slide-pad-y--sp': padSP.y,
-				'--arkb-slide-pad-x--sp': padSP.x,
-				'--arkb-slide-width': widthPC,
-				'--arkb-slide-width--sp': widthSP,
-			},
-		});
-
-		const colorLayerStyle = {
-			background: bgGradient || bgColor,
-			opacity: (opacity * 0.01).toFixed(2),
-		};
-		const txtLayerStyle = {};
-		if (textColor) {
-			txtLayerStyle.color = textColor;
+	edit: (props) => {
+		const { attributes, setAttributes, clientId } = props;
+		if ('media' === attributes.variation) {
+			return <MediaEdit {...{ attributes, setAttributes, clientId }} />;
 		}
-		const innerBlocksProps = useInnerBlocksProps(
-			{ className: `${blockName}__txtLayer ark-keep-mt--s`, style: txtLayerStyle },
-			{
-				template: [['core/paragraph']],
-				templateLock: false,
-			}
-		);
-
-		return (
-			<>
-				<BlockControls>
-					<BlockAlignmentMatrixToolbar
-						label={__('Change content position')}
-						value={contentPosition}
-						onChange={(nextPosition) => {
-							setAttributes({ contentPosition: nextPosition });
-						}}
-					/>
-					{/* {contentPosition && (
-						<ToolbarGroup>
-							<ToolbarButton
-								className='components-toolbar__control'
-								label={__('Delete position', 'arkhe-blocks')}
-								icon={blockIcon.removePosition}
-								// icon={<Icon icon={cancelCircleFilled} />}
-								onClick={() => {
-									setAttributes({ contentPosition: 'center center' });
-								}}
-							/>
-						</ToolbarGroup>
-					)} */}
-				</BlockControls>
-				<InspectorControls>
-					<SlideSidebar {...{ attributes, setAttributes, clientId }} />
-				</InspectorControls>
-				<div {...blockProps}>
-					<SlideMedia {...{ attributes }} />
-					<div className={`${blockName}__colorLayer`} style={colorLayerStyle}></div>
-					<div {...innerBlocksProps} />
-				</div>
-			</>
-		);
+		return <RichEdit {...{ attributes, setAttributes, clientId }} />;
 	},
 
 	save: () => {

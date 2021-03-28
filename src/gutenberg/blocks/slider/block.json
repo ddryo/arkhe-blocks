@@ -15,17 +15,9 @@
         ]
     },
     "attributes": {
-        "sliderId": {
+        "variation": {
             "type": "string",
             "default": ""
-        },
-        "isFullscreen": {
-            "type": "boolean",
-            "default": false
-        },
-        "activeSlider": {
-            "type": "number",
-            "default": 0
         },
         "height": {
             "type": "string",
@@ -37,95 +29,31 @@
         },
         "heightSP": {
             "type": "string",
-            "default": "56vw"
-        },
-        "heightUnitPC": {
-            "type": "string",
-            "default": "px"
-        },
-        "heightUnitSP": {
-            "type": "string",
-            "default": "px"
-        },
-        "padPC": {
-            "type": "number",
-            "default": 4
-        },
-        "padSP": {
-            "type": "number",
-            "default": 4
-        },
-        "padUnitPC": {
-            "type": "string",
-            "default": "rem"
-        },
-        "padUnitSP": {
-            "type": "string",
-            "default": "rem"
+            "default": "50vh"
         },
         "innerSize": {
             "type": "string",
             "default": ""
         },
-        "isAuto": {
-            "type": "boolean",
-            "default": true
-        },
-        "isLoop": {
-            "type": "boolean",
-            "default": true
-        },
-        "effect": {
-            "type": "string",
-            "default": "slide"
-        },
-        "direction": {
-            "type": "string",
-            "default": "horizontal"
-        },
-        "speed": {
-            "type": "number",
-            "default": 1200
-        },
-        "delay": {
-            "type": "number",
-            "default": 5000
-        },
-        "spacePC": {
-            "type": "number",
-            "default": 0
-        },
-        "spaceSP": {
-            "type": "number",
-            "default": 0
-        },
-        "slideNumPC": {
-            "type": "number",
-            "default": 1
-        },
-        "slideNumSP": {
-            "type": "number",
-            "default": 1
-        },
-        "isCenter": {
-            "type": "boolean",
-            "default": true
-        },
-        "pagination": {
-            "type": "string",
-            "default": "bullets"
-        },
-        "isClickable": {
-            "type": "boolean",
-            "default": false
-        },
-        "isDynamic": {
-            "type": "boolean",
-            "default": false
-        },
-        "showNavigation": {
-            "type": "boolean",
-            "default": false
+        "options": {
+            "type": "object",
+            "default": {
+                "isAuto": true,
+                "isLoop": true,
+                "isCenter": true,
+                "effect": "slide",
+                "direction": "horizontal",
+                "speed": 1200,
+                "delay": 5000,
+                "slideNumPC": 1,
+                "slideNumSP": 1,
+                "spacePC": 0,
+                "spaceSP": 0,
+                "pagination": "bullets",
+                "isClickable": false,
+                "isDynamic": false,
+                "showNavigation": false
+            }
         },
         "isExample": {
             "type": "boolean",

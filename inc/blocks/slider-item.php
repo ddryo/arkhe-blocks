@@ -18,8 +18,23 @@ register_block_type_from_metadata(
 function cb_slider_item( $attrs, $content ) {
 	ob_start();
 
+	if ( 'media' === $attrs['variation'] ) {
+		render_media_slider( $attrs );
+	} else {
+		render_rich_slider( $attrs, $content );
+	}
+	return ob_get_clean();
+	// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
+}
+
+
+/**
+ * リッチスライダー
+ */
+function render_rich_slider( $attrs, $content ) {
+
 	$position_class = \Arkhe_Blocks::get_position_class( $attrs['contentPosition'], 'center center' );
-	$block_class    = 'ark-block-slider__slide swiper-slide';
+	$block_class    = 'ark-block-slider__slide swiper-slide -' . $attrs['variation'];
 	if ( $position_class ) {
 		$block_class .= " {$position_class}";
 	}
@@ -39,30 +54,43 @@ function cb_slider_item( $attrs, $content ) {
 		'opacity'    => $attrs['opacity'] * 0.01, // round()
 	];
 	$color_layer_style = \Arkhe_Blocks::convert_style_props( $color_layer_style );
-	// echo '<pre style="margin-left: 100px;">';
-	// var_dump( $color_layer_style );
-	// echo '</pre>';
+
 	$text_layer_style = [
 		'color' => $attrs['textColor'],
 	];
 	$text_layer_style = \Arkhe_Blocks::convert_style_props( $text_layer_style );
 
 	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
-	// ob_start();
 	?>
 	<div class="<?=esc_attr( $block_class )?>" style="<?=esc_attr( $block_style )?>">
-		<?php \Arkhe_Blocks\render_slide_media( $attrs ); ?>
+		<?php \Arkhe_Blocks\render_slide_media_layer( $attrs ); ?>
 		<div class="ark-block-slider__colorLayer" style="<?=esc_attr( $color_layer_style )?>"></div>
 		<div class="ark-block-slider__txtLayer ark-keep-mt--s"<?php if ( $text_layer_style ) echo ' style="' . esc_attr( $text_layer_style ) . '"'; ?>>
 			<?=$content?>
 		</div>
 	</div>
-<?php
-	return ob_get_clean();
+	<?php
 	// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
-function render_slide_media( $attrs ) {
+/**
+ * メディアスライダー
+ */
+function render_media_slider( $attrs ) {
+
+	$block_class = 'ark-block-slider__slide swiper-slide -' . $attrs['variation'];
+
+	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
+	?>
+	<div class="<?=esc_attr( $block_class )?>">
+		<?php \Arkhe_Blocks\render_slide_media_layer( $attrs ); ?>
+	</div>
+	<?php
+	// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
+}
+
+
+function render_slide_media_layer( $attrs ) {
 	// $attrs['widthSP'],
 	if ( ! $attrs['mediaUrl'] ) {
 		return '';
@@ -148,6 +176,6 @@ function render_slide_media( $attrs ) {
 
 	// $mediaSrc = apply_filters( 'arkb_slide_media_src', $mediaSrc, $attrs );
 	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
-	echo '<div class="ark-block-slider__imgLayer">' . $mediaSrc . '</div>';
+	echo '<div class="ark-block-slider__mediaLayer">' . $mediaSrc . '</div>';
 	// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
 }

@@ -86,5 +86,5 @@ export const SlideMedia = ({ attributes }) => {
 	// 	mediaSrc = <></>;
 	// }
 
-	return <div className={`${blockName}__imgLayer`}>{mediaSrc}</div>;
+	return <div className={`${blockName}__mediaLayer`}>{mediaSrc}</div>;
 };
