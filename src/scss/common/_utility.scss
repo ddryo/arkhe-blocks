@@ -1,3 +1,12 @@
 .arkb-fullheight {
 	height: calc(100vh - var(--ark-offset_y, 0px));
 }
+
+.arkb-absLayer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+}

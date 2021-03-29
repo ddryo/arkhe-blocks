@@ -6,7 +6,6 @@ import {
 	// ColorPalette as WpColorPalette,
 	// __experimentalUseGradient,
 	__experimentalPanelColorGradientSettings as PanelColorGradientSettings,
-	// MediaPlaceholder,
 } from '@wordpress/block-editor';
 import {
 	PanelBody,
@@ -67,43 +66,48 @@ export default ({ attributes, setAttributes, isSelected }) => {
 	} = attributes;
 
 	const removeImageSP = useCallback(() => {
+		// console.log('removeImageSP', opacity);
 		setAttributes({
 			mediaIdSP: 0,
 			mediaUrlSP: '',
+			mediaTypeSP: '',
 			mediaWidthSP: undefined,
 			mediaHeightSP: undefined,
-			mediaTypeSP: '',
 			focalPointSP: undefined,
-			...(!mediaUrl ? { opacity: 100 } : {}), // PC画像もなければ カラー100に。
+			//...(!mediaUrl ? { opacity: 100 } : {}), // PC画像もなければ カラー100に。
 		});
-	}, [setAttributes, opacity, mediaUrl]);
+	}, [setAttributes]);
 
 	const removeImagePC = useCallback(() => {
+		// console.log('removeImagePC', opacity);
 		setAttributes({
 			alt: '',
 			mediaId: 0,
 			mediaUrl: '',
+			mediaType: '',
 			mediaWidth: undefined,
 			mediaHeight: undefined,
-			mediaType: '',
 			focalPoint: undefined,
-			...(!mediaUrlSP ? { opacity: 100 } : {}), // SP画像もなければ カラー100に。
+			// ...(!mediaUrlSP ? { opacity: 100 } : {}), // SP画像もなければ カラー100に。
 		});
-	}, [setAttributes, opacity, mediaUrlSP]);
+	}, [setAttributes]);
 
 	const setImagePC = useCallback(
 		(media) => {
-			console.log(media);
+			// console.log('setImagePC', media, opacity);
 			setAttributes({
 				alt: media.alt,
 				mediaId: media.id,
 				mediaUrl: media.url,
+				mediaType: media.type,
 				mediaWidth: media.width,
 				mediaHeight: media.height,
-				mediaType: media.type,
+
 				...(100 === opacity ? { opacity: 50 } : {}),
 			});
-			if (media.type !== mediaTypeSP) {
+
+			// セット済みのメディアSPの形式が違う場合は削除する
+			if (mediaUrlSP && media.type !== mediaTypeSP) {
 				removeImageSP();
 			}
 		},
@@ -112,12 +116,13 @@ export default ({ attributes, setAttributes, isSelected }) => {
 
 	const setImageSP = useCallback(
 		(media) => {
+			// console.log('setImageSP', media);
 			setAttributes({
 				mediaIdSP: media.id,
 				mediaUrlSP: media.url,
+				mediaTypeSP: media.type,
 				mediaWidthSP: media.width,
 				mediaHeightSP: media.height,
-				mediaTypeSP: media.type,
 			});
 		},
 		[setAttributes]
@@ -132,7 +137,6 @@ export default ({ attributes, setAttributes, isSelected }) => {
 
 	const setGradientColor = useCallback(
 		(newGradient) => {
-			// console.log('newGradient', newGradient);
 			setAttributes({ bgGradient: newGradient });
 		},
 		[bgGradient]
@@ -249,9 +253,7 @@ export default ({ attributes, setAttributes, isSelected }) => {
 					}
 					value={opacity}
 					onChange={(val) => {
-						setAttributes({
-							opacity: val,
-						});
+						setAttributes({ opacity: val });
 					}}
 					min={0}
 					max={100}

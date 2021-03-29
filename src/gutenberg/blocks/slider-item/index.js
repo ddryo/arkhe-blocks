@@ -13,6 +13,7 @@ import {
 } from '@wordpress/block-editor';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 // import { Icon, fullscreen } from '@wordpress/icons';
+import { useEffect, useMemo } from '@wordpress/element';
 
 /**
  * @Internal dependencies
@@ -38,10 +39,25 @@ const { apiVersion, name, category, supports, parent } = metadata;
 
 // https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/src/columns/variations.js
 
+const scrollToSelectedSlide = (clientId) => {
+	const me = document.querySelector(`#block-${clientId}`);
+	if (null === me) return;
+
+	const parentNode = me.parentNode;
+	if (null === parentNode) return;
+
+	const firstNode = parentNode.childNodes[0];
+	const offset = firstNode ? firstNode.offsetLeft : 0;
+
+	console.log('me.offsetLeft', me.offsetLeft);
+	console.log(parentNode.scrollLeft);
+
+	parentNode.scrollLeft = me.offsetLeft - offset;
+};
+
 /**
  * スライド
  */
-
 registerBlockType(name, {
 	apiVersion,
 	title: __('Slider content', 'arkhe-blocks'),
@@ -55,7 +71,14 @@ registerBlockType(name, {
 	attributes: metadata.attributes,
 
 	edit: (props) => {
-		const { attributes, setAttributes, clientId } = props;
+		const { attributes, setAttributes, clientId, isSelected } = props;
+
+		useEffect(() => {
+			if (isSelected) {
+				scrollToSelectedSlide(clientId);
+			}
+		}, [clientId, isSelected]);
+
 		if ('media' === attributes.variation) {
 			return <MediaEdit {...{ attributes, setAttributes, clientId }} />;
 		}

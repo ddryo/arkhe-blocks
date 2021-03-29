@@ -9,7 +9,7 @@ import { InnerBlocks } from '@wordpress/block-editor';
  * @Internal dependencies
  */
 import metadata from './block.json';
-import blockIcon from './_icon';
+import { blockIcon } from './_icon';
 // import example from './_example';
 import variations from './_variations';
 import Placeholder from './_placeholder';

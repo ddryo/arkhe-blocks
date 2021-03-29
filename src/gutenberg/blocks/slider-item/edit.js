@@ -4,15 +4,17 @@
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 import {
-	InnerBlocks,
 	InspectorControls,
 	BlockControls,
 	useBlockProps,
+	MediaPlaceholder,
 	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
 	__experimentalBlockAlignmentMatrixToolbar as BlockAlignmentMatrixToolbar,
 } from '@wordpress/block-editor';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
+import { Icon, image } from '@wordpress/icons';
 // import { Icon, fullscreen } from '@wordpress/icons';
+import { useCallback } from '@wordpress/element';
 
 /**
  * @Internal dependencies
@@ -20,6 +22,7 @@ import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import SlideSidebar from './_sidebar';
 import { SlideMedia } from './components/SlideMedia';
 import { getPositionClassName } from '@helper/getPositionClassName';
+import { mediaIcon, richIcon } from '../slider/_icon';
 
 /**
  * @Others dependencies
@@ -35,12 +38,26 @@ const blockName = 'ark-block-slider';
  *
  */
 export const MediaEdit = ({ attributes, setAttributes, clientId }) => {
-	const { variation, mediaUrl } = attributes;
+	const { mediaId, mediaUrl } = attributes;
 
 	// BlockProps
 	const blockProps = useBlockProps({
-		className: `${blockName}__slide -${variation}`,
+		className: `${blockName}__slide`,
 	});
+
+	const onSelect = useCallback(
+		(media) => {
+			setAttributes({
+				alt: media.alt,
+				mediaId: media.id,
+				mediaUrl: media.url,
+				mediaType: media.type,
+				mediaWidth: media.width,
+				mediaHeight: media.height,
+			});
+		},
+		[setAttributes]
+	);
 
 	return (
 		<>
@@ -48,7 +65,25 @@ export const MediaEdit = ({ attributes, setAttributes, clientId }) => {
 				<SlideSidebar {...{ attributes, setAttributes, clientId }} />
 			</InspectorControls>
 			<div {...blockProps}>
-				{mediaUrl ? <SlideMedia {...{ attributes }} /> : <div>画像を選択してね</div>}
+				{mediaUrl ? (
+					<SlideMedia {...{ attributes }} />
+				) : (
+					<MediaPlaceholder
+						className='is-large'
+						labels={{
+							title: __('メディア', 'arkhe-blocks'),
+							instructions: __(
+								'Upload an image or video file, or pick one from your media library.'
+							),
+						}}
+						icon={<Icon icon={mediaIcon} />}
+						onSelect={onSelect}
+						accept='image/*,video/*'
+						allowedTypes={['image', 'video']}
+						value={{ mediaId, mediaUrl }}
+						disableMediaButtons={mediaUrl}
+					/>
+				)}
 			</div>
 		</>
 	);
@@ -59,7 +94,7 @@ export const MediaEdit = ({ attributes, setAttributes, clientId }) => {
  */
 export const RichEdit = ({ attributes, setAttributes, clientId }) => {
 	const {
-		variation,
+		// variation,
 		bgColor,
 		bgGradient,
 		opacity,
@@ -73,7 +108,7 @@ export const RichEdit = ({ attributes, setAttributes, clientId }) => {
 
 	// BlockProps
 	const positionClass = getPositionClassName(contentPosition, 'center center');
-	const blockClass = classnames(`${blockName}__slide -${variation}`, positionClass);
+	const blockClass = classnames(`${blockName}__slide`, positionClass);
 
 	const blockProps = useBlockProps({
 		className: blockClass,
@@ -119,7 +154,10 @@ export const RichEdit = ({ attributes, setAttributes, clientId }) => {
 			</InspectorControls>
 			<div {...blockProps}>
 				<SlideMedia {...{ attributes }} />
-				<div className={`${blockName}__colorLayer`} style={colorLayerStyle}></div>
+				<div
+					className={`${blockName}__colorLayer arkb-absLayer`}
+					style={colorLayerStyle}
+				></div>
 				<div {...innerBlocksProps} />
 			</div>
 		</>

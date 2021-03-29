@@ -45,6 +45,7 @@ export const Figure = memo((props) => {
 			/>
 		);
 
+		// https://github.com/WordPress/gutenberg/tree/master/packages/block-editor/src/components/media-placeholder
 		return (
 			<MediaPlaceholder
 				className={figureClass}

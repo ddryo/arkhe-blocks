@@ -3,6 +3,7 @@
 	position: relative;
 	padding: 32px 8px 8px;
 	border: dashed 1px $color_guide;
+	--arkb-slide-width: 100%;
 
 	[data-type="arkhe-blocks/slider-item"] {
 		max-width: 100%;
@@ -17,14 +18,43 @@
 	}
 
 	.ark-block-slider__inner {
+		position: relative;
+		display: flex;
+		justify-content: flex-start;
+		overflow-x: scroll;
+		overflow-y: auto;
+		counter-reset: item;
+		scroll-behavior: smooth;
+		scroll-snap-type: x mandatory;
 
-		& > .block-list-appender {
-			display: none !important;
+		&::before,
+		&::after {
+			display: block;
+			flex-grow: 0;
+			flex-shrink: 0;
+			align-self: stretch;
+			width: 0;
+			width: var(--arkb-slide-offset, 0);
+			margin: 0 var(--arkb-slide-space, 0px) !important;
+			background-color: rgba(0, 0, 0, .1);
+			content: "";
 		}
+
+		// & > .block-list-appender {
+		// 	display: none !important;
+		// }
 	}
 
+	// &[data-is-center="true"] > .ark-block-slider__inner > .ark-block-slider__slide:first-child {
+	// 	margin-left: calc((100% - var(--arkb-slide-width, 100%)) / 2) !important;
+	// }
+
 	.ark-block-slider__slide {
-		max-width: var(--arkb-slide-width, 100%);
+		flex-grow: 0;
+		flex-shrink: 0;
+		width: var(--arkb-slide-width, 100%);
+		max-width: 100%;
+		margin: 0 var(--arkb-slide-space, 0px) 0 0 !important;
 
 		.wp-block {
 			max-width: 100%;

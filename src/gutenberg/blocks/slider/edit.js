@@ -79,7 +79,7 @@ export default ({ attributes, setAttributes, clientId }) => {
 	// const [isPreview, setIsPreview] = useState(false);
 
 	// 子ブロックの clientId 配列を取得（useSelectで取得すると更新のタイミングが遅くなる
-	const { getBlockOrder } = wp.data.select('core/block-editor');
+	const { getBlocks, getBlockOrder } = wp.data.select('core/block-editor');
 
 	// エディタ上での開閉状態を管理
 	const [actSlider, setActSlider] = useState(0);
@@ -97,25 +97,13 @@ export default ({ attributes, setAttributes, clientId }) => {
 	}, [clientId]);
 
 	const {
-		removeBlocks,
+		// removeBlocks,
 		insertBlocks,
 		// updateBlockAttributes,
+		replaceInnerBlocks,
 		moveBlocksUp,
 		moveBlocksDown,
 	} = useDispatch('core/block-editor');
-
-	// const tabBodyIDs = useSelect(
-	//     (select) => wp.select('core/block-editor').getBlocks(clientId)[0],
-	//     [clientId, slideHeaders, actCt]
-	// );
-
-	// 順序( bodyId )を再セット
-	// const resetOrder = useCallback(() => {
-	// 	const slideIDs = getBlockOrder(clientId); // 子ブロックである tab-body の clientId の配列を取得
-	// 	for (let i = 0; i < slideIDs.length; i++) {
-	// 		updateBlockAttributes(slideIDs[i], { bodyId: i });
-	// 	}
-	// }, [clientId]);
 
 	// タブを前に移動
 	const moveUpSlider = useCallback(
@@ -170,11 +158,12 @@ export default ({ attributes, setAttributes, clientId }) => {
 	// タブ追加
 	const addSlider = useCallback(() => {
 		const newSlide = createBlock(childBlockType, { variation });
+		const innerBlocks = getBlocks(clientId);
+		replaceInnerBlocks(clientId, [...innerBlocks, newSlide]);
 
 		const nowSlideNum = slideHeaders.length;
-		insertBlocks(newSlide, nowSlideNum, clientId);
+		// insertBlocks(newSlide, nowSlideNum, clientId);
 		setSlideHeaders([...slideHeaders, __('Slide', 'arkhe-blocks')]);
-		// resetOrder();
 
 		// 新しく追加されたタブにフォーカス
 		setActSlider(nowSlideNum);
@@ -183,21 +172,22 @@ export default ({ attributes, setAttributes, clientId }) => {
 	// タブ削除
 	const removeSlider = useCallback(
 		(index) => {
+			// コンテンツブロック削除
+			// const slideIDs = getBlockOrder(clientId);
+			const innerBlocks = getBlocks(clientId);
+			const newInnerBlocks = innerBlocks.filter((el, idx) => idx !== index);
+
+			// removeBlocks(slideIDs[index], false);
+			replaceInnerBlocks(clientId, newInnerBlocks);
+
 			// indexと一致する番号のタブを 削除
 			const newHeaders = slideHeaders.filter((el, idx) => idx !== index);
 			setSlideHeaders(newHeaders);
-
-			// コンテンツブロックも削除
-			const slideIDs = getBlockOrder(clientId);
-			removeBlocks(slideIDs[index], false);
 
 			//選択中のタブが削除されるので、一つ前の番号をセット。(最初のタブが削除される時はそのまま)
 			const newFocusIndex = 0 !== index ? actSlider - 1 : 0;
 
 			setActSlider(newFocusIndex);
-
-			// id振り直し
-			//resetOrder();
 		},
 		[clientId, slideHeaders, actSlider]
 	);
@@ -208,15 +198,25 @@ export default ({ attributes, setAttributes, clientId }) => {
 		bloclStyle['--arkb-slider-height--sp'] = heightSP;
 	}
 
-	// スライドの幅
+	// スライドの表示用
 	const slideNumPC = options.slideNumPC;
 	if (1 < slideNumPC) {
-		bloclStyle['--arkb-slide-width'] = `calc(100% / ${slideNumPC})`;
+		const slideWidth = (100 / slideNumPC).toFixed(2);
+		bloclStyle['--arkb-slide-width'] = `${slideWidth}%`;
+
+		if (options.isCenter) {
+			const offset = ((100 - slideWidth) / 2).toFixed(2);
+			bloclStyle['--arkb-slide-offset'] = `${offset}%`;
+		}
+	}
+	const spacePC = options.spacePC;
+	if (0 < spacePC) {
+		bloclStyle['--arkb-slide-space'] = `${spacePC}px`;
 	}
 
 	// ブロックprops
 	const blockProps = useBlockProps({
-		className: blockName,
+		className: `${blockName} -${variation}`,
 		'data-height': height,
 		style: bloclStyle,
 		// 'data-is-example': isExample ? '1' : null,
@@ -228,12 +228,13 @@ export default ({ attributes, setAttributes, clientId }) => {
 		},
 		{
 			allowedBlocks: [childBlockType],
-			templateLock: false,
+			templateLock: 'insert',
 			template: [
 				[childBlockType, { variation }],
 				[childBlockType, { variation }],
 			],
-			renderAppender: null,
+			orientation: 'horizontal',
+			renderAppender: false,
 		}
 	);
 
@@ -258,7 +259,7 @@ export default ({ attributes, setAttributes, clientId }) => {
 				<SliderSidebar {...{ attributes, setAttributes, clientId }} />
 			</InspectorControls>
 			<div {...blockProps}>
-				<ul role='tablist' className='arkb-tabList'>
+				{/* <ul role='tablist' className='arkb-tabList'>
 					<TabNavList
 						{...{
 							tabHeaders: slideHeaders,
@@ -271,16 +272,16 @@ export default ({ attributes, setAttributes, clientId }) => {
 							removeTab: removeSlider,
 						}}
 					/>
-				</ul>
+				</ul> */}
 				<div {...innerBlocksProps} />
 			</div>
-			{!isExample && (
+			{/* {!isExample && (
 				<style>
 					{`[data-block="${clientId}"] [data-type="${childBlockType}"]:not(:nth-child(${
 						actSlider + 1
 					})){ display:none; }`}
 				</style>
-			)}
+			)} */}
 		</>
 	);
 };

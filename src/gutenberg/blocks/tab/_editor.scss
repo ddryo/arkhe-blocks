@@ -21,6 +21,14 @@
 		}
 	}
 
+	// タブ追加ボタン
+	&:not(.is-selected) {
+
+		.arkb-tabList__item--add {
+			visibility: hidden;
+			pointer-events: none;
+		}
+	}
 }
 
 
@@ -44,15 +52,6 @@
 		position: relative;
 		margin: 0;
 		padding: 0;
-	}
-
-	// タブ追加ボタン
-	&:not(.is-selected) {
-
-		.arkb-tabList__item--add {
-			visibility: hidden;
-			pointer-events: none;
-		}
 	}
 
 

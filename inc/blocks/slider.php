@@ -42,8 +42,9 @@ function cb_slider( $attrs, $content ) {
 	// --swiper-navigation-color: #fff;
 
 	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
+
 	?>
-	<div class="ark-block-slider"<?php echo $props; ?>>
+	<div class="ark-block-slider -<?=esc_attr( $attrs['variation'] )?>"<?php echo $props; ?>>
 		<div class="ark-block-slider__inner swiper-container">
 			<div class="swiper-wrapper">
 				<?=$content?>

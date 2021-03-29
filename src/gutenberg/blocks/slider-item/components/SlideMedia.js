@@ -10,6 +10,7 @@ const blockName = 'ark-block-slider';
  */
 export const SlideMedia = ({ attributes }) => {
 	const {
+		variation,
 		mediaId,
 		mediaUrl,
 		mediaWidth,
@@ -86,5 +87,9 @@ export const SlideMedia = ({ attributes }) => {
 	// 	mediaSrc = <></>;
 	// }
 
-	return <div className={`${blockName}__mediaLayer`}>{mediaSrc}</div>;
+	const layerClass = classnames(`${blockName}__mediaLayer`, {
+		'arkb-absLayer': 'rich' === variation,
+	});
+
+	return <div className={layerClass}>{mediaSrc}</div>;
 };
