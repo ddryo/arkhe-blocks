@@ -1,7 +1,7 @@
 // Gutenberg
 [data-type="arkhe-blocks/slider"] {
 	position: relative;
-	padding: 32px 8px 8px;
+	padding: 8px 8px;
 	border: dashed 1px $color_guide;
 	--arkb-slide-width: 100%;
 
@@ -61,7 +61,62 @@
 		}
 	}
 
+	.__navigation {
+		display: flex;
+		align-items: center;
+		// justify-content: center;
 
+		&.-top {
+			justify-content: flex-end;
+			margin-bottom: 8px;
+		}
+
+		&.-bottom {
+			justify-content: center;
+			margin-top: 8px;
+		}
+
+		.components-button {
+			display: block;
+			width: 32px;
+			min-width: unset;
+			height: 32px;
+			margin: 4px;
+			padding: 4px;
+		}
+
+		.__dot {
+
+			.components-button {
+				// border-radius: 12px;
+			}
+		}
+
+		.__add {
+			// margin-left: 16px;
+
+			.components-button {
+				display: flex;
+				align-items: center;
+				width: auto;
+				padding-right: 8px;
+
+				svg {
+					display: block;
+					margin-right: 2px;
+				}
+			}
+		}
+
+	}
+
+}
+
+.arkb-toolBtn--deleteSlide {
+
+	svg {
+		margin-right: 0 !important;
+	}
 }
 
 .arkb-panel--slideHeight {

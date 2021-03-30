@@ -2,7 +2,7 @@
  * @WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { registerBlockType } from '@wordpress/blocks';
+// import { useSelect } from '@wordpress/data';
 import {
 	InspectorControls,
 	BlockControls,
@@ -11,9 +11,8 @@ import {
 	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
 	__experimentalBlockAlignmentMatrixToolbar as BlockAlignmentMatrixToolbar,
 } from '@wordpress/block-editor';
-import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
-import { Icon, image } from '@wordpress/icons';
-// import { Icon, fullscreen } from '@wordpress/icons';
+// import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
+import { Icon } from '@wordpress/icons';
 import { useCallback } from '@wordpress/element';
 
 /**
@@ -37,9 +36,8 @@ const blockName = 'ark-block-slider';
 /**
  *
  */
-export const MediaEdit = ({ attributes, setAttributes, clientId }) => {
+export const MediaEdit = ({ attributes, setAttributes }) => {
 	const { mediaId, mediaUrl } = attributes;
-
 	// BlockProps
 	const blockProps = useBlockProps({
 		className: `${blockName}__slide`,
@@ -61,9 +59,6 @@ export const MediaEdit = ({ attributes, setAttributes, clientId }) => {
 
 	return (
 		<>
-			<InspectorControls>
-				<SlideSidebar {...{ attributes, setAttributes, clientId }} />
-			</InspectorControls>
 			<div {...blockProps}>
 				{mediaUrl ? (
 					<SlideMedia {...{ attributes }} />
@@ -133,7 +128,7 @@ export const RichEdit = ({ attributes, setAttributes, clientId }) => {
 	const innerBlocksProps = useInnerBlocksProps(
 		{ className: `${blockName}__txtLayer ark-keep-mt--s`, style: txtLayerStyle },
 		{
-			template: [['core/paragraph']],
+			// template: [['core/paragraph']],
 			templateLock: false,
 		}
 	);
@@ -149,9 +144,6 @@ export const RichEdit = ({ attributes, setAttributes, clientId }) => {
 					}}
 				/>
 			</BlockControls>
-			<InspectorControls>
-				<SlideSidebar {...{ attributes, setAttributes, clientId }} />
-			</InspectorControls>
 			<div {...blockProps}>
 				<SlideMedia {...{ attributes }} />
 				<div

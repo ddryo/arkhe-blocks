@@ -3,17 +3,19 @@
  */
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
+import { useSelect } from '@wordpress/data';
 import {
 	InnerBlocks,
 	InspectorControls,
 	BlockControls,
-	useBlockProps,
-	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
-	__experimentalBlockAlignmentMatrixToolbar as BlockAlignmentMatrixToolbar,
+	// useBlockProps,
+	// __experimentalUseInnerBlocksProps as useInnerBlocksProps,
+	// __experimentalBlockAlignmentMatrixToolbar as BlockAlignmentMatrixToolbar,
 } from '@wordpress/block-editor';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 // import { Icon, fullscreen } from '@wordpress/icons';
-import { useEffect, useMemo } from '@wordpress/element';
+import { useEffect, useContext } from '@wordpress/element';
+import { closeSmall } from '@wordpress/icons';
 
 /**
  * @Internal dependencies
@@ -21,16 +23,13 @@ import { useEffect, useMemo } from '@wordpress/element';
 import { iconColor } from '@blocks/config';
 import blockIcon from './_icon';
 import metadata from './block.json';
-import SlideEdit from './block.json';
 import SlideSidebar from './_sidebar';
-import { SlideMedia } from './components/SlideMedia';
-import { getPositionClassName } from '@helper/getPositionClassName';
 import { MediaEdit, RichEdit } from './edit';
 
 /**
  * @Others dependencies
  */
-import classnames from 'classnames';
+// import classnames from 'classnames';
 
 /**
  * metadata
@@ -48,9 +47,6 @@ const scrollToSelectedSlide = (clientId) => {
 
 	const firstNode = parentNode.childNodes[0];
 	const offset = firstNode ? firstNode.offsetLeft : 0;
-
-	console.log('me.offsetLeft', me.offsetLeft);
-	console.log(parentNode.scrollLeft);
 
 	parentNode.scrollLeft = me.offsetLeft - offset;
 };
@@ -73,16 +69,75 @@ registerBlockType(name, {
 	edit: (props) => {
 		const { attributes, setAttributes, clientId, isSelected } = props;
 
+		// Contextの取得
+		const { SliderContext } = window.arkbContext;
+		const context = useContext(SliderContext);
+
+		const { parentID, childIDs, setActSlide, removeSlide } = context;
+
+		const { myIndex, isLast } = useSelect(
+			(select) => {
+				const _index = select('core/block-editor').getBlockIndex(clientId, parentID);
+				return {
+					myIndex: _index,
+					isFirst: _index === 0,
+					isLast: _index === childIDs.length - 1,
+				};
+			},
+			[clientId, parentID, childIDs]
+		);
+
 		useEffect(() => {
 			if (isSelected) {
 				scrollToSelectedSlide(clientId);
+				setActSlide(myIndex);
 			}
-		}, [clientId, isSelected]);
+		}, [clientId, isSelected, childIDs]);
 
-		if ('media' === attributes.variation) {
-			return <MediaEdit {...{ attributes, setAttributes, clientId }} />;
-		}
-		return <RichEdit {...{ attributes, setAttributes, clientId }} />;
+		return (
+			<>
+				<BlockControls>
+					<ToolbarGroup>
+						{/* <ToolbarButton
+						className='components-toolbar__control'
+						label={__('Delete media', 'arkhe-blocks')}
+						icon={chevronLeft}
+						disabled={isFirst}
+						onClick={() => {
+							moveUpSlide(clientId);
+						}}
+					/> */}
+						<ToolbarButton
+							className='components-toolbar__control arkb-toolBtn--deleteSlide'
+							label={__('Delete this slide', 'arkhe-blocks')}
+							icon={closeSmall}
+							onClick={() => {
+								removeSlide(myIndex, isLast);
+							}}
+						>
+							{'このスライドを削除'}
+						</ToolbarButton>
+						{/* <ToolbarButton
+						className='components-toolbar__control'
+						label={__('Delete media', 'arkhe-blocks')}
+						icon={chevronRight}
+						disabled={isLast}
+						onClick={() => {
+							moveDownSlide(clientId);
+						}}
+					/> */}
+					</ToolbarGroup>
+				</BlockControls>
+				<InspectorControls>
+					<SlideSidebar {...{ attributes, setAttributes, clientId }} />
+				</InspectorControls>
+				{'media' === attributes.variation ? (
+					<MediaEdit {...{ attributes, setAttributes, clientId }} />
+				) : (
+					<RichEdit {...{ attributes, setAttributes, clientId }} />
+				)}
+			</>
+		);
 	},
 
 	save: () => {

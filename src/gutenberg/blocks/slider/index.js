@@ -5,6 +5,7 @@ import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 import { InnerBlocks } from '@wordpress/block-editor';
 
+
 /**
  * @Internal dependencies
  */
@@ -40,7 +41,16 @@ registerBlockType(name, {
 	supports,
 	variations,
 	// example,
-	attributes: metadata.attributes,
+	attributes: {
+		...metadata.attributes,
+		num: {
+			type: 'number',
+			default: 0,
+		},
+		toDelete: {
+			type: 'number',
+		},
+	},
 
 	edit: (props) => {
 		const { attributes, setAttributes, clientId, isSelected } = props;
