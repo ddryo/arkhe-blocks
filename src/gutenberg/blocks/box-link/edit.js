@@ -22,7 +22,7 @@ import {
 /**
  * @Internal dependencies
  */
-import { Figure } from '@components/Figure';
+import { Figure } from './components/Figure';
 import { IconContent } from './components/IconContent';
 import getResizedImages from '@helper/getResizedImages';
 import TheSidebar from './_sidebar';
@@ -106,7 +106,7 @@ export default function (props) {
 				imgH: newImageHeight,
 			});
 		},
-		[imgSize]
+		[imgSize, onRemoveImage]
 	);
 
 	// メディアじゃなくてURLを直接入力した時

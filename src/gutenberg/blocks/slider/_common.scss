@@ -1,14 +1,15 @@
 .ark-block-slider {
 
 	--arkb-slide-pad-x: 2em;
-	--arkb-slide-width: 100%;
-	--arkb-slide-width--sp: 100%;
+	--arkb-slide-pad-y: 2em;
+	--arkb-slide-content-width: 100%;
+	--arkb-slide-content-width--sp: 100%;
 	--swiper-navigation-size: 32px;
 
 	@include sp {
 		--arkb-slide-pad-x: --arkb-slide-pad-x--sp;
 		--arkb-slide-pad-y: --arkb-slide-pad-y--sp;
-		--arkb-slide-width: --arkb-slide-width--sp;
+		--arkb-slide-content-width: --arkb-slide-content-width--sp;
 	}
 
 	// min-height: calc(100vh - var(--ark-offset_y));
@@ -155,18 +156,10 @@
 	// min-height: var(--arkb-section-minH--pc);
 	position: relative;
 	z-index: 2;
-	width: var(--arkb-slide-width);
+	width: var(--arkb-slide-content-width);
 	max-width: 100%;
 	margin: 0;
 	padding: var(--arkb-slide-pad-y) var(--arkb-slide-pad-x);
-
-	// .ark-block-slider__mediaLayer + & {
-	// 	position: absolute;
-	// 	top: 0;
-	// 	left: 0;
-	// 	width: 100%;
-	// 	height: 100%;
-	// }
 }
 
 // object-position

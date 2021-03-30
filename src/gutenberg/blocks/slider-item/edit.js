@@ -112,8 +112,8 @@ export const RichEdit = ({ attributes, setAttributes, clientId }) => {
 			'--arkb-slide-pad-y': padPC.y,
 			'--arkb-slide-pad-y--sp': padSP.y,
 			'--arkb-slide-pad-x--sp': padSP.x,
-			'--arkb-slide-width': widthPC,
-			'--arkb-slide-width--sp': widthSP,
+			'--arkb-slide-content-width': widthPC,
+			'--arkb-slide-content-width--sp': widthSP,
 		},
 	});
 

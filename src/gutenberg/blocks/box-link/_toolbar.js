@@ -9,7 +9,7 @@ import {
 	__experimentalLinkControl as LinkControl,
 } from '@wordpress/block-editor';
 import { ToolbarButton, ToolbarGroup, Popover } from '@wordpress/components';
-import { Icon, alignCenter, link } from '@wordpress/icons';
+import { Icon, alignCenter, link, closeSmall } from '@wordpress/icons';
 
 /**
  * @Internal dependencies
@@ -130,7 +130,7 @@ export default (props) => {
 						<ToolbarButton
 							className='components-toolbar__control'
 							label={__('Delete image', 'arkhe-blocks')}
-							icon='no-alt'
+							icon={closeSmall}
 							// icon={<Icon icon={cancelCircleFilled} />}
 							onClick={onRemoveImage}
 						/>

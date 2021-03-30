@@ -43,9 +43,9 @@ function render_rich_slider( $attrs, $content ) {
 		'--arkb-slide-pad-x'     => $attrs['padPC']['x'],
 		'--arkb-slide-pad-y'     => $attrs['padPC']['y'],
 		'--arkb-slide-pad-y--sp' => $attrs['padSP']['y'],
-		'--arkb-slide-pad-x--sp' => $attrs['padSP']['x'],
-		'--arkb-slide-width'     => $attrs['widthPC'],
-		'--arkb-slide-width--sp' => $attrs['widthSP'],
+		'--arkb-slide-pad-x--sp'  => $attrs['padSP']['x'],
+		'--arkb-slide-content-width'     => $attrs['widthPC'],
+		'--arkb-slide-content-width--sp' => $attrs['widthSP'],
 	];
 	$block_style = \Arkhe_Blocks::convert_style_props( $block_style );
 

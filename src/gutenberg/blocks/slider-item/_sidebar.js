@@ -44,8 +44,9 @@ const textColorSet = [
 	},
 ];
 
-export default ({ attributes, setAttributes, isSelected }) => {
+export default ({ attributes, setAttributes }) => {
 	const {
+		variation,
 		mediaId,
 		mediaUrl,
 		mediaIdSP,
@@ -141,34 +142,10 @@ export default ({ attributes, setAttributes, isSelected }) => {
 		},
 		[bgGradient]
 	);
+	const isRichSlider = 'rich' === variation;
 
-	return (
+	const richControls = isRichSlider ? (
 		<>
-			<PanelBody title={__('Background media setting', 'arkhe-blocks')}>
-				{isRepeat && mediaUrl && (
-					<div className='arkb-imgPreview'>
-						<img src={mediaUrl} alt='' />
-					</div>
-				)}
-				<ImageTab
-					{...{
-						setImagePC,
-						removeImagePC,
-						setImageSP,
-						removeImageSP,
-						mediaType,
-						mediaId,
-						mediaUrl,
-						mediaIdSP,
-						mediaUrlSP,
-						focalPoint,
-						focalPointSP,
-						// isRepeat,
-						// opacity,
-						setAttributes,
-					}}
-				/>
-			</PanelBody>
 			<PanelBody title={__('Padding settings', 'arkhe-blocks')}>
 				<ArkDeviceTab
 					className='-padding'
@@ -271,6 +248,44 @@ export default ({ attributes, setAttributes, isSelected }) => {
 					/>
 				</BaseControl>
 			</PanelColorGradientSettings>
+		</>
+	) : null;
+
+	return (
+		<>
+			<PanelBody
+				title={
+					isRichSlider
+						? __('Background media setting', 'arkhe-blocks')
+						: __('Media setting', 'arkhe-blocks')
+				}
+			>
+				{isRepeat && mediaUrl && (
+					<div className='arkb-imgPreview'>
+						<img src={mediaUrl} alt='' />
+					</div>
+				)}
+				<ImageTab
+					{...{
+						isRichSlider,
+						setImagePC,
+						removeImagePC,
+						setImageSP,
+						removeImageSP,
+						mediaType,
+						mediaId,
+						mediaUrl,
+						mediaIdSP,
+						mediaUrlSP,
+						focalPoint,
+						focalPointSP,
+						// isRepeat,
+						// opacity,
+						setAttributes,
+					}}
+				/>
+			</PanelBody>
+			{richControls}
 		</>
 	);
 };

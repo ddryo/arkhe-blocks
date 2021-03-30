@@ -107,9 +107,6 @@ if ( ! class_exists( 'Arkhe_Blocks' ) ) {
 	 */
 	add_action( 'plugins_loaded', function() {
 		new Arkhe_Blocks();
-
-		add_theme_support( 'experimental-custom-spacing' );
-		add_theme_support( 'custom-spacing' );
 	} );
 
 }

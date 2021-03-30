@@ -83,7 +83,7 @@ module.exports = {
 			'@components': path.resolve(__dirname, 'src/gutenberg/components/'),
 			'@format': path.resolve(__dirname, 'src/gutenberg/format'),
 			'@helper': path.resolve(__dirname, 'src/gutenberg/helper/'),
-			'@context': path.resolve(__dirname, 'src/gutenberg/context/'),
+			// '@context': path.resolve(__dirname, 'src/gutenberg/context/'),
 			'@src': path.resolve(__dirname, 'src/'),
 		},
 	},

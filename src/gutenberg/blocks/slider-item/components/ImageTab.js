@@ -17,16 +17,18 @@ import { ArkDeviceTab } from '@components/ArkDeviceTab';
  */
 export const ImageTab = memo((props) => {
 	const {
+		isRichSlider,
 		setImagePC,
 		removeImagePC,
 		setImageSP,
 		removeImageSP,
 		mediaType,
+		mediaTypeSP,
 		mediaUrl,
-		mediaId,
-		focalPoint,
 		mediaUrlSP,
+		mediaId,
 		mediaIdSP,
+		focalPoint,
 		focalPointSP,
 		setAttributes,
 	} = props;
@@ -45,15 +47,39 @@ export const ImageTab = memo((props) => {
 			</div>
 		);
 	} else {
-		<div className='arkb-imgPreview -noimage'>
-			<Icon icon={image} /> / <Icon icon={video} />
-		</div>;
+		noImageView = (
+			<div className='arkb-imgPreview -noimage'>
+				<Icon icon={image} /> / <Icon icon={video} />
+			</div>
+		);
+	}
+
+	//メディアプレビュー
+	let mediaPreviewPC = noImageView;
+	if (isRichSlider && mediaUrl) {
+		mediaPreviewPC = (
+			<FocalPointPicker
+				url={mediaUrl}
+				value={focalPoint}
+				onChange={(val) => {
+					setAttributes({ focalPoint: val });
+				}}
+			/>
+		);
+	} else if (!isRichSlider && mediaUrl) {
+		mediaPreviewPC = (
+			<div className='arkb-imgPreview'>
+				{'image' === mediaType && <img src={mediaUrl} alt='' />}
+				{'video' === mediaType && <video src={mediaUrl} />}
+			</div>
+		);
 	}
 
 	const imageSettingPC = (
 		<>
-			{!mediaUrl && noImageView}
-			{mediaUrl && (
+			{mediaPreviewPC}
+			{/* {!mediaUrl && noImageView}
+			{isRichSlider && mediaUrl && (
 				<FocalPointPicker
 					url={mediaUrl}
 					value={focalPoint}
@@ -61,7 +87,7 @@ export const ImageTab = memo((props) => {
 						setAttributes({ focalPoint: val });
 					}}
 				/>
-			)}
+			)} */}
 			<div className='arkb-btns--media'>
 				<MediaUploadCheck>
 					<MediaUpload
@@ -98,9 +124,31 @@ export const ImageTab = memo((props) => {
 		</>
 	);
 
+	//メディアプレビュー
+	let mediaPreviewSP = noImageView;
+	if (isRichSlider && mediaUrlSP) {
+		mediaPreviewSP = (
+			<FocalPointPicker
+				url={mediaUrlSP}
+				value={focalPointSP}
+				onChange={(val) => {
+					setAttributes({ focalPointSP: val });
+				}}
+			/>
+		);
+	} else if (!isRichSlider && mediaUrlSP) {
+		mediaPreviewSP = (
+			<div className='arkb-imgPreview'>
+				{'image' === mediaTypeSP && <img src={mediaUrlSP} alt='' />}
+				{'video' === mediaTypeSP && <video src={mediaUrlSP} />}
+			</div>
+		);
+	}
+
 	const imageSettingSP = (
 		<>
-			{!mediaUrlSP && noImageView}
+			{mediaPreviewSP}
+			{/* {!mediaUrlSP && noImageView}
 			{mediaUrlSP && (
 				<FocalPointPicker
 					url={mediaUrlSP}
@@ -109,7 +157,7 @@ export const ImageTab = memo((props) => {
 						setAttributes({ focalPointSP: val });
 					}}
 				/>
-			)}
+			)} */}
 			<div className='arkb-btns--media'>
 				<MediaUploadCheck>
 					<MediaUpload

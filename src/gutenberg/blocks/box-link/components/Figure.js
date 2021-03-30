@@ -36,14 +36,14 @@ export const Figure = memo((props) => {
 
 	// まだ画像が選択されていない時
 	if (!url) {
-		const mediaPreview = !!url && (
-			<img
-				alt={__('Edit image')}
-				title={__('Edit image')}
-				className={'edit-image-preview'}
-				src={url}
-			/>
-		);
+		// const mediaPreview = !!url && (
+		// 	<img
+		// 		alt={__('Edit image')}
+		// 		title={__('Edit image')}
+		// 		className={'edit-image-preview'}
+		// 		src={url}
+		// 	/>
+		// );
 
 		// https://github.com/WordPress/gutenberg/tree/master/packages/block-editor/src/components/media-placeholder
 		return (
@@ -55,7 +55,7 @@ export const Figure = memo((props) => {
 				accept={accept}
 				allowedTypes={allowedTypes}
 				value={{ id, url }}
-				mediaPreview={mediaPreview}
+				// mediaPreview={mediaPreview}
 				disableMediaButtons={url}
 			/>
 		);
