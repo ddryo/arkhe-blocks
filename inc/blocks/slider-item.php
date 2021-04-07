@@ -39,13 +39,17 @@ function render_rich_slider( $attrs, $content ) {
 		$block_class .= " {$position_class}";
 	}
 
+	$padPC = $attrs['padPC'];
+	$padSP = $attrs['padSP'];
+
 	$block_style = [
-		'--arkb-slide-pad-x'     => $attrs['padPC']['x'],
-		'--arkb-slide-pad-y'     => $attrs['padPC']['y'],
-		'--arkb-slide-pad-y--sp' => $attrs['padSP']['y'],
-		'--arkb-slide-pad-x--sp'  => $attrs['padSP']['x'],
-		'--arkb-slide-content-width'     => $attrs['widthPC'],
-		'--arkb-slide-content-width--sp' => $attrs['widthSP'],
+		'--arkb-slide-pad'               => "{$padPC['top']} {$padPC['right']} {$padPC['bottom']} {$padPC['left']}",
+		'--arkb-slide-pad--sp'           => "{$padSP['top']} {$padSP['right']} {$padSP['bottom']} {$padSP['left']}",
+		// '--arkb-slide-pad-y'             => $attrs['padPC']['y'],
+		// '--arkb-slide-pad-y--sp'         => $attrs['padSP']['y'],
+		// '--arkb-slide-pad-x--sp'         => $attrs['padSP']['x'],
+		// '--arkb-slide-content-width'     => $attrs['widthPC'],
+		// '--arkb-slide-content-width--sp' => $attrs['widthSP'],
 	];
 	$block_style = \Arkhe_Blocks::convert_style_props( $block_style );
 

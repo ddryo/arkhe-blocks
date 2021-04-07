@@ -5,6 +5,7 @@ import { __ } from '@wordpress/i18n';
 import {
 	// ColorPalette as WpColorPalette,
 	// __experimentalUseGradient,
+	// __experimentalUnitControl as UnitControl,
 	__experimentalPanelColorGradientSettings as PanelColorGradientSettings,
 } from '@wordpress/block-editor';
 import {
@@ -18,13 +19,17 @@ import {
 	// SelectControl,
 	// ButtonGroup,
 	// Button,
+	FlexBlock,
+	FlexItem,
 } from '@wordpress/components';
 import { useState, useCallback } from '@wordpress/element';
+import { Icon, fullscreen, link, linkOff } from '@wordpress/icons';
 
 /**
  * @Inner dependencies
  */
 import { ImageTab } from './components/ImageTab';
+import PaddingControl from './components/PaddingControl';
 import { ArkDeviceTab } from '@components/ArkDeviceTab';
 import { UnitNumber } from '@components/UnitNumber';
 
@@ -62,8 +67,8 @@ export default ({ attributes, setAttributes }) => {
 		textColor,
 		padPC,
 		padSP,
-		widthPC,
-		widthSP,
+		// widthPC,
+		// widthSP,
 	} = attributes;
 
 	const removeImageSP = useCallback(() => {
@@ -151,57 +156,19 @@ export default ({ attributes, setAttributes }) => {
 					className='-padding'
 					controlPC={
 						<>
-							<UnitNumber
-								label={__('Top and bottom padding', 'arkhe-blocks')}
-								value={padPC.y}
-								units={['px', 'em', 'rem', '%', 'vw']}
-								onChange={(newVal) => {
-									setAttributes({ padPC: { ...padPC, y: newVal } });
-								}}
-							/>
-							<UnitNumber
-								label={__('Left and right padding', 'arkhe-blocks')}
-								value={padPC.x}
-								units={['px', 'em', 'rem', '%', 'vw']}
-								onChange={(newVal) => {
-									setAttributes({ padPC: { ...padPC, x: newVal } });
-								}}
-							/>
-							<UnitNumber
-								label={__('Content width', 'arkhe-blocks') + '(PC)'}
-								value={widthPC}
-								units={['%', 'px', 'vw']}
-								onChange={(newVal) => {
-									setAttributes({ widthPC: newVal });
-								}}
+							<PaddingControl
+								name='padPC'
+								value={padPC}
+								setAttributes={setAttributes}
 							/>
 						</>
 					}
 					controlSP={
 						<>
-							<UnitNumber
-								label={__('Top and bottom padding', 'arkhe-blocks')}
-								value={padSP.y}
-								units={['px', 'em', 'rem', '%', 'vw']}
-								onChange={(newVal) => {
-									setAttributes({ padSP: { ...padSP, y: newVal } });
-								}}
-							/>
-							<UnitNumber
-								label={__('Left and right padding', 'arkhe-blocks')}
-								value={padSP.x}
-								units={['px', 'em', 'rem', '%', 'vw']}
-								onChange={(newVal) => {
-									setAttributes({ padSP: { ...padSP, x: newVal } });
-								}}
-							/>
-							<UnitNumber
-								label={__('Content width', 'arkhe-blocks') + '(SP)'}
-								value={widthSP}
-								units={['%', 'px', 'vw']}
-								onChange={(newVal) => {
-									setAttributes({ widthSP: newVal });
-								}}
+							<PaddingControl
+								name='padSP'
+								value={padSP}
+								setAttributes={setAttributes}
 							/>
 						</>
 					}

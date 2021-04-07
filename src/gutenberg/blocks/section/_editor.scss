@@ -42,33 +42,6 @@
 }
 
 
-// サイドバー
-.ark-control--padding {
-	display: flex;
-	flex-wrap: wrap;
-	// align-items: center;
-
-	& + .ark-control--padding {
-		margin-top: -8px;
-	}
-
-	.__label {
-		flex-basis: 100%;
-		margin-bottom: 8px;
-	}
-
-	.components-base-control {
-		flex-basis: 36%;
-
-		&.__input {
-			flex-basis: 60%;
-			margin-right: 4%;
-		}
-	}
-
-	// .components-base-control{}
-}
-
 .arkb-btns--svg {
 
 	display: flex;
@@ -105,6 +78,7 @@
 }
 
 
+// kesu
 .arkb-tabPanel.-media {
 
 

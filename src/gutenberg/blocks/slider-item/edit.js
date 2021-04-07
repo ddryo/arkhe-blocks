@@ -97,8 +97,8 @@ export const RichEdit = ({ attributes, setAttributes, clientId }) => {
 		contentPosition,
 		padPC,
 		padSP,
-		widthPC,
-		widthSP,
+		// widthPC,
+		// widthSP,
 	} = attributes;
 
 	// BlockProps
@@ -108,12 +108,14 @@ export const RichEdit = ({ attributes, setAttributes, clientId }) => {
 	const blockProps = useBlockProps({
 		className: blockClass,
 		style: {
-			'--arkb-slide-pad-x': padPC.x,
-			'--arkb-slide-pad-y': padPC.y,
-			'--arkb-slide-pad-y--sp': padSP.y,
-			'--arkb-slide-pad-x--sp': padSP.x,
-			'--arkb-slide-content-width': widthPC,
-			'--arkb-slide-content-width--sp': widthSP,
+			'--arkb-slide-pad': `${padPC.top} ${padPC.right} ${padPC.bottom} ${padPC.left}`,
+			'--arkb-slide-pad--sp': `${padSP.top} ${padSP.right} ${padSP.bottom} ${padSP.left}`,
+			// '--arkb-slide-pad-x': padPC.x,
+			// '--arkb-slide-pad-y': padPC.y,
+			// '--arkb-slide-pad-y--sp': padSP.y,
+			// '--arkb-slide-pad-x--sp': padSP.x,
+			// '--arkb-slide-content-width': widthPC,
+			// '--arkb-slide-content-width--sp': widthSP,
 		},
 	});
 

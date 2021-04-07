@@ -9,6 +9,7 @@
 		max-width: 100%;
 	}
 
+
 	.arkb-tabList {
 		margin-bottom: 8px !important;
 	}
@@ -59,6 +60,10 @@
 		.wp-block {
 			max-width: 100%;
 		}
+	}
+
+	.ark-block-slider__txtLayer {
+		border: dashed 1px $color_guide;
 	}
 
 	.__navigation {

@@ -5,7 +5,6 @@ import { __ } from '@wordpress/i18n';
 import { useCallback } from '@wordpress/element';
 import {
 	PanelBody,
-	SelectControl,
 	TextControl,
 	BaseControl,
 	ButtonGroup,
@@ -20,8 +19,9 @@ import {
  * @Internal dependencies
  */
 import blockIcon from './_icon';
-import ArkheIconPicker from '@components/ArkheIconPicker';
 import getNewLinkRel from '@helper/getNewLinkRel';
+import ArkheIconPicker from '@components/ArkheIconPicker';
+import { ImageSizeSelect } from '@components/ImageSizeSelect';
 
 /**
  * @Others dependencies
@@ -81,8 +81,8 @@ export default (props) => {
 		attributes,
 		isBannerStyle,
 		setAttributes,
-		updateImagesSize,
-		sizeOptions,
+		updateImageSize,
+		// sizeOptions,
 		useIconHtml,
 		setUseIconHtml,
 	} = props;
@@ -250,14 +250,7 @@ export default (props) => {
 			{imgUrl && (
 				<PanelBody title={__('Image settings', 'arkhe-blocks')} initialOpen={true}>
 					{ratioSettings}
-					{0 !== imgId && (
-						<SelectControl
-							label={__('Image size')}
-							value={imgSize}
-							options={sizeOptions}
-							onChange={updateImagesSize}
-						/>
-					)}
+					{0 !== imgId && <ImageSizeSelect {...{ imgId, imgSize, updateImageSize }} />}
 				</PanelBody>
 			)}
 

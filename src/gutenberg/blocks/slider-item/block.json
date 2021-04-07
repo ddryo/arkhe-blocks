@@ -20,15 +20,19 @@
         "padPC": {
             "type": "object",
             "default": {
-                "y": "2em",
-                "x": "2em"
+                "top": "2em",
+                "left": "2em",
+                "right": "2em",
+                "bottom": "2em"
             }
         },
         "padSP": {
             "type": "object",
             "default": {
-                "y": "2em",
-                "x": "2em"
+                "top": "2em",
+                "left": "2em",
+                "right": "2em",
+                "bottom": "2em"
             }
         },
         "widthPC": {

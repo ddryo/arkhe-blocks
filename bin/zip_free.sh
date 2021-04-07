@@ -1,4 +1,4 @@
-#!/bin/bashx
+#!/bin/bash
 
 #使い方 : $ bash ./bin/zip_free.sh 1-2-0
 

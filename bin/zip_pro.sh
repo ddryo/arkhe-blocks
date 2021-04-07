@@ -1,4 +1,4 @@
-#!/bin/bashx
+#!/bin/bash
 
 #使い方 : $ bash ./bin/zip_pro.sh 1-6-0
 

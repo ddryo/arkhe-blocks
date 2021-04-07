@@ -9,7 +9,6 @@ import {
 	useState,
 	useEffect,
 } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
 
 import {
 	RichText,
@@ -24,7 +23,6 @@ import {
  */
 import { Figure } from './components/Figure';
 import { IconContent } from './components/IconContent';
-import getResizedImages from '@helper/getResizedImages';
 import TheSidebar from './_sidebar';
 import TheToolbar from './_toolbar';
 
@@ -33,8 +31,12 @@ import TheToolbar from './_toolbar';
  */
 import classnames from 'classnames';
 
+/**
+ * export edit
+ */
 const blockName = 'ark-block-boxLink';
-export default function (props) {
+// ['core/paragraph', 'core/list', 'core/buttons']
+export default (props) => {
 	const { attributes, setAttributes } = props;
 	const {
 		textAlign,
@@ -137,61 +139,15 @@ export default function (props) {
 		});
 	}, []);
 
-	// メディアサイズリストを取得
-	const { sizeOptions, resizedImages } = useSelect(
-		(select) => {
-			if (!imgId) {
-				return {
-					sizeOptions: [],
-					resizedImages: [],
-				};
-			}
-
-			const media = select('core').getMedia(imgId);
-			if (!media) {
-				// mediaが取得できなければ
-				return {
-					sizeOptions: [],
-					resizedImages: [],
-				};
-			}
-
-			// sizeOptions と resizedImages を生成
-			const { getSettings } = select('core/block-editor');
-			const { imageSizes } = getSettings();
-
-			const _sizeOptions = imageSizes.map((size) => {
-				return {
-					label: size.name,
-					value: size.slug,
-				};
-			});
-
-			const _resizedImages = getResizedImages(imageSizes, media);
-
-			return {
-				sizeOptions: _sizeOptions,
-				resizedImages: _resizedImages,
-			};
-		},
-		[imgId]
-	);
-
-	// サイズを変えた時
-	const updateImagesSize = useCallback(
-		(sizeSlug) => {
-			// console.log(sizeSlug, resizedImages[sizeSlug]);
-			const newSizeData = resizedImages[sizeSlug] || resizedImages.full;
-
-			setAttributes({
-				imgSize: sizeSlug,
-				imgUrl: newSizeData.url,
-				imgW: newSizeData.width,
-				imgH: newSizeData.imgH,
-			});
-		},
-		[resizedImages]
-	);
+	// サイズを変えた時の処理
+	const updateImageSize = useCallback((sizeSlug, newSizeData) => {
+		setAttributes({
+			imgSize: sizeSlug,
+			imgUrl: newSizeData.url,
+			imgW: newSizeData.width,
+			imgH: newSizeData.imgH,
+		});
+	}, []);
 
 	const figureContent = useMemo(() => {
 		if (isBannerStyle) {
@@ -282,8 +238,7 @@ export default function (props) {
 						attributes,
 						isBannerStyle,
 						setAttributes,
-						updateImagesSize,
-						sizeOptions,
+						updateImageSize,
 						useIconHtml,
 						setUseIconHtml,
 					}}
@@ -323,4 +278,4 @@ export default function (props) {
 			</div>
 		</>
 	);
-}
+};
