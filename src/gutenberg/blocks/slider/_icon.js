@@ -33,3 +33,15 @@ export const richIcon = (
 		<path d='M38,35H10V13h28V35z M12,33h24V15H12V33z' />
 	</svg>
 );
+
+export const innserSizeIcon = (
+	<svg viewBox='0 0 24 24'>
+		<rect x='2' y='3' width='20' height='1' />
+		<rect x='2' y='20' width='20' height='1' />
+		<rect x='8' y='6' width='8' height='12' />
+		<g>
+			<polygon points='22,12 19.5,9 19.5,10.8 17,10.8 17,13.2 19.5,13.2 19.5,15 	' />
+			<polygon points='7,10.8 4.5,10.8 4.5,9 2,12 4.5,15 4.5,13.2 7,13.2 	' />
+		</g>
+	</svg>
+);

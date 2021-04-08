@@ -12,12 +12,13 @@ import {
 } from '@wordpress/block-editor';
 import { useState, useCallback } from '@wordpress/element';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { Button } from '@wordpress/components';
+import { Button, ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { plus } from '@wordpress/icons';
 
 /**
  * @Internal dependencies
  */
+import { innserSizeIcon } from './_icon';
 import SliderSidebar from './_sidebar';
 import { ArkheMarginControl } from '@components/ArkheMarginControl';
 
@@ -37,13 +38,16 @@ export default ({ attributes, setAttributes, clientId }) => {
 	const {
 		variation,
 		// isExample,
-		// align,
+		align,
+		innerSize,
 		height,
 		heightPC,
 		heightSP,
 		options,
 		//contentPosition,
 	} = attributes;
+
+	const isAlignFull = 'full' === align;
 
 	// const [isPreview, setIsPreview] = useState(false);
 	// const { getBlocks } = wp.data.select('core/block-editor');
@@ -140,6 +144,7 @@ export default ({ attributes, setAttributes, clientId }) => {
 		className: `${blockName} -${variation}`,
 		'data-height': height,
 		style: bloclStyle,
+		'data-inner': isAlignFull ? innerSize : null,
 		// 'data-is-example': isExample ? '1' : null,
 	});
 
@@ -175,6 +180,24 @@ export default ({ attributes, setAttributes, clientId }) => {
 							<span>{__('プレビュー', 'arkhe-blocks')}</span>
 						</ToolbarButton>
 					</ToolbarGroup> */}
+				{isAlignFull && (
+					<ToolbarGroup>
+						<ToolbarButton
+							className={classnames('components-toolbar__control', {
+								'is-pressed': 'full' === innerSize,
+							})}
+							label={__('To full-width content', 'arkhe-blocks')}
+							icon={innserSizeIcon}
+							onClick={() => {
+								if ('full' !== innerSize) {
+									setAttributes({ innerSize: 'full' });
+								} else {
+									setAttributes({ innerSize: 'article' });
+								}
+							}}
+						/>
+					</ToolbarGroup>
+				)}
 				<ArkheMarginControl {...{ className: attributes.className, setAttributes }} />
 			</BlockControls>
 			<InspectorControls>

@@ -6,11 +6,15 @@ import {
 	PanelBody,
 	ToggleControl,
 	TextControl,
-	RadioControl,
+	// RadioControl,
 	SelectControl,
+	Flex,
+	FlexBlock,
+	FlexItem,
 } from '@wordpress/components';
 // import { useState } from '@wordpress/element';
 // import { useDispatch } from '@wordpress/data';
+import { Icon, mobile, desktop } from '@wordpress/icons';
 
 /**
  * @Inner dependencies
@@ -22,65 +26,82 @@ import { ArkDeviceTab } from '@components/ArkDeviceTab';
  * sidebar
  */
 export default ({ attributes, setAttributes, clientId }) => {
-	const { height, heightPC, heightSP, options } = attributes;
+	const { variation, height, heightPC, heightSP, options } = attributes;
 
 	const setOptions = (newOptions) => {
 		setAttributes({ options: { ...options, ...newOptions } });
 	};
 
+	// Richスライダーかどうか
+	const isRichSlider = 'rich' === variation;
+
 	return (
 		<>
-			<PanelBody
-				title={__('スライダーの高さ setting', 'arkhe-blocks')}
-				className='arkb-panel--slideHeight'
-				initialOpen={true}
-			>
-				<SelectControl
-					value={height}
-					options={[
-						{
-							label: __('Fit to content', 'arkhe-blocks'),
-							value: 'content',
-						},
-						{
-							label: __('Fit screen', 'arkhe-blocks'),
-							value: 'full',
-						},
-						{
-							label: __('数値で指定', 'arkhe-blocks'),
-							value: 'custom',
-						},
-					]}
-					onChange={(val) => {
-						setAttributes({ height: val });
-						if ('content' === val) {
-							setOptions({ direction: 'horizontal' });
-						}
-					}}
-				/>
-				<div data-ark-disabled={'custom' !== height || null}>
-					<ArkDeviceTab
-						controlPC={
-							<UnitNumber
-								// label={__('Height', 'arkhe-blocks')}
-								value={heightPC}
-								onChange={(newVal) => {
-									setAttributes({ heightPC: newVal });
-								}}
-							/>
-						}
-						controlSP={
-							<UnitNumber
-								// label={__('Height', 'arkhe-blocks')}
-								value={heightSP}
-								onChange={(newVal) => {
-									setAttributes({ heightSP: newVal });
-								}}
-							/>
-						}
+			{isRichSlider && (
+				<PanelBody
+					title={__('スライダーの高さ setting', 'arkhe-blocks')}
+					className='arkb-panel--slideHeight'
+					initialOpen={true}
+				>
+					<SelectControl
+						value={height}
+						options={[
+							{
+								label: __('Fit to content', 'arkhe-blocks'),
+								value: 'content',
+							},
+							{
+								label: __('Fit screen', 'arkhe-blocks'),
+								value: 'full',
+							},
+							{
+								label: __('数値で指定', 'arkhe-blocks'),
+								value: 'custom',
+							},
+						]}
+						onChange={(val) => {
+							setAttributes({ height: val });
+							if ('content' === val) {
+								setOptions({ direction: 'horizontal' });
+							}
+						}}
 					/>
-				</div>
-			</PanelBody>
+					<div
+						data-ark-disabled={'custom' !== height || null}
+						style={{ marginTop: '16px' }}
+					>
+						<Flex className=''>
+							<FlexItem style={{ marginRight: '4px' }}>
+								<Icon icon={desktop} />
+							</FlexItem>
+							<FlexItem style={{ width: '2em' }}>PC</FlexItem>
+							<FlexBlock>
+								<UnitNumber
+									value={heightPC}
+									onChange={(newVal) => {
+										setAttributes({ heightPC: newVal });
+									}}
+								/>
+							</FlexBlock>
+						</Flex>
+						<Flex className='' style={{ marginTop: '8px' }}>
+							<FlexItem style={{ marginRight: '4px' }}>
+								<Icon icon={mobile} />
+							</FlexItem>
+							<FlexItem style={{ width: '2em' }}>SP</FlexItem>
+							<FlexBlock>
+								<UnitNumber
+									value={heightSP}
+									onChange={(newVal) => {
+										setAttributes({ heightSP: newVal });
+									}}
+								/>
+							</FlexBlock>
+						</Flex>
+					</div>
+				</PanelBody>
+			)}
+
 			<PanelBody title={__('スライダー機能', 'arkhe-blocks')} initialOpen={true}>
 				<ToggleControl
 					label={__('auto', 'arkhe-blocks')}

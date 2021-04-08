@@ -18,7 +18,7 @@ import { useCallback } from '@wordpress/element';
 /**
  * @Internal dependencies
  */
-import SlideSidebar from './_sidebar';
+// import SlideSidebar from './_sidebar';
 import { SlideMedia } from './components/SlideMedia';
 import { getPositionClassName } from '@helper/getPositionClassName';
 import { mediaIcon, richIcon } from '../slider/_icon';
@@ -103,10 +103,9 @@ export const RichEdit = ({ attributes, setAttributes, clientId }) => {
 
 	// BlockProps
 	const positionClass = getPositionClassName(contentPosition, 'center center');
-	const blockClass = classnames(`${blockName}__slide`, positionClass);
 
 	const blockProps = useBlockProps({
-		className: blockClass,
+		className: `${blockName}__slide`,
 		style: {
 			'--arkb-slide-pad': `${padPC.top} ${padPC.right} ${padPC.bottom} ${padPC.left}`,
 			'--arkb-slide-pad--sp': `${padSP.top} ${padSP.right} ${padSP.bottom} ${padSP.left}`,
@@ -128,7 +127,7 @@ export const RichEdit = ({ attributes, setAttributes, clientId }) => {
 		txtLayerStyle.color = textColor;
 	}
 	const innerBlocksProps = useInnerBlocksProps(
-		{ className: `${blockName}__txtLayer ark-keep-mt--s`, style: txtLayerStyle },
+		{ className: `${blockName}__textInner ark-keep-mt--s`, style: txtLayerStyle },
 		{
 			// template: [['core/paragraph']],
 			templateLock: false,
@@ -152,7 +151,12 @@ export const RichEdit = ({ attributes, setAttributes, clientId }) => {
 					className={`${blockName}__colorLayer arkb-absLayer`}
 					style={colorLayerStyle}
 				></div>
-				<div {...innerBlocksProps} />
+				<div
+					className={classnames(`${blockName}__textLayer`, positionClass)}
+					style={txtLayerStyle}
+				>
+					<div {...innerBlocksProps} />
+				</div>
 			</div>
 		</>
 	);

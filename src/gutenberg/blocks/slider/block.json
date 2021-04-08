@@ -33,7 +33,7 @@
         },
         "innerSize": {
             "type": "string",
-            "default": ""
+            "default": "article"
         },
         "options": {
             "type": "object",

@@ -34,9 +34,9 @@ function cb_slider_item( $attrs, $content ) {
 function render_rich_slider( $attrs, $content ) {
 
 	$position_class = \Arkhe_Blocks::get_position_class( $attrs['contentPosition'], 'center center' );
-	$block_class    = 'ark-block-slider__slide swiper-slide';
+	$text_class     = 'ark-block-slider__textLayer';
 	if ( $position_class ) {
-		$block_class .= " {$position_class}";
+		$text_class .= " {$position_class}";
 	}
 
 	$padPC = $attrs['padPC'];
@@ -66,11 +66,13 @@ function render_rich_slider( $attrs, $content ) {
 
 	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 	?>
-	<div class="<?=esc_attr( $block_class )?>" style="<?=esc_attr( $block_style )?>">
+	<div class="ark-block-slider__slide swiper-slide" style="<?=esc_attr( $block_style )?>">
 		<?php \Arkhe_Blocks\render_slide_media_layer( $attrs ); ?>
 		<div class="ark-block-slider__colorLayer arkb-absLayer" style="<?=esc_attr( $color_layer_style )?>"></div>
-		<div class="ark-block-slider__txtLayer ark-keep-mt--s"<?php if ( $text_layer_style ) echo ' style="' . esc_attr( $text_layer_style ) . '"'; ?>>
-			<?=$content?>
+		<div class="<?=esc_attr( $text_class )?>"<?php if ( $text_layer_style ) echo ' style="' . esc_attr( $text_layer_style ) . '"'; ?>>
+			<div class="ark-block-slider__textInner ark-keep-mt--s">
+				<?=$content?>
+			</div>
 		</div>
 	</div>
 	<?php

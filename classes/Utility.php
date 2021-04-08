@@ -19,6 +19,7 @@ trait Utility {
 		return $style;
 	}
 
+
 	/**
 	 * getPositionClassName() のPHP版
 	 */

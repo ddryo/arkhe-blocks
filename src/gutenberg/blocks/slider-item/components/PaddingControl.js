@@ -65,7 +65,8 @@ export default ({ name, value, setAttributes }) => {
 					isLinked={isLinked}
 				/>
 				<div className='__center'>
-					<Icon icon={fullscreen} className='__icon' />
+					<span className='__icon'></span>
+					{/* <Icon icon={fullscreen} className='__icon' /> */}
 				</div>
 				<UnitNumber
 					className='__top'

@@ -147,76 +147,80 @@ export default ({ attributes, setAttributes }) => {
 		},
 		[bgGradient]
 	);
-	const isRichSlider = 'rich' === variation;
 
-	const richControls = isRichSlider ? (
-		<>
-			<PanelBody title={__('Padding settings', 'arkhe-blocks')}>
-				<ArkDeviceTab
-					className='-padding'
-					controlPC={
-						<>
-							<PaddingControl
-								name='padPC'
-								value={padPC}
-								setAttributes={setAttributes}
-							/>
-						</>
-					}
-					controlSP={
-						<>
-							<PaddingControl
-								name='padSP'
-								value={padSP}
-								setAttributes={setAttributes}
-							/>
-						</>
-					}
-				/>
-			</PanelBody>
-			<PanelColorGradientSettings
-				title={__('Color settings', 'arkhe-blocks')}
-				initialOpen={true}
-				settings={[
-					{
-						colorValue: bgColor,
-						gradientValue: bgGradient,
-						onColorChange: setOverlayColor,
-						onGradientChange: setGradientColor,
-						label: mediaUrl
-							? __('Overlay color', 'arkhe-blocks')
-							: __('Background color', 'arkhe-blocks'),
-					},
-				]}
-			>
-				<RangeControl
-					label={
-						mediaUrl
-							? __('Overlay opacity', 'arkhe-blocks')
-							: __('Background opacity', 'arkhe-blocks')
-					}
-					value={opacity}
-					onChange={(val) => {
-						setAttributes({ opacity: val });
-					}}
-					min={0}
-					max={100}
-				/>
-				<BaseControl>
-					<BaseControl.VisualLabel>
-						{__('Text color', 'arkhe-blocks')}
-					</BaseControl.VisualLabel>
-					<ColorPalette
-						value={textColor}
-						colors={textColorSet}
-						onChange={(val) => {
-							setAttributes({ textColor: val });
-						}}
+	// Richスライダー用の設定
+	const isRichSlider = 'rich' === variation;
+	let richControls = null;
+	if (isRichSlider) {
+		richControls = (
+			<>
+				<PanelBody title={__('Padding settings', 'arkhe-blocks')}>
+					<ArkDeviceTab
+						className='-padding'
+						controlPC={
+							<>
+								<PaddingControl
+									name='padPC'
+									value={padPC}
+									setAttributes={setAttributes}
+								/>
+							</>
+						}
+						controlSP={
+							<>
+								<PaddingControl
+									name='padSP'
+									value={padSP}
+									setAttributes={setAttributes}
+								/>
+							</>
+						}
 					/>
-				</BaseControl>
-			</PanelColorGradientSettings>
-		</>
-	) : null;
+				</PanelBody>
+				<PanelColorGradientSettings
+					title={__('Color settings', 'arkhe-blocks')}
+					initialOpen={true}
+					settings={[
+						{
+							colorValue: bgColor,
+							gradientValue: bgGradient,
+							onColorChange: setOverlayColor,
+							onGradientChange: setGradientColor,
+							label: mediaUrl
+								? __('Overlay color', 'arkhe-blocks')
+								: __('Background color', 'arkhe-blocks'),
+						},
+					]}
+				>
+					<RangeControl
+						label={
+							mediaUrl
+								? __('Overlay opacity', 'arkhe-blocks')
+								: __('Background opacity', 'arkhe-blocks')
+						}
+						value={opacity}
+						onChange={(val) => {
+							setAttributes({ opacity: val });
+						}}
+						min={0}
+						max={100}
+					/>
+					<BaseControl>
+						<BaseControl.VisualLabel>
+							{__('Text color', 'arkhe-blocks')}
+						</BaseControl.VisualLabel>
+						<ColorPalette
+							value={textColor}
+							colors={textColorSet}
+							onChange={(val) => {
+								setAttributes({ textColor: val });
+							}}
+						/>
+					</BaseControl>
+				</PanelColorGradientSettings>
+			</>
+		);
+	}
 
 	return (
 		<>

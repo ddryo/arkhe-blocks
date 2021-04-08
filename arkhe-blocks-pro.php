@@ -85,7 +85,7 @@ if ( ! class_exists( 'Arkhe_Blocks' ) ) {
 
 			// Gutennerg
 			require_once ARKHE_BLOCKS_PATH . 'inc/gutenberg.php';
-			require_once ARKHE_BLOCKS_PATH . 'inc/render_block.php';
+			// require_once ARKHE_BLOCKS_PATH . 'inc/render_block.php';
 
 			// 管理メニュー
 			require_once ARKHE_BLOCKS_PATH . 'inc/admin_toolbar.php';

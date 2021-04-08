@@ -62,8 +62,13 @@
 		}
 	}
 
-	.ark-block-slider__txtLayer {
-		border: dashed 1px $color_guide;
+	&.has-child-selected,
+	&.is-selected {
+
+		.ark-block-slider__textLayer {
+			border: dotted 1px $color_guide;
+		}
+
 	}
 
 	.__navigation {

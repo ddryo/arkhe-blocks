@@ -16,6 +16,10 @@ register_block_type_from_metadata(
 );
 // phpcs:disable WordPress.NamingConventions.ValidVariableName.InterpolatedVariableNotSnakeCase
 function cb_slider( $attrs, $content ) {
+
+	// Slider使われたことを変数にセット
+	\Arkhe_Blocks::$use_swiper = true;
+
 	ob_start();
 
 	$height     = $attrs['height'];
@@ -24,11 +28,12 @@ function cb_slider( $attrs, $content ) {
 	$optionData = str_replace( '"', '', $optionData );
 	$optionData = str_replace( 'true', '1', $optionData );
 	$optionData = str_replace( 'false', '0', $optionData );
+	$align      = $attrs['align'] ?? '';
 
 	// 属性
 	$props = ' data-option="' . esc_attr( $optionData ) . '" data-height="' . esc_attr( $height ) . '"';
 
-	if ( $attrs['innerSize'] ) {
+	if ( 'full' === $align ) {
 		$props .= ' data-inner="' . esc_attr( $attrs['innerSize'] ) . '"';
 	}
 
@@ -49,8 +54,8 @@ function cb_slider( $attrs, $content ) {
 	// --swiper-navigation-color: #fff;
 
 	$add_class = '-' . $attrs['variation'];
-	if ( isset( $attrs['align'] ) ) {
-		$add_class = 'align' . $attrs['align'];
+	if ( $align ) {
+		$add_class = 'align' . $align;
 	}
 
 	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
