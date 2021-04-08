@@ -3,7 +3,7 @@
  */
 // import { __ } from '@wordpress/i18n';
 // import { memo } from '@wordpress/element';
-import { BaseControl, TextControl, SelectControl } from '@wordpress/components';
+// import { BaseControl, TextControl, SelectControl } from '@wordpress/components';
 import { useInstanceId } from '@wordpress/compose';
 import { __experimentalUnitControl as UnitControl } from '@wordpress/block-editor';
 
@@ -24,8 +24,11 @@ const getUnitNum = (val) => {
 	if (!val) {
 		return { num: 0, unit: 'px' };
 	}
-	const num = val.replace(/[^0-9\.]/g, '');
-	const unit = val.replace(/[0-9\.]/g, '');
+
+	// 念のため、明示的に文字列へ変換。
+	const valString = val.toString();
+	const num = valString.replace(/[^0-9\.]/g, '');
+	const unit = valString.replace(/[0-9\.]/g, '');
 	return { num: parseFloat(num), unit };
 };
 
@@ -70,26 +73,3 @@ export const UnitNumber = (props) => {
 		</div>
 	);
 };
-
-//<BaseControl className={classnames('ark-control--unit', className)}>
-// {label && <BaseControl.VisualLabel>{label}</BaseControl.VisualLabel>}
-
-// <TextControl
-// 				autoComplete='off'
-// 				className='__input'
-// 				value={num}
-// 				type='number'
-// 				min={0}
-// 				onChange={(val) => {
-// 					onChange(`${parseFloat(val)}${unit}`);
-// 				}}
-// 			/>
-// 			<SelectControl
-// 				value={unit}
-// 				options={_UNITS.map((_unit) => {
-// 					return { label: _unit, value: _unit };
-// 				})}
-// 				onChange={(val) => {
-// 					onChange(`${num}${val}`);
-// 				}}
-// 			/>

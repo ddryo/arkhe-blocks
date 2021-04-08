@@ -65,8 +65,8 @@
 	&.has-child-selected,
 	&.is-selected {
 
-		.ark-block-slider__textLayer {
-			border: dotted 1px $color_guide;
+		.ark-block-slider__textInner {
+			border: dashed 1px $color_guide;
 		}
 
 	}

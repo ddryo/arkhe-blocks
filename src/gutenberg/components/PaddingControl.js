@@ -2,20 +2,14 @@
  * @WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-// import {} from '@wordpress/block-editor';
 import { Button, Tooltip } from '@wordpress/components';
-import { useState, useCallback } from '@wordpress/element';
-import { Icon, fullscreen, link, linkOff } from '@wordpress/icons';
+import { useState } from '@wordpress/element';
+import { link, linkOff } from '@wordpress/icons';
 
 /**
  * @Inner dependencies
  */
 import { UnitNumber } from '@components/UnitNumber';
-
-/**
- * 設定
- */
-// const units = ['px', 'rem', 'em', '%', 'vw', 'vh'];
 
 /**
  * see: https://github.com/WordPress/gutenberg/blob/899286307b/packages/components/src/box-control/linked-button.js
@@ -45,7 +39,7 @@ const LinkedButton = ({ isLinked, ...props }) => {
  * BoxControl
  * https://github.com/WordPress/gutenberg/blob/899286307b/packages/components/src/box-control/index.js
  */
-export default ({ name, value, setAttributes }) => {
+export const PaddingControl = ({ name, value, setAttributes }) => {
 	// console.log(name, value);
 	const [isLinked, setIsLinked] = useState(false); // 全値が同じかどうか初期チェック
 

@@ -23,19 +23,19 @@ trait Utility {
 	/**
 	 * getPositionClassName() のPHP版
 	 */
-	public static function get_position_class( $position = '', $default = '' ) {
-		if ( ! $position || $default === $position) return '';
-		$position_classes = [
-			'top left'       => 'is-position-top-left',
-			'top center'     => 'is-position-top-center',
-			'top right'      => 'is-position-top-right',
-			'center left'    => 'is-position-center-left',
-			'center center'  => 'is-position-center-center',
-			'center right'   => 'is-position-center-right',
-			'bottom left'    => 'is-position-bottom-left',
-			'bottom center'  => 'is-position-bottom-center',
-			'bottom right'   => 'is-position-bottom-right',
-		];
-		return $position_classes[ $position ];
-	}
+	// public static function get_position_class( $position = '', $default = '' ) {
+	// 	if ( ! $position || $default === $position) return '';
+	// 	$position_classes = [
+	// 		'top left'       => 'top-left',
+	// 		'top center'     => 'top-center',
+	// 		'top right'      => 'top-right',
+	// 		'center left'    => 'center-left',
+	// 		'center center'  => 'center-center',
+	// 		'center right'   => 'center-right',
+	// 		'bottom left'    => 'bottom-left',
+	// 		'bottom center'  => 'bottom-center',
+	// 		'bottom right'   => 'bottom-right',
+	// 	];
+	// 	return $position_classes[ $position ];
+	// }
 }

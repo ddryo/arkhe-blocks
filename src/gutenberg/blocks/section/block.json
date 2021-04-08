@@ -91,45 +91,46 @@
             "type": "object"
         },
         "contentPosition": {
-            "type": "string"
+            "type": "string",
+            "default": "center left"
         },
         "innerSize": {
             "type": "string",
             "default": ""
         },
+        "height": {
+            "type": "string",
+            "default": "content"
+        },
         "heightPC": {
-            "type": "number"
+            "type": "string",
+            "default": "400px"
         },
         "heightSP": {
-            "type": "number"
-        },
-        "heightUnitPC": {
             "type": "string",
-            "default": "px"
-        },
-        "heightUnitSP": {
-            "type": "string",
-            "default": "px"
+            "default": "50vh"
         },
         "isFullscreen": {
             "type": "boolean",
             "default": false
         },
         "padPC": {
-            "type": "number",
-            "default": 4
+            "type": "object",
+            "default": {
+                "top": "4rem",
+                "left": "2rem",
+                "right": "2rem",
+                "bottom": "4rem"
+            }
         },
         "padSP": {
-            "type": "number",
-            "default": 4
-        },
-        "padUnitPC": {
-            "type": "string",
-            "default": "rem"
-        },
-        "padUnitSP": {
-            "type": "string",
-            "default": "rem"
+            "type": "object",
+            "default": {
+                "top": "4rem",
+                "left": "4vw",
+                "right": "4vw",
+                "bottom": "4rem"
+            }
         },
         "isRepeat": {
             "type": "boolean",

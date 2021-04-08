@@ -25,15 +25,35 @@
 			opacity: 1;
 		}
 	}
-}
 
+	&.has-child-selected,
+	&.is-selected {
+
+		&:not([data-height="content"]) .ark-block-section__inner {
+			position: relative;
+
+			&::before {
+				position: absolute;
+				top: 0;
+				left: 0;
+				display: block;
+				width: 100%;
+				height: 100%;
+				border: dashed 1px currentColor;
+				opacity: .3;
+				content: "";
+			}
+
+		}
+	}
+}
 
 .ark-block-section__inner {
 
 	& > .wp-block {
 		max-width: 100%;
-		margin-right: 0;
-		margin-left: 0;
+		// margin-right: 0;
+		// margin-left: 0;
 	}
 }
 

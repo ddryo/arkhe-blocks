@@ -104,74 +104,60 @@
 }
 
 .ark-block-slider__textLayer {
-	// min-height: var(--arkb-section-minH--pc);
 	position: relative;
 	z-index: 2;
 	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	// width: var(--arkb-slide-content-width);
 	width: 100%;
 	max-width: 100%;
 	height: 100%;
 	margin: 0 auto;
-	padding: var(--arkb-slide-pad);
-	text-align: center;
 
-	@include sp {
-		// width: var(--arkb-slide-content-width--sp);
-		padding: var(--arkb-slide-pad--sp);
-	}
-
-	&.is-position-top-left {
+	&[data-content="top-left"] {
 		align-items: flex-start;
 		justify-content: flex-start;
-		text-align: left;
 	}
 
-	&.is-position-top-center {
-		align-items: center;
-		justify-content: flex-start;
+	&[data-content="top-center"] {
+		align-items: flex-start;
+		justify-content: center;
 		text-align: center;
 	}
 
-	&.is-position-top-right {
-		align-items: flex-end;
-		justify-content: flex-start;
-		text-align: right;
-	}
-
-	&.is-position-center-left {
-		align-items: flex-start;
-		justify-content: center;
-		text-align: left;
-	}
-
-	// &.is-position-center-center {
-	// 	align-items: center;
-	// 	justify-content: center;
-	// }
-
-	&.is-position-center-right {
-		align-items: flex-end;
-		justify-content: center;
-		text-align: right;
-	}
-
-	&.is-position-bottom-left {
+	&[data-content="top-right"] {
 		align-items: flex-start;
 		justify-content: flex-end;
-		text-align: left;
+		text-align: right;
 	}
 
-	&.is-position-bottom-center {
+	&[data-content="center-left"] {
 		align-items: center;
-		justify-content: flex-end;
+		justify-content: flex-start;
+	}
+
+	&[data-content="center-center"] {
+		align-items: center;
+		justify-content: center;
 		text-align: center;
 	}
 
-	&.is-position-bottom-right {
+	&[data-content="center-right"] {
+		align-items: center;
+		justify-content: flex-end;
+		text-align: right;
+	}
+
+	&[data-content="bottom-left"] {
+		align-items: flex-end;
+		justify-content: flex-start;
+	}
+
+	&[data-content="bottom-center"] {
+		align-items: flex-end;
+		justify-content: center;
+		text-align: center;
+	}
+
+	&[data-content="bottom-right"] {
 		align-items: flex-end;
 		justify-content: flex-end;
 		text-align: right;
@@ -180,6 +166,11 @@
 
 .ark-block-slider__textInner {
 	width: 100%;
+	padding: var(--arkb-slide-pad);
+
+	@include sp {
+		padding: var(--arkb-slide-pad--sp);
+	}
 }
 
 // object-position

@@ -19,20 +19,27 @@ import {
 	SelectControl,
 	ButtonGroup,
 	Button,
+	Flex,
+	FlexBlock,
+	FlexItem,
 } from '@wordpress/components';
 
 import { useMemo, useCallback } from '@wordpress/element';
+import { Icon, mobile, desktop } from '@wordpress/icons';
 
 /**
  * @Inner dependencies
  */
 import { ImageTab } from './components/ImageTab';
 import { getButtonSVG } from './components/SectionSVG';
+import { UnitNumber } from '@components/UnitNumber';
+import { ArkDeviceTab } from '@components/ArkDeviceTab';
+import { PaddingControl } from '@components/PaddingControl';
 
 /**
  * 設定
  */
-const units = ['px', 'rem', 'em', '%', 'vw', 'vh'];
+// const units = ['px', 'rem', 'em', '%', 'vw', 'vh'];
 
 const textColorSet = [
 	{
@@ -49,7 +56,7 @@ const svgTypes = ['line', 'circle', 'wave', 'zigzag'];
 
 export default ({ attributes, setAttributes, isSelected }) => {
 	const {
-		align,
+		// align,
 		mediaId,
 		mediaUrl,
 		mediaIdSP,
@@ -63,10 +70,11 @@ export default ({ attributes, setAttributes, isSelected }) => {
 		bgColor,
 		bgGradient,
 		textColor,
+		height,
 		heightPC,
 		heightSP,
-		heightUnitPC,
-		heightUnitSP,
+		// heightUnitPC,
+		// heightUnitSP,
 		padPC,
 		padSP,
 		padUnitPC,
@@ -120,64 +128,81 @@ export default ({ attributes, setAttributes, isSelected }) => {
 	return (
 		<>
 			<PanelBody title={__('Height settings', 'arkhe-blocks')}>
-				{'full' === align && (
-					<ToggleControl
-						label={__('View in fullscreen', 'arkhe-blocks')}
-						checked={isFullscreen}
-						onChange={(val) => {
-							setAttributes({ isFullscreen: val });
-						}}
-					/>
-				)}
-				<div className='ark-control--padding' data-ark-disabled={isFullscreen || null}>
-					<div className='__label'>{__('Min height', 'arkhe-blocks') + '(PC)'}</div>
-					<TextControl
-						autoComplete='off'
-						className='__input'
-						value={heightPC}
-						type='number'
-						// step={'px' === heightUnitPC ? 1 : 0.1}
-						min={0}
-						onChange={(val) => {
-							setAttributes({ heightPC: parseFloat(val) }); // intに変換してから保存
-						}}
-					/>
-					<SelectControl
-						value={heightUnitPC}
-						options={units.map((unit) => {
-							return { label: unit, value: unit };
-						})}
-						onChange={(val) => {
-							setAttributes({ heightUnitPC: val });
-						}}
-					/>
-				</div>
-				<div className='ark-control--padding' data-ark-disabled={isFullscreen || null}>
-					<div className='__label'>{__('Min height', 'arkhe-blocks') + '(SP)'}</div>
-					<TextControl
-						autoComplete='off'
-						className='__input'
-						value={heightSP}
-						type='number'
-						// step={0.1}
-						min={0}
-						onChange={(val) => {
-							setAttributes({ heightSP: parseFloat(val) }); // intに変換してから保存
-						}}
-					/>
-					<SelectControl
-						value={heightUnitSP}
-						options={units.map((unit) => {
-							return { label: unit, value: unit };
-						})}
-						onChange={(val) => {
-							setAttributes({ heightUnitSP: val });
-						}}
-					/>
+				<SelectControl
+					value={height}
+					options={[
+						{
+							label: __('Fit to content', 'arkhe-blocks'),
+							value: 'content',
+						},
+						{
+							label: __('Fit screen', 'arkhe-blocks'),
+							value: 'full',
+						},
+						{
+							label: __('数値で指定', 'arkhe-blocks'),
+							value: 'custom',
+						},
+					]}
+					onChange={(val) => {
+						setAttributes({ height: val });
+					}}
+				/>
+				<div data-ark-disabled={'custom' !== height || null} style={{ marginTop: '16px' }}>
+					<Flex className=''>
+						<FlexItem style={{ marginRight: '4px' }}>
+							<Icon icon={desktop} />
+						</FlexItem>
+						<FlexItem style={{ width: '2em' }}>PC</FlexItem>
+						<FlexBlock>
+							<UnitNumber
+								value={heightPC}
+								onChange={(newVal) => {
+									setAttributes({ heightPC: newVal });
+								}}
+							/>
+						</FlexBlock>
+					</Flex>
+					<Flex className='' style={{ marginTop: '8px' }}>
+						<FlexItem style={{ marginRight: '4px' }}>
+							<Icon icon={mobile} />
+						</FlexItem>
+						<FlexItem style={{ width: '2em' }}>SP</FlexItem>
+						<FlexBlock>
+							<UnitNumber
+								value={heightSP}
+								onChange={(newVal) => {
+									setAttributes({ heightSP: newVal });
+								}}
+							/>
+						</FlexBlock>
+					</Flex>
 				</div>
 			</PanelBody>
 			<PanelBody title={__('Padding settings', 'arkhe-blocks')}>
-				<div className='ark-control--padding'>
+				<ArkDeviceTab
+					className='-padding'
+					controlPC={
+						<>
+							<PaddingControl
+								name='padPC'
+								value={padPC}
+								setAttributes={setAttributes}
+							/>
+						</>
+					}
+					controlSP={
+						<>
+							<PaddingControl
+								name='padSP'
+								value={padSP}
+								setAttributes={setAttributes}
+							/>
+						</>
+					}
+				/>
+
+				{/* <div className='ark-control--padding'>
 					<div className='__label'>
 						{__('Top and bottom padding', 'arkhe-blocks') + '(PC)'}
 					</div>
@@ -226,7 +251,7 @@ export default ({ attributes, setAttributes, isSelected }) => {
 							setAttributes({ padUnitSP: val });
 						}}
 					/>
-				</div>
+				</div> */}
 			</PanelBody>
 			<PanelColorGradientSettings
 				title={__('Color settings', 'arkhe-blocks')}

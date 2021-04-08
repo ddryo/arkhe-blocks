@@ -44,8 +44,6 @@ function register_blocks() {
 			'step-item',
 			'timeline',
 			'timeline-item',
-			// 'slider',
-			// 'slider-item',
 		];
 
 		// かつ、Arkheでのみ利用可能

@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 // import { useSelect } from '@wordpress/data';
 import {
-	InspectorControls,
+	// InspectorControls,
 	BlockControls,
 	useBlockProps,
 	MediaPlaceholder,
@@ -20,13 +20,12 @@ import { useCallback } from '@wordpress/element';
  */
 // import SlideSidebar from './_sidebar';
 import { SlideMedia } from './components/SlideMedia';
-import { getPositionClassName } from '@helper/getPositionClassName';
-import { mediaIcon, richIcon } from '../slider/_icon';
+import { mediaIcon } from '../slider/_icon';
 
 /**
  * @Others dependencies
  */
-import classnames from 'classnames';
+// import classnames from 'classnames';
 
 /**
  * const
@@ -87,7 +86,7 @@ export const MediaEdit = ({ attributes, setAttributes }) => {
 /**
  * Rich Slider
  */
-export const RichEdit = ({ attributes, setAttributes, clientId }) => {
+export const RichEdit = ({ attributes, setAttributes }) => {
 	const {
 		// variation,
 		bgColor,
@@ -102,8 +101,6 @@ export const RichEdit = ({ attributes, setAttributes, clientId }) => {
 	} = attributes;
 
 	// BlockProps
-	const positionClass = getPositionClassName(contentPosition, 'center center');
-
 	const blockProps = useBlockProps({
 		className: `${blockName}__slide`,
 		style: {
@@ -152,7 +149,8 @@ export const RichEdit = ({ attributes, setAttributes, clientId }) => {
 					style={colorLayerStyle}
 				></div>
 				<div
-					className={classnames(`${blockName}__textLayer`, positionClass)}
+					className={`${blockName}__textLayer`}
+					data-content={contentPosition.replace(' ', '-')}
 					style={txtLayerStyle}
 				>
 					<div {...innerBlocksProps} />

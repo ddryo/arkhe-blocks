@@ -25,7 +25,7 @@ import { ArkDeviceTab } from '@components/ArkDeviceTab';
 /**
  * sidebar
  */
-export default ({ attributes, setAttributes, clientId }) => {
+export default ({ attributes, setAttributes }) => {
 	const { variation, height, heightPC, heightSP, options } = attributes;
 
 	const setOptions = (newOptions) => {

@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
-import { useMemo, useEffect } from '@wordpress/element';
+import { useMemo, useCallback } from '@wordpress/element';
 import {
 	BlockControls,
 	InspectorControls,
@@ -21,14 +21,15 @@ import { Icon, fullscreen } from '@wordpress/icons';
  */
 import { iconColor } from '@blocks/config';
 import metadata from './block.json';
+import deprecated from './deprecated';
 import blockIcon from './_icon';
 import example from './_example';
-
 import TheSidebar from './_sidebar';
 import { SectionSVG } from './components/SectionSVG';
 import { BgImage } from './components/BgImage';
 import { ArkheMarginControl } from '@components/ArkheMarginControl';
 import { getPositionClassName } from '@helper/getPositionClassName';
+import { getBlockStyle, getColorStyle, getSvgData } from './_helper';
 
 /**
  * @others dependencies
@@ -41,92 +42,6 @@ import classnames from 'classnames';
  */
 const blockName = 'ark-block-section';
 const { apiVersion, name, category, keywords, supports } = metadata;
-
-/**
- * スタイルをセットする関数
- */
-const getBlockStyle = (attributes) => {
-	const {
-		textColor,
-		heightPC,
-		heightSP,
-		heightUnitPC,
-		heightUnitSP,
-		isFullscreen,
-		padPC,
-		padSP,
-		padUnitPC,
-		padUnitSP,
-		isRepeat,
-		mediaUrl,
-	} = attributes;
-
-	const style = {};
-
-	// textColorがセットされているか
-	if (textColor) style.color = textColor;
-
-	// 内部minheight
-	if (isFullscreen) {
-		style['--arkb-section-minH--pc'] = `100vh`;
-		style['--arkb-section-minH--sp'] = `100vh`;
-	} else {
-		if (heightPC) {
-			style['--arkb-section-minH--pc'] = `${heightPC}${heightUnitPC}`;
-		}
-		if (heightSP) {
-			style['--arkb-section-minH--sp'] = `${heightSP}${heightUnitSP}`;
-		}
-	}
-
-	// 内部padding用の変数
-	const _varPadPC = `${padPC}${padUnitPC}`;
-	const _varPadSP = `${padSP}${padUnitSP}`;
-
-	if ('4rem' !== _varPadPC) {
-		style['--arkb-section-pad--pc'] = _varPadPC;
-	}
-	if ('4rem' !== _varPadSP) {
-		style['--arkb-section-pad--sp'] = _varPadSP;
-	}
-
-	// リピート背景画像
-	if (isRepeat && mediaUrl) {
-		style.backgroundImage = `url(${mediaUrl})`;
-		style.backgroundRepeat = 'repeat';
-	}
-
-	return style;
-};
-
-const getColorStyle = ({ bgColor, bgGradient, opacity }) => {
-	const style = {};
-
-	// グラデーションかどうか
-	if (bgGradient) {
-		style.background = bgGradient;
-	} else {
-		style.backgroundColor = bgColor || '#f7f7f7';
-	}
-	style.opacity = (opacity * 0.01).toFixed(2);
-	return style;
-};
-
-const getSvgData = (svgLevel) => {
-	if (0 === svgLevel) {
-		return {
-			isReverse: false,
-			height: 0,
-		};
-	}
-	// vwに合わせて 100 >> 10.0
-	const height = (svgLevel * 0.1).toFixed(1);
-
-	return {
-		isReverse: 0 > svgLevel, // 負の値かどうか
-		height: Math.abs(height), // 絶対値
-	};
-};
 
 /**
  * カスタムブロックの登録
@@ -144,13 +59,13 @@ registerBlockType(name, {
 	supports,
 	example,
 	attributes: metadata.attributes,
-	edit: (props) => {
-		const { attributes, setAttributes, isSelected } = props;
-
+	edit: ({ attributes, setAttributes, isSelected }) => {
 		const {
 			align,
 			mediaUrl,
 			innerSize,
+			height,
+			padPC,
 			svgLevelTop,
 			svgLevelBottom,
 			svgTypeTop,
@@ -158,20 +73,19 @@ registerBlockType(name, {
 			svgColorTop,
 			svgColorBottom,
 			contentPosition,
-			isFullscreen,
+			// isFullscreen,
 		} = attributes;
 
-		useEffect(() => {
-			if ('full' !== align && isFullscreen) {
-				setAttributes({ isFullscreen: false });
-			}
-		}, [align, isFullscreen]);
+		// useEffect(() => {
+		// 	if ('full' !== align && isFullscreen) {
+		// 		setAttributes({ isFullscreen: false });
+		// 	}
+		// }, [align, isFullscreen]);
 
 		// クラス名
-		const positionClass = getPositionClassName(contentPosition, '');
-		const blockClass = classnames(blockName, positionClass, {
+		const blockClass = classnames(blockName, {
 			'has-bg-img': !!mediaUrl,
-			'has-position': !!positionClass,
+			// 'has-position': !!positionClass,
 		});
 
 		// スタイルデータ
@@ -199,18 +113,21 @@ registerBlockType(name, {
 		const blockProps = useBlockProps({
 			className: blockClass,
 			style: style || null,
+			'data-height': height || null,
 			'data-inner': innerSize || null,
-			'data-fullscreen': isFullscreen ? '1' : null,
+			'data-v': '2',
+			// 'data-fullscreen': isFullscreen ? '1' : null,
 		});
+
+		// content位置のクラス
+		// const positionClass = getPositionClassName(contentPosition, '');
 		const innerBlocksProps = useInnerBlocksProps(
 			{
 				className: `${blockName}__inner ark-keep-mt`,
-				// style: innerStyle || null,
 			},
 			{
 				template: [['arkhe-blocks/section-heading'], ['core/paragraph']],
 				templateLock: false,
-				// renderAppender: InnerBlocks.ButtonBlockAppender,
 			}
 		);
 
@@ -240,6 +157,24 @@ registerBlockType(name, {
 			);
 		}, [svgLevelBottom, svgTypeBottom, svgColorBottom, svgBottom]);
 
+		const setPosition = useCallback(
+			(nextPosition) => {
+				// まだ切り替えてなくてもボタン展開する時に実行されてしまう
+				if (contentPosition === nextPosition) {
+					return;
+				}
+				setAttributes({ contentPosition: nextPosition });
+				// if (-1 !== nextPosition.indexOf(' center')) {
+				// 	setAttributes({ padPC: { ...padPC, left: '0px', right: '0px' } });
+				// } else if (-1 !== nextPosition.indexOf(' right')) {
+				// 	setAttributes({ padPC: { ...padPC, left: '50%', right: '0px' } });
+				// } else if (-1 !== nextPosition.indexOf(' left')) {
+				// 	setAttributes({ padPC: { ...padPC, left: '0px', right: '50%' } });
+				// }
+			},
+			[contentPosition]
+		);
+
 		return (
 			<>
 				<BlockControls>
@@ -261,7 +196,7 @@ registerBlockType(name, {
 									}}
 								/>
 							</ToolbarGroup>
-							<ToolbarGroup>
+							{/* <ToolbarGroup>
 								<ToolbarButton
 									className={classnames('components-toolbar__control', {
 										'is-pressed': isFullscreen,
@@ -272,17 +207,15 @@ registerBlockType(name, {
 										setAttributes({ isFullscreen: !isFullscreen });
 									}}
 								/>
-							</ToolbarGroup>
+							</ToolbarGroup> */}
 						</>
 					)}
 					<BlockAlignmentMatrixToolbar
 						label={__('Change content position')}
-						value={contentPosition || 'null'}
-						onChange={(nextPosition) => {
-							setAttributes({ contentPosition: nextPosition });
-						}}
+						value={contentPosition}
+						onChange={setPosition}
 					/>
-					{contentPosition && (
+					{/* {contentPosition && (
 						<ToolbarGroup>
 							<ToolbarButton
 								className='components-toolbar__control'
@@ -294,7 +227,7 @@ registerBlockType(name, {
 								}}
 							/>
 						</ToolbarGroup>
-					)}
+					)} */}
 
 					<ArkheMarginControl {...{ className: attributes.className, setAttributes }} />
 				</BlockControls>
@@ -308,89 +241,21 @@ registerBlockType(name, {
 				<div {...blockProps}>
 					{bgImg}
 					<div className={`${blockName}__color`} style={colorStyle}></div>
-					<div {...innerBlocksProps} />
+					<div
+						className={`${blockName}__body`}
+						data-content={contentPosition.replace(' ', '-')}
+					>
+						<div {...innerBlocksProps} />
+					</div>
 					{svgSrcTop}
 					{svgSrcBottom}
 				</div>
 			</>
 		);
 	},
-
-	save: ({ attributes }) => {
-		const {
-			// bgColor,
-			// opacity,
-			mediaUrl,
-			innerSize,
-			svgLevelTop,
-			svgLevelBottom,
-			svgTypeTop,
-			svgTypeBottom,
-			svgColorTop,
-			svgColorBottom,
-			contentPosition,
-			isFullscreen,
-		} = attributes;
-
-		// styleデータ
-		const style = getBlockStyle(attributes);
-
-		// カラーレイヤーのスタイル
-		const colorStyle = getColorStyle(attributes);
-
-		// svgデータ
-		const svgTop = getSvgData(svgLevelTop);
-		const svgBottom = getSvgData(svgLevelBottom);
-
-		// SVG分のpadding
-		if (0 !== svgLevelTop) {
-			style.paddingTop = `${svgTop.height}vw`;
-		}
-		if (0 !== svgLevelBottom) {
-			style.paddingBottom = `${svgBottom.height}vw`;
-		}
-
-		// クラス名
-		const positionClass = getPositionClassName(contentPosition, '');
-		const blockClass = classnames(blockName, positionClass, {
-			'has-bg-img': !!mediaUrl,
-			'has-position': !!positionClass,
-		});
-
-		// ブロックProps
-		const blockProps = useBlockProps.save({
-			className: blockClass,
-			style: style || null,
-			'data-inner': innerSize || null,
-			'data-fullscreen': isFullscreen ? '1' : null,
-		});
-
-		return (
-			<div {...blockProps}>
-				<BgImage attributes={attributes} />
-				<div className={`${blockName}__color`} style={colorStyle}></div>
-				<div className={`${blockName}__inner ark-keep-mt`}>
-					<InnerBlocks.Content />
-				</div>
-				{0 !== svgLevelTop && (
-					<SectionSVG
-						position='top'
-						type={svgTypeTop}
-						height={svgTop.height}
-						isReverse={svgTop.isReverse}
-						fillColor={svgColorTop}
-					/>
-				)}
-				{0 !== svgLevelBottom && (
-					<SectionSVG
-						position='bottom'
-						type={svgTypeBottom}
-						height={svgBottom.height}
-						isReverse={svgBottom.isReverse}
-						fillColor={svgColorBottom}
-					/>
-				)}
-			</div>
-		);
+	// save: deprecated[0].save,
+	save: () => {
+		return <InnerBlocks.Content />;
 	},
+	deprecated,
 });

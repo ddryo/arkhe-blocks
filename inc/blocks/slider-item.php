@@ -33,15 +33,11 @@ function cb_slider_item( $attrs, $content ) {
  */
 function render_rich_slider( $attrs, $content ) {
 
-	$position_class = \Arkhe_Blocks::get_position_class( $attrs['contentPosition'], 'center center' );
-	$text_class     = 'ark-block-slider__textLayer';
-	if ( $position_class ) {
-		$text_class .= " {$position_class}";
-	}
+	$padPC           = $attrs['padPC'];
+	$padSP           = $attrs['padSP'];
+	$contentPosition = $attrs['contentPosition'];
 
-	$padPC = $attrs['padPC'];
-	$padSP = $attrs['padSP'];
-
+	// style
 	$block_style = [
 		'--arkb-slide-pad'               => "{$padPC['top']} {$padPC['right']} {$padPC['bottom']} {$padPC['left']}",
 		'--arkb-slide-pad--sp'           => "{$padSP['top']} {$padSP['right']} {$padSP['bottom']} {$padSP['left']}",
@@ -53,23 +49,31 @@ function render_rich_slider( $attrs, $content ) {
 	];
 	$block_style = \Arkhe_Blocks::convert_style_props( $block_style );
 
+	// colorLayer 属性
 	$color_layer_style = [
 		'background' => $attrs['bgGradient'] ?: $attrs['bgColor'],
 		'opacity'    => $attrs['opacity'] * 0.01, // round()
 	];
 	$color_layer_style = \Arkhe_Blocks::convert_style_props( $color_layer_style );
 
+	// textLayer 属性
+	$text_layer_props = 'data-content="' . esc_attr( str_replace( ' ', '-', $contentPosition ) ) . '"';
+
 	$text_layer_style = [
 		'color' => $attrs['textColor'],
 	];
 	$text_layer_style = \Arkhe_Blocks::convert_style_props( $text_layer_style );
+
+	if ( $text_layer_style ) {
+		$text_layer_props .= ' style="' . esc_attr( $text_layer_style ) . '"';
+	}
 
 	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 	?>
 	<div class="ark-block-slider__slide swiper-slide" style="<?=esc_attr( $block_style )?>">
 		<?php \Arkhe_Blocks\render_slide_media_layer( $attrs ); ?>
 		<div class="ark-block-slider__colorLayer arkb-absLayer" style="<?=esc_attr( $color_layer_style )?>"></div>
-		<div class="<?=esc_attr( $text_class )?>"<?php if ( $text_layer_style ) echo ' style="' . esc_attr( $text_layer_style ) . '"'; ?>>
+		<div class="ark-block-slider__textLayer"<?=$text_layer_props?>>
 			<div class="ark-block-slider__textInner ark-keep-mt--s">
 				<?=$content?>
 			</div>

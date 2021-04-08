@@ -10,7 +10,7 @@ import {
 } from '@wordpress/block-editor';
 import {
 	PanelBody,
-	ToggleControl,
+	// ToggleControl,
 	// TextControl,
 	// ColorPicker,
 	ColorPalette,
@@ -19,19 +19,17 @@ import {
 	// SelectControl,
 	// ButtonGroup,
 	// Button,
-	FlexBlock,
-	FlexItem,
 } from '@wordpress/components';
-import { useState, useCallback } from '@wordpress/element';
-import { Icon, fullscreen, link, linkOff } from '@wordpress/icons';
+import { useCallback } from '@wordpress/element';
+// import { Icon, fullscreen, link, linkOff } from '@wordpress/icons';
 
 /**
  * @Inner dependencies
  */
 import { ImageTab } from './components/ImageTab';
-import PaddingControl from './components/PaddingControl';
+import { PaddingControl } from '@components/PaddingControl';
 import { ArkDeviceTab } from '@components/ArkDeviceTab';
-import { UnitNumber } from '@components/UnitNumber';
+// import { UnitNumber } from '@components/UnitNumber';
 
 /**
  * 設定
