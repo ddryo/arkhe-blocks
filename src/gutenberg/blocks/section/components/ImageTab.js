@@ -43,9 +43,9 @@ export const ImageTab = memo((props) => {
 		setAttributes({
 			mediaId: 0,
 			mediaUrl: '',
+			mediaType: '',
 			mediaWidth: undefined,
 			mediaHeight: undefined,
-			mediaType: '',
 			focalPoint: undefined,
 			...(!mediaUrlSP ? { opacity: 100 } : {}), // SP画像もなければ カラー100に。
 		});
@@ -64,10 +64,10 @@ export const ImageTab = memo((props) => {
 	const removeImageSP = () => {
 		setAttributes({
 			mediaIdSP: 0,
-			mediaUrlSP: undefined,
+			mediaUrlSP: '',
+			mediaTypeSP: '',
 			mediaWidthSP: undefined,
 			mediaHeightSP: undefined,
-			mediaTypeSP: '',
 			focalPointSP: undefined,
 			...(!mediaUrl ? { opacity: 100 } : {}), // PC画像もなければ カラー100に。
 		});

@@ -38,43 +38,9 @@
             "type": "number",
             "default": 0
         },
-        "mediaUrl": {
-            "type": "string",
-            "default": ""
-        },
-        "mediaWidth": {
-            "type": "string",
-            "source": "attribute",
-            "selector": ".ark-block-section__bg[data-for=\"pc\"]",
-            "attribute": "width"
-        },
-        "mediaHeight": {
-            "type": "string",
-            "source": "attribute",
-            "selector": ".ark-block-section__bg[data-for=\"pc\"]",
-            "attribute": "height"
-        },
         "mediaIdSP": {
             "type": "number",
             "default": 0
-        },
-        "mediaUrlSP": {
-            "type": "string",
-            "source": "attribute",
-            "selector": ".ark-block-section__bg[data-for=\"sp\"]",
-            "attribute": "src"
-        },
-        "mediaWidthSP": {
-            "type": "string",
-            "source": "attribute",
-            "selector": ".ark-block-section__bg[data-for=\"sp\"]",
-            "attribute": "width"
-        },
-        "mediaHeightSP": {
-            "type": "string",
-            "source": "attribute",
-            "selector": ".ark-block-section__bg[data-for=\"sp\"]",
-            "attribute": "height"
         },
         "mediaType": {
             "type": "string",
@@ -83,6 +49,26 @@
         "mediaTypeSP": {
             "type": "string",
             "default": ""
+        },
+        "mediaUrl": {
+            "type": "string",
+            "default": ""
+        },
+        "mediaUrlSP": {
+            "type": "string",
+            "default": ""
+        },
+        "mediaWidth": {
+            "type": "number"
+        },
+        "mediaHeight": {
+            "type": "number"
+        },
+        "mediaWidthSP": {
+            "type": "number"
+        },
+        "mediaHeightSP": {
+            "type": "number"
         },
         "focalPoint": {
             "type": "object"
@@ -109,10 +95,6 @@
         "heightSP": {
             "type": "string",
             "default": "50vh"
-        },
-        "isFullscreen": {
-            "type": "boolean",
-            "default": false
         },
         "padPC": {
             "type": "object",
@@ -159,6 +141,10 @@
         "svgColorBottom": {
             "type": "string",
             "default": ""
+        },
+        "version": {
+            "type": "string",
+            "default": "2"
         }
     },
     "editorScript": "file:../../../../dist/gutenberg/blocks/section/index.js",

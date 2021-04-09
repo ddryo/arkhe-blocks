@@ -48,7 +48,7 @@ function register_blocks() {
 
 		// かつ、Arkheでのみ利用可能
 		if ( IS_ARKHE_THEME ) {
-			$arkhe_blocks_pro[] = 'section';
+			// $arkhe_blocks_pro[] = 'section';
 			$arkhe_blocks_pro[] = 'section-heading';
 			$arkhe_blocks_pro[] = 'box-link';
 			$arkhe_blocks_pro[] = 'box-links';
@@ -71,6 +71,7 @@ function register_blocks() {
 
 	// ダイナミックブロックの読み込み
 	$dynamic_blocks = [
+		'section',
 		'slider',
 		'slider-item',
 	];
