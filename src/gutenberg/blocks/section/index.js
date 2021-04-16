@@ -26,7 +26,7 @@ import blockIcon from './_icon';
 import example from './_example';
 import TheSidebar from './_sidebar';
 import { SectionSVG } from './components/SectionSVG';
-import { BgImage } from './components/BgImage';
+import { BgMedia } from './components/BgMedia';
 import { ArkheMarginControl } from '@components/ArkheMarginControl';
 import { getPositionClassName } from '@helper/getPositionClassName';
 import { getBlockStyle, getColorStyle, getSvgData } from './_helper';
@@ -95,7 +95,7 @@ registerBlockType(name, {
 		const colorStyle = useMemo(() => getColorStyle(attributes), [attributes]);
 
 		// 背景画像
-		const bgImg = useMemo(() => <BgImage attributes={attributes} />, [attributes]);
+		const bgMedia = useMemo(() => <BgMedia attributes={attributes} />, [attributes]);
 
 		// svgデータ
 		const svgTop = useMemo(() => getSvgData(svgLevelTop), [svgLevelTop]);
@@ -239,8 +239,8 @@ registerBlockType(name, {
 					/>
 				</InspectorControls>
 				<div {...blockProps}>
-					{bgImg}
-					<div className={`${blockName}__color`} style={colorStyle}></div>
+					{bgMedia}
+					<div className={`${blockName}__color arkb-absLayer`} style={colorStyle}></div>
 					<div
 						className={`${blockName}__body`}
 						data-content={contentPosition.replace(' ', '-')}

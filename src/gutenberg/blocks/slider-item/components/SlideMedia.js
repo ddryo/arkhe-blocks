@@ -66,18 +66,25 @@ export const SlideMedia = ({ attributes }) => {
 			</video>
 		);
 	} else if ('image' === mediaType && 'video' !== mediaTypeSP) {
-		mediaClass = classnames(`${blockName}__picture`, 'u-obf-cover');
+		mediaClass = classnames(`${blockName}__picture`);
 		mediaSrc = (
 			<picture className={mediaClass} style={style}>
-				{mediaUrlSP && <source media='(max-width: 999px)' srcSet={mediaUrlSP} />}
+				{mediaUrlSP && (
+					<source
+						media='(max-width: 999px)'
+						srcSet={mediaUrlSP}
+						width={mediaWidthSP || null}
+						height={mediaHeightSP || null}
+					/>
+				)}
 				<img
 					src={mediaUrl}
 					alt={alt}
-					className={classnames(`${blockName}__img`, {
+					className={classnames(`${blockName}__img u-obf-cover`, {
 						[`wp-image-${mediaId}`]: !!mediaId,
 					})}
-					width={mediaWidthSP || null}
-					height={mediaHeightSP || null}
+					width={mediaWidth || null}
+					height={mediaHeight || null}
 				/>
 			</picture>
 		);
