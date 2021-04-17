@@ -11,7 +11,7 @@ import {
 import {
 	PanelBody,
 	ToggleControl,
-	TextControl,
+	// TextControl,
 	// ColorPicker,
 	ColorPalette,
 	BaseControl,
@@ -73,19 +73,10 @@ export default ({ attributes, setAttributes, isSelected }) => {
 		height,
 		heightPC,
 		heightSP,
-		// heightUnitPC,
-		// heightUnitSP,
-		padPC,
-		padSP,
-		padUnitPC,
-		padUnitSP,
-		svgLevelTop,
-		svgLevelBottom,
-		svgTypeTop,
-		svgTypeBottom,
-		svgColorTop,
-		svgColorBottom,
-		isFullscreen,
+		paddingPC,
+		paddingSP,
+		svgTop,
+		svgBottom,
 	} = attributes;
 
 	// 画像設定タブに渡す情報
@@ -116,13 +107,12 @@ export default ({ attributes, setAttributes, isSelected }) => {
 		[bgGradient]
 	);
 
-	// 初回の状態を記憶
+	// ブロック選択時の初回の状態を記憶
 	const isOpenSvgTop = useMemo(() => {
-		// console.log('memo: isOpenSvgTop');
-		return 0 !== svgLevelTop;
+		return 0 !== svgTop.level;
 	}, [isSelected]);
 	const isOpenSvgBottom = useMemo(() => {
-		return 0 !== svgLevelBottom;
+		return 0 !== svgBottom.level;
 	}, [isSelected]);
 
 	return (
@@ -185,8 +175,8 @@ export default ({ attributes, setAttributes, isSelected }) => {
 					controlPC={
 						<>
 							<PaddingControl
-								name='padPC'
-								value={padPC}
+								name='paddingPC'
+								value={paddingPC}
 								setAttributes={setAttributes}
 							/>
 						</>
@@ -194,64 +184,13 @@ export default ({ attributes, setAttributes, isSelected }) => {
 					controlSP={
 						<>
 							<PaddingControl
-								name='padSP'
-								value={padSP}
+								name='paddingSP'
+								value={paddingSP}
 								setAttributes={setAttributes}
 							/>
 						</>
 					}
 				/>
-
-				{/* <div className='ark-control--padding'>
-					<div className='__label'>
-						{__('Top and bottom padding', 'arkhe-blocks') + '(PC)'}
-					</div>
-					<TextControl
-						autoComplete='off'
-						className='__input'
-						value={padPC}
-						type='number'
-						// step={0.1}
-						min={0}
-						onChange={(val) => {
-							setAttributes({ padPC: parseFloat(val) }); // intに変換してから保存
-						}}
-					/>
-					<SelectControl
-						value={padUnitPC}
-						options={units.map((unit) => {
-							return { label: unit, value: unit };
-						})}
-						onChange={(val) => {
-							setAttributes({ padUnitPC: val });
-						}}
-					/>
-				</div>
-				<div className='ark-control--padding'>
-					<div className='__label'>
-						{__('Top and bottom padding', 'arkhe-blocks') + '(SP)'}
-					</div>
-					<TextControl
-						autoComplete='off'
-						className='__input'
-						value={padSP}
-						type='number'
-						// step={0.1}
-						min={0}
-						onChange={(val) => {
-							setAttributes({ padSP: parseFloat(val) }); // intに変換してから保存
-						}}
-					/>
-					<SelectControl
-						value={padUnitSP}
-						options={units.map((unit) => {
-							return { label: unit, value: unit };
-						})}
-						onChange={(val) => {
-							setAttributes({ padUnitSP: val });
-						}}
-					/>
-				</div> */}
 			</PanelBody>
 			<PanelColorGradientSettings
 				title={__('Color settings', 'arkhe-blocks')}
@@ -323,10 +262,10 @@ export default ({ attributes, setAttributes, isSelected }) => {
 						{svgTypes.map((type) => {
 							return (
 								<Button
-									isSecondary={type !== svgTypeTop}
-									isPrimary={type === svgTypeTop}
+									isSecondary={type !== svgTop.type}
+									isPrimary={type === svgTop.type}
 									onClick={() => {
-										setAttributes({ svgTypeTop: type });
+										setAttributes({ svgTop: { ...svgTop, type } });
 									}}
 									key={`key_${type}`}
 								>
@@ -338,11 +277,9 @@ export default ({ attributes, setAttributes, isSelected }) => {
 				</BaseControl>
 				<RangeControl
 					label={__('Height level', 'arkhe-blocks')}
-					value={svgLevelTop}
-					onChange={(val) => {
-						setAttributes({
-							svgLevelTop: val,
-						});
+					value={svgTop.level}
+					onChange={(level) => {
+						setAttributes({ svgTop: { ...svgTop, level } });
 					}}
 					min={-100}
 					max={100}
@@ -353,9 +290,9 @@ export default ({ attributes, setAttributes, isSelected }) => {
 						{__('Color', 'arkhe-blocks')}
 					</div>
 					<WpColorPalette
-						value={svgColorTop}
+						value={svgTop.color}
 						onChange={(color) => {
-							setAttributes({ svgColorTop: color });
+							setAttributes({ svgTop: { ...svgTop, color } });
 						}}
 						clearable={true}
 					/>
@@ -368,10 +305,10 @@ export default ({ attributes, setAttributes, isSelected }) => {
 						{svgTypes.map((type) => {
 							return (
 								<Button
-									isSecondary={type !== svgTypeBottom}
-									isPrimary={type === svgTypeBottom}
+									isSecondary={type !== svgBottom.type}
+									isPrimary={type === svgBottom.type}
 									onClick={() => {
-										setAttributes({ svgTypeBottom: type });
+										setAttributes({ svgBottom: { ...svgBottom, type } });
 									}}
 									key={`key_${type}`}
 								>
@@ -383,9 +320,9 @@ export default ({ attributes, setAttributes, isSelected }) => {
 				</BaseControl>
 				<RangeControl
 					label={__('Height level', 'arkhe-blocks')}
-					value={svgLevelBottom}
-					onChange={(val) => {
-						setAttributes({ svgLevelBottom: val });
+					value={svgBottom.level}
+					onChange={(level) => {
+						setAttributes({ svgBottom: { ...svgBottom, level } });
 					}}
 					min={-100}
 					max={100}
@@ -394,9 +331,9 @@ export default ({ attributes, setAttributes, isSelected }) => {
 				<BaseControl>
 					<BaseControl.VisualLabel>{__('Color', 'arkhe-blocks')}</BaseControl.VisualLabel>
 					<WpColorPalette
-						value={svgColorBottom}
+						value={svgBottom.color}
 						onChange={(color) => {
-							setAttributes({ svgColorBottom: color });
+							setAttributes({ svgBottom: { ...svgBottom, color } });
 						}}
 						clearable={true}
 					/>

@@ -7,8 +7,8 @@ export const getBlockStyle = (attributes) => {
 		height,
 		heightPC,
 		heightSP,
-		padPC,
-		padSP,
+		paddingPC,
+		paddingSP,
 		isRepeat,
 		mediaUrl,
 		//
@@ -30,8 +30,8 @@ export const getBlockStyle = (attributes) => {
 	}
 
 	// 内部padding用の変数
-	const _varPadPC = `${padPC.top} ${padPC.right} ${padPC.bottom} ${padPC.left}`;
-	const _varPadSP = `${padSP.top} ${padSP.right} ${padSP.bottom} ${padSP.left}`;
+	const _varPadPC = `${paddingPC.top} ${paddingPC.right} ${paddingPC.bottom} ${paddingPC.left}`;
+	const _varPadSP = `${paddingSP.top} ${paddingSP.right} ${paddingSP.bottom} ${paddingSP.left}`;
 
 	// 初期値以外であれば
 	if ('4rem 2rem 4rem 2em' !== _varPadPC) {
@@ -50,6 +50,41 @@ export const getBlockStyle = (attributes) => {
 	return style;
 };
 
+export const getColorStyle = ({ bgColor, bgGradient, opacity }) => {
+	const style = {};
+
+	// グラデーションかどうか
+	if (bgGradient) {
+		style.background = bgGradient;
+	} else {
+		style.backgroundColor = bgColor || '#f7f7f7';
+	}
+	style.opacity = (opacity * 0.01).toFixed(2);
+	return style;
+};
+
+export const getSvgData = (svgData) => {
+	const svgLevel = svgData.level || 0;
+	if (0 === svgLevel) {
+		return {
+			...svgData,
+			height: 0,
+			isReverse: false,
+		};
+	}
+
+	// vwに合わせて 100 >> 10.0
+	const svgHeight = (svgLevel * 0.1).toFixed(1);
+	return {
+		...svgData,
+		height: Math.abs(svgHeight), // 絶対値
+		isReverse: 0 > svgLevel, // 負の値かどうか
+	};
+};
+
+/**
+ * 旧 getBlockStyle
+ */
 export const getBlockStyleOld = (attributes) => {
 	const {
 		textColor,
@@ -104,20 +139,10 @@ export const getBlockStyleOld = (attributes) => {
 	return style;
 };
 
-export const getColorStyle = ({ bgColor, bgGradient, opacity }) => {
-	const style = {};
-
-	// グラデーションかどうか
-	if (bgGradient) {
-		style.background = bgGradient;
-	} else {
-		style.backgroundColor = bgColor || '#f7f7f7';
-	}
-	style.opacity = (opacity * 0.01).toFixed(2);
-	return style;
-};
-
-export const getSvgData = (svgLevel) => {
+/**
+ * 旧 getSvgData
+ */
+export const getSvgDataOld = (svgLevel) => {
 	if (0 === svgLevel) {
 		return {
 			isReverse: false,

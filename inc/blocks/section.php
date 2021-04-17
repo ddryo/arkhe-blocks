@@ -20,55 +20,109 @@ register_block_type_from_metadata(
 );
 
 
-// 古いバージョンからの変換
-function migrate( $attrs ) {
-	$height   = 'content';
-	$heightPC = '400px';
-	$heightSP = '50vh';
+/**
+ * 旧データからの変換処理
+ */
+add_filter( 'render_block_data', function ( $block ) {
 
-	$old_heightUnitPC    = $attrs['heightUnitPC'] ?? '';
-	$old_heightUnitSP    = $attrs['heightUnitSP'] ?? '';
-	$old_contentPosition = $attrs['contentPosition'] ?? '';
+	// section ブロックのみ処理する
+	if ( 'arkhe-blocks/section' !== $block['blockName'] ) return $block;
 
-	// 高さの設定
-	if ( $old_heightUnitPC || $$old_heightUnitSP ) {
-		$height   = 'custom';
-		$heightPC = $attrs['heightPC'] . $old_heightUnitPC;
-		$heightSP = $attrs['heightSP'] . $old_heightUnitSP;
+	$attrs = $block['attrs'];
+
+	// echo '<pre style="margin-left: 100px;">';
+	// var_dump( $attrs );
+	// echo '</pre>';
+
+	// height関連
+	if ( isset( $attrs['heightPC'] ) && is_numeric( $attrs['heightPC'] ) ) {
+		$heightUnitPC      = $attrs['heightUnitPC'] ?? 'px';
+		$attrs['heightPC'] = $attrs['heightPC'] . $heightUnitPC;
+		$attrs['height']   = 'custom';
+		unset( $attrs['heightUnitPC'] );
+	}
+	if ( isset( $attrs['heightSP'] ) && is_numeric( $attrs['heightSP'] ) ) {
+		$heightUnitSP      = $attrs['heightUnitSP'] ?? 'px';
+		$attrs['heightSP'] = $attrs['heightSP'] . $heightUnitSP;
+		$attrs['height']   = 'custom';
+		unset( $attrs['heightUnitSP'] );
 	}
 
-	// 上書き or 追加
-	$attrs['height']          = $height;
-	$attrs['heightPC']        = $heightPC;
-	$attrs['heightSP']        = $heightSP;
-	$attrs['contentPosition'] = $old_contentPosition ?: 'center left';
-	$attrs['padPC']           = [
-		'top'    => $padPC,
-		'left'   => '2rem',
-		'right'  => '2rem',
-		'bottom' => $padPC,
-	];
-	$attrs['padSP']           = [
-		'top'    => $padSP,
-		'left'   => '4vw',
-		'right'  => '4vw',
-		'bottom' => $padSP,
-	];
+	// padding関連
+	if ( isset( $attrs['padPC'] ) ) {
+		$padUnitPC          = $attrs['padUnitPC'] ?? 'rem';
+		$attrs['paddingPC'] = [
+			'top'    => $attrs['padPC'] . $padUnitPC,
+			'left'   => '2rem',
+			'right'  => '2rem',
+			'bottom' => $attrs['padPC'] . $padUnitPC,
+		];
+		unset( $attrs['padPC'] );
+		unset( $attrs['padUnitPC'] );
+	}
 
-	// 削除
-	unset( $attrs['isFullscreen'] );
-	unset( $attrs['heightUnitPC'] );
-	unset( $attrs['heightUnitSP'] );
-	unset( $attrs['padUnitPC'] );
-	unset( $attrs['padUnitSP'] );
+	if ( isset( $attrs['padSP'] ) ) {
+		$padUnitSP          = $attrs['padUnitSP'] ?? 'rem';
+		$attrs['paddingSP'] = [
+			'top'    => $attrs['padSP'] . $padUnitSP,
+			'left'   => '2rem',
+			'right'  => '2rem',
+			'bottom' => $attrs['padSP'] . $padUnitSP,
+		];
+		unset( $attrs['padSP'] );
+		unset( $attrs['padUnitSP'] );
+	}
 
-	return $attrs;
+	// svg関連
+	if ( isset( $attrs['svgLevelTop'] ) ) {
+		$attrs['svgTop'] = [
+			'type'    => $attrs['svgTypeTop'] ?? 'line',
+			'level'   => $attrs['svgLevelTop'],
+			'color'   => $attrs['svgColorTop'] ?? '',
+		];
+		unset( $attrs['svgTypeTop'] );
+		unset( $attrs['svgLevelTop'] );
+		unset( $attrs['svgColorTop'] );
+	}
+	if ( isset( $attrs['svgLevelBottom'] ) ) {
+		$attrs['svgBottom'] = [
+			'type'    => $attrs['svgTypeBottom'] ?? 'line',
+			'level'   => $attrs['svgLevelBottom'],
+			'color'   => $attrs['svgColorBottom'] ?? '',
+		];
+		unset( $attrs['svgTypeBottom'] );
+		unset( $attrs['svgLevelBottom'] );
+		unset( $attrs['svgColorBottom'] );
+	}
+
+	$block['attrs'] = $attrs;
+	return $block;
+});
+
+
+// 古いバージョンからの変換
+function migrate_content( $content ) {
+
+	$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'auto' );
+
+	$dom = new \DOMDocument( '1.0', 'UTF-8' );
+	libxml_use_internal_errors( true );
+	$dom->loadHTML( $content );
+	libxml_clear_errors();
+	$xpath = new \DOMXpath( $dom );
+
+	$innerBlocks = $xpath->query( '//div[@class="ark-block-section__inner ark-keep-mt"]' )->item( 0 )->childNodes;
+
+	$return = '';
+	foreach ( $innerBlocks as $block ) {
+		$return .= $dom->saveHTML( $block );
+	}
+	return $return;
 }
 
-
 function cb( $attrs, $content ) {
-	if ( ! isset( $attrs['version'] ) ) {
-		$attrs = migrate( $attrs );
+	if ( false !== strpos( $content, 'class="ark-block-section__inner' ) ) {
+		$content = migrate_content( $content );
 	}
 	ob_start();
 	render_section( $attrs, $content );
@@ -80,7 +134,16 @@ function render_section( $attrs, $content ) {
 
 	$height          = $attrs['height'] ?? 'content';
 	$align           = $attrs['align'] ?? '';
-	$contentPosition = str_replace( ' ', '-', $attrs['contentPosition'] );
+	$contentPosition = $attrs['contentPosition'] ?? 'center left';
+	$contentPosition = str_replace( ' ', '-', $contentPosition );
+
+	// echo '<pre style="margin-left: 100px;">';
+	// var_dump( $attrs );
+	// echo '</pre>';
+
+	// svgデータ
+	$svgDataTop    = get_svg_data( $attrs['svgTop'] );
+	$svgDataBottom = get_svg_data( $attrs['svgBottom'] );
 
 	// class名
 	$block_class = 'ark-block-section';
@@ -92,17 +155,22 @@ function render_section( $attrs, $content ) {
 	}
 
 	// 属性
-	// 'data-height': height || null,
-	// 'data-inner': innerSize || null,
-	// 'data-v': '2',
-
-	$block_props = ' data-v="2" data-height="' . esc_attr( $height ) . '"';
+	$block_props = ' data-height="' . esc_attr( $height ) . '"';
 	if ( 'full' === $align ) {
 		$block_props .= ' data-inner="' . esc_attr( $attrs['innerSize'] ) . '"';
 	}
 
-	// style
+	// Block style
 	$block_style = get_block_style( $attrs );
+
+	if ( $svgDataTop['height'] ) {
+		$block_style['--arkb-svg-height--top'] = $svgDataTop['height'] . 'vw';
+	}
+	if ( $svgDataBottom['height'] ) {
+		$block_style['--arkb-svg-height--bottom'] = $svgDataBottom['height'] . 'vw';
+	}
+
+	$block_style = \Arkhe_Blocks::convert_style_props( $block_style );
 	if ( $block_style ) {
 		$block_props .= ' style="' . esc_attr( $block_style ) . '"';
 	}
@@ -122,16 +190,12 @@ function render_section( $attrs, $content ) {
 		</div>
 		<div class="ark-block-section__color arkb-absLayer" style="<?=esc_attr( $color_layer_style )?>"></div>
 		<div class="ark-block-section__body" data-content="<?=esc_attr( $contentPosition )?>">
-			<div class="ark-block-section__inner ark-keep-mt--s">
+			<div class="ark-block-section__inner ark-keep-mt">
 				<?=$content?>
 			</div>
 		</div>
-		<!-- type={svgTypeTop}
-					height={svgTop.height}
-					isReverse={svgTop.isReverse}
-					fillColor={svgColorTop} -->
-		<?php render_svg( 'top', $attrs ); ?>
-		<?php render_svg( 'bottom', $attrs ); ?>
+		<?php render_svg( 'top', $svgDataTop ); ?>
+		<?php render_svg( 'bottom', $svgDataBottom ); ?>
 	</div>
 	<?php
 	// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -144,14 +208,14 @@ function get_block_style( $attrs ) {
 	$height   = $attrs['height'];
 	$heightPC = $attrs['heightPC'];
 	$heightSP = $attrs['heightSP'];
-	$padPC    = $attrs['padPC'];
-	$padSP    = $attrs['padSP'];
+	$padPC    = $attrs['paddingPC'];
+	$padSP    = $attrs['paddingSP'];
 	$mediaUrl = $attrs['mediaUrl'];
 
 	// style
 	$style = [
-		'--arkb-slide-pad'     => "{$padPC['top']} {$padPC['right']} {$padPC['bottom']} {$padPC['left']}",
-		'--arkb-slide-pad--sp' => "{$padSP['top']} {$padSP['right']} {$padSP['bottom']} {$padSP['left']}",
+		'--arkb-section-padding'     => "{$padPC['top']} {$padPC['right']} {$padPC['bottom']} {$padPC['left']}",
+		'--arkb-section-padding--sp' => "{$padSP['top']} {$padSP['right']} {$padSP['bottom']} {$padSP['left']}",
 	];
 
 	// 内部minheight
@@ -166,11 +230,11 @@ function get_block_style( $attrs ) {
 
 	// リピート背景画像
 	if ( $attrs['isRepeat'] && $mediaUrl ) {
-		$attrs['background-image']  = 'url(' . $mediaUrl . ')';
-		$attrs['background-repeat'] = 'repeat';
+		$style['background-image']  = 'url(' . $mediaUrl . ')';
+		$style['background-repeat'] = 'repeat';
 	}
 
-	return \Arkhe_Blocks::convert_style_props( $style );
+	return $style;
 }
 
 
@@ -270,27 +334,54 @@ function render_media( $attrs ) {
 	// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
+function get_svg_data( $svgData ) {
+	$svgLevel = $svgData['level'];
 
-function render_svg( $position, $attrs ) {
-	// const svgStyle = { height: `${height}vw` };
-	// if (fillColor) {
-	// 	svgStyle.fill = fillColor;
-	// }
+	if ( 0 === $svgLevel ) {
+		$svgData['isReverse'] = false;
+		$svgData['height']    = 0;
+	} else {
+		$svgData['isReverse'] = 0 > $svgLevel;
+		$svgData['height']    = abs( $svgLevel * 0.1 );
+	}
 
-	// return (
-	// 	<svg
-	// 		xmlns='http://www.w3.org/2000/svg'
-	// 		viewBox='0 0 100 100'
-	// 		preserveAspectRatio='none'
-	// 		className={`ark-block-section__svg -${position}`}
-	// 		aria-hidden='true'
-	// 		focusable='false'
-	// 		style={svgStyle}
-	// 	>
-	// 		{getPath(type, isReverse)}
-	// 	</svg>
-	// );
+	return $svgData;
+};
+
+
+function render_svg( $position, $svgData ) {
+	if ( 0 === $svgData['height']) return;
+
+	$type      = $svgData['type'];
+	$isReverse = $svgData['isReverse'];
+	$color     = $svgData['color'];
+
+	$style = [];
+	if ( $color ) {
+		$style['fill'] = $color;
+	}
+	$style = \Arkhe_Blocks::convert_style_props( $style );
+
+	$path = '';
+	if ( 'line' === $type ) {
+		$path = $isReverse ? '<polygon points="0,0 100,0 100,100" />' : '<polygon points="0,0 0,100 100,0" />';
+	} elseif ( 'circle' === $type ) {
+		$path = $isReverse ? '<path d="M0,0c20.1,133.4,79.9,133.3,100,0H0z" />' : '<g><path d="M0,100V0h50C30,0,10,33.3,0,100z" /><path d="M50,0h50v100C90,33.3,70,0,50,0z" /></g>';
+	} elseif ( 'wave' === $type ) {
+		$path = $isReverse ? '<path d="M0,50.3c0.1,0.1,0.1,0.4,0.2,0.6C6.3,75,12.6,100,25,100s18.7-25,24.8-49C56,26.5,62.4,1.3,75,1.3c12.5,0,18.9,24.9,25,49V0 L25,0L0,0L0,50.3z" />' : '<path d="M100,0H75H0v50.3c6.1-24.2,12.5-49,25-49c12.6,0,19,25.3,25.2,49.7c6.1,24,12.4,49,24.8,49s18.7-25,24.8-49.2 c0.1-0.1,0.1-0.4,0.2-0.6V0z" />';
+	} elseif ( 'zigzag' === $type ) {
+		$path = $isReverse ? '<path d="M0,50.3L25,100c0,0,50-100.3,50-98.8l25,49V0H25H0V50.3z" />' : '<path d="M100,50.3L75,100c0,0-50-100.3-50-98.8l-25,49V0h75h25V50.3z" />';
+	}
+	?>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"
+			class="ark-block-section__svg -<?=esc_attr( $position )?>"
+			aria-hidden="true" focusable="false" style="<?=esc_attr( $style )?>">
+			<?php echo $path; // phpcs:ignore ?>
+		</svg>
+	);
+	<?php
 }
+
 
 
 // const getPath = (type, isReverse) => {

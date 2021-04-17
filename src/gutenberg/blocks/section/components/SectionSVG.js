@@ -31,7 +31,38 @@ const getPath = (type, isReverse) => {
 	}
 };
 
-export const SectionSVG = ({ position, type, height, isReverse, fillColor }) => {
+/**
+ * <SectionSVG />コンポーネント
+ */
+export const SectionSVG = ({ position, svgData }) => {
+	if (0 === svgData.height) return null;
+
+	const svgStyle = {};
+	if (svgData.color) {
+		svgStyle.fill = svgData.color;
+	}
+
+	return (
+		<svg
+			xmlns='http://www.w3.org/2000/svg'
+			viewBox='0 0 100 100'
+			preserveAspectRatio='none'
+			className={`ark-block-section__svg -${position}`}
+			aria-hidden='true'
+			focusable='false'
+			style={svgStyle}
+		>
+			{getPath(svgData.type, svgData.isReverse)}
+		</svg>
+	);
+};
+
+/**
+ * 旧 <SectionSVG />コンポーネント
+ */
+export const SectionSVGOld = ({ position, type, height, isReverse, fillColor }) => {
+	if (0 === height) return null;
+
 	const svgStyle = { height: `${height}vw` };
 	if (fillColor) {
 		svgStyle.fill = fillColor;

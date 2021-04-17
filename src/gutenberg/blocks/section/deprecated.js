@@ -6,13 +6,16 @@ import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 /**
  * @Internal dependencies
  */
-import { SectionSVG } from './components/SectionSVG';
+import { SectionSVGOld as SectionSVG } from './components/SectionSVG';
 import { BgImage } from './components/BgImageOld';
 import { getPositionClassName } from '@helper/getPositionClassName';
-import { getBlockStyleOld as getBlockStyle, getColorStyle, getSvgData } from './_helper';
+import {
+	getBlockStyleOld as getBlockStyle,
+	getColorStyle,
+	getSvgDataOld as getSvgData,
+} from './_helper';
 
 /**
- * @others dependencies
  */
 import classnames from 'classnames';
 // import hexToRgba from 'hex-to-rgba';
@@ -174,31 +177,66 @@ export default [
 			},
 		},
 		migrate: (attributes) => {
+			// height
 			let height = 'content';
 			let heightPC = '400px';
 			let heightSP = '50vh';
-
 			if (attributes.heightPC || attributes.heightSP) {
 				height = 'custom';
 				heightPC = `${attributes.heightPC}${attributes.heightUnitPC}`;
 				heightSP = `${attributes.heightSP}${attributes.heightUnitSP}`;
 			}
-
-			const _padPC = `${attributes.padPC}${attributes.padUnitPC}`;
-			const padPC = { top: _padPC, left: '2rem', right: '2rem', bottom: _padPC };
-
-			const _padSP = `${attributes.padSP}${attributes.padUnitSP}`;
-			const padSP = { top: _padSP, left: '4vw', right: '4vw', bottom: _padSP };
-
-			const contentPosition = attributes.contentPosition || 'center left';
-
-			delete attributes.isFullscreen;
 			delete attributes.heightUnitPC;
 			delete attributes.heightUnitSP;
+
+			// padding
+			const paddingPC = { top: '4rem', left: '2rem', right: '2rem', bottom: '4rem' };
+			const paddingSP = { top: '4rem', left: '4vw', right: '4vw', bottom: '4rem' };
+			const _padPC = `${attributes.padPC}${attributes.padUnitPC}`;
+			const _padSP = `${attributes.padSP}${attributes.padUnitSP}`;
+			paddingPC.top = _padPC;
+			paddingPC.bottom = _padPC;
+			paddingSP.top = _padSP;
+			paddingSP.bottom = _padSP;
+
+			delete attributes.padPC;
+			delete attributes.padSP;
 			delete attributes.padUnitPC;
 			delete attributes.padUnitSP;
 
-			return { ...attributes, height, heightPC, heightSP, padPC, padSP, contentPosition };
+			// svg
+			const svgTop = {
+				type: attributes.svgTypeTop,
+				level: attributes.svgLevelTop,
+				color: attributes.svgColorTop,
+			};
+			const svgBottom = {
+				type: attributes.svgTypeBottom,
+				level: attributes.svgLevelBottom,
+				color: attributes.svgColorBottom,
+			};
+			delete attributes.svgTypeTop;
+			delete attributes.svgLevelTop;
+			delete attributes.svgColorTop;
+			delete attributes.svgTypeBottom;
+			delete attributes.svgLevelBottom;
+			delete attributes.svgColorBottom;
+
+			// その他
+			const contentPosition = attributes.contentPosition || 'center left';
+			delete attributes.isFullscreen;
+
+			return {
+				...attributes,
+				height,
+				heightPC,
+				heightSP,
+				paddingPC,
+				paddingSP,
+				contentPosition,
+				svgTop,
+				svgBottom,
+			};
 		},
 		save: ({ attributes }) => {
 			const {

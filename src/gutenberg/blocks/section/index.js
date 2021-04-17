@@ -14,7 +14,7 @@ import {
 } from '@wordpress/block-editor';
 
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
-import { Icon, fullscreen } from '@wordpress/icons';
+// import { Icon, fullscreen } from '@wordpress/icons';
 
 /**
  * @Internal dependencies
@@ -28,7 +28,7 @@ import TheSidebar from './_sidebar';
 import { SectionSVG } from './components/SectionSVG';
 import { BgMedia } from './components/BgMedia';
 import { ArkheMarginControl } from '@components/ArkheMarginControl';
-import { getPositionClassName } from '@helper/getPositionClassName';
+// import { getPositionClassName } from '@helper/getPositionClassName';
 import { getBlockStyle, getColorStyle, getSvgData } from './_helper';
 
 /**
@@ -65,13 +65,14 @@ registerBlockType(name, {
 			mediaUrl,
 			innerSize,
 			height,
-			padPC,
-			svgLevelTop,
-			svgLevelBottom,
-			svgTypeTop,
-			svgTypeBottom,
-			svgColorTop,
-			svgColorBottom,
+			svgTop,
+			svgBottom,
+			// svgLevelTop,
+			// svgLevelBottom,
+			// svgTypeTop,
+			// svgTypeBottom,
+			// svgColorTop,
+			// svgColorBottom,
 			contentPosition,
 			// isFullscreen,
 		} = attributes;
@@ -98,15 +99,15 @@ registerBlockType(name, {
 		const bgMedia = useMemo(() => <BgMedia attributes={attributes} />, [attributes]);
 
 		// svgデータ
-		const svgTop = useMemo(() => getSvgData(svgLevelTop), [svgLevelTop]);
-		const svgBottom = useMemo(() => getSvgData(svgLevelBottom), [svgLevelBottom]);
+		const svgDataTop = useMemo(() => getSvgData(svgTop), [svgTop]);
+		const svgDataBottom = useMemo(() => getSvgData(svgBottom), [svgBottom]);
 
 		// SVG分のpadding
-		if (0 !== svgLevelTop) {
-			style.paddingTop = `${svgTop.height}vw`;
+		if (0 !== svgDataTop.height) {
+			style['--arkb-svg-height--top'] = `${svgDataTop.height}vw`;
 		}
-		if (0 !== svgLevelBottom) {
-			style.paddingBottom = `${svgBottom.height}vw`;
+		if (0 !== svgDataBottom.height) {
+			style['--arkb-svg-height--bottom'] = `${svgDataBottom.height}vw`;
 		}
 
 		// ブロックProps
@@ -131,32 +132,6 @@ registerBlockType(name, {
 			}
 		);
 
-		const svgSrcTop = useMemo(() => {
-			if (svgLevelTop === 0) return null;
-			return (
-				<SectionSVG
-					position='top'
-					type={svgTypeTop}
-					height={svgTop.height}
-					isReverse={svgTop.isReverse}
-					fillColor={svgColorTop}
-				/>
-			);
-		}, [svgLevelTop, svgTypeTop, svgColorTop, svgTop]);
-
-		const svgSrcBottom = useMemo(() => {
-			if (svgLevelBottom === 0) return null;
-			return (
-				<SectionSVG
-					position='bottom'
-					type={svgTypeBottom}
-					height={svgBottom.height}
-					isReverse={svgBottom.isReverse}
-					fillColor={svgColorBottom}
-				/>
-			);
-		}, [svgLevelBottom, svgTypeBottom, svgColorBottom, svgBottom]);
-
 		const setPosition = useCallback(
 			(nextPosition) => {
 				// まだ切り替えてなくてもボタン展開する時に実行されてしまう
@@ -165,11 +140,11 @@ registerBlockType(name, {
 				}
 				setAttributes({ contentPosition: nextPosition });
 				// if (-1 !== nextPosition.indexOf(' center')) {
-				// 	setAttributes({ padPC: { ...padPC, left: '0px', right: '0px' } });
+				// 	setAttributes({ paddingPC: { ...paddingPC, left: '0px', right: '0px' } });
 				// } else if (-1 !== nextPosition.indexOf(' right')) {
-				// 	setAttributes({ padPC: { ...padPC, left: '50%', right: '0px' } });
+				// 	setAttributes({ paddingPC: { ...paddingPC, left: '50%', right: '0px' } });
 				// } else if (-1 !== nextPosition.indexOf(' left')) {
-				// 	setAttributes({ padPC: { ...padPC, left: '0px', right: '50%' } });
+				// 	setAttributes({ paddingPC: { ...paddingPC, left: '0px', right: '50%' } });
 				// }
 			},
 			[contentPosition]
@@ -196,18 +171,6 @@ registerBlockType(name, {
 									}}
 								/>
 							</ToolbarGroup>
-							{/* <ToolbarGroup>
-								<ToolbarButton
-									className={classnames('components-toolbar__control', {
-										'is-pressed': isFullscreen,
-									})}
-									label={__('Toggle fullscreen', 'arkhe-blocks')}
-									icon={<Icon icon={fullscreen} />}
-									onClick={() => {
-										setAttributes({ isFullscreen: !isFullscreen });
-									}}
-								/>
-							</ToolbarGroup> */}
 						</>
 					)}
 					<BlockAlignmentMatrixToolbar
@@ -215,20 +178,6 @@ registerBlockType(name, {
 						value={contentPosition}
 						onChange={setPosition}
 					/>
-					{/* {contentPosition && (
-						<ToolbarGroup>
-							<ToolbarButton
-								className='components-toolbar__control'
-								label={__('Delete position', 'arkhe-blocks')}
-								icon={blockIcon.removePosition}
-								// icon={<Icon icon={cancelCircleFilled} />}
-								onClick={() => {
-									setAttributes({ contentPosition: undefined });
-								}}
-							/>
-						</ToolbarGroup>
-					)} */}
-
 					<ArkheMarginControl {...{ className: attributes.className, setAttributes }} />
 				</BlockControls>
 				<InspectorControls>
@@ -247,8 +196,8 @@ registerBlockType(name, {
 					>
 						<div {...innerBlocksProps} />
 					</div>
-					{svgSrcTop}
-					{svgSrcBottom}
+					<SectionSVG position='top' svgData={svgDataTop} />
+					<SectionSVG position='bottom' svgData={svgDataBottom} />
 				</div>
 			</>
 		);

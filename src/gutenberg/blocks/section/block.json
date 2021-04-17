@@ -96,7 +96,7 @@
             "type": "string",
             "default": "50vh"
         },
-        "padPC": {
+        "paddingPC": {
             "type": "object",
             "default": {
                 "top": "4rem",
@@ -105,7 +105,7 @@
                 "bottom": "4rem"
             }
         },
-        "padSP": {
+        "paddingSP": {
             "type": "object",
             "default": {
                 "top": "4rem",
@@ -118,33 +118,21 @@
             "type": "boolean",
             "default": false
         },
-        "svgTypeTop": {
-            "type": "string",
-            "default": "line"
+        "svgTop": {
+            "type": "object",
+            "default": {
+                "type": "line",
+                "level": 0,
+                "color": ""
+            }
         },
-        "svgLevelTop": {
-            "type": "number",
-            "default": 0
-        },
-        "svgTypeBottom": {
-            "type": "string",
-            "default": "line"
-        },
-        "svgLevelBottom": {
-            "type": "number",
-            "default": 0
-        },
-        "svgColorTop": {
-            "type": "string",
-            "default": ""
-        },
-        "svgColorBottom": {
-            "type": "string",
-            "default": ""
-        },
-        "version": {
-            "type": "string",
-            "default": "2"
+        "svgBottom": {
+            "type": "object",
+            "default": {
+                "type": "line",
+                "level": 0,
+                "color": ""
+            }
         }
     },
     "editorScript": "file:../../../../dist/gutenberg/blocks/section/index.js",
