@@ -12,6 +12,7 @@ import edit from './edit';
 import save from './save';
 import metadata from './block.json';
 import blockIcon from './_icon';
+import example from './_example';
 
 /**
  * metadata
@@ -32,6 +33,7 @@ registerBlockType(name, {
 	keywords,
 	supports,
 	parent,
+	example,
 	attributes: metadata.attributes,
 	styles: [
 		{ name: 'default', label: __('Default', 'arkhe-blocks'), isDefault: true },

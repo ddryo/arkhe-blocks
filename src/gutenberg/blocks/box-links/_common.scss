@@ -1,13 +1,7 @@
-// .ark-block-boxLinks {
-// }
-
-// .ark-block-boxLink {
-// }
-
 // ボックスリンク
 .arkb-boxLink {
-	// box-shadow: 0 1px 12px 0 rgba(0, 0, 0, .1);
 	box-shadow: var(--arkb-shadow);
+
 	// htag時の優先度を考慮してネスト
 	.arkb-boxLink__title {
 		font-weight: bold;
@@ -83,16 +77,7 @@ a.arkb-boxLink__inner:hover {
 		top: 0;
 		left: 0;
 	}
-
-	// .is-fixed-ratio > &,
-	// .arkb-boxLink__bg &,
-	// .arkb-boxLink.-horizontal & {
-	// 	height: 100%;
-	// 	object-fit: cover;
-	// }
-
 }
-
 
 // .arkb-boxLink__icon {}
 

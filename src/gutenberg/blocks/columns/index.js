@@ -31,6 +31,7 @@ import example from './_example';
 import deprecated from './deprecated';
 import { ArkheMarginControl } from '@components/ArkheMarginControl';
 import { UnitNumber } from '@components/UnitNumber';
+import getColumnBasis from '@helper/getColumnBasis';
 
 /**
  * @Others dependencies
@@ -42,15 +43,6 @@ import classnames from 'classnames';
  */
 const blockName = 'ark-block-columns';
 const { apiVersion, name, category, keywords, supports } = metadata;
-
-const basisSet = {
-	col1: 100,
-	col2: 50,
-	col3: 33.33,
-	col4: 25,
-	col5: 20,
-	col6: 16.66,
-};
 
 /**
  * リッチカラム
@@ -78,9 +70,9 @@ registerBlockType(name, {
 		const blockProps = useBlockProps({
 			className: classnames(blockName, 'arkb-columns', 'ark-has-guide'),
 			style: {
-				'--arkb-fb': '1' !== colMobile ? basisSet[`col${colMobile}`] + '%' : null,
-				'--arkb-fb_tab': '2' !== colTab ? basisSet[`col${colTab}`] + '%' : null,
-				'--arkb-fb_pc': '2' !== colPC ? basisSet[`col${colPC}`] + '%' : null,
+				'--arkb-fb': '1' !== colMobile ? getColumnBasis(colMobile) : null,
+				'--arkb-fb_tab': '2' !== colTab ? getColumnBasis(colTab) : null,
+				'--arkb-fb_pc': '2' !== colPC ? getColumnBasis(colPC) : null,
 				'--arkb-clmn-mrgn--x': '0.75rem' !== margin.x ? margin.x : null,
 				'--arkb-clmn-mrgn--bttm': '1.5rem' !== margin.bottom ? margin.bottom : null,
 			},
@@ -113,7 +105,7 @@ registerBlockType(name, {
 					<ArkheMarginControl {...{ className: attributes.className, setAttributes }} />
 				</BlockControls>
 				<InspectorControls>
-					<PanelBody title={__('Columns Settings', 'arkhe-blocks')}>
+					<PanelBody title={__('Settings', 'arkhe-blocks')}>
 						<BaseControl>
 							<BaseControl.VisualLabel>
 								{__('Number of columns', 'arkhe-blocks')}
@@ -130,7 +122,6 @@ registerBlockType(name, {
 										}}
 										min={1}
 										max={8}
-										icon={<Icon icon={desktop} />}
 									/>
 								</FlexBlock>
 							</Flex>
@@ -165,34 +156,39 @@ registerBlockType(name, {
 								</FlexBlock>
 							</Flex>
 						</BaseControl>
-					</PanelBody>
-					<PanelBody title={__('Margin Settings', 'arkhe-blocks')}>
-						<Flex>
-							<FlexItem style={{ minWidth: '2.5em' }}>
-								{__('左右', 'arkhe-blocks')}
-							</FlexItem>
-							<FlexBlock>
-								<UnitNumber
-									value={margin.x}
-									onChange={(newVal) => {
-										setAttributes({ margin: { ...margin, x: newVal } });
-									}}
-								/>
-							</FlexBlock>
-						</Flex>
-						<Flex style={{ marginTop: '8px' }}>
-							<FlexItem style={{ minWidth: '2.5em' }}>
-								{__('下', 'arkhe-blocks')}
-							</FlexItem>
-							<FlexBlock>
-								<UnitNumber
-									value={margin.bottom}
-									onChange={(newVal) => {
-										setAttributes({ margin: { ...margin, bottom: newVal } });
-									}}
-								/>
-							</FlexBlock>
-						</Flex>
+						<BaseControl>
+							<BaseControl.VisualLabel>
+								{__('margin:', 'arkhe-blocks')}
+							</BaseControl.VisualLabel>
+							<Flex>
+								<FlexItem style={{ minWidth: '2.5em' }}>
+									{__('左右', 'arkhe-blocks')}
+								</FlexItem>
+								<FlexBlock>
+									<UnitNumber
+										value={margin.x}
+										onChange={(newVal) => {
+											setAttributes({ margin: { ...margin, x: newVal } });
+										}}
+									/>
+								</FlexBlock>
+							</Flex>
+							<Flex style={{ marginTop: '8px' }}>
+								<FlexItem style={{ minWidth: '2.5em' }}>
+									{__('下', 'arkhe-blocks')}
+								</FlexItem>
+								<FlexBlock>
+									<UnitNumber
+										value={margin.bottom}
+										onChange={(newVal) => {
+											setAttributes({
+												margin: { ...margin, bottom: newVal },
+											});
+										}}
+									/>
+								</FlexBlock>
+							</Flex>
+						</BaseControl>
 					</PanelBody>
 				</InspectorControls>
 				{/* 左右marginの関係でカラムブロックは一つdivかませる */}
@@ -208,9 +204,9 @@ registerBlockType(name, {
 		const blockProps = useBlockProps.save({
 			className: `${blockName} arkb-columns`,
 			style: {
-				'--arkb-fb': '1' !== colMobile ? basisSet[`col${colMobile}`] + '%' : null,
-				'--arkb-fb_tab': '2' !== colTab ? basisSet[`col${colTab}`] + '%' : null,
-				'--arkb-fb_pc': '2' !== colPC ? basisSet[`col${colPC}`] + '%' : null,
+				'--arkb-fb': '1' !== colMobile ? getColumnBasis(colMobile) : null,
+				'--arkb-fb_tab': '2' !== colTab ? getColumnBasis(colTab) : null,
+				'--arkb-fb_pc': '2' !== colPC ? getColumnBasis(colPC) : null,
 				'--arkb-clmn-mrgn--x': '0.75rem' !== margin.x ? margin.x : null,
 				'--arkb-clmn-mrgn--bttm': '1.5rem' !== margin.bottom ? margin.bottom : null,
 			},
