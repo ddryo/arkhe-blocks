@@ -15,12 +15,22 @@
 
 .ark-block-section__media {
 	z-index: 0;
+	--arkb-object-position: "center";
+	--arkb-object-position--sp: "center";
+}
+
+.ark-block-section__img,
+.ark-block-section__video {
+	object-position: var(--arkb-object-position);
+
+	@include sp {
+		object-position: var(--arkb-object-position--sp);
+	}
 }
 
 .ark-block-section__color {
 	z-index: 1;
 }
-
 
 .ark-block-section__body {
 	position: relative;
@@ -98,9 +108,7 @@
 	}
 }
 
-
 .ark-block-section__bodyInner {
-
 	width: 100%;
 	padding: var(--arkb-section-padding);
 
@@ -108,7 +116,6 @@
 		padding: var(--arkb-section-padding--sp);
 	}
 }
-
 
 // fill の詳細度をあげる
 .ark-block-section .ark-block-section__svg {

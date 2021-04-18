@@ -139,7 +139,7 @@ export default ({ attributes, setAttributes, isSelected }) => {
 					}}
 				/>
 				<div data-ark-disabled={'custom' !== height || null} style={{ marginTop: '16px' }}>
-					<Flex className=''>
+					<Flex>
 						<FlexItem style={{ marginRight: '4px' }}>
 							<Icon icon={desktop} />
 						</FlexItem>
@@ -153,7 +153,7 @@ export default ({ attributes, setAttributes, isSelected }) => {
 							/>
 						</FlexBlock>
 					</Flex>
-					<Flex className='' style={{ marginTop: '8px' }}>
+					<Flex style={{ marginTop: '8px' }}>
 						<FlexItem style={{ marginRight: '4px' }}>
 							<Icon icon={mobile} />
 						</FlexItem>

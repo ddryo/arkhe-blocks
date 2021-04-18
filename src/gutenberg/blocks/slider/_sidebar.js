@@ -70,7 +70,7 @@ export default ({ attributes, setAttributes }) => {
 						data-ark-disabled={'custom' !== height || null}
 						style={{ marginTop: '16px' }}
 					>
-						<Flex className=''>
+						<Flex>
 							<FlexItem style={{ marginRight: '4px' }}>
 								<Icon icon={desktop} />
 							</FlexItem>
@@ -84,7 +84,7 @@ export default ({ attributes, setAttributes }) => {
 								/>
 							</FlexBlock>
 						</Flex>
-						<Flex className='' style={{ marginTop: '8px' }}>
+						<Flex style={{ marginTop: '8px' }}>
 							<FlexItem style={{ marginRight: '4px' }}>
 								<Icon icon={mobile} />
 							</FlexItem>
@@ -187,21 +187,20 @@ export default ({ attributes, setAttributes }) => {
 					data-ark-disabled={
 						(options.slideNumPC === 1 && options.slideNumSP === 1) || null
 					}
-				>
-					<ToggleControl
-						label={__('表示枚数が複数の時、センターに寄せる', 'arkhe-blocks')}
-						checked={options.isCenter}
-						onChange={(val) => {
-							setOptions({ isCenter: val });
-						}}
-					/>
-				</div>
+				></div>
 			</PanelBody>
 			<PanelBody
-				title={__('デバイスごとの設定', 'arkhe-blocks')}
+				title={__('スライドの表示', 'arkhe-blocks')}
 				className='arkb-panel--slideHeight'
 				initialOpen={true}
 			>
+				<ToggleControl
+					label={__('スライドをセンター寄せにする', 'arkhe-blocks')}
+					checked={options.isCenter}
+					onChange={(val) => {
+						setOptions({ isCenter: val });
+					}}
+				/>
 				<ArkDeviceTab
 					controlPC={
 						<>

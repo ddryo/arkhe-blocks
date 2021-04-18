@@ -63,8 +63,8 @@ export default ({ attributes, setAttributes }) => {
 		bgColor,
 		bgGradient,
 		textColor,
-		padPC,
-		padSP,
+		paddingPC,
+		paddingSP,
 		// widthPC,
 		// widthSP,
 	} = attributes;
@@ -158,8 +158,8 @@ export default ({ attributes, setAttributes }) => {
 						controlPC={
 							<>
 								<PaddingControl
-									name='padPC'
-									value={padPC}
+									name='paddingPC'
+									value={paddingPC}
 									setAttributes={setAttributes}
 								/>
 							</>
@@ -167,8 +167,8 @@ export default ({ attributes, setAttributes }) => {
 						controlSP={
 							<>
 								<PaddingControl
-									name='padSP'
-									value={padSP}
+									name='paddingSP'
+									value={paddingSP}
 									setAttributes={setAttributes}
 								/>
 							</>

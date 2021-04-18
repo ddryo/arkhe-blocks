@@ -23,7 +23,7 @@ const Swiper = window.Swiper;
 const arkSlider = document.querySelectorAll('.ark-block-slider');
 arkSlider.forEach((slider) => {
 	const dataOption = slider.getAttribute('data-option');
-	console.log(dataOption);
+	// console.log(dataOption);
 
 	const swiperContainer = slider.querySelector('.swiper-container');
 
@@ -75,7 +75,7 @@ arkSlider.forEach((slider) => {
 			// 	el: '.swiper-scrollbar',
 			// },
 		};
-		console.log(swiperOptions);
+		// console.log(swiperOptions);
 		new Swiper(swiperContainer, swiperOptions);
 	}
 });

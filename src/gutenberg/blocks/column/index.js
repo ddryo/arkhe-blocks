@@ -2,6 +2,8 @@
  * @WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
+import { useSelect } from '@wordpress/data';
+import { useState } from '@wordpress/element';
 import { registerBlockType } from '@wordpress/blocks';
 import {
 	BlockControls,
@@ -11,8 +13,18 @@ import {
 	useBlockProps,
 	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
 } from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
-import { PanelBody, RangeControl, ToggleControl } from '@wordpress/components';
+import {
+	PanelBody,
+	RangeControl,
+	ToggleControl,
+	Tooltip,
+	Button,
+	BaseControl,
+	Flex,
+	FlexItem,
+	FlexBlock,
+} from '@wordpress/components';
+import { Icon, mobile, tablet, desktop, link, linkOff } from '@wordpress/icons';
 
 /**
  * @Internal dependencies
@@ -34,6 +46,30 @@ const blockName = 'ark-block-column';
 const { apiVersion, name, category, keywords, supports, parent } = metadata;
 
 /**
+ * see: https://github.com/WordPress/gutenberg/blob/899286307b/packages/components/src/box-control/linked-button.js
+ */
+const LinkedButton = ({ isLinked, ...props }) => {
+	const label = isLinked ? __('Unlink Sides') : __('Link Sides');
+
+	return (
+		<Tooltip text={label}>
+			<span className='__link'>
+				<Button
+					{...props}
+					className='component-box-control__linked-button'
+					isPrimary={isLinked}
+					isSecondary={!isLinked}
+					isSmall
+					icon={isLinked ? link : linkOff}
+					iconSize={16}
+					aria-label={label}
+				/>
+			</span>
+		</Tooltip>
+	);
+};
+
+/**
  * リッチカラム-項目
  */
 registerBlockType(name, {
@@ -51,6 +87,8 @@ registerBlockType(name, {
 	edit: (props) => {
 		const { attributes, setAttributes, clientId } = props;
 		const { vAlign, widthPC, widthTab, widthMobile, isBreakAll } = attributes;
+
+		const [isLinked, setIsLinked] = useState(false);
 
 		// 子ブロックの設定
 		const blockClass = classnames(
@@ -105,39 +143,98 @@ registerBlockType(name, {
 				</BlockControls>
 				<InspectorControls>
 					<PanelBody title={__('Settings', 'arkhe-blocks')}>
-						<RangeControl
-							label={__('Column width', 'arkhe-blocks') + ' [%] (PC)'}
-							className='arkb-range--useReset'
-							value={widthPC}
-							onChange={(val) => {
-								setAttributes({ widthPC: val });
-							}}
-							min={10}
-							max={100}
-							allowReset={true}
-						/>
-						<RangeControl
-							label={__('Column width', 'arkhe-blocks') + ' [%] (Tab)'}
-							className='arkb-range--useReset'
-							value={widthTab}
-							onChange={(val) => {
-								setAttributes({ widthTab: val });
-							}}
-							min={10}
-							max={100}
-							allowReset={true}
-						/>
-						<RangeControl
-							label={__('Column width', 'arkhe-blocks') + ' [%] (Mobile)'}
-							className='arkb-range--useReset'
-							value={widthMobile}
-							onChange={(val) => {
-								setAttributes({ widthMobile: val });
-							}}
-							min={10}
-							max={100}
-							allowReset={true}
-						/>
+						<BaseControl>
+							<BaseControl.VisualLabel>
+								<Flex style={{ paddingBottom: '4px' }}>
+									<FlexItem style={{ marginRight: 'auto' }}>
+										{__('Column width', 'arkhe-blocks') + ' [%]'}
+									</FlexItem>
+									<FlexItem>
+										<LinkedButton
+											onClick={() => {
+												setIsLinked(!isLinked);
+											}}
+											isLinked={isLinked}
+										/>
+									</FlexItem>
+								</Flex>
+							</BaseControl.VisualLabel>
+							<Flex align='flex-start'>
+								<FlexItem style={{ marginRight: '4px', marginTop: '4px' }}>
+									<Icon icon={desktop} />
+								</FlexItem>
+								<FlexBlock>
+									<RangeControl
+										className='arkb-range--useReset -colmun'
+										value={widthPC}
+										onChange={(val) => {
+											if (isLinked) {
+												setAttributes({
+													widthPC: val,
+													widthTab: val,
+													widthMobile: val,
+												});
+											} else {
+												setAttributes({ widthPC: val });
+											}
+										}}
+										min={10}
+										max={100}
+										allowReset={true}
+									/>
+								</FlexBlock>
+							</Flex>
+							<Flex align='flex-start'>
+								<FlexItem style={{ marginRight: '4px', marginTop: '4px' }}>
+									<Icon icon={tablet} />
+								</FlexItem>
+								<FlexBlock>
+									<RangeControl
+										className='arkb-range--useReset -colmun'
+										value={widthTab}
+										onChange={(val) => {
+											if (isLinked) {
+												setAttributes({
+													widthPC: val,
+													widthTab: val,
+													widthMobile: val,
+												});
+											} else {
+												setAttributes({ widthTab: val });
+											}
+										}}
+										min={10}
+										max={100}
+										allowReset={true}
+									/>
+								</FlexBlock>
+							</Flex>
+							<Flex align='flex-start'>
+								<FlexItem style={{ marginRight: '4px', marginTop: '4px' }}>
+									<Icon icon={mobile} />
+								</FlexItem>
+								<FlexBlock>
+									<RangeControl
+										className='arkb-range--useReset -colmun'
+										value={widthMobile}
+										onChange={(val) => {
+											if (isLinked) {
+												setAttributes({
+													widthPC: val,
+													widthTab: val,
+													widthMobile: val,
+												});
+											} else {
+												setAttributes({ widthMobile: val });
+											}
+										}}
+										min={10}
+										max={100}
+										allowReset={true}
+									/>
+								</FlexBlock>
+							</Flex>
+						</BaseControl>
 						<ToggleControl
 							label={__(
 								'Forcibly breaks the character string according to the display range',

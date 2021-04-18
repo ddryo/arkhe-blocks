@@ -94,7 +94,7 @@ export const SlideMedia = ({ attributes }) => {
 	// 	mediaSrc = <></>;
 	// }
 
-	const layerClass = classnames(`${blockName}__mediaLayer`, {
+	const layerClass = classnames(`${blockName}__media`, {
 		'arkb-absLayer': 'rich' === variation,
 	});
 

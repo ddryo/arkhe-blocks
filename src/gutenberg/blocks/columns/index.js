@@ -11,7 +11,15 @@ import {
 	useBlockProps,
 	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
 } from '@wordpress/block-editor';
-import { PanelBody, RangeControl } from '@wordpress/components';
+import {
+	PanelBody,
+	RangeControl,
+	BaseControl,
+	Flex,
+	FlexItem,
+	FlexBlock,
+} from '@wordpress/components';
+import { Icon, mobile, tablet, desktop } from '@wordpress/icons';
 
 /**
  * @Internal dependencies
@@ -20,7 +28,9 @@ import { iconColor } from '@blocks/config';
 import metadata from './block.json';
 import blockIcon from './_icon';
 import example from './_example';
+import deprecated from './deprecated';
 import { ArkheMarginControl } from '@components/ArkheMarginControl';
+import { UnitNumber } from '@components/UnitNumber';
 
 /**
  * @Others dependencies
@@ -63,25 +73,18 @@ registerBlockType(name, {
 	attributes: metadata.attributes,
 	edit: (props) => {
 		const { attributes, setAttributes } = props;
-		const { vAlign, colPC, colTab, colMobile } = attributes;
-
-		// console.log(attributes.tagName);
-
-		const blockClass = classnames(blockName, 'arkb-columns', 'ark-has-guide');
-
-		const columnStyle = {
-			'--arkb-fb': basisSet[`col${colMobile}`] + '%',
-			'--arkb-fb_tab': basisSet[`col${colTab}`] + '%',
-			'--arkb-fb_pc': basisSet[`col${colPC}`] + '%',
-		};
+		const { vAlign, colPC, colTab, colMobile, margin } = attributes;
 
 		const blockProps = useBlockProps({
-			className: blockClass,
-			style: columnStyle,
+			className: classnames(blockName, 'arkb-columns', 'ark-has-guide'),
+			style: {
+				'--arkb-fb': '1' !== colMobile ? basisSet[`col${colMobile}`] + '%' : null,
+				'--arkb-fb_tab': '2' !== colTab ? basisSet[`col${colTab}`] + '%' : null,
+				'--arkb-fb_pc': '2' !== colPC ? basisSet[`col${colPC}`] + '%' : null,
+				'--arkb-clmn-mrgn--x': '0.75rem' !== margin.x ? margin.x : null,
+				'--arkb-clmn-mrgn--bttm': '1.5rem' !== margin.bottom ? margin.bottom : null,
+			},
 			'data-valign': vAlign || null,
-			'data-col': colMobile,
-			'data-col-tab': colTab,
-			'data-col-pc': colPC,
 		});
 
 		// 左右marginの関係でカラムブロックは一つdivかませる
@@ -110,34 +113,86 @@ registerBlockType(name, {
 					<ArkheMarginControl {...{ className: attributes.className, setAttributes }} />
 				</BlockControls>
 				<InspectorControls>
-					<PanelBody title='カラム設定'>
-						<RangeControl
-							label={__('Number of columns', 'arkhe-blocks') + '(PC)'}
-							value={parseInt(colPC)}
-							onChange={(val) => {
-								setAttributes({ colPC: val + '' });
-							}}
-							min={1}
-							max={6}
-						/>
-						<RangeControl
-							label={__('Number of columns', 'arkhe-blocks') + '(Tab)'}
-							value={parseInt(colTab)}
-							onChange={(val) => {
-								setAttributes({ colTab: val + '' });
-							}}
-							min={1}
-							max={4}
-						/>
-						<RangeControl
-							label={__('Number of columns', 'arkhe-blocks') + '(Mobile)'}
-							value={parseInt(colMobile)}
-							onChange={(val) => {
-								setAttributes({ colMobile: val + '' });
-							}}
-							min={1}
-							max={4}
-						/>
+					<PanelBody title={__('Columns Settings', 'arkhe-blocks')}>
+						<BaseControl>
+							<BaseControl.VisualLabel>
+								{__('Number of columns', 'arkhe-blocks')}
+							</BaseControl.VisualLabel>
+							<Flex>
+								<FlexItem style={{ marginRight: '4px', marginBottom: '8px' }}>
+									<Icon icon={desktop} />
+								</FlexItem>
+								<FlexBlock>
+									<RangeControl
+										value={parseInt(colPC)}
+										onChange={(val) => {
+											setAttributes({ colPC: val + '' });
+										}}
+										min={1}
+										max={8}
+										icon={<Icon icon={desktop} />}
+									/>
+								</FlexBlock>
+							</Flex>
+							<Flex>
+								<FlexItem style={{ marginRight: '4px', marginBottom: '8px' }}>
+									<Icon icon={tablet} />
+								</FlexItem>
+								<FlexBlock>
+									<RangeControl
+										value={parseInt(colTab)}
+										onChange={(val) => {
+											setAttributes({ colTab: val + '' });
+										}}
+										min={1}
+										max={8}
+									/>
+								</FlexBlock>
+							</Flex>
+							<Flex>
+								<FlexItem style={{ marginRight: '4px', marginBottom: '8px' }}>
+									<Icon icon={mobile} />
+								</FlexItem>
+								<FlexBlock>
+									<RangeControl
+										value={parseInt(colMobile)}
+										onChange={(val) => {
+											setAttributes({ colMobile: val + '' });
+										}}
+										min={1}
+										max={6}
+									/>
+								</FlexBlock>
+							</Flex>
+						</BaseControl>
+					</PanelBody>
+					<PanelBody title={__('Margin Settings', 'arkhe-blocks')}>
+						<Flex>
+							<FlexItem style={{ minWidth: '2.5em' }}>
+								{__('左右', 'arkhe-blocks')}
+							</FlexItem>
+							<FlexBlock>
+								<UnitNumber
+									value={margin.x}
+									onChange={(newVal) => {
+										setAttributes({ margin: { ...margin, x: newVal } });
+									}}
+								/>
+							</FlexBlock>
+						</Flex>
+						<Flex style={{ marginTop: '8px' }}>
+							<FlexItem style={{ minWidth: '2.5em' }}>
+								{__('下', 'arkhe-blocks')}
+							</FlexItem>
+							<FlexBlock>
+								<UnitNumber
+									value={margin.bottom}
+									onChange={(newVal) => {
+										setAttributes({ margin: { ...margin, bottom: newVal } });
+									}}
+								/>
+							</FlexBlock>
+						</Flex>
 					</PanelBody>
 				</InspectorControls>
 				{/* 左右marginの関係でカラムブロックは一つdivかませる */}
@@ -149,20 +204,17 @@ registerBlockType(name, {
 	},
 
 	save: ({ attributes }) => {
-		const { vAlign, colPC, colTab, colMobile } = attributes;
-		const columnStyle = {
-			'--arkb-fb': basisSet[`col${colMobile}`] + '%',
-			'--arkb-fb_tab': basisSet[`col${colTab}`] + '%',
-			'--arkb-fb_pc': basisSet[`col${colPC}`] + '%',
-		};
-
+		const { vAlign, colPC, colTab, colMobile, margin } = attributes;
 		const blockProps = useBlockProps.save({
 			className: `${blockName} arkb-columns`,
-			style: columnStyle,
+			style: {
+				'--arkb-fb': '1' !== colMobile ? basisSet[`col${colMobile}`] + '%' : null,
+				'--arkb-fb_tab': '2' !== colTab ? basisSet[`col${colTab}`] + '%' : null,
+				'--arkb-fb_pc': '2' !== colPC ? basisSet[`col${colPC}`] + '%' : null,
+				'--arkb-clmn-mrgn--x': '0.75rem' !== margin.x ? margin.x : null,
+				'--arkb-clmn-mrgn--bttm': '1.5rem' !== margin.bottom ? margin.bottom : null,
+			},
 			'data-valign': vAlign || null,
-			'data-col': colMobile,
-			'data-col-tab': colTab,
-			'data-col-pc': colPC,
 		});
 
 		return (
@@ -171,4 +223,5 @@ registerBlockType(name, {
 			</div>
 		);
 	},
+	deprecated,
 });

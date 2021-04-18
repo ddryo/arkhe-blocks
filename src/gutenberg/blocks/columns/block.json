@@ -23,24 +23,22 @@
         },
         "colPC": {
             "type": "string",
-            "source": "attribute",
-            "selector": ".arkb-columns",
-            "attribute": "data-col-pc",
             "default": "2"
         },
         "colTab": {
             "type": "string",
-            "source": "attribute",
-            "selector": ".arkb-columns",
-            "attribute": "data-col-tab",
             "default": "2"
         },
         "colMobile": {
             "type": "string",
-            "source": "attribute",
-            "selector": ".arkb-columns",
-            "attribute": "data-col",
             "default": "1"
+        },
+        "margin": {
+            "type": "object",
+            "default": {
+                "x": "0.75rem",
+                "bottom": "1.5rem"
+            }
         }
     },
     "editorScript": "file:../../../../dist/gutenberg/blocks/columns/index.js",

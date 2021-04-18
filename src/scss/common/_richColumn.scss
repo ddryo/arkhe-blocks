@@ -1,10 +1,16 @@
 .arkb-columns {
+	--arkb-fb: 100%;
+	--arkb-fb_tab: 50%;
+	--arkb-fb_pc: 50%;
+	--arkb-clmn-mrgn--x: .75rem;
+	--arkb-clmn-mrgn--bttm: 1.5rem;
+
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: flex-start;
-	margin-right: -.75rem;
-	margin-bottom: -1.5rem;
-	margin-left: -.75rem;
+	margin-right: calc(-1 * var(--arkb-clmn-mrgn--x));
+	margin-bottom: calc(-1 * var(--arkb-clmn-mrgn--bttm));
+	margin-left: calc(-1 * var(--arkb-clmn-mrgn--x));
 
 	&.alignfull {
 		margin-right: 0;
@@ -27,17 +33,19 @@
 
 .arkb-columns__item {
 
-	// flex-basis だと redized画像がエディターでだけはみ出るので、 width使う
-	width: calc(var(--arkb-fb, 100%) - 1.5rem);
+	// flex-basis だと redized画像がエディターではみ出るので、 width使う
+	width: calc(var(--arkb-fb) - var(--arkb-clmn-mrgn--x) * 2);
+	margin: 0 var(--arkb-clmn-mrgn--x) var(--arkb-clmn-mrgn--bttm); // editor用CSSでimportantつけてる
 	// flex-grow: 0;
-	margin: 0 .75rem 1.5rem;
 
 	@include tab {
-		width: calc(var(--arkb-fb_tab, 50%) - 1.5rem);
+		--arkb-fb: var(--arkb-fb_tab);
+		// width: calc(var(--arkb-fb_tab) - var(--arkb-clmn-mrgn--x) * 2);
 	}
 
 	@include pc {
-		width: calc(var(--arkb-fb_pc, 50%) - 1.5rem);
+		--arkb-fb: var(--arkb-fb_pc);
+		// width: calc(var(--arkb-fb_pc) - var(--arkb-clmn-mrgn--x) * 2);
 	}
 
 	&[data-valign="top"] {

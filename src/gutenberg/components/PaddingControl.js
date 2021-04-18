@@ -41,7 +41,7 @@ const LinkedButton = ({ isLinked, ...props }) => {
  */
 export const PaddingControl = ({ name, value, setAttributes }) => {
 	// console.log(name, value);
-	const [isLinked, setIsLinked] = useState(false); // 全値が同じかどうか初期チェック
+	const [isLinked, setIsLinked] = useState(false);
 
 	const changeAll = (newVal) => {
 		setAttributes({

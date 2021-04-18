@@ -17,7 +17,7 @@
             "type": "string",
             "default": ""
         },
-        "padPC": {
+        "paddingPC": {
             "type": "object",
             "default": {
                 "top": "2em",
@@ -26,7 +26,7 @@
                 "bottom": "2em"
             }
         },
-        "padSP": {
+        "paddingSP": {
             "type": "object",
             "default": {
                 "top": "2em",

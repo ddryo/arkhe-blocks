@@ -94,8 +94,8 @@ export const RichEdit = ({ attributes, setAttributes }) => {
 		opacity,
 		textColor,
 		contentPosition,
-		padPC,
-		padSP,
+		paddingPC,
+		paddingSP,
 		// widthPC,
 		// widthSP,
 	} = attributes;
@@ -104,14 +104,8 @@ export const RichEdit = ({ attributes, setAttributes }) => {
 	const blockProps = useBlockProps({
 		className: `${blockName}__slide`,
 		style: {
-			'--arkb-slide-pad': `${padPC.top} ${padPC.right} ${padPC.bottom} ${padPC.left}`,
-			'--arkb-slide-pad--sp': `${padSP.top} ${padSP.right} ${padSP.bottom} ${padSP.left}`,
-			// '--arkb-slide-pad-x': padPC.x,
-			// '--arkb-slide-pad-y': padPC.y,
-			// '--arkb-slide-pad-y--sp': padSP.y,
-			// '--arkb-slide-pad-x--sp': padSP.x,
-			// '--arkb-slide-content-width': widthPC,
-			// '--arkb-slide-content-width--sp': widthSP,
+			'--arkb-slide-padding': `${paddingPC.top} ${paddingPC.right} ${paddingPC.bottom} ${paddingPC.left}`,
+			'--arkb-slide-padding--sp': `${paddingSP.top} ${paddingSP.right} ${paddingSP.bottom} ${paddingSP.left}`,
 		},
 	});
 
@@ -124,7 +118,7 @@ export const RichEdit = ({ attributes, setAttributes }) => {
 		txtLayerStyle.color = textColor;
 	}
 	const innerBlocksProps = useInnerBlocksProps(
-		{ className: `${blockName}__textInner ark-keep-mt--s`, style: txtLayerStyle },
+		{ className: `${blockName}__bodyInner ark-keep-mt--s`, style: txtLayerStyle },
 		{
 			// template: [['core/paragraph']],
 			templateLock: false,
@@ -144,12 +138,9 @@ export const RichEdit = ({ attributes, setAttributes }) => {
 			</BlockControls>
 			<div {...blockProps}>
 				<SlideMedia {...{ attributes }} />
+				<div className={`${blockName}__color arkb-absLayer`} style={colorLayerStyle}></div>
 				<div
-					className={`${blockName}__colorLayer arkb-absLayer`}
-					style={colorLayerStyle}
-				></div>
-				<div
-					className={`${blockName}__textLayer`}
+					className={`${blockName}__body`}
 					data-content={contentPosition.replace(' ', '-')}
 					style={txtLayerStyle}
 				>

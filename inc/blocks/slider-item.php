@@ -33,19 +33,14 @@ function cb_slider_item( $attrs, $content ) {
  */
 function render_rich_slider( $attrs, $content ) {
 
-	$padPC           = $attrs['padPC'];
-	$padSP           = $attrs['padSP'];
+	$padPC           = $attrs['paddingPC'];
+	$padSP           = $attrs['paddingSP'];
 	$contentPosition = $attrs['contentPosition'];
 
 	// style
 	$block_style = [
-		'--arkb-slide-pad'               => "{$padPC['top']} {$padPC['right']} {$padPC['bottom']} {$padPC['left']}",
-		'--arkb-slide-pad--sp'           => "{$padSP['top']} {$padSP['right']} {$padSP['bottom']} {$padSP['left']}",
-		// '--arkb-slide-pad-y'             => $attrs['padPC']['y'],
-		// '--arkb-slide-pad-y--sp'         => $attrs['padSP']['y'],
-		// '--arkb-slide-pad-x--sp'         => $attrs['padSP']['x'],
-		// '--arkb-slide-content-width'     => $attrs['widthPC'],
-		// '--arkb-slide-content-width--sp' => $attrs['widthSP'],
+		'--arkb-slide-padding'               => "{$padPC['top']} {$padPC['right']} {$padPC['bottom']} {$padPC['left']}",
+		'--arkb-slide-padding--sp'           => "{$padSP['top']} {$padSP['right']} {$padSP['bottom']} {$padSP['left']}",
 	];
 	$block_style = \Arkhe_Blocks::convert_style_props( $block_style );
 
@@ -72,9 +67,9 @@ function render_rich_slider( $attrs, $content ) {
 	?>
 	<div class="ark-block-slider__slide swiper-slide" style="<?=esc_attr( $block_style )?>">
 		<?php \Arkhe_Blocks\render_slide_media_layer( $attrs ); ?>
-		<div class="ark-block-slider__colorLayer arkb-absLayer" style="<?=esc_attr( $color_layer_style )?>"></div>
-		<div class="ark-block-slider__textLayer"<?=$text_layer_props?>>
-			<div class="ark-block-slider__textInner ark-keep-mt--s">
+		<div class="ark-block-slider__color arkb-absLayer" style="<?=esc_attr( $color_layer_style )?>"></div>
+		<div class="ark-block-slider__body"<?=$text_layer_props?>>
+			<div class="ark-block-slider__bodyInner ark-keep-mt--s">
 				<?=$content?>
 			</div>
 		</div>
@@ -131,7 +126,7 @@ function render_slide_media_layer( $attrs ) {
 	}
 	$style = \Arkhe_Blocks::convert_style_props( $style );
 
-	$mediaSrc = '';
+	$media_html = '';
 
 	if ( 'video' === $mediaType && 'image' !== $mediaTypeSP ) {
 		// videoタグの属性
@@ -147,11 +142,11 @@ function render_slide_media_layer( $attrs ) {
 		}
 
 		// 出力内容
-		$mediaSrc = '<video class="ark-block-slider__video u-obf-cover"' . $video_props . '>';
+		$media_html = '<video class="ark-block-slider__video u-obf-cover"' . $video_props . '>';
 		if ( $mediaUrlSP ) {
-			$mediaSrc .= '<source media="(max-width: 999px)" src="' . esc_attr( $mediaUrlSP ) . '" />';
+			$media_html .= '<source media="(max-width: 999px)" src="' . esc_attr( $mediaUrlSP ) . '" />';
 		}
-		$mediaSrc .= '<source src="' . esc_attr( $mediaUrl ) . '" class="ark-block-slider__source" /></video>';
+		$media_html .= '<source src="' . esc_attr( $mediaUrl ) . '" class="ark-block-slider__source" /></video>';
 
 	} elseif ( 'image' === $mediaType && 'video' !== $mediaTypeSP ) {
 
@@ -177,20 +172,20 @@ function render_slide_media_layer( $attrs ) {
 		}
 
 		// 出力内容
-		$mediaSrc = '<picture class="ark-block-slider__picture u-obf-cover"' . $picture_props . '>';
+		$media_html = '<picture class="ark-block-slider__picture u-obf-cover"' . $picture_props . '>';
 		if ( $mediaUrlSP ) {
-			$mediaSrc .= '<source media="(max-width: 999px)" srcset="' . esc_attr( $mediaUrlSP ) . '" />';
+			$media_html .= '<source media="(max-width: 999px)" srcset="' . esc_attr( $mediaUrlSP ) . '" />';
 		}
-		$mediaSrc .= '<img src="' . esc_attr( $mediaUrl ) . '" class="' . esc_attr( $img_class ) . '"' . $img_props . '></picture>';
+		$media_html .= '<img src="' . esc_attr( $mediaUrl ) . '" class="' . esc_attr( $img_class ) . '"' . $img_props . '></picture>';
 	}
 
-	$layer_class = 'ark-block-slider__mediaLayer';
+	$layer_class = 'ark-block-slider__media';
 	if ( 'rich' === $attrs['variation'] ) {
 		$layer_class .= ' arkb-absLayer';
 	}
 
-	// $mediaSrc = apply_filters( 'arkb_slide_media_src', $mediaSrc, $attrs );
-	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
-	echo '<div class="' . esc_attr( $layer_class ) . '">' . $mediaSrc . '</div>';
-	// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
+	$media_html = apply_filters( 'arkb_slide_media_html', $media_html, $attrs );
+	if ( $media_html ) {
+		echo '<div class="' . esc_attr( $layer_class ) . '">' . $media_html . '</div>'; // phpcs:ignore
+	}
 }
