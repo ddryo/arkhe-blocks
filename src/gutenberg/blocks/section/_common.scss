@@ -1,13 +1,16 @@
 .ark-block-section {
-	position: relative;
-	padding-top: var(--arkb-svg-height--top, 0);
-	padding-bottom: var(--arkb-svg-height--bottom, 0);
-
 	// セクションを入れ子にした時に、親セクションの影響を受けないようにする
 	--arkb-section-padding: 4rem 2rem;
 	--arkb-section-padding--sp: 4rem 2rem;
 	--arkb-section-minH: "none";
 	--arkb-section-minH--sp: "none";
+	--arkb-svg-height--top: 0;
+	--arkb-svg-height--bottom: 0;
+
+	// 普通のCSS
+	position: relative;
+	padding-top: var(--arkb-svg-height--top);
+	padding-bottom: var(--arkb-svg-height--bottom);
 }
 
 .ark-block-section__media {
@@ -96,7 +99,7 @@
 }
 
 
-.ark-block-section__inner {
+.ark-block-section__bodyInner {
 
 	width: 100%;
 	padding: var(--arkb-section-padding);
@@ -105,25 +108,6 @@
 		padding: var(--arkb-section-padding--sp);
 	}
 }
-
-
-// 過去のものに対するスタイル
-// .ark-block-section:not([data-v="2"]) {
-// 	--arkb-section-pad--sp: 4rem;
-// 	--arkb-section-pad--sp: 4rem;
-// 	--arkb-section-minH--pc: "none";
-// 	--arkb-section-minH--sp: "none";
-
-// 	.ark-block-section__inner {
-// 		min-height: var(--arkb-section-minH--pc);
-// 		padding: var(--arkb-section-pad--pc, 4rem) var(--ark-pad--container, 48px);
-
-// 		@include sp {
-// 			min-height: var(--arkb-section-minH--sp);
-// 			padding: var(--arkb-section-pad--sp, 4rem) var(--ark-pad--container, 4vw);
-// 		}
-// 	}
-// }
 
 
 // fill の詳細度をあげる
@@ -137,12 +121,12 @@
 
 	&.-top {
 		top: -1px;
-		height: var(--arkb-svg-height--top, 0);
+		height: var(--arkb-svg-height--top);
 	}
 
 	&.-bottom {
 		bottom: -1px;
-		height: var(--arkb-svg-height--bottom, 0);
+		height: var(--arkb-svg-height--bottom);
 		transform: rotate(180deg);
 	}
 }

@@ -3,6 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
+import { useDispatch, useSelect } from '@wordpress/data';
 import { useMemo, useCallback } from '@wordpress/element';
 import {
 	BlockControls,
@@ -59,7 +60,7 @@ registerBlockType(name, {
 	supports,
 	example,
 	attributes: metadata.attributes,
-	edit: ({ attributes, setAttributes, isSelected }) => {
+	edit: ({ attributes, setAttributes, isSelected, clientId }) => {
 		const {
 			align,
 			mediaUrl,
@@ -67,26 +68,15 @@ registerBlockType(name, {
 			height,
 			svgTop,
 			svgBottom,
-			// svgLevelTop,
-			// svgLevelBottom,
-			// svgTypeTop,
-			// svgTypeBottom,
-			// svgColorTop,
-			// svgColorBottom,
 			contentPosition,
-			// isFullscreen,
 		} = attributes;
 
-		// useEffect(() => {
-		// 	if ('full' !== align && isFullscreen) {
-		// 		setAttributes({ isFullscreen: false });
-		// 	}
-		// }, [align, isFullscreen]);
+		const { updateBlockAttributes } = useDispatch('core/block-editor');
+		const getChildBlocks = useSelect((select) => select('core/block-editor').getBlocks, []);
 
 		// クラス名
 		const blockClass = classnames(blockName, {
 			'has-bg-img': !!mediaUrl,
-			// 'has-position': !!positionClass,
 		});
 
 		// スタイルデータ
@@ -116,15 +106,11 @@ registerBlockType(name, {
 			style: style || null,
 			'data-height': height || null,
 			'data-inner': innerSize || null,
-			'data-v': '2',
-			// 'data-fullscreen': isFullscreen ? '1' : null,
 		});
 
-		// content位置のクラス
-		// const positionClass = getPositionClassName(contentPosition, '');
 		const innerBlocksProps = useInnerBlocksProps(
 			{
-				className: `${blockName}__inner ark-keep-mt`,
+				className: `${blockName}__bodyInner ark-keep-mt`,
 			},
 			{
 				template: [['arkhe-blocks/section-heading'], ['core/paragraph']],
@@ -132,20 +118,34 @@ registerBlockType(name, {
 			}
 		);
 
+		// コンテンツ位置変更処理
 		const setPosition = useCallback(
 			(nextPosition) => {
-				// まだ切り替えてなくてもボタン展開する時に実行されてしまう
+				// まだ切り替えてなくてもボタン展開する時に実行されてしまうのでそれを防ぐ
 				if (contentPosition === nextPosition) {
 					return;
 				}
 				setAttributes({ contentPosition: nextPosition });
-				// if (-1 !== nextPosition.indexOf(' center')) {
-				// 	setAttributes({ paddingPC: { ...paddingPC, left: '0px', right: '0px' } });
-				// } else if (-1 !== nextPosition.indexOf(' right')) {
-				// 	setAttributes({ paddingPC: { ...paddingPC, left: '50%', right: '0px' } });
-				// } else if (-1 !== nextPosition.indexOf(' left')) {
-				// 	setAttributes({ paddingPC: { ...paddingPC, left: '0px', right: '50%' } });
-				// }
+
+				let textAlign = '';
+				if (-1 !== nextPosition.indexOf(' center')) {
+					textAlign = 'center';
+					// setAttributes({ paddingPC: { ...paddingPC, left: '0px', right: '0px' } });
+				} else if (-1 !== nextPosition.indexOf(' right')) {
+					textAlign = 'right';
+					// setAttributes({ paddingPC: { ...paddingPC, left: '50%', right: '0px' } });
+				} else if (-1 !== nextPosition.indexOf(' left')) {
+					textAlign = 'left';
+					// setAttributes({ paddingPC: { ...paddingPC, left: '0px', right: '50%' } });
+				}
+
+				// 子ブロックにも反映
+				const childBlocks = getChildBlocks(clientId);
+				childBlocks.forEach((block) => {
+					if ('arkhe-blocks/section-heading' === block.name && textAlign) {
+						updateBlockAttributes(block.clientId, { textAlign });
+					}
+				});
 			},
 			[contentPosition]
 		);

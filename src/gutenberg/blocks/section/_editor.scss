@@ -29,7 +29,7 @@
 	&.has-child-selected,
 	&.is-selected {
 
-		&:not([data-height="content"]) .ark-block-section__inner {
+		&:not([data-height="content"]) .ark-block-section__bodyInner {
 			position: relative;
 
 			&::before {
@@ -48,7 +48,7 @@
 	}
 }
 
-.ark-block-section__inner {
+.ark-block-section__bodyInner {
 
 	& > .wp-block {
 		max-width: 100%;
