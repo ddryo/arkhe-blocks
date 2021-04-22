@@ -49,6 +49,10 @@ class Get_OGP_InWP {
 	 */
 	public static function get( $url, $fetch_args = null, $targets = null ) {
 
+		if ( false === strpos( $url, '//' ) ) {
+			$url = 'https://' . $url;
+		}
+
 		$fetch_args = $fetch_args ?: self::$default_fetch_args;
 		$targets    = $targets ?: self::$default_targets;
 
@@ -182,6 +186,11 @@ class Get_OGP_InWP {
 		$thumbnail = $ogps['og:image'] ?? '';
 		if ( '' === $thumbnail ) {
 			$thumbnail = $ogps['thumbnail'] ?? '';
+		}
+
+		// delete http
+		if ( false !== strpos( $thumbnail, 'http://' ) ) {
+			$thumbnail = str_replace( 'http://', '//', $thumbnail );
 		}
 
 		// favicon image
