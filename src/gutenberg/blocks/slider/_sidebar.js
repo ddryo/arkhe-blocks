@@ -39,7 +39,7 @@ export default ({ attributes, setAttributes }) => {
 		<>
 			{isRichSlider && (
 				<PanelBody
-					title={__('スライダーの高さ setting', 'arkhe-blocks')}
+					title={__('Slider height', 'arkhe-blocks')}
 					className='arkb-panel--slideHeight'
 					initialOpen={true}
 				>
@@ -55,7 +55,7 @@ export default ({ attributes, setAttributes }) => {
 								value: 'full',
 							},
 							{
-								label: __('数値で指定', 'arkhe-blocks'),
+								label: __('Specify by number', 'arkhe-blocks'),
 								value: 'custom',
 							},
 						]}
@@ -102,23 +102,26 @@ export default ({ attributes, setAttributes }) => {
 				</PanelBody>
 			)}
 
-			<PanelBody title={__('スライダー機能', 'arkhe-blocks')} initialOpen={true}>
+			<PanelBody title={__('Slider function', 'arkhe-blocks')} initialOpen={true}>
+				{/* <BaseControl className='arkb-toggles'> */}
 				<ToggleControl
-					label={__('auto', 'arkhe-blocks')}
+					label={__('Enable autoplay', 'arkhe-blocks')}
 					checked={options.isAuto}
 					onChange={(val) => {
 						setOptions({ isAuto: val });
 					}}
+					className='arkb-ctrl--mb--s'
 				/>
 				<ToggleControl
-					label={__('loop', 'arkhe-blocks')}
+					label={__('Enable loop', 'arkhe-blocks')}
 					checked={options.isLoop}
 					onChange={(val) => {
 						setOptions({ isLoop: val });
 					}}
+					className='arkb-ctrl--mb--s'
 				/>
 				<ToggleControl
-					label={__('Show navigation', 'arkhe-blocks')}
+					label={__('Show arrow navigation', 'arkhe-blocks')}
 					checked={options.showNavigation}
 					onChange={(val) => {
 						setOptions({ showNavigation: val });
@@ -126,7 +129,7 @@ export default ({ attributes, setAttributes }) => {
 				/>
 
 				<SelectControl
-					label={__('Slider effect', 'arkhe-blocks')}
+					label={__('Transition effect', 'arkhe-blocks')}
 					value={options.effect}
 					options={[
 						{
@@ -162,7 +165,7 @@ export default ({ attributes, setAttributes }) => {
 					/>
 				</div>
 				<TextControl
-					label={__('Slide speed', 'arkhe-blocks') + ' [ms]'}
+					label={__('Slide transition time', 'arkhe-blocks') + ' [ms]'}
 					type='number'
 					value={options.speed}
 					step='100'
@@ -173,7 +176,7 @@ export default ({ attributes, setAttributes }) => {
 					}}
 				/>
 				<TextControl
-					label={__('Switching interval', 'arkhe-blocks') + ' [ms]'}
+					label={__('Delay time between transitions', 'arkhe-blocks') + ' [ms]'}
 					type='number'
 					value={options.delay}
 					step='100'
@@ -190,12 +193,12 @@ export default ({ attributes, setAttributes }) => {
 				></div>
 			</PanelBody>
 			<PanelBody
-				title={__('スライドの表示', 'arkhe-blocks')}
+				title={__('Slide display settings', 'arkhe-blocks')}
 				className='arkb-panel--slideHeight'
 				initialOpen={true}
 			>
 				<ToggleControl
-					label={__('スライドをセンター寄せにする', 'arkhe-blocks')}
+					label={__('Center the slide', 'arkhe-blocks')}
 					checked={options.isCenter}
 					onChange={(val) => {
 						setOptions({ isCenter: val });
@@ -205,7 +208,7 @@ export default ({ attributes, setAttributes }) => {
 					controlPC={
 						<>
 							<TextControl
-								label={__('Slide Num', 'arkhe-blocks')}
+								label={__('Number of slides', 'arkhe-blocks')}
 								type='number'
 								value={options.slideNumPC}
 								step='1'
@@ -216,7 +219,7 @@ export default ({ attributes, setAttributes }) => {
 								}}
 							/>
 							<TextControl
-								label={__('Space', 'arkhe-blocks') + ' [px]'}
+								label={__('Space between slides', 'arkhe-blocks') + ' [px]'}
 								type='number'
 								value={options.spacePC}
 								step='1'
@@ -231,7 +234,7 @@ export default ({ attributes, setAttributes }) => {
 					controlSP={
 						<>
 							<TextControl
-								label={__('Slide Num', 'arkhe-blocks')}
+								label={__('Number of slides', 'arkhe-blocks')}
 								type='number'
 								value={options.slideNumSP}
 								step='1'
@@ -242,7 +245,7 @@ export default ({ attributes, setAttributes }) => {
 								}}
 							/>
 							<TextControl
-								label={__('Space', 'arkhe-blocks') + ' [px]'}
+								label={__('Space between slides', 'arkhe-blocks') + ' [px]'}
 								type='number'
 								value={options.spaceSP}
 								step='1'
@@ -256,7 +259,7 @@ export default ({ attributes, setAttributes }) => {
 					}
 				/>
 			</PanelBody>
-			<PanelBody title={__('Pagenation', 'arkhe-blocks')} initialOpen={true}>
+			<PanelBody title={__('Pagination', 'arkhe-blocks')} initialOpen={true}>
 				<SelectControl
 					value={options.pagination}
 					options={[
@@ -276,10 +279,6 @@ export default ({ attributes, setAttributes }) => {
 							label: __('Progressbar', 'arkhe-blocks'),
 							value: 'progressbar',
 						},
-						// {
-						// 	label: __('Custom', 'arkhe-blocks'),
-						// 	value: 'custom',
-						// },
 					]}
 					onChange={(val) => {
 						const newOptions = { pagination: val };
@@ -297,6 +296,7 @@ export default ({ attributes, setAttributes }) => {
 						onChange={(value) => {
 							setOptions({ isClickable: value });
 						}}
+						className='arkb-ctrl--mb--s'
 					/>
 					<ToggleControl
 						label={__('DynamicBullets', 'arkhe-blocks')}

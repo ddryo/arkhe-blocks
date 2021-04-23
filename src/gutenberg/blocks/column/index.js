@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
-import { useState } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 import { registerBlockType } from '@wordpress/blocks';
 import {
 	BlockControls,
@@ -33,6 +33,8 @@ import { iconColor } from '@blocks/config';
 import metadata from './block.json';
 import blockIcon from './_icon';
 // import ColumnsItemControl from './ColumnsItemControl';
+import { PaddingControl } from '@components/PaddingControl';
+import { ArkDeviceTab } from '@components/ArkDeviceTab';
 
 /**
  * @Others dependencies
@@ -86,7 +88,15 @@ registerBlockType(name, {
 	attributes: metadata.attributes,
 	edit: (props) => {
 		const { attributes, setAttributes, clientId } = props;
-		const { vAlign, widthPC, widthTab, widthMobile, isBreakAll } = attributes;
+		const {
+			vAlign,
+			widthPC,
+			widthTab,
+			widthMobile,
+			isBreakAll,
+			padding,
+			useCustomPadding,
+		} = attributes;
 
 		const [isLinked, setIsLinked] = useState(false);
 
@@ -110,6 +120,16 @@ registerBlockType(name, {
 		}
 		if (widthPC) {
 			columnStyle['--arkb-fb_pc'] = widthPC + '%';
+		}
+		if (widthPC) {
+			columnStyle['--arkb-fb_pc'] = widthPC + '%';
+		}
+
+		// 内部padding
+		if (useCustomPadding) {
+			const pad = `${padding.top} ${padding.right} ${padding.bottom} ${padding.left}`;
+			// const padSP = `${paddingSP.top} ${paddingSP.right} ${paddingSP.bottom} ${paddingSP.left}`;
+			columnStyle['--arkb-clmn-pddng'] = pad;
 		}
 
 		const hasChildBlocks = useSelect(
@@ -247,13 +267,50 @@ registerBlockType(name, {
 							}}
 						/>
 					</PanelBody>
+					<PanelBody title={__('Padding settings', 'arkhe-blocks')}>
+						<ToggleControl
+							label={__('Use custome padding', 'arkhe-blocks')}
+							checked={useCustomPadding}
+							onChange={(val) => {
+								setAttributes({ useCustomPadding: val });
+							}}
+						/>
+						<div data-ark-disabled={!useCustomPadding || null}>
+							<PaddingControl
+								name='padding'
+								value={padding}
+								setAttributes={setAttributes}
+							/>
+						</div>
+						{/* <ArkDeviceTab
+							className='-padding'
+							controlPC={
+								
+							}
+							controlSP={
+								<PaddingControl
+									name='paddingSP'
+									value={paddingSP}
+									setAttributes={setAttributes}
+								/>
+							}
+						/> */}
+					</PanelBody>
 				</InspectorControls>
 				<div {...innerBlocksProps} />
 			</>
 		);
 	},
 	save: ({ attributes }) => {
-		const { vAlign, widthPC, widthTab, widthMobile, isBreakAll } = attributes;
+		const {
+			vAlign,
+			widthPC,
+			widthTab,
+			widthMobile,
+			isBreakAll,
+			useCustomPadding,
+			padding,
+		} = attributes;
 
 		const columnStyle = {};
 		if (widthMobile) {
@@ -264,6 +321,13 @@ registerBlockType(name, {
 		}
 		if (widthPC) {
 			columnStyle['--arkb-fb_pc'] = widthPC + '%';
+		}
+
+		// 内部padding
+		if (useCustomPadding) {
+			const pad = `${padding.top} ${padding.right} ${padding.bottom} ${padding.left}`;
+			// const padSP = `${paddingSP.top} ${paddingSP.right} ${paddingSP.bottom} ${paddingSP.left}`;
+			columnStyle['--arkb-clmn-pddng'] = pad;
 		}
 
 		const blockProps = useBlockProps.save({

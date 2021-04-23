@@ -48,7 +48,7 @@ export const UnitNumber = (props) => {
 	// text-transform: uppercase;
 
 	return (
-		<div className={classnames('ark-control--unit', className)}>
+		<div className={classnames('arkb-ctrl--unit', className)}>
 			<UnitControl
 				id={inputId}
 				// isResetValueOnUnitChange // default値に戻すかどうか？

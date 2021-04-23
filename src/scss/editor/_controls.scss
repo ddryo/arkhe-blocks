@@ -4,10 +4,15 @@
 	pointer-events: none;
 }
 
+// マージンを少なくするコントロール
+.arkb-ctrl--mb--s {
+	margin-bottom: 16px !important;
+}
 
 // トグルコントロールが集まったエリア
 .arkb-toggles {
 
+	.components-base-control__label,
 	.components-base-control {
 		margin-bottom: 12px;
 	}
@@ -139,7 +144,7 @@
 
 
 // UnitControl
-.ark-control--unit {
+.arkb-ctrl--unit {
 
 	.components-input-control__container {
 		max-width: 80px;
@@ -151,7 +156,7 @@
 
 }
 
-.ark-control--paddings {
+.arkb-ctrl--paddings {
 	position: relative;
 	display: grid;
 	grid-template-areas:
@@ -176,7 +181,7 @@
 		border: solid 1px #ededed !important;
 	}
 
-	.ark-control--unit {
+	.arkb-ctrl--unit {
 		margin: 0 auto;
 	}
 

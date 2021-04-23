@@ -32,6 +32,19 @@
         "isBreakAll": {
             "type": "boolean",
             "default": false
+        },
+        "useCustomPadding": {
+            "type": "boolean",
+            "default": false
+        },
+        "padding": {
+            "type": "object",
+            "default": {
+                "top": "1rem",
+                "left": "1rem",
+                "right": "1rem",
+                "bottom": "1rem"
+            }
         }
     },
     "editorScript": "file:../../../../dist/gutenberg/blocks/column/index.js",

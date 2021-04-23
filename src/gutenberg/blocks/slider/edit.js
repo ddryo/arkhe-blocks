@@ -168,18 +168,6 @@ export default ({ attributes, setAttributes, clientId }) => {
 	return (
 		<>
 			<BlockControls>
-				{/* <ToolbarGroup>
-						<ToolbarButton
-							className='components-toolbar__control'
-							isPressed={isPreview}
-							label={__('Toggle fullscreen', 'arkhe-blocks')}
-							onClick={() => {
-								setIsPreview(!isPreview);
-							}}
-						>
-							<span>{__('プレビュー', 'arkhe-blocks')}</span>
-						</ToolbarButton>
-					</ToolbarGroup> */}
 				{isAlignFull && (
 					<ToolbarGroup>
 						<ToolbarButton
@@ -213,7 +201,7 @@ export default ({ attributes, setAttributes, clientId }) => {
 								addSlide();
 							}}
 						>
-							<span>{__('スライドを追加', 'arkhe-blocks')}</span>
+							<span>{__('Add a slide', 'arkhe-blocks')}</span>
 						</Button>
 					</div>
 				</div>

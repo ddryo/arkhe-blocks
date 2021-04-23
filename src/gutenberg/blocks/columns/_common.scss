@@ -1,8 +1,17 @@
-
+// editor側はdiv一つあるので上書きしていることに注意
 .ark-block-columns {
 
+	--arkb-clmn-pddng: 0;
+
+	&.is-style-shadow {
+		--arkb-clmn-pddng: 1rem;
+	}
+
+	.ark-block-column {
+		padding: var(--arkb-clmn-pddng);
+	}
+
 	&.is-style-shadow > .ark-block-column {
-		padding: 1rem;
 		background-color: #fff;
 		box-shadow: var(--arkb-shadow);
 	}

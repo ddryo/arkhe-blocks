@@ -156,22 +156,18 @@ export default ({ attributes, setAttributes }) => {
 					<ArkDeviceTab
 						className='-padding'
 						controlPC={
-							<>
-								<PaddingControl
-									name='paddingPC'
-									value={paddingPC}
-									setAttributes={setAttributes}
-								/>
-							</>
+							<PaddingControl
+								name='paddingPC'
+								value={paddingPC}
+								setAttributes={setAttributes}
+							/>
 						}
 						controlSP={
-							<>
-								<PaddingControl
-									name='paddingSP'
-									value={paddingSP}
-									setAttributes={setAttributes}
-								/>
-							</>
+							<PaddingControl
+								name='paddingSP'
+								value={paddingSP}
+								setAttributes={setAttributes}
+							/>
 						}
 					/>
 				</PanelBody>

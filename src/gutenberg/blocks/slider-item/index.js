@@ -98,15 +98,6 @@ registerBlockType(name, {
 			<>
 				<BlockControls>
 					<ToolbarGroup>
-						{/* <ToolbarButton
-						className='components-toolbar__control'
-						label={__('Delete media', 'arkhe-blocks')}
-						icon={chevronLeft}
-						disabled={isFirst}
-						onClick={() => {
-							moveUpSlide(clientId);
-						}}
-					/> */}
 						<ToolbarButton
 							className='components-toolbar__control arkb-toolBtn--deleteSlide'
 							label={__('Delete this slide', 'arkhe-blocks')}
@@ -117,15 +108,6 @@ registerBlockType(name, {
 						>
 							{'このスライドを削除'}
 						</ToolbarButton>
-						{/* <ToolbarButton
-						className='components-toolbar__control'
-						label={__('Delete media', 'arkhe-blocks')}
-						icon={chevronRight}
-						disabled={isLast}
-						onClick={() => {
-							moveDownSlide(clientId);
-						}}
-					/> */}
 					</ToolbarGroup>
 				</BlockControls>
 				<InspectorControls>

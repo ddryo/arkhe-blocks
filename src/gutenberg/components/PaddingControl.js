@@ -51,7 +51,7 @@ export const PaddingControl = ({ name, value, setAttributes }) => {
 
 	return (
 		<>
-			<div className='ark-control--paddings'>
+			<div className='arkb-ctrl--paddings'>
 				<LinkedButton
 					onClick={() => {
 						setIsLinked(!isLinked);

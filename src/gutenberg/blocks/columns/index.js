@@ -158,13 +158,13 @@ registerBlockType(name, {
 						</BaseControl>
 						<BaseControl>
 							<BaseControl.VisualLabel>
-								{__('margin:', 'arkhe-blocks')}
+								{__('Margins between columns', 'arkhe-blocks')}
 							</BaseControl.VisualLabel>
 							<Flex>
-								<FlexItem style={{ minWidth: '2.5em' }}>
-									{__('左右', 'arkhe-blocks')}
+								<FlexItem style={{ minWidth: '4em', marginRight: 'auto' }}>
+									left & right
 								</FlexItem>
-								<FlexBlock>
+								<FlexBlock style={{ flex: '0 1 auto' }}>
 									<UnitNumber
 										value={margin.x}
 										onChange={(newVal) => {
@@ -174,10 +174,10 @@ registerBlockType(name, {
 								</FlexBlock>
 							</Flex>
 							<Flex style={{ marginTop: '8px' }}>
-								<FlexItem style={{ minWidth: '2.5em' }}>
-									{__('下', 'arkhe-blocks')}
+								<FlexItem style={{ minWidth: '4em', marginRight: 'auto' }}>
+									bottom
 								</FlexItem>
-								<FlexBlock>
+								<FlexBlock style={{ flex: '0 1 auto' }}>
 									<UnitNumber
 										value={margin.bottom}
 										onChange={(newVal) => {

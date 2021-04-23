@@ -65,7 +65,7 @@ export const MediaEdit = ({ attributes, setAttributes }) => {
 					<MediaPlaceholder
 						className='is-large'
 						labels={{
-							title: __('メディア', 'arkhe-blocks'),
+							title: __('Media', 'arkhe-blocks'),
 							instructions: __(
 								'Upload an image or video file, or pick one from your media library.'
 							),
