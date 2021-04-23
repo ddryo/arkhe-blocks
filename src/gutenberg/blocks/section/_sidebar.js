@@ -62,10 +62,11 @@ export default ({ attributes, setAttributes, isSelected }) => {
 		mediaIdSP,
 		mediaUrlSP,
 		mediaType,
-		// mediaTypeSP,
+		mediaTypeSP,
 		focalPoint,
 		focalPointSP,
 		isRepeat,
+		bgSize,
 		opacity,
 		bgColor,
 		bgGradient,
@@ -82,9 +83,11 @@ export default ({ attributes, setAttributes, isSelected }) => {
 	// 画像設定タブに渡す情報
 	const mediaProps = {
 		mediaId,
-		mediaUrl,
 		mediaIdSP,
+		mediaUrl,
 		mediaUrlSP,
+		mediaType,
+		mediaTypeSP,
 		focalPoint,
 		focalPointSP,
 		isRepeat,
@@ -115,8 +118,46 @@ export default ({ attributes, setAttributes, isSelected }) => {
 		return 0 !== svgBottom.level;
 	}, [isSelected]);
 
+	const bgSizeControl = (
+		<Flex data-ark-disabled={!isRepeat || null}>
+			<FlexItem>{__('Background Size', 'arkhe-blocks')}:</FlexItem>
+			<FlexBlock style={{ flex: '0 1 auto', marginLeft: 'auto' }}>
+				<UnitNumber
+					value={bgSize}
+					onChange={(newVal) => {
+						setAttributes({ bgSize: newVal });
+					}}
+				/>
+			</FlexBlock>
+		</Flex>
+	);
+
 	return (
 		<>
+			<PanelBody title={__('Background media setting', 'arkhe-blocks')}>
+				{isRepeat && mediaUrl && (
+					<div className='arkb-imgPreview'>
+						<img src={mediaUrl} alt='' />
+					</div>
+				)}
+				<ImageTab {...mediaProps} />
+				{'image' === mediaType && (
+					<>
+						<ToggleControl
+							label={__('Repeat the background image', 'arkhe-blocks')}
+							checked={isRepeat}
+							onChange={(val) => {
+								setAttributes({ isRepeat: val });
+								if (val) {
+									setAttributes({ focalPoint: undefined });
+								}
+							}}
+							className='arkb-ctrl--mb--s'
+						/>
+						{bgSizeControl}
+					</>
+				)}
+			</PanelBody>
 			<PanelBody title={__('Height settings', 'arkhe-blocks')}>
 				<SelectControl
 					value={height}
@@ -231,26 +272,7 @@ export default ({ attributes, setAttributes, isSelected }) => {
 					/>
 				</BaseControl>
 			</PanelColorGradientSettings>
-			<PanelBody title={__('Background media setting', 'arkhe-blocks')}>
-				{isRepeat && mediaUrl && (
-					<div className='arkb-imgPreview'>
-						<img src={mediaUrl} alt='' />
-					</div>
-				)}
-				<ImageTab {...mediaProps} />
-				{'video' !== mediaType && (
-					<ToggleControl
-						label={__('Repeat the background image', 'arkhe-blocks')}
-						checked={isRepeat}
-						onChange={(val) => {
-							setAttributes({ isRepeat: val });
-							if (val) {
-								setAttributes({ focalPoint: undefined });
-							}
-						}}
-					/>
-				)}
-			</PanelBody>
+
 			<PanelBody title={__('Top border', 'arkhe-blocks')} initialOpen={isOpenSvgTop}>
 				<BaseControl>
 					<BaseControl.VisualLabel>{__('Shape', 'arkhe-blocks')}</BaseControl.VisualLabel>

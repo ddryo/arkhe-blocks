@@ -78,16 +78,6 @@ export const ImageTab = memo((props) => {
 	const imageSettingPC = (
 		<>
 			{mediaPreviewPC}
-			{/* {!mediaUrl && noImageView}
-			{isRichSlider && mediaUrl && (
-				<FocalPointPicker
-					url={mediaUrl}
-					value={focalPoint}
-					onChange={(val) => {
-						setAttributes({ focalPoint: val });
-					}}
-				/>
-			)} */}
 			<div className='arkb-btns--media'>
 				<MediaUploadCheck>
 					<MediaUpload
@@ -148,16 +138,6 @@ export const ImageTab = memo((props) => {
 	const imageSettingSP = (
 		<>
 			{mediaPreviewSP}
-			{/* {!mediaUrlSP && noImageView}
-			{mediaUrlSP && (
-				<FocalPointPicker
-					url={mediaUrlSP}
-					value={focalPointSP}
-					onChange={(val) => {
-						setAttributes({ focalPointSP: val });
-					}}
-				/>
-			)} */}
 			<div className='arkb-btns--media'>
 				<MediaUploadCheck>
 					<MediaUpload

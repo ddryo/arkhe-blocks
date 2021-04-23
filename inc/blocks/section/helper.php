@@ -33,6 +33,10 @@ function get_block_style( $attrs ) {
 	if ( $attrs['isRepeat'] && $mediaUrl ) {
 		$style['background-image']  = 'url(' . $mediaUrl . ')';
 		$style['background-repeat'] = 'repeat';
+
+		if ( $attrs['bgSize'] ) {
+			$style['background-size'] = $attrs['bgSize'];
+		}
 	}
 
 	return $style;

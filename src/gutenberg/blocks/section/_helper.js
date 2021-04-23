@@ -11,6 +11,7 @@ export const getBlockStyle = (attributes) => {
 		paddingSP,
 		isRepeat,
 		mediaUrl,
+		bgSize,
 		//
 	} = attributes;
 
@@ -45,6 +46,10 @@ export const getBlockStyle = (attributes) => {
 	if (isRepeat && mediaUrl) {
 		style.backgroundImage = `url(${mediaUrl})`;
 		style.backgroundRepeat = 'repeat';
+
+		if (bgSize) {
+			style.backgroundSize = bgSize;
+		}
 	}
 
 	return style;

@@ -2,7 +2,7 @@
  * @WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { memo } from '@wordpress/element';
+// import { memo } from '@wordpress/element';
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 import { Button, FocalPointPicker } from '@wordpress/components';
 import { Icon, video, image } from '@wordpress/icons';
@@ -15,13 +15,15 @@ import { ArkDeviceTab } from '@components/ArkDeviceTab';
 /**
  * export
  */
-export const ImageTab = memo((props) => {
+export const ImageTab = (props) => {
 	const {
 		mediaUrl,
-		mediaId,
-		focalPoint,
 		mediaUrlSP,
+		mediaId,
 		mediaIdSP,
+		mediaType,
+		mediaTypeSP,
+		focalPoint,
 		focalPointSP,
 		isRepeat,
 		opacity,
@@ -37,6 +39,11 @@ export const ImageTab = memo((props) => {
 			mediaType: media.type,
 			...(100 === opacity ? { opacity: 50 } : {}),
 		});
+
+		// セット済みのメディアSPの形式が違う場合は削除する
+		if (mediaUrlSP && media.type !== mediaTypeSP) {
+			removeImageSP();
+		}
 	};
 
 	const removeImagePC = () => {
@@ -73,10 +80,56 @@ export const ImageTab = memo((props) => {
 		});
 	};
 
-	const noImageView = (
-		<div className='arkb-imgPreview -noimage'>
-			<Icon icon={image} /> / <Icon icon={video} />
-		</div>
+	let allowedTypes = null;
+	let noImageView = null;
+	if (isRepeat || 'image' === mediaType) {
+		noImageView = (
+			<div className='arkb-imgPreview -noimage'>
+				<Icon icon={image} />
+			</div>
+		);
+		allowedTypes = ['image'];
+	} else if ('video' === mediaType) {
+		noImageView = (
+			<div className='arkb-imgPreview -noimage'>
+				<Icon icon={video} />
+			</div>
+		);
+		allowedTypes = ['video'];
+	} else {
+		noImageView = (
+			<div className='arkb-imgPreview -noimage'>
+				<Icon icon={image} /> / <Icon icon={video} />
+			</div>
+		);
+		allowedTypes = ['image', 'video'];
+	}
+
+	const mediaOnSelect = (media) => {
+		if (media) {
+			setImagePC(media);
+		} else {
+			removeImagePC();
+		}
+	};
+	const mediaOnSelectSP = (media) => {
+		if (media) {
+			setImageSP(media);
+		} else {
+			removeImageSP();
+		}
+	};
+
+	const mediaRender = ({ open }) => (
+		<Button isPrimary onClick={open}>
+			{mediaUrl ? __('Change media', 'arkhe-blocks') : __('Select media', 'arkhe-blocks')}
+		</Button>
+	);
+
+	const mediaRenderSP = ({ open }) => (
+		<Button isPrimary onClick={open}>
+			{mediaUrlSP ? __('Change media', 'arkhe-blocks') : __('Select media', 'arkhe-blocks')}
+		</Button>
 	);
 
 	const imageSettingPC = (
@@ -94,23 +147,10 @@ export const ImageTab = memo((props) => {
 			<div className='arkb-btns--media'>
 				<MediaUploadCheck>
 					<MediaUpload
-						onSelect={(media) => {
-							// console.log(media);
-							if (media) {
-								setImagePC(media);
-							} else {
-								removeImagePC();
-							}
-						}}
-						allowedTypes={['image', 'video']}
 						value={mediaId}
-						render={({ open }) => (
-							<Button isPrimary onClick={open}>
-								{mediaUrl
-									? __('Change media', 'arkhe-blocks')
-									: __('Select media', 'arkhe-blocks')}
-							</Button>
-						)}
+						onSelect={mediaOnSelect}
+						allowedTypes={['image', 'video']} // 変数の変化が反映されないので、PC側が仕方なく常にどちらも許可。
+						render={mediaRender}
 					/>
 				</MediaUploadCheck>
 				{mediaUrl && (
@@ -143,22 +183,10 @@ export const ImageTab = memo((props) => {
 			<div className='arkb-btns--media'>
 				<MediaUploadCheck>
 					<MediaUpload
-						onSelect={(media) => {
-							if (media) {
-								setImageSP(media);
-							} else {
-								removeImageSP();
-							}
-						}}
-						allowedTypes={['image', 'video']}
 						value={mediaIdSP}
-						render={({ open }) => (
-							<Button isPrimary onClick={open}>
-								{mediaUrlSP
-									? __('Change media', 'arkhe-blocks')
-									: __('Select media', 'arkhe-blocks')}
-							</Button>
-						)}
+						onSelect={mediaOnSelectSP}
+						allowedTypes={allowedTypes}
+						render={mediaRenderSP}
 					/>
 				</MediaUploadCheck>
 				{mediaUrlSP && (
@@ -189,4 +217,4 @@ export const ImageTab = memo((props) => {
 			isHideTab={isRepeat}
 		/>
 	);
-});
+};

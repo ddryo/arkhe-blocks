@@ -22,7 +22,7 @@ const UNITS = ['px', 'rem', 'em', '%', 'vw', 'vh'];
  */
 const getUnitNum = (val) => {
 	if (!val) {
-		return { num: 0, unit: 'px' };
+		return { num: '', unit: 'px' };
 	}
 
 	// 念のため、明示的に文字列へ変換。

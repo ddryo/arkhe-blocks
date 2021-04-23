@@ -118,6 +118,10 @@
             "type": "boolean",
             "default": false
         },
+        "bgSize": {
+            "type": "string",
+            "default": ""
+        },
         "svgTop": {
             "type": "object",
             "default": {
