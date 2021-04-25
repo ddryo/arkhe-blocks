@@ -36,21 +36,28 @@ const blockName = 'ark-block-slider';
  *
  */
 export const MediaEdit = ({ attributes, setAttributes }) => {
-	const { mediaId, mediaUrl } = attributes;
+	const { media } = attributes;
+
+	const mediaId = media.id;
+	const mediaUrl = media.url;
+
 	// BlockProps
 	const blockProps = useBlockProps({
 		className: `${blockName}__slide`,
 	});
 
 	const onSelect = useCallback(
-		(media) => {
+		(newMedia) => {
 			setAttributes({
-				alt: media.alt,
-				mediaId: media.id,
-				mediaUrl: media.url,
-				mediaType: media.type,
-				mediaWidth: media.width,
-				mediaHeight: media.height,
+				alt: newMedia.alt,
+				media: {
+					id: newMedia.id,
+					url: newMedia.url,
+					type: newMedia.type,
+					size: 'full',
+					width: newMedia.width,
+					height: newMedia.height,
+				},
 			});
 		},
 		[setAttributes]
@@ -89,6 +96,8 @@ export const MediaEdit = ({ attributes, setAttributes }) => {
 export const RichEdit = ({ attributes, setAttributes }) => {
 	const {
 		// variation,
+		// media,
+		// mediaSP,
 		bgColor,
 		bgGradient,
 		opacity,
@@ -96,8 +105,6 @@ export const RichEdit = ({ attributes, setAttributes }) => {
 		contentPosition,
 		paddingPC,
 		paddingSP,
-		// widthPC,
-		// widthSP,
 	} = attributes;
 
 	// BlockProps

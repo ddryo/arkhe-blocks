@@ -17,9 +17,10 @@
 		height: 100%;
 	}
 
-	&[data-height="content"] {
-		--arkb-slider-height: auto;
-	}
+	// data-heightはrichスライダーにのみ付与
+	// &[data-height="content"] {
+	// 	--arkb-slider-height: auto;
+	// }
 
 	&[data-height="full"] {
 		--arkb-slider-height: calc(100vh - var(--ark-offset_y, 0px));

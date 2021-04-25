@@ -14,6 +14,29 @@ add_filter( 'render_block_data', function ( $block ) {
 	$attrs = $block['attrs'];
 	// var_dump( $attrs );
 
+	// media関連
+	if ( isset( $attrs['mediaUrl'] ) ) {
+		$attrs['media'] = [
+			'url'    => $attrs['mediaUrl'],
+			'id'     => $attrs['mediaId'] ?? 0,
+			'type'   => $attrs['mediaType'] ?? '',
+			'width'  => $attrs['mediaWidth'] ?? 0,
+			'height' => $attrs['mediaHeight'] ?? 0,
+			// 'size' => 'full',
+		];
+		// unsetは別にいらないか...?
+	}
+	if ( isset( $attrs['mediaUrlSP'] ) ) {
+		$attrs['mediaSP'] = [
+			'url'    => $attrs['mediaUrlSP'],
+			'id'     => $attrs['mediaIdSP'] ?? 0,
+			'type'   => $attrs['mediaTypeSP'] ?? '',
+			'width'  => $attrs['mediaWidthSP'] ?? 0,
+			'height' => $attrs['mediaHeightSP'] ?? 0,
+			// 'size' => 'full',
+		];
+	}
+
 	// height関連
 	if ( isset( $attrs['heightPC'] ) && is_numeric( $attrs['heightPC'] ) ) {
 		$heightUnitPC      = $attrs['heightUnitPC'] ?? 'px';
@@ -29,7 +52,7 @@ add_filter( 'render_block_data', function ( $block ) {
 	}
 
 	// padding関連
-	if ( isset( $attrs['padPC'] ) ) {
+	if ( isset( $attrs['padPC'] ) && is_numeric( $attrs['padPC'] ) ) {
 		$padUnitPC          = $attrs['padUnitPC'] ?? 'rem';
 		$attrs['paddingPC'] = [
 			'top'    => $attrs['padPC'] . $padUnitPC,
@@ -40,8 +63,7 @@ add_filter( 'render_block_data', function ( $block ) {
 		unset( $attrs['padPC'] );
 		unset( $attrs['padUnitPC'] );
 	}
-
-	if ( isset( $attrs['padSP'] ) ) {
+	if ( isset( $attrs['padSP'] ) && is_numeric( $attrs['padSP'] ) ) {
 		$padUnitSP          = $attrs['padUnitSP'] ?? 'rem';
 		$attrs['paddingSP'] = [
 			'top'    => $attrs['padSP'] . $padUnitSP,

@@ -11,7 +11,7 @@ function get_block_style( $attrs ) {
 	$heightSP = $attrs['heightSP'];
 	$padPC    = $attrs['paddingPC'];
 	$padSP    = $attrs['paddingSP'];
-	$mediaUrl = $attrs['mediaUrl'];
+	$mediaUrl = $attrs['media']['url'] ?? '';
 
 	// style
 	$style = [

@@ -106,7 +106,7 @@ registerBlockType(name, {
 								removeSlide(myIndex, isLast);
 							}}
 						>
-							{'このスライドを削除'}
+							{__('Delete this slide', 'arkhe-blocks')}
 						</ToolbarButton>
 					</ToolbarGroup>
 				</BlockControls>

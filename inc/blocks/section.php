@@ -32,7 +32,8 @@ function cb( $attrs, $content ) {
 
 // 出力内容
 function render_section( $attrs, $content ) {
-	// var_dump( $attrs );
+	// var_dump( $attrs )
+	$mediaUrl        = $attrs['media']['url'] ?? '';
 	$height          = $attrs['height'] ?? 'content';
 	$align           = $attrs['align'] ?? '';
 	$contentPosition = $attrs['contentPosition'] ?? 'center left';
@@ -44,7 +45,7 @@ function render_section( $attrs, $content ) {
 
 	// class名
 	$block_class = 'ark-block-section';
-	if ( $attrs['mediaUrl'] ) {
+	if ( $mediaUrl ) {
 		$block_class .= ' has-bg-img';
 	}
 	if ( $align ) {
@@ -98,23 +99,23 @@ function render_section( $attrs, $content ) {
 
 
 function render_media( $attrs ) {
+	if ( $attrs['isRepeat'] ) return '';
 
-	if ( $attrs['isRepeat'] ) {
-		return '';
-	}
-	if ( ! $attrs['mediaUrl'] ) {
-		return '';
-	}
+	// mediaデータ
+	$media         = $attrs['media'];
+	$mediaSP       = $attrs['mediaSP'];
+	$mediaId       = $media['id'];
+	$mediaUrl      = $media['url'];
+	$mediaType     = $media['type'];
+	$mediaWidth    = $media['width'] ?? 0;
+	$mediaHeight   = $media['height'] ?? 0;
+	$mediaIdSP     = $mediaSP['id'];
+	$mediaUrlSP    = $mediaSP['url'];
+	$mediaTypeSP   = $mediaSP['type'];
+	$mediaWidthSP  = $mediaSP['width'] ?? 0;
+	$mediaHeightSP = $mediaSP['height'] ?? 0;
 
-	$mediaId     = $attrs['mediaId'];
-	$mediaIdSP   = $attrs['mediaIdSP'] ?? '';
-	$mediaUrl    = $attrs['mediaUrl'];
-	$mediaUrlSP  = $attrs['mediaUrlSP'];
-	$mediaType   = $attrs['mediaType'];
-	$mediaTypeSP = $attrs['mediaTypeSP'];
-	$mediaWidth  = $attrs['mediaWidth'] ?? 0;
-	$mediaHeight = $attrs['mediaHeight'] ?? 0;
-	// $alt         = $attrs['alt'];
+	if ( ! $mediaUrl ) return '';
 
 	$style = [];
 	if ( isset( $attrs['focalPoint'] ) ) {
@@ -135,51 +136,45 @@ function render_media( $attrs ) {
 
 	if ( 'video' === $mediaType && 'image' !== $mediaTypeSP ) {
 		// videoタグの属性
-		$video_props = ' autoPlay loop playsinline muted';
-		if ( $mediaWidth ) {
-			$video_props .= ' width="' . esc_attr( $mediaWidth ) . '"';
-		}
-		if ( $mediaHeight ) {
-			$video_props .= ' height="' . esc_attr( $mediaHeight ) . '"';
-		}
-		if ( $style ) {
-			$video_props .= ' style="' . esc_attr( $style ) . '"';
-		}
+		$video_props                      = ' autoPlay loop playsinline muted';
+		if ( $mediaWidth ) $video_props  .= ' width="' . esc_attr( $mediaWidth ) . '"';
+		if ( $mediaHeight ) $video_props .= ' height="' . esc_attr( $mediaHeight ) . '"';
+		if ( $style ) $video_props       .= ' style="' . esc_attr( $style ) . '"';
 
 		// 出力内容
 		$media_html = '<video class="ark-block-section__video arkb-obf-cover"' . $video_props . '>';
 		if ( $mediaUrlSP ) {
-			$media_html .= '<source media="(max-width: 999px)" src="' . esc_attr( $mediaUrlSP ) . '" />';
+			$sp_props                        = 'src="' . esc_attr( $mediaUrlSP ) . '"';
+			if ( $mediaWidthSP ) $sp_props  .= ' width="' . esc_attr( $mediaWidthSP ) . '"';
+			if ( $mediaHeightSP ) $sp_props .= ' height="' . esc_attr( $mediaHeightSP ) . '"';
+
+			$media_html .= '<source media="(max-width: 999px)" ' . $sp_props . ' />';
 		}
 		$media_html .= '<source src="' . esc_attr( $mediaUrl ) . '" class="ark-block-section__source" /></video>';
 
 	} elseif ( 'image' === $mediaType && 'video' !== $mediaTypeSP ) {
 
 		// pictureタグの属性
-		$picture_props = '';
-		if ( $style ) {
-			$picture_props .= ' style="' . esc_attr( $style ) . '"';
-		}
+		$picture_props                = '';
+		if ( $style ) $picture_props .= ' style="' . esc_attr( $style ) . '"';
 
 		// imgタグのクラス
 		$img_class = 'ark-block-section__img arkb-obf-cover';
-		if ( $mediaId ) {
-			$img_class .= " wp-image-{$mediaId}";
-		}
+		// if ( $mediaId ) $img_class .= " wp-image-{$mediaId}"; // 必要？
 
 		// imgタグの属性
-		$img_props = ' alt=""';
-		if ( $mediaWidth ) {
-			$img_props .= ' width="' . esc_attr( $mediaWidth ) . '"';
-		}
-		if ( $mediaHeight ) {
-			$img_props .= ' height="' . esc_attr( $mediaHeight ) . '"';
-		}
+		$img_props                      = ' alt=""';
+		if ( $mediaWidth ) $img_props  .= ' width="' . esc_attr( $mediaWidth ) . '"';
+		if ( $mediaHeight ) $img_props .= ' height="' . esc_attr( $mediaHeight ) . '"';
 
 		// 出力内容
 		$media_html = '<picture class="ark-block-section__picture"' . $picture_props . '>';
 		if ( $mediaUrlSP ) {
-			$media_html .= '<source media="(max-width: 999px)" srcset="' . esc_attr( $mediaUrlSP ) . '" />';
+			$sp_props                        = 'srcset="' . esc_attr( $mediaUrlSP ) . '"';
+			if ( $mediaWidthSP ) $sp_props  .= ' width="' . esc_attr( $mediaWidthSP ) . '"';
+			if ( $mediaHeightSP ) $sp_props .= ' height="' . esc_attr( $mediaHeightSP ) . '"';
+
+			$media_html .= '<source media="(max-width: 999px)" ' . $sp_props . ' />';
 		}
 		$media_html .= '<img src="' . esc_attr( $mediaUrl ) . '" class="' . esc_attr( $img_class ) . '"' . $img_props . '></picture>';
 	}

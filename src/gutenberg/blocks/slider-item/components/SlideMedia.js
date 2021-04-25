@@ -9,22 +9,9 @@ const blockName = 'ark-block-slider';
  * 背景画像のソース
  */
 export const SlideMedia = ({ attributes }) => {
-	const {
-		variation,
-		mediaId,
-		mediaUrl,
-		mediaWidth,
-		mediaHeight,
-		mediaIdSP,
-		mediaUrlSP,
-		mediaWidthSP,
-		mediaHeightSP,
-		mediaType,
-		mediaTypeSP,
-		focalPoint,
-		focalPointSP,
-		alt,
-	} = attributes;
+	const { variation, media, mediaSP, focalPoint, focalPointSP, alt } = attributes;
+	const mediaUrl = media.url;
+	const mediaUrlSP = mediaSP.url;
 
 	if (!mediaUrl) {
 		return null;
@@ -42,49 +29,42 @@ export const SlideMedia = ({ attributes }) => {
 		style['--arkb-object-position--sp'] = `${pX}% ${pY}%`;
 	}
 
-	let mediaClass = 'video' === mediaType ? `${blockName}__video` : `${blockName}__picture`;
-	mediaClass = classnames(mediaClass, 'u-obf-cover', {
-		[`wp-image-${mediaId}`]: !!mediaId,
-	});
-
 	let mediaSrc = null;
-	if ('video' === mediaType && 'image' !== mediaTypeSP) {
-		mediaClass = classnames(`${blockName}__video`, 'u-obf-cover');
+	if ('video' === media.type && 'image' !== mediaSP.type) {
 		mediaSrc = (
 			<video
-				className={mediaClass}
+				className={classnames(`${blockName}__video`, 'u-obf-cover')}
 				autoPlay
 				loop
 				playsinline
 				muted
-				width={mediaWidth || null}
-				height={mediaHeight || null}
-				style={style || null}
+				width={media.width || null}
+				height={media.height || null}
+				style={style}
 			>
 				{mediaUrlSP && <source media='(max-width: 999px)' src={mediaUrlSP} />}
 				<source src={mediaUrl} className={`${blockName}__source`} />
 			</video>
 		);
-	} else if ('image' === mediaType && 'video' !== mediaTypeSP) {
-		mediaClass = classnames(`${blockName}__picture`);
+	} else if ('image' === media.type && 'video' !== mediaSP.type) {
 		mediaSrc = (
-			<picture className={mediaClass} style={style}>
+			<picture className={classnames(`${blockName}__picture`)} style={style}>
 				{mediaUrlSP && (
 					<source
 						media='(max-width: 999px)'
 						srcSet={mediaUrlSP}
-						width={mediaWidthSP || null}
-						height={mediaHeightSP || null}
+						width={mediaSP.width || null}
+						height={mediaSP.height || null}
 					/>
 				)}
 				<img
 					src={mediaUrl}
 					alt={alt}
 					className={classnames(`${blockName}__img u-obf-cover`, {
-						[`wp-image-${mediaId}`]: !!mediaId,
+						// [`wp-image-${mediaId}`]: !!mediaId,
 					})}
-					width={mediaWidth || null}
-					height={mediaHeight || null}
+					width={media.width || null}
+					height={media.height || null}
 				/>
 			</picture>
 		);

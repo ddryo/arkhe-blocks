@@ -177,6 +177,35 @@ export default [
 			},
 		},
 		migrate: (attributes) => {
+			// media
+			const media = {
+				id: attributes.mediaId,
+				url: attributes.mediaUrl,
+				type: attributes.mediaType,
+				width: attributes.mediaWidth || 0,
+				height: attributes.mediaHeight || 0,
+				// size: 'full',
+			};
+			const mediaSP = {
+				id: attributes.mediaIdSP,
+				url: attributes.mediaUrlSP,
+				type: attributes.mediaTypeSP,
+				width: attributes.mediaWidthSP || 0,
+				height: attributes.mediaHeightSP || 0,
+				// size: 'full',
+			};
+
+			delete attributes.mediaId;
+			delete attributes.mediaIdSP;
+			delete attributes.mediaType;
+			delete attributes.mediaTypeSP;
+			delete attributes.mediaUrl;
+			delete attributes.mediaUrlSP;
+			delete attributes.mediaWidth;
+			delete attributes.mediaHeight;
+			delete attributes.mediaWidthSP;
+			delete attributes.mediaHeightSP;
+
 			// height
 			let height = 'content';
 			let heightPC = '400px';
@@ -228,6 +257,8 @@ export default [
 
 			return {
 				...attributes,
+				media,
+				mediaSP,
 				height,
 				heightPC,
 				heightSP,

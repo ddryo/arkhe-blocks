@@ -50,12 +50,8 @@ const textColorSet = [
 export default ({ attributes, setAttributes }) => {
 	const {
 		variation,
-		mediaId,
-		mediaUrl,
-		mediaIdSP,
-		mediaUrlSP,
-		mediaType,
-		mediaTypeSP,
+		media,
+		mediaSP,
 		focalPoint,
 		focalPointSP,
 		isRepeat,
@@ -65,71 +61,108 @@ export default ({ attributes, setAttributes }) => {
 		textColor,
 		paddingPC,
 		paddingSP,
-		// widthPC,
-		// widthSP,
 	} = attributes;
 
+	const mediaUrl = media.url;
+	const mediaUrlSP = mediaSP.url;
+
 	const removeImageSP = useCallback(() => {
-		// console.log('removeImageSP', opacity);
 		setAttributes({
-			mediaIdSP: 0,
-			mediaUrlSP: '',
-			mediaTypeSP: '',
-			mediaWidthSP: undefined,
-			mediaHeightSP: undefined,
+			mediaSP: {
+				id: 0,
+				url: '',
+				type: '',
+				size: 'full',
+			},
 			focalPointSP: undefined,
-			//...(!mediaUrl ? { opacity: 100 } : {}), // PC画像もなければ カラー100に。
 		});
 	}, [setAttributes]);
 
 	const removeImagePC = useCallback(() => {
-		// console.log('removeImagePC', opacity);
 		setAttributes({
 			alt: '',
-			mediaId: 0,
-			mediaUrl: '',
-			mediaType: '',
-			mediaWidth: undefined,
-			mediaHeight: undefined,
 			focalPoint: undefined,
-			// ...(!mediaUrlSP ? { opacity: 100 } : {}), // SP画像もなければ カラー100に。
+			media: {
+				id: 0,
+				url: '',
+				type: '',
+				size: 'full',
+			},
 		});
 	}, [setAttributes]);
 
 	const setImagePC = useCallback(
-		(media) => {
-			// console.log('setImagePC', media, opacity);
+		(newMedia) => {
 			setAttributes({
-				alt: media.alt,
-				mediaId: media.id,
-				mediaUrl: media.url,
-				mediaType: media.type,
-				mediaWidth: media.width,
-				mediaHeight: media.height,
-
+				alt: newMedia.alt,
+				media: {
+					id: newMedia.id,
+					url: newMedia.url,
+					type: newMedia.type,
+					size: 'full',
+					width: newMedia.width,
+					height: newMedia.height,
+				},
 				...(100 === opacity ? { opacity: 50 } : {}),
 			});
 
 			// セット済みのメディアSPの形式が違う場合は削除する
-			if (mediaUrlSP && media.type !== mediaTypeSP) {
+			if (mediaUrlSP && newMedia.type !== mediaSP.type) {
 				removeImageSP();
 			}
 		},
-		[setAttributes, opacity, mediaTypeSP, removeImageSP]
+		[setAttributes, opacity, mediaSP, removeImageSP]
 	);
 
 	const setImageSP = useCallback(
-		(media) => {
-			// console.log('setImageSP', media);
+		(newMedia) => {
+			// console.log('setImageSP', newMedia);
 			setAttributes({
-				mediaIdSP: media.id,
-				mediaUrlSP: media.url,
-				mediaTypeSP: media.type,
-				mediaWidthSP: media.width,
-				mediaHeightSP: media.height,
+				mediaSP: {
+					id: newMedia.id,
+					url: newMedia.url,
+					type: newMedia.type,
+					size: 'full',
+					width: newMedia.width,
+					height: newMedia.height,
+				},
 			});
 		},
 		[setAttributes]
+	);
+
+	// サイズを変えた時の処理
+	const updateImageSizePC = useCallback(
+		(sizeSlug, newSizeData) => {
+			setAttributes({
+				media: {
+					...media,
+					...{
+						size: sizeSlug,
+						url: newSizeData.url,
+						width: newSizeData.width,
+						height: newSizeData.imgH,
+					},
+				},
+			});
+		},
+		[media]
+	);
+	const updateImageSizeSP = useCallback(
+		(sizeSlug, newSizeData) => {
+			setAttributes({
+				mediaSP: {
+					...mediaSP,
+					...{
+						size: sizeSlug,
+						url: newSizeData.url,
+						width: newSizeData.width,
+						height: newSizeData.imgH,
+					},
+				},
+			});
+		},
+		[mediaSP]
 	);
 
 	const setOverlayColor = useCallback(
@@ -237,15 +270,12 @@ export default ({ attributes, setAttributes }) => {
 						removeImagePC,
 						setImageSP,
 						removeImageSP,
-						mediaType,
-						mediaId,
-						mediaUrl,
-						mediaIdSP,
-						mediaUrlSP,
+						updateImageSizePC,
+						updateImageSizeSP,
+						media,
+						mediaSP,
 						focalPoint,
 						focalPointSP,
-						// isRepeat,
-						// opacity,
 						setAttributes,
 					}}
 				/>

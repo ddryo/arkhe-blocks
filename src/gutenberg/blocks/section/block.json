@@ -34,41 +34,23 @@
             "type": "string",
             "default": ""
         },
-        "mediaId": {
-            "type": "number",
-            "default": 0
+        "media": {
+            "type": "object",
+            "default": {
+                "id": 0,
+                "url": "",
+                "type": "",
+                "size": "full"
+            }
         },
-        "mediaIdSP": {
-            "type": "number",
-            "default": 0
-        },
-        "mediaType": {
-            "type": "string",
-            "default": ""
-        },
-        "mediaTypeSP": {
-            "type": "string",
-            "default": ""
-        },
-        "mediaUrl": {
-            "type": "string",
-            "default": ""
-        },
-        "mediaUrlSP": {
-            "type": "string",
-            "default": ""
-        },
-        "mediaWidth": {
-            "type": "number"
-        },
-        "mediaHeight": {
-            "type": "number"
-        },
-        "mediaWidthSP": {
-            "type": "number"
-        },
-        "mediaHeightSP": {
-            "type": "number"
+        "mediaSP": {
+            "type": "object",
+            "default": {
+                "id": 0,
+                "url": "",
+                "type": "",
+                "size": "full"
+            }
         },
         "focalPoint": {
             "type": "object"

@@ -16,80 +16,79 @@ import { ArkDeviceTab } from '@components/ArkDeviceTab';
  * export
  */
 export const ImageTab = (props) => {
-	const {
-		mediaUrl,
-		mediaUrlSP,
-		mediaId,
-		mediaIdSP,
-		mediaType,
-		mediaTypeSP,
-		focalPoint,
-		focalPointSP,
-		isRepeat,
-		opacity,
-		setAttributes,
-	} = props;
+	const { media, mediaSP, focalPoint, focalPointSP, isRepeat, opacity, setAttributes } = props;
 
-	const setImagePC = (media) => {
+	const mediaUrl = media.url;
+	const mediaUrlSP = mediaSP.url;
+
+	const setImagePC = (newMedia) => {
 		setAttributes({
-			mediaId: media.id,
-			mediaUrl: media.url,
-			mediaWidth: media.width,
-			mediaHeight: media.height,
-			mediaType: media.type,
+			media: {
+				id: newMedia.id,
+				url: newMedia.url,
+				type: newMedia.type,
+				width: newMedia.width,
+				height: newMedia.height,
+				// size: 'full',
+			},
 			...(100 === opacity ? { opacity: 50 } : {}),
 		});
 
 		// セット済みのメディアSPの形式が違う場合は削除する
-		if (mediaUrlSP && media.type !== mediaTypeSP) {
+		if (mediaSP.url && newMedia.type !== mediaSP.type) {
 			removeImageSP();
 		}
 	};
 
 	const removeImagePC = () => {
 		setAttributes({
-			mediaId: 0,
-			mediaUrl: '',
-			mediaType: '',
-			mediaWidth: undefined,
-			mediaHeight: undefined,
+			media: {
+				id: 0,
+				url: '',
+				type: '',
+				// size: 'full',
+			},
 			focalPoint: undefined,
-			...(!mediaUrlSP ? { opacity: 100 } : {}), // SP画像もなければ カラー100に。
+			...(!mediaSP.url ? { opacity: 100 } : {}), // SP画像もなければ カラー100に。
 		});
 	};
 
-	const setImageSP = (media) => {
+	const setImageSP = (newMedia) => {
 		setAttributes({
-			mediaIdSP: media.id,
-			mediaUrlSP: media.url,
-			mediaWidthSP: media.width,
-			mediaHeightSP: media.height,
-			mediaTypeSP: media.type,
+			mediaSP: {
+				id: newMedia.id,
+				url: newMedia.url,
+				type: newMedia.type,
+				width: newMedia.width,
+				height: newMedia.height,
+				// size: 'full',
+			},
 		});
 	};
 
 	const removeImageSP = () => {
 		setAttributes({
-			mediaIdSP: 0,
-			mediaUrlSP: '',
-			mediaTypeSP: '',
-			mediaWidthSP: undefined,
-			mediaHeightSP: undefined,
+			mediaSP: {
+				id: 0,
+				url: '',
+				type: '',
+				// size: 'full',
+			},
 			focalPointSP: undefined,
-			...(!mediaUrl ? { opacity: 100 } : {}), // PC画像もなければ カラー100に。
+			...(!media.url ? { opacity: 100 } : {}), // PC画像もなければ カラー100に。
 		});
 	};
 
 	let allowedTypes = null;
 	let noImageView = null;
-	if (isRepeat || 'image' === mediaType) {
+	if (isRepeat || 'image' === media.type) {
 		noImageView = (
 			<div className='arkb-imgPreview -noimage'>
 				<Icon icon={image} />
 			</div>
 		);
 		allowedTypes = ['image'];
-	} else if ('video' === mediaType) {
+	} else if ('video' === media.type) {
 		noImageView = (
 			<div className='arkb-imgPreview -noimage'>
 				<Icon icon={video} />
@@ -105,16 +104,16 @@ export const ImageTab = (props) => {
 		allowedTypes = ['image', 'video'];
 	}
 
-	const mediaOnSelect = (media) => {
-		if (media) {
-			setImagePC(media);
+	const mediaOnSelect = (newMedia) => {
+		if (newMedia) {
+			setImagePC(newMedia);
 		} else {
 			removeImagePC();
 		}
 	};
-	const mediaOnSelectSP = (media) => {
-		if (media) {
-			setImageSP(media);
+	const mediaOnSelectSP = (newMedia) => {
+		if (newMedia) {
+			setImageSP(newMedia);
 		} else {
 			removeImageSP();
 		}
@@ -125,7 +124,6 @@ export const ImageTab = (props) => {
 			{mediaUrl ? __('Change media', 'arkhe-blocks') : __('Select media', 'arkhe-blocks')}
 		</Button>
 	);
-
 	const mediaRenderSP = ({ open }) => (
 		<Button isPrimary onClick={open}>
 			{mediaUrlSP ? __('Change media', 'arkhe-blocks') : __('Select media', 'arkhe-blocks')}
@@ -147,7 +145,7 @@ export const ImageTab = (props) => {
 			<div className='arkb-btns--media'>
 				<MediaUploadCheck>
 					<MediaUpload
-						value={mediaId}
+						value={media.id}
 						onSelect={mediaOnSelect}
 						allowedTypes={['image', 'video']} // 変数の変化が反映されないので、PC側が仕方なく常にどちらも許可。
 						render={mediaRender}
@@ -183,7 +181,7 @@ export const ImageTab = (props) => {
 			<div className='arkb-btns--media'>
 				<MediaUploadCheck>
 					<MediaUpload
-						value={mediaIdSP}
+						value={mediaSP.id}
 						onSelect={mediaOnSelectSP}
 						allowedTypes={allowedTypes}
 						render={mediaRenderSP}

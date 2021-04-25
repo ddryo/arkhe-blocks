@@ -57,12 +57,8 @@ const svgTypes = ['line', 'circle', 'wave', 'zigzag'];
 export default ({ attributes, setAttributes, isSelected }) => {
 	const {
 		// align,
-		mediaId,
-		mediaUrl,
-		mediaIdSP,
-		mediaUrlSP,
-		mediaType,
-		mediaTypeSP,
+		media,
+		mediaSP,
 		focalPoint,
 		focalPointSP,
 		isRepeat,
@@ -80,20 +76,8 @@ export default ({ attributes, setAttributes, isSelected }) => {
 		svgBottom,
 	} = attributes;
 
-	// 画像設定タブに渡す情報
-	const mediaProps = {
-		mediaId,
-		mediaIdSP,
-		mediaUrl,
-		mediaUrlSP,
-		mediaType,
-		mediaTypeSP,
-		focalPoint,
-		focalPointSP,
-		isRepeat,
-		opacity,
-		setAttributes,
-	};
+	const mediaUrl = media.url;
+	const mediaType = media.type;
 
 	const setOverlayColor = useCallback(
 		(newColor) => {
@@ -118,20 +102,6 @@ export default ({ attributes, setAttributes, isSelected }) => {
 		return 0 !== svgBottom.level;
 	}, [isSelected]);
 
-	const bgSizeControl = (
-		<Flex data-ark-disabled={!isRepeat || null}>
-			<FlexItem>{__('Background Size', 'arkhe-blocks')}:</FlexItem>
-			<FlexBlock style={{ flex: '0 1 auto', marginLeft: 'auto' }}>
-				<UnitNumber
-					value={bgSize}
-					onChange={(newVal) => {
-						setAttributes({ bgSize: newVal });
-					}}
-				/>
-			</FlexBlock>
-		</Flex>
-	);
-
 	return (
 		<>
 			<PanelBody title={__('Background media setting', 'arkhe-blocks')}>
@@ -140,7 +110,17 @@ export default ({ attributes, setAttributes, isSelected }) => {
 						<img src={mediaUrl} alt='' />
 					</div>
 				)}
-				<ImageTab {...mediaProps} />
+				<ImageTab
+					{...{
+						media,
+						mediaSP,
+						focalPoint,
+						focalPointSP,
+						isRepeat,
+						opacity,
+						setAttributes,
+					}}
+				/>
 				{'image' === mediaType && (
 					<>
 						<ToggleControl
@@ -154,7 +134,17 @@ export default ({ attributes, setAttributes, isSelected }) => {
 							}}
 							className='arkb-ctrl--mb--s'
 						/>
-						{bgSizeControl}
+						<Flex data-ark-disabled={!isRepeat || null}>
+							<FlexItem>{__('Background Size', 'arkhe-blocks')} : </FlexItem>
+							<FlexBlock style={{ flex: '0 1 auto', marginLeft: 'auto' }}>
+								<UnitNumber
+									value={bgSize}
+									onChange={(newVal) => {
+										setAttributes({ bgSize: newVal });
+									}}
+								/>
+							</FlexBlock>
+						</Flex>
 					</>
 				)}
 			</PanelBody>

@@ -53,7 +53,7 @@
         },
         "opacity": {
             "type": "number",
-            "default": 25
+            "default": 20
         },
         "textColor": {
             "type": "string",
@@ -63,41 +63,23 @@
             "type": "string",
             "default": ""
         },
-        "mediaId": {
-            "type": "number",
-            "default": 0
+        "media": {
+            "type": "object",
+            "default": {
+                "id": 0,
+                "url": "",
+                "type": "",
+                "size": "full"
+            }
         },
-        "mediaIdSP": {
-            "type": "number",
-            "default": 0
-        },
-        "mediaUrl": {
-            "type": "string",
-            "default": ""
-        },
-        "mediaUrlSP": {
-            "type": "string",
-            "default": ""
-        },
-        "mediaWidth": {
-            "type": "number"
-        },
-        "mediaHeight": {
-            "type": "number"
-        },
-        "mediaWidthSP": {
-            "type": "number"
-        },
-        "mediaHeightSP": {
-            "type": "number"
-        },
-        "mediaType": {
-            "type": "string",
-            "default": ""
-        },
-        "mediaTypeSP": {
-            "type": "string",
-            "default": ""
+        "mediaSP": {
+            "type": "object",
+            "default": {
+                "id": 0,
+                "url": "",
+                "type": "",
+                "size": "full"
+            }
         },
         "focalPoint": {
             "type": "object"

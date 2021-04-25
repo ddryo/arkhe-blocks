@@ -61,22 +61,14 @@ registerBlockType(name, {
 	example,
 	attributes: metadata.attributes,
 	edit: ({ attributes, setAttributes, isSelected, clientId }) => {
-		const {
-			align,
-			mediaUrl,
-			innerSize,
-			height,
-			svgTop,
-			svgBottom,
-			contentPosition,
-		} = attributes;
+		const { align, media, innerSize, height, svgTop, svgBottom, contentPosition } = attributes;
 
 		const { updateBlockAttributes } = useDispatch('core/block-editor');
 		const getChildBlocks = useSelect((select) => select('core/block-editor').getBlocks, []);
 
 		// クラス名
 		const blockClass = classnames(blockName, {
-			'has-bg-img': !!mediaUrl,
+			'has-bg-img': !!media.url,
 		});
 
 		// スタイルデータ

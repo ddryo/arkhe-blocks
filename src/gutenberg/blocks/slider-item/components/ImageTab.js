@@ -11,6 +11,7 @@ import { Icon, video, image } from '@wordpress/icons';
  * @Inner dependencies
  */
 import { ArkDeviceTab } from '@components/ArkDeviceTab';
+import { ImageSizeSelect } from '@components/ImageSizeSelect';
 
 /**
  * export
@@ -22,25 +23,26 @@ export const ImageTab = memo((props) => {
 		removeImagePC,
 		setImageSP,
 		removeImageSP,
-		mediaType,
-		mediaTypeSP,
-		mediaUrl,
-		mediaUrlSP,
-		mediaId,
-		mediaIdSP,
+		updateImageSizePC,
+		updateImageSizeSP,
+		media,
+		mediaSP,
 		focalPoint,
 		focalPointSP,
 		setAttributes,
 	} = props;
 
+	const mediaUrl = media.url;
+	const mediaUrlSP = mediaSP.url;
+
 	let noImageView = null;
-	if ('image' === mediaType) {
+	if ('image' === media.type) {
 		noImageView = (
 			<div className='arkb-imgPreview -noimage'>
 				<Icon icon={image} />
 			</div>
 		);
-	} else if ('video' === mediaType) {
+	} else if ('video' === media.type) {
 		noImageView = (
 			<div className='arkb-imgPreview -noimage'>
 				<Icon icon={video} />
@@ -69,8 +71,8 @@ export const ImageTab = memo((props) => {
 	} else if (!isRichSlider && mediaUrl) {
 		mediaPreviewPC = (
 			<div className='arkb-imgPreview'>
-				{'image' === mediaType && <img src={mediaUrl} alt='' />}
-				{'video' === mediaType && <video src={mediaUrl} />}
+				{'image' === media.type && <img src={mediaUrl} alt='' />}
+				{'video' === media.type && <video src={mediaUrl} />}
 			</div>
 		);
 	}
@@ -81,15 +83,15 @@ export const ImageTab = memo((props) => {
 			<div className='arkb-btns--media'>
 				<MediaUploadCheck>
 					<MediaUpload
-						onSelect={(media) => {
-							if (media) {
-								setImagePC(media);
+						onSelect={(newMedia) => {
+							if (newMedia) {
+								setImagePC(newMedia);
 							} else {
 								removeImagePC();
 							}
 						}}
 						allowedTypes={['image', 'video']}
-						value={mediaId}
+						value={media.id}
 						render={({ open }) => (
 							<Button isPrimary onClick={open}>
 								{mediaUrl
@@ -111,6 +113,13 @@ export const ImageTab = memo((props) => {
 					</Button>
 				)}
 			</div>
+			{0 !== media.id && (
+				<ImageSizeSelect
+					imgId={media.id}
+					imgSize={media.size}
+					updateImageSize={updateImageSizePC}
+				/>
+			)}
 		</>
 	);
 
@@ -129,8 +138,8 @@ export const ImageTab = memo((props) => {
 	} else if (!isRichSlider && mediaUrlSP) {
 		mediaPreviewSP = (
 			<div className='arkb-imgPreview'>
-				{'image' === mediaTypeSP && <img src={mediaUrlSP} alt='' />}
-				{'video' === mediaTypeSP && <video src={mediaUrlSP} />}
+				{'image' === mediaSP.type && <img src={mediaUrlSP} alt='' />}
+				{'video' === mediaSP.type && <video src={mediaUrlSP} />}
 			</div>
 		);
 	}
@@ -141,15 +150,15 @@ export const ImageTab = memo((props) => {
 			<div className='arkb-btns--media'>
 				<MediaUploadCheck>
 					<MediaUpload
-						onSelect={(media) => {
-							if (media) {
-								setImageSP(media);
+						onSelect={(newMedia) => {
+							if (newMedia) {
+								setImageSP(newMedia);
 							} else {
 								removeImageSP();
 							}
 						}}
-						allowedTypes={[mediaType]}
-						value={mediaIdSP}
+						allowedTypes={[media.type]}
+						value={mediaSP.id}
 						render={({ open }) => (
 							<Button isPrimary onClick={open}>
 								{mediaUrlSP
@@ -171,6 +180,13 @@ export const ImageTab = memo((props) => {
 					</Button>
 				)}
 			</div>
+			{0 !== mediaSP.id && (
+				<ImageSizeSelect
+					imgId={mediaSP.id}
+					imgSize={mediaSP.size}
+					updateImageSize={updateImageSizeSP}
+				/>
+			)}
 		</>
 	);
 

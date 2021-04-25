@@ -48,6 +48,7 @@ export default ({ attributes, setAttributes, clientId }) => {
 	} = attributes;
 
 	const isAlignFull = 'full' === align;
+	const isRichSlider = 'rich' === variation;
 
 	// const [isPreview, setIsPreview] = useState(false);
 	// const { getBlocks } = wp.data.select('core/block-editor');
@@ -117,33 +118,35 @@ export default ({ attributes, setAttributes, clientId }) => {
 		// moveDownSlide,
 	};
 
-	const bloclStyle = {};
-	if ('custom' === height) {
-		bloclStyle['--arkb-slider-height'] = heightPC;
-		bloclStyle['--arkb-slider-height--sp'] = heightSP;
+	const blockStyle = {};
+	if (isRichSlider && 'custom' === height) {
+		blockStyle['--arkb-slider-height'] = heightPC;
+		blockStyle['--arkb-slider-height--sp'] = heightSP;
 	}
 
-	// スライドの表示用
-	const slideNumPC = options.slideNumPC;
-	if (1 < slideNumPC) {
-		const slideWidth = (100 / slideNumPC).toFixed(2);
-		bloclStyle['--arkb-slide-width'] = `${slideWidth}%`;
+	// エディター上での表示用
+	{
+		const slideNumPC = options.slideNumPC;
+		if (1 < slideNumPC) {
+			const slideWidth = (100 / slideNumPC).toFixed(2);
+			blockStyle['--arkb-slide-width'] = `${slideWidth}%`;
 
-		if (options.isCenter) {
-			const offset = ((100 - slideWidth) / 2).toFixed(2);
-			bloclStyle['--arkb-slide-offset'] = `${offset}%`;
+			if (options.isCenter) {
+				const offset = ((100 - slideWidth) / 2).toFixed(2);
+				blockStyle['--arkb-slide-offset'] = `${offset}%`;
+			}
 		}
-	}
-	const spacePC = options.spacePC;
-	if (0 < spacePC) {
-		bloclStyle['--arkb-slide-space'] = `${spacePC}px`;
+		const spacePC = options.spacePC;
+		if (0 < spacePC) {
+			blockStyle['--arkb-slide-space'] = `${spacePC}px`;
+		}
 	}
 
 	// ブロックprops
 	const blockProps = useBlockProps({
 		className: `${blockName} -${variation}`,
-		'data-height': height,
-		style: bloclStyle,
+		'data-height': isRichSlider ? height : null,
+		style: blockStyle,
 		'data-inner': isAlignFull ? innerSize : null,
 		// 'data-is-example': isExample ? '1' : null,
 	});

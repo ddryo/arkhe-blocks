@@ -29,17 +29,21 @@ function cb_slider( $attrs, $content ) {
 	$optionData = str_replace( 'true', '1', $optionData );
 	$optionData = str_replace( 'false', '0', $optionData );
 	$align      = $attrs['align'] ?? '';
+	$variation  = $attrs['variation'] ?? 'media';
+	$is_rich    = 'rich' === $variation;
 
 	// 属性
-	$props = ' data-option="' . esc_attr( $optionData ) . '" data-height="' . esc_attr( $height ) . '"';
-
+	$props = ' data-option="' . esc_attr( $optionData ) . '"';
+	if ( $is_rich ) {
+		$props .= ' data-height="' . esc_attr( $height ) . '"';
+	}
 	if ( 'full' === $align ) {
 		$props .= ' data-inner="' . esc_attr( $attrs['innerSize'] ) . '"';
 	}
 
 	// style
 	$style = [];
-	if ( 'custom' === $height ) {
+	if ( $is_rich && 'custom' === $height ) {
 		$style['--arkb-slider-height']     = $attrs['heightPC'];
 		$style['--arkb-slider-height--sp'] = $attrs['heightSP'];
 	}
@@ -53,7 +57,7 @@ function cb_slider( $attrs, $content ) {
 	// var(--swiper-pagination-color,var(--swiper-theme-color))
 	// --swiper-navigation-color: #fff;
 
-	$add_class = '-' . $attrs['variation'];
+	$add_class = '-' . $variation;
 	if ( $align ) {
 		$add_class = 'align' . $align;
 	}
