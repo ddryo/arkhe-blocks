@@ -44,14 +44,15 @@ function register_blocks() {
 			'step-item',
 			'timeline',
 			'timeline-item',
+			'box-link',
+			'box-links',
+
 		];
 
 		// かつ、Arkheでのみ利用可能
 		if ( IS_ARKHE_THEME ) {
 			// $arkhe_blocks_pro[] = 'section';
 			$arkhe_blocks_pro[] = 'section-heading';
-			$arkhe_blocks_pro[] = 'box-link';
-			$arkhe_blocks_pro[] = 'box-links';
 			$arkhe_blocks_pro[] = 'column';
 			$arkhe_blocks_pro[] = 'columns';
 			$arkhe_blocks_pro[] = 'tab';

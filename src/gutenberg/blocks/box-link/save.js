@@ -62,7 +62,7 @@ export default function ({ attributes }) {
 				{imgUrl && (
 					<figure className='arkb-boxLink__bg'>
 						<img
-							className={`arkb-boxLink__img u-obf-cover wp-image-${imgId}`}
+							className={`arkb-boxLink__img arkb-obf-cover wp-image-${imgId}`}
 							src={imgUrl}
 							alt={imgAlt}
 							width={imgW || null}
@@ -102,9 +102,9 @@ export default function ({ attributes }) {
 			>
 				<img
 					className={classnames(`arkb-boxLink__img wp-image-${imgId}`, {
-						// 'u-obf-cover': fixRatio || !isVertical,
-						'u-obf-cover': (fixRatio || !isVertical) && !isContain,
-						'u-obf-contain': (fixRatio || !isVertical) && isContain,
+						// 'arkb-obf-cover': fixRatio || !isVertical,
+						'arkb-obf-cover': (fixRatio || !isVertical) && !isContain,
+						'arkb-obf-contain': (fixRatio || !isVertical) && isContain,
 					})}
 					src={imgUrl}
 					alt={imgAlt}

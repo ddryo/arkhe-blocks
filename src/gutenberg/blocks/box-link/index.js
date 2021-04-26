@@ -10,6 +10,7 @@ import { registerBlockType } from '@wordpress/blocks';
 import { iconColor } from '@blocks/config';
 import edit from './edit';
 import save from './save';
+import deprecated from './deprecated';
 import metadata from './block.json';
 import blockIcon from './_icon';
 import example from './_example';
@@ -41,4 +42,5 @@ registerBlockType(name, {
 	],
 	edit,
 	save,
+	deprecated,
 });
