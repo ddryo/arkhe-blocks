@@ -33,8 +33,8 @@ import { iconColor } from '@blocks/config';
 import metadata from './block.json';
 import blockIcon from './_icon';
 import example from './_example';
+import HeadingLevelDropdown from './components/heading-level-dropdown';
 import { ArkheMarginControl } from '@components/ArkheMarginControl';
-import HeadingLevelDropdown from './heading-level-dropdown';
 
 /**
  * @others dependencies

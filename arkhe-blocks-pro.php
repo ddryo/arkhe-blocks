@@ -57,6 +57,12 @@ if ( ! class_exists( 'Arkhe_Blocks' ) ) {
 
 		public function __construct() {
 
+			// WPバージョンチェック
+			global $wp_version;
+			$is_wp56 = ( version_compare( $wp_version, '5.6.RC1' ) >= 0 );
+
+			if ( ! $is_wp56 ) return;
+
 			// テーマチェック : IS_ARKHE_THEME は Arkheプラグインで共通
 			if ( ! defined( 'IS_ARKHE_THEME' ) ) {
 				$theme_data     = wp_get_theme();
