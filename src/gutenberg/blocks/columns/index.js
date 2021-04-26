@@ -158,7 +158,8 @@ registerBlockType(name, {
 						</BaseControl>
 						<BaseControl>
 							<BaseControl.VisualLabel>
-								{__('Margins between columns', 'arkhe-blocks')}
+								{__('Margins between columns', 'arkhe-blocks')} (
+								<code style={{ fontSize: '12px' }}>margin:</code>)
 							</BaseControl.VisualLabel>
 							<Flex>
 								<FlexItem style={{ minWidth: '4em', marginRight: 'auto' }}>
