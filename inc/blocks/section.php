@@ -208,6 +208,8 @@ function render_svg( $position, $svgData ) {
 	} elseif ( 'zigzag' === $type ) {
 		$path = $isReverse ? '<path d="M0,50.3L25,100c0,0,50-100.3,50-98.8l25,49V0H25H0V50.3z" />' : '<path d="M100,50.3L75,100c0,0-50-100.3-50-98.8l-25,49V0h75h25V50.3z" />';
 	}
+
+	$path = apply_filters( 'arkb_section_svg_path', $path, $type, $isReverse );
 	?>
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"
 			class="ark-block-section__svg -<?=esc_attr( $position )?>"
