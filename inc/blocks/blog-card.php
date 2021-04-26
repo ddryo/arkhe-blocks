@@ -18,15 +18,16 @@ register_block_type_from_metadata(
 
 function cb( $attrs, $content ) {
 
-	$sc_props       = '';
-	$post_id        = $attrs['postId'];
-	$caption        = $attrs['caption'];
-	$is_newtab      = $attrs['isNewTab'];
-	$external_url   = $attrs['externalUrl'];
-	$rel            = $attrs['rel'];
-	$use_cache      = $attrs['useCache'];
-	$show_exerpt_PC = $attrs['showExerptPC'];
-	$show_exerpt_SP = $attrs['showExerptSP'];
+	$sc_props      = '';
+	$post_id       = $attrs['postId'];
+	$caption       = $attrs['caption'];
+	$is_newtab     = $attrs['isNewTab'];
+	$external_url  = $attrs['externalUrl'];
+	$rel           = $attrs['rel'];
+	$use_cache     = $attrs['useCache'];
+	$show_exerptPC = $attrs['showExerptPC'];
+	$show_exerptSP = $attrs['showExerptSP'];
+	$show_image    = $attrs['showImage'];
 
 	$is_external = ! empty( $external_url );
 	$card_data   = [];
@@ -67,17 +68,18 @@ function cb( $attrs, $content ) {
 	}
 
 	$data_excerpt = '';
-	if ( $show_exerpt_PC && $show_exerpt_SP ) {
+	if ( $show_exerptPC && $show_exerptSP ) {
 		$data_excerpt = 'both';
-	} elseif ( $show_exerpt_PC ) {
+	} elseif ( $show_exerptPC ) {
 		$data_excerpt = 'pc';
-	} elseif ( $show_exerpt_SP ) {
+	} elseif ( $show_exerptSP ) {
 		$data_excerpt = 'sp';
 	} else {
 		$data_excerpt = 'none';
 	}
 
 	$card_data['show_excerpt'] = $data_excerpt;
+	$card_data['show_image']   = $show_image;
 
 	ob_start();
 	\Arkhe_Blocks::get_part( 'blog_card', $card_data );

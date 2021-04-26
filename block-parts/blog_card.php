@@ -15,6 +15,7 @@ $args = array_merge([
 	'type'         => '',
 	'class'        => '',
 	'show_excerpt' => 'both',
+	'show_image'   => true,
 ], $args );
 
 $url    = $args['url'];
@@ -38,7 +39,7 @@ $excerpt_class = 'both' !== $args['show_excerpt'] ? ' u-only-' . $args['show_exc
 ?>
 <div class="ark-block-blogCard arkb-boxLink<?=esc_attr( $add_class )?>">
 	<a href="<?=esc_url( $url )?>" class="arkb-boxLink__inner" data-type="<?=$args['type']?>"<?=$target . $rel?>>
-		<?php if ( $args['thumb_url'] ) : ?>
+		<?php if ( $args['show_image'] && $args['thumb_url'] ) : ?>
 			<div class="arkb-boxLink__figure c-postThumb">
 				<figure class="c-postThumb__figure">
 					<img src="<?=esc_url( $args['thumb_url'] )?>" alt="" class="<?=esc_attr( $img_class )?>">

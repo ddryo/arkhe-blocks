@@ -27,10 +27,6 @@
             "default": "arkb-svg-plus"
         }
     },
-    "usesContext": [
-        "arkhe-block/accordion/iconOpened",
-        "arkhe-block/accordion/iconClosed"
-    ],
     "editorScript": "file:../../../../dist/gutenberg/blocks/accordion-item/index.js",
     "textdomain": "arkhe-blocks"
 }

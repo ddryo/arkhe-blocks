@@ -1,11 +1,10 @@
 .ark-block-blogCard {
+	--ark-thumb_ratio: 61.8%;
+
 	margin-right: auto;
 	margin-left: auto;
 	border-radius: 3px;
 
-	// [data-type="internal"] {
-	--ark-thumb_ratio: 61.8%;
-	// }
 
 	&.arkb-boxLink {
 		box-shadow: var(--arkb-shadow--s);

@@ -2,7 +2,6 @@
 namespace Arkhe_Blocks\Block\Section;
 
 defined( 'ABSPATH' ) || exit;
-// phpcs:disable WordPress.NamingConventions.ValidVariableName.InterpolatedVariableNotSnakeCase
 
 require_once __DIR__ . '/section/migrate.php';
 require_once __DIR__ . '/section/helper.php';

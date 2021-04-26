@@ -120,6 +120,9 @@
 		<!-- 参考演算子を許可 -->
 		<exclude name="WordPress.PHP.DisallowShortTernary.Found" />
 
+		<!-- 変数名にスネークケース以外も許可 -->
+		<exclude name="WordPress.NamingConventions.ValidVariableName.InterpolatedVariableNotSnakeCase" />
+
 		<!-- $post_id などの変数名にエラーをださない -->
 		<!-- <exclude name="WordPress.WP.GlobalVariablesOverride.OverrideProhibited" /> -->
 		

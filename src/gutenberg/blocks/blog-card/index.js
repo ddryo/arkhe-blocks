@@ -59,6 +59,7 @@ registerBlockType(name, {
 			useCache,
 			showExerptPC,
 			showExerptSP,
+			showImage,
 		} = attributes;
 
 		// プレビュー中
@@ -157,27 +158,6 @@ registerBlockType(name, {
 				<InspectorControls>
 					<PanelBody title={__('Settings', 'arkhe-blocks')} initialOpen={true}>
 						<ToggleControl
-							label={__('Show excerpt', 'arkhe-blocks') + ' (PC)'}
-							checked={showExerptPC}
-							onChange={(val) => {
-								setAttributes({ showExerptPC: val });
-							}}
-						/>
-						<ToggleControl
-							label={__('Show excerpt', 'arkhe-blocks') + ' (SP)'}
-							checked={showExerptSP}
-							onChange={(val) => {
-								setAttributes({ showExerptSP: val });
-							}}
-						/>
-						<TextControl
-							label={__('Caption at the bottom right of the card', 'arkhe-blocks')}
-							value={caption}
-							onChange={(val) => {
-								setAttributes({ caption: val });
-							}}
-						/>
-						<ToggleControl
 							label={__('Use the cache', 'arkhe-blocks')}
 							help={__(
 								'If you want to clear the cache, turn it off only once.',
@@ -186,6 +166,38 @@ registerBlockType(name, {
 							checked={useCache}
 							onChange={(val) => {
 								setAttributes({ useCache: val });
+							}}
+							className='arkb-ctrl--mb--s'
+						/>
+						<ToggleControl
+							label={__('Show featured image', 'arkhe-blocks')}
+							checked={showImage}
+							onChange={(val) => {
+								setAttributes({ showImage: val });
+							}}
+							className='arkb-ctrl--mb--s'
+						/>
+						<ToggleControl
+							label={__('Show excerpt', 'arkhe-blocks') + ' (PC)'}
+							checked={showExerptPC}
+							onChange={(val) => {
+								setAttributes({ showExerptPC: val });
+							}}
+							className='arkb-ctrl--mb--s'
+						/>
+						<ToggleControl
+							label={__('Show excerpt', 'arkhe-blocks') + ' (SP)'}
+							checked={showExerptSP}
+							onChange={(val) => {
+								setAttributes({ showExerptSP: val });
+							}}
+							// className='arkb-ctrl--mb--s'
+						/>
+						<TextControl
+							label={__('Caption at the bottom right of the card', 'arkhe-blocks')}
+							value={caption}
+							onChange={(val) => {
+								setAttributes({ caption: val });
 							}}
 						/>
 					</PanelBody>

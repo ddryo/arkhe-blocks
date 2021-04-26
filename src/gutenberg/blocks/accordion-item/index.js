@@ -29,7 +29,7 @@ import blockIcon from './_icon';
  * metadata
  */
 const blockName = 'ark-block-accordion';
-const { apiVersion, name, category, supports, parent, usesContext } = metadata;
+const { apiVersion, name, category, supports, parent } = metadata;
 
 /**
  * 設定
@@ -58,10 +58,9 @@ registerBlockType(name, {
 	category,
 	parent,
 	supports,
-	usesContext,
+	// usesContext: ['arkhe-block/accordion/iconOpened', 'arkhe-block/accordion/iconClosed'],
 	attributes: metadata.attributes,
-	edit: (props) => {
-		const { attributes, setAttributes } = props;
+	edit: ({ attributes, setAttributes }) => {
 		// const iconOpened = context['arkhe-block/accordion/iconOpened'];
 		// const iconClosed = context['arkhe-block/accordion/iconClosed'];
 
