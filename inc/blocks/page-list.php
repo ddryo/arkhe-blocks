@@ -1,5 +1,5 @@
 <?php
-namespace Arkhe_Blocks;
+namespace Arkhe_Blocks\Block\Page_List;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -11,12 +11,12 @@ $block_name = 'page-list';
 register_block_type_from_metadata(
 	ARKHE_BLOCKS_PATH . 'src/gutenberg/blocks/' . $block_name,
 	[
-		'render_callback'  => '\Arkhe_Blocks\cb_page_list',
+		'render_callback'  => '\Arkhe_Blocks\Block\Page_List\cb',
 	]
 );
 
 
-function cb_page_list( $attrs, $content ) {
+function cb( $attrs, $content ) {
 
 	if ( ! class_exists( 'Arkhe' ) ) return;
 

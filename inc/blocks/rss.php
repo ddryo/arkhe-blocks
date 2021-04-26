@@ -1,5 +1,5 @@
 <?php
-namespace Arkhe_Blocks;
+namespace Arkhe_Blocks\Block\RSS;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -11,12 +11,12 @@ $block_name = 'rss';
 register_block_type_from_metadata(
 	ARKHE_BLOCKS_PATH . 'src/gutenberg/blocks/' . $block_name,
 	[
-		'render_callback'  => '\Arkhe_Blocks\cb_rss',
+		'render_callback'  => '\Arkhe_Blocks\Block\RSS\cb',
 	]
 );
 
 
-function cb_rss( $attrs, $content ) {
+function cb( $attrs, $content ) {
 
 	$rss_url       = $attrs['rssUrl'];
 	$use_cache     = $attrs['useCache'];
@@ -38,7 +38,7 @@ function cb_rss( $attrs, $content ) {
 
 	if ( empty( $rss_data ) ) {
 		// 取得可能な最大件数の10件を予め取得してキャッシュしておく。
-		$rss_data = \Arkhe_Blocks\get_rss( $attrs['rssUrl'] );
+		$rss_data = get_rss_data( $attrs['rssUrl'] );
 
 		$chache_time = apply_filters( 'arkhe_blocks_rss_cache_time', 1 * DAY_IN_SECONDS, $rss_url );
 		if ( $use_cache ) set_transient( $chache_key, $rss_data, $chache_time );
@@ -97,7 +97,7 @@ function cb_rss( $attrs, $content ) {
 /**
  * RSS取得
  */
-function get_rss( $rss_url = '' ) {
+function get_rss_data( $rss_url = '' ) {
 
 	// RSS取得
 	$rss = fetch_feed( $rss_url );
@@ -145,7 +145,7 @@ function get_rss( $rss_url = '' ) {
 
 		// それでもなければ、OGPから取得
 		if ( '' === $thumbnail ) {
-			$thumbnail = \Arkhe_Blocks\get_remote_thumb( $item_link );
+			$thumbnail = get_remote_thumb( $item_link );
 		}
 
 		// 著者名

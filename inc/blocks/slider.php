@@ -1,5 +1,5 @@
 <?php
-namespace Arkhe_Blocks;
+namespace Arkhe_Blocks\Block\Slider;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -11,11 +11,11 @@ $block_name = 'slider';
 register_block_type_from_metadata(
 	ARKHE_BLOCKS_PATH . 'src/gutenberg/blocks/' . $block_name,
 	[
-		'render_callback'  => '\Arkhe_Blocks\cb_slider',
+		'render_callback'  => '\Arkhe_Blocks\Block\Slider\cb',
 	]
 );
 // phpcs:disable WordPress.NamingConventions.ValidVariableName.InterpolatedVariableNotSnakeCase
-function cb_slider( $attrs, $content ) {
+function cb( $attrs, $content ) {
 
 	// Slider使われたことを変数にセット
 	\Arkhe_Blocks::$use_swiper = true;

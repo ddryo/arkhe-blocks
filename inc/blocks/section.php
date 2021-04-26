@@ -1,5 +1,5 @@
 <?php
-namespace Arkhe_Blocks\Blocks\Section;
+namespace Arkhe_Blocks\Block\Section;
 
 defined( 'ABSPATH' ) || exit;
 // phpcs:disable WordPress.NamingConventions.ValidVariableName.InterpolatedVariableNotSnakeCase
@@ -16,7 +16,7 @@ $block_name = 'section';
 register_block_type_from_metadata(
 	ARKHE_BLOCKS_PATH . 'src/gutenberg/blocks/' . $block_name,
 	[
-		'render_callback'  => '\Arkhe_Blocks\Blocks\Section\cb',
+		'render_callback'  => '\Arkhe_Blocks\Block\Section\cb',
 	]
 );
 

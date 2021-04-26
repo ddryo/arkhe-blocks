@@ -1,5 +1,5 @@
 <?php
-namespace Arkhe_Blocks;
+namespace Arkhe_Blocks\Block\Slider_Item;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -11,11 +11,11 @@ $block_name = 'slider-item';
 register_block_type_from_metadata(
 	ARKHE_BLOCKS_PATH . 'src/gutenberg/blocks/' . $block_name,
 	[
-		'render_callback'  => '\Arkhe_Blocks\cb_slider_item',
+		'render_callback'  => '\Arkhe_Blocks\Block\Slider_Item\cb',
 	]
 );
 // phpcs:disable WordPress.NamingConventions.ValidVariableName.InterpolatedVariableNotSnakeCase
-function cb_slider_item( $attrs, $content ) {
+function cb( $attrs, $content ) {
 	ob_start();
 
 	if ( 'media' === $attrs['variation'] ) {
@@ -66,7 +66,7 @@ function render_rich_slider( $attrs, $content ) {
 	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 	?>
 	<div class="ark-block-slider__slide swiper-slide" style="<?=esc_attr( $block_style )?>">
-		<?php \Arkhe_Blocks\render_slide_media_layer( $attrs ); ?>
+		<?php render_slide_media_layer( $attrs ); ?>
 		<div class="ark-block-slider__color arkb-absLayer" style="<?=esc_attr( $color_layer_style )?>"></div>
 		<div class="ark-block-slider__body"<?=$text_layer_props?>>
 			<div class="ark-block-slider__bodyInner ark-keep-mt--s">
@@ -82,13 +82,10 @@ function render_rich_slider( $attrs, $content ) {
  * メディアスライダー
  */
 function render_media_slider( $attrs ) {
-
-	$block_class = 'ark-block-slider__slide swiper-slide';
-
 	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 	?>
-	<div class="<?=esc_attr( $block_class )?>">
-		<?php \Arkhe_Blocks\render_slide_media_layer( $attrs ); ?>
+	<div class="ark-block-slider__slide swiper-slide">
+		<?php render_slide_media_layer( $attrs ); ?>
 	</div>
 	<?php
 	// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped

@@ -1,5 +1,5 @@
 <?php
-namespace Arkhe_Blocks;
+namespace Arkhe_Blocks\Block\Blog_Card;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -11,12 +11,12 @@ $block_name = 'blog-card';
 register_block_type_from_metadata(
 	ARKHE_BLOCKS_PATH . 'src/gutenberg/blocks/' . $block_name,
 	[
-		'render_callback'  => '\Arkhe_Blocks\cb_blog_card',
+		'render_callback'  => '\Arkhe_Blocks\Block\Blog_Card\cb',
 	]
 );
 
 
-function cb_blog_card( $attrs, $content ) {
+function cb( $attrs, $content ) {
 
 	$sc_props       = '';
 	$post_id        = $attrs['postId'];
@@ -41,9 +41,9 @@ function cb_blog_card( $attrs, $content ) {
 
 	if ( empty( $card_data ) ) {
 		if ( $is_external ) {
-			$card_data = \Arkhe_Blocks\get_external_blog_card( $external_url );
+			$card_data = get_external_blog_card( $external_url );
 		} elseif ( $post_id ) {
-			$card_data = \Arkhe_Blocks\get_internal_blog_card( $post_id );
+			$card_data = get_internal_blog_card( $post_id );
 		}
 
 		if ( null === $card_data ) {

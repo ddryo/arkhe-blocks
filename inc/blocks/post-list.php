@@ -1,5 +1,5 @@
 <?php
-namespace Arkhe_Blocks;
+namespace Arkhe_Blocks\Block\Post_List;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -11,12 +11,12 @@ $block_name = 'post-list';
 register_block_type_from_metadata(
 	ARKHE_BLOCKS_PATH . 'src/gutenberg/blocks/' . $block_name,
 	[
-		'render_callback'  => '\Arkhe_Blocks\cb_post_list',
+		'render_callback'  => '\Arkhe_Blocks\Block\Post_List\cb',
 	]
 );
 
 
-function cb_post_list( $attrs, $content ) {
+function cb( $attrs, $content ) {
 	// ここでは defined('REST_REQUEST')  = true になる //サーバーサイドレンダー？
 
 	$list_count_pc = $attrs['listCountPC'];

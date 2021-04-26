@@ -1,5 +1,5 @@
 <?php
-namespace Arkhe_Blocks\Blocks\Section;
+namespace Arkhe_Blocks\Block\Section;
 
 defined( 'ABSPATH' ) || exit;
 // phpcs:disable WordPress.NamingConventions.ValidVariableName.InterpolatedVariableNotSnakeCase
