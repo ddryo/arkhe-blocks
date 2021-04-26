@@ -140,7 +140,7 @@ function render_slide_media_layer( $attrs ) {
 		if ( $style ) $video_props       .= ' style="' . esc_attr( $style ) . '"';
 
 		// 出力内容
-		$media_html = '<video class="ark-block-slider__video u-obf-cover"' . $video_props . '>';
+		$media_html = '<video class="ark-block-slider__video arkb-obf-cover"' . $video_props . '>';
 		if ( $mediaUrlSP ) {
 			$sp_props                        = 'src="' . esc_attr( $mediaUrlSP ) . '"';
 			if ( $mediaWidthSP ) $sp_props  .= ' width="' . esc_attr( $mediaWidthSP ) . '"';
@@ -166,7 +166,7 @@ function render_slide_media_layer( $attrs ) {
 		if ( $mediaHeight ) $img_props .= ' height="' . esc_attr( $mediaHeight ) . '"';
 
 		// 出力内容
-		$media_html = '<picture class="ark-block-slider__picture u-obf-cover"' . $picture_props . '>';
+		$media_html = '<picture class="ark-block-slider__picture arkb-obf-cover"' . $picture_props . '>';
 		if ( $mediaUrlSP ) {
 			$sp_props                        = 'srcset="' . esc_attr( $mediaUrlSP ) . '"';
 			if ( $mediaWidthSP ) $sp_props  .= ' width="' . esc_attr( $mediaWidthSP ) . '"';

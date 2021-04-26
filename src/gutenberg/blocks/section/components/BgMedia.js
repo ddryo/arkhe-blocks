@@ -36,7 +36,7 @@ export const BgMedia = ({ attributes }) => {
 
 	let mediaSrc = null;
 	if ('video' === media.type && 'image' !== mediaSP.type) {
-		const mediaClass = classnames(`${blockName}__video`, 'u-obf-cover');
+		const mediaClass = classnames(`${blockName}__video`, 'arkb-obf-cover');
 		mediaSrc = (
 			<video
 				className={mediaClass}
@@ -60,9 +60,7 @@ export const BgMedia = ({ attributes }) => {
 				<img
 					src={mediaUrl}
 					alt=''
-					className={classnames(`${blockName}__img u-obf-cover`, {
-						// [`wp-image-${media.id}`]: !!media.id,
-					})}
+					className={classnames(`${blockName}__img arkb-obf-cover`)}
 					width={media.width || null}
 					height={media.height || null}
 				/>

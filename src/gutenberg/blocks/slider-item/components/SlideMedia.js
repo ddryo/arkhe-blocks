@@ -33,7 +33,7 @@ export const SlideMedia = ({ attributes }) => {
 	if ('video' === media.type && 'image' !== mediaSP.type) {
 		mediaSrc = (
 			<video
-				className={classnames(`${blockName}__video`, 'u-obf-cover')}
+				className={classnames(`${blockName}__video`, 'arkb-obf-cover')}
 				autoPlay
 				loop
 				playsinline
@@ -60,9 +60,7 @@ export const SlideMedia = ({ attributes }) => {
 				<img
 					src={mediaUrl}
 					alt={alt}
-					className={classnames(`${blockName}__img u-obf-cover`, {
-						// [`wp-image-${mediaId}`]: !!mediaId,
-					})}
+					className={classnames(`${blockName}__img arkb-obf-cover`)}
 					width={media.width || null}
 					height={media.height || null}
 				/>
