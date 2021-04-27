@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#使い方 : $ bash ./bin/zip_pro.sh 1-6-0
+#使い方 : $ bash ./bin/zip_pro.sh 1-8-0
 
 #引数 : プラグインのバージョン
 version=$1
@@ -9,7 +9,7 @@ version=$1
 cd ..
 
 #zプラグインファイルをip化
-zip -r arkhe-blocks-pro.zip arkhe-blocks-pro -x "*/.*" "*/__*" "*bin*" "*node_modules*" "*vendor*" "*/src/**/*.js" "*phpcs.xml" "*gulpfile.js" "*README.md"
+zip -r arkhe-blocks-pro.zip arkhe-blocks-pro -x "*/.*" "*/__*" "*bin*" "*node_modules*" "*vendor*" "*/src/**/*.js" "*phpcs.xml" "*gulpfile.js" "*README.md" "*readme.txt"
 
 #設定ファイル系削除
 zip --delete arkhe-blocks-pro.zip  "arkhe-blocks-pro/composer*" "arkhe-blocks-pro/webpack*" "arkhe-blocks-pro/package*"
