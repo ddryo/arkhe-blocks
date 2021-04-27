@@ -49,12 +49,12 @@ export default [
 				default: '1',
 			},
 		},
-		migrate: (attributes) => {
-			return {
-				...attributes,
-				margin: { x: '0.75rem', bottom: '1.5rem' },
-			};
-		},
+		// migrate: (attributes) => {
+		// 	return {
+		// 		...attributes,
+		// 		margin: { x: '0.75rem', bottom: '1.5rem' },
+		// 	};
+		// },
 		save: ({ attributes }) => {
 			const { colPC, colTab, colMobile } = attributes;
 

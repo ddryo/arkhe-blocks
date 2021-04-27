@@ -16,13 +16,10 @@ import blockIcon from './_icon';
 import example from './_example';
 
 /**
- * metadata
+ * registerBlockType
  */
 const { apiVersion, name, category, keywords, supports, parent } = metadata;
 
-/**
- * アコーディオン
- */
 registerBlockType(name, {
 	apiVersion,
 	title: __('Box link', 'arkhe-blocks'),

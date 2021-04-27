@@ -38,14 +38,11 @@ import getColumnBasis from '@helper/getColumnBasis';
 import classnames from 'classnames';
 
 /**
- * metadata
+ * registerBlockType
  */
 const blockName = 'ark-block-boxLinks';
 const { apiVersion, name, category, keywords, supports } = metadata;
 
-/**
- * アコーディオン
- */
 registerBlockType(name, {
 	apiVersion,
 	title: __('Box links', 'arkhe-blocks'),
@@ -72,9 +69,6 @@ registerBlockType(name, {
 		const blockProps = useBlockProps({
 			className: blockClass,
 			style: columnStyle || null,
-			'data-col': colMobile,
-			'data-col-tab': colTab,
-			'data-col-pc': colPC,
 		});
 
 		// 左右marginの関係でカラムブロックは一つdivかませる

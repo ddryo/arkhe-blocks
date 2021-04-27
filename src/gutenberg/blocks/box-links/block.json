@@ -17,23 +17,14 @@
     "attributes": {
         "colPC": {
             "type": "string",
-            "source": "attribute",
-            "selector": ".arkb-columns",
-            "attribute": "data-col-pc",
             "default": "2"
         },
         "colTab": {
             "type": "string",
-            "source": "attribute",
-            "selector": ".arkb-columns",
-            "attribute": "data-col-tab",
             "default": "2"
         },
         "colMobile": {
             "type": "string",
-            "source": "attribute",
-            "selector": ".arkb-columns",
-            "attribute": "data-col",
             "default": "1"
         }
     },
