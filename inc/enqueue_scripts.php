@@ -9,15 +9,14 @@ defined( 'ABSPATH' ) || exit;
  */
 add_action( 'wp_enqueue_scripts', '\Arkhe_Blocks\hook_wp_enqueue_scripts', 20 );
 function hook_wp_enqueue_scripts() {
-	wp_enqueue_style( 'arkhe-blocks-front', ARKHE_BLOCKS_URL . 'dist/css/front.css', [], ARKHE_BLOCKS_VERSION );
-	wp_enqueue_script( 'arkhe-blocks-front', ARKHE_BLOCKS_URL . 'dist/js/front.js', [], ARKHE_BLOCKS_VERSION, true );
+	wp_enqueue_style( 'arkhe-blocks-front', ARKHE_BLOCKS_URL . 'dist/css/front.css', [], \Arkhe_Blocks::$version );
+	wp_enqueue_script( 'arkhe-blocks-front', ARKHE_BLOCKS_URL . 'dist/js/front.js', [], \Arkhe_Blocks::$version, true );
 
 	// カスタムフォーマット用CSS
 	$custom_format_css = \Arkhe_Blocks::get_data( 'format', 'custom_format_css' );
 	if ( $custom_format_css ) {
 		wp_add_inline_style( 'arkhe-blocks-front', $custom_format_css );
 	}
-
 }
 
 /**
@@ -26,9 +25,9 @@ function hook_wp_enqueue_scripts() {
 add_action( 'wp_footer', '\Arkhe_Blocks\hook_enqueue_footer', 1 );
 function hook_enqueue_footer() {
 	if ( \Arkhe_Blocks::$use_swiper ) {
-		wp_enqueue_style( 'arkhe-blocks-swiper', ARKHE_BLOCKS_URL . 'assets/css/swiper.min.css', [], ARKHE_BLOCKS_VERSION );
-		wp_enqueue_script( 'arkhe-blocks-swiper', ARKHE_BLOCKS_URL . 'assets/js/swiper.min.js', [], ARKHE_BLOCKS_VERSION, true );
-		wp_enqueue_script( 'arkhe-blocks-slider', ARKHE_BLOCKS_URL . 'dist/gutenberg/swiper.js', ['arkhe-blocks-swiper' ], ARKHE_BLOCKS_VERSION, true );
+		wp_enqueue_style( 'arkhe-blocks-swiper', ARKHE_BLOCKS_URL . 'assets/css/swiper.min.css', [], \Arkhe_Blocks::$version );
+		wp_enqueue_script( 'arkhe-blocks-swiper', ARKHE_BLOCKS_URL . 'assets/js/swiper.min.js', [], \Arkhe_Blocks::$version, true );
+		wp_enqueue_script( 'arkhe-blocks-slider', ARKHE_BLOCKS_URL . 'dist/gutenberg/swiper.js', ['arkhe-blocks-swiper' ], \Arkhe_Blocks::$version, true );
 	}
 }
 
@@ -42,7 +41,7 @@ function hook_enqueue_block_editor_assets( $hook_suffix ) {
 	$dist_url = ARKHE_BLOCKS_URL . 'dist/';
 
 	// ブロック用CSS
-	wp_enqueue_style( 'arkhe-blocks-editor', $dist_url . 'css/blocks.css', [], ARKHE_BLOCKS_VERSION );
+	wp_enqueue_style( 'arkhe-blocks-editor', $dist_url . 'css/blocks.css', [], \Arkhe_Blocks::$version );
 
 	// カスタムフォーマット用CSS
 	$custom_format_css = \Arkhe_Blocks::get_data( 'format', 'custom_format_css' );
@@ -83,7 +82,7 @@ function hook_admin_enqueue_scripts( $hook_suffix ) {
 
 	// Arkhe Blocks設定ページのみ
 	if ( $is_arkb_page ) {
-		wp_enqueue_style( 'arkhe-blocks-menu', ARKHE_BLOCKS_URL . 'dist/css/menu.css', [], ARKHE_BLOCKS_VERSION );
+		wp_enqueue_style( 'arkhe-blocks-menu', ARKHE_BLOCKS_URL . 'dist/css/menu.css', [], \Arkhe_Blocks::$version );
 
 		wp_dequeue_style( 'arkhe-toolkit-menu' );
 

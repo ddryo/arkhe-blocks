@@ -10,7 +10,7 @@ add_action( 'init', '\Arkhe_Blocks\register_blocks' );
 function register_blocks() {
 
 	// 翻訳登録用の空ファイル
-	wp_enqueue_script( 'arkhe-blocks-lang', ARKHE_BLOCKS_URL . 'assets/js/translations.js', [], ARKHE_BLOCKS_VERSION, false );
+	wp_enqueue_script( 'arkhe-blocks-lang', ARKHE_BLOCKS_URL . 'assets/js/translations.js', [], \Arkhe_Blocks::$version, false );
 
 	// JS用翻訳ファイルの読み込み
 	if ( function_exists( 'wp_set_script_translations' ) ) {
@@ -109,8 +109,8 @@ function register_arkhe_dynamic_blocks() {
 
 	$dynamic_blocks = [
 		'section',
-		'slider',
-		'slider-item',
+		// 'slider',
+		// 'slider-item',
 	];
 
 	// Arkheでのみ利用可能なダイナミックブロック

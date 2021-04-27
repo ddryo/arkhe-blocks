@@ -20,6 +20,9 @@ class Data {
 	const MENU_PAGE_PREFIX  = 'arkb_menu_page_';
 	const MENU_GROUP_PREFIX = 'arkb_menu_group_';
 
+	// version
+	public static $version = '';
+
 	// 設定データを保持する変数
 	protected static $data     = [];
 	protected static $defaults = [];
