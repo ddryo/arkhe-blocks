@@ -19,6 +19,8 @@ register_block_type_from_metadata(
 function cb( $attrs, $content ) {
 	// ここでは defined('REST_REQUEST')  = true になる //サーバーサイドレンダー？
 
+	$anchor        = $attrs['anchor'] ?? '';
+	$className     = $attrs['className'] ?? '';
 	$list_count_pc = $attrs['listCountPC'];
 	$list_count_sp = $attrs['listCountSP'];
 
@@ -135,14 +137,20 @@ function cb( $attrs, $content ) {
 	}
 
 	// リストを囲むクラス名
-	$list_wrapper_class = 'ark-block-postList';
-	if ( $attrs['className'] ) {
-		$list_wrapper_class .= ' ' . $attrs['className'];
+	$block_class = 'ark-block-postList';
+	if ( $className ) {
+		$block_class .= ' ' . $className;
+	}
+
+	$block_props = 'class="' . esc_attr( $block_class ) . '"';
+
+	// アンカー
+	if ( $anchor ) {
+		$block_props .= ' id="' . esc_attr( $anchor ) . '"';
 	}
 
 	ob_start();
-	echo '<div class="' . esc_attr( $list_wrapper_class ) . '">';
-
+	echo '<div ' . $block_props . '>'; // phpcs:ignore
 	// 投稿リスト
 	\Arkhe::get_part( 'post_list/sub_query', [
 		'query_args' => $query_args,

@@ -20,6 +20,10 @@ register_block_type_from_metadata(
 );
 
 function cb( $attrs, $content ) {
+	// echo '<pre style="margin-left: 100px;">';
+	// var_dump( $attrs );
+	// echo '</pre>';
+
 	if ( false !== strpos( $content, 'class="ark-block-section__inner' ) ) {
 		$content = migrate_content( $content );
 	}
@@ -32,9 +36,11 @@ function cb( $attrs, $content ) {
 // 出力内容
 function render_section( $attrs, $content ) {
 	// var_dump( $attrs )
+	$anchor          = $attrs['anchor'] ?? '';
+	$className       = $attrs['className'] ?? '';
+	$align           = $attrs['align'] ?? '';
 	$mediaUrl        = $attrs['media']['url'] ?? '';
 	$height          = $attrs['height'] ?? 'content';
-	$align           = $attrs['align'] ?? '';
 	$contentPosition = $attrs['contentPosition'] ?? 'center left';
 	$contentPosition = str_replace( ' ', '-', $contentPosition );
 
@@ -50,24 +56,34 @@ function render_section( $attrs, $content ) {
 	if ( $align ) {
 		$block_class .= ' align' . $align;
 	}
+	if ( $className ) {
+		$block_class .= ' ' . $className;
+	}
 
 	// 属性
-	$block_props = ' data-height="' . esc_attr( $height ) . '"';
+	$block_props = 'class="' . esc_attr( $block_class ) . '"';
+
+	// アンカー
+	if ( $anchor ) {
+		$block_props .= ' id="' . esc_attr( $anchor ) . '"';
+	}
+
+	// data-height
+	$block_props .= ' data-height="' . esc_attr( $height ) . '"';
 	if ( 'full' === $align && $attrs['innerSize'] ) {
 		$block_props .= ' data-inner="' . esc_attr( $attrs['innerSize'] ) . '"';
 	}
 
 	// Block style
 	$block_style = get_block_style( $attrs );
-
 	if ( $svgDataTop['height'] ) {
 		$block_style['--arkb-svg-height--top'] = $svgDataTop['height'] . 'vw';
 	}
 	if ( $svgDataBottom['height'] ) {
 		$block_style['--arkb-svg-height--bottom'] = $svgDataBottom['height'] . 'vw';
 	}
-
 	$block_style = \Arkhe_Blocks::convert_style_props( $block_style );
+
 	if ( $block_style ) {
 		$block_props .= ' style="' . esc_attr( $block_style ) . '"';
 	}
@@ -81,7 +97,7 @@ function render_section( $attrs, $content ) {
 
 	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 	?>
-	<div class="<?=esc_attr( $block_class )?>"<?=$block_props?>>
+	<div <?=$block_props?>>
 		<?php render_media( $attrs ); ?>
 		<div class="ark-block-section__color arkb-absLayer" style="<?=esc_attr( $color_layer_style )?>"></div>
 		<div class="ark-block-section__body" data-content="<?=esc_attr( $contentPosition )?>">

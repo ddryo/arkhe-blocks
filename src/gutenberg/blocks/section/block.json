@@ -16,6 +16,14 @@
         ]
     },
     "attributes": {
+        "className": {
+            "type": "string",
+            "default": ""
+        },
+        "anchor": {
+            "type": "string",
+            "default": ""
+        },
         "align": {
             "type": "string",
             "default": "full"
