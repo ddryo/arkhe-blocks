@@ -118,36 +118,28 @@ export default ({ attributes, setAttributes, clientId }) => {
 		// moveDownSlide,
 	};
 
-	const blockStyle = {};
+	const sliderStyle = {};
 	if (isRichSlider && 'custom' === height) {
-		blockStyle['--arkb-slider-height'] = heightPC;
-		blockStyle['--arkb-slider-height--sp'] = heightSP;
+		sliderStyle['--arkb-slider-height'] = heightPC;
+		sliderStyle['--arkb-slider-height--sp'] = heightSP;
 	}
 
 	// エディター上での表示用
-	{
-		const slideNumPC = options.slideNumPC;
-		if (1 < slideNumPC) {
-			const slideWidth = (100 / slideNumPC).toFixed(2);
-			blockStyle['--arkb-slide-width'] = `${slideWidth}%`;
-
-			if (options.isCenter) {
-				const offset = ((100 - slideWidth) / 2).toFixed(2);
-				blockStyle['--arkb-slide-offset'] = `${offset}%`;
-			}
-		}
-		const spacePC = options.spacePC;
-		if (0 < spacePC) {
-			blockStyle['--arkb-slide-space'] = `${spacePC}px`;
-		}
+	const blockStyle = {};
+	const slideNumPC = options.slideNumPC;
+	if (1 < slideNumPC) {
+		const slideWidth = (100 / slideNumPC).toFixed(2);
+		blockStyle['--arkb-slide-width'] = `${slideWidth}%`;
+	}
+	const spacePC = options.spacePC;
+	if (0 < spacePC) {
+		blockStyle['--arkb-slide-space'] = `${spacePC}px`;
 	}
 
 	// ブロックprops
 	const blockProps = useBlockProps({
-		className: `${blockName} -${variation}`,
-		'data-height': isRichSlider ? height : null,
 		style: blockStyle,
-		'data-inner': isAlignFull ? innerSize : null,
+		'data-is-center': options.isCenter,
 		// 'data-is-example': isExample ? '1' : null,
 	});
 
@@ -208,9 +200,17 @@ export default ({ attributes, setAttributes, clientId }) => {
 						</Button>
 					</div>
 				</div>
-				<SliderContext.Provider value={contextData}>
-					<div {...innerBlocksProps} />
-				</SliderContext.Provider>
+				<div
+					className={`${blockName} -${variation}`}
+					data-height={isRichSlider ? height : null}
+					data-inner={isAlignFull ? innerSize : null}
+					style={sliderStyle}
+					// data-is-center={options.isCenter}
+				>
+					<SliderContext.Provider value={contextData}>
+						<div {...innerBlocksProps} />
+					</SliderContext.Provider>
+				</div>
 				<div className='__navigation -bottom'>
 					{childIDs.map((_id, index) => {
 						const isActive = index === actSlide;

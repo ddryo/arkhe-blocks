@@ -22,23 +22,38 @@ function cb( $attrs, $content ) {
 
 	ob_start();
 
+	$anchor     = $attrs['anchor'] ?? '';
+	$className  = $attrs['className'] ?? '';
+	$align      = $attrs['align'] ?? '';
+	$variation  = $attrs['variation'] ?? 'media';
 	$height     = $attrs['height'];
 	$options    = $attrs['options'];
 	$optionData = wp_json_encode( $options, JSON_UNESCAPED_UNICODE );
 	$optionData = str_replace( '"', '', $optionData );
 	$optionData = str_replace( 'true', '1', $optionData );
 	$optionData = str_replace( 'false', '0', $optionData );
-	$align      = $attrs['align'] ?? '';
-	$variation  = $attrs['variation'] ?? 'media';
 	$is_rich    = 'rich' === $variation;
 
+	// class名
+	$block_class = 'ark-block-slider -' . $variation;
+	if ( $align ) {
+		$block_class .= ' align' . $align;
+	}
+	if ( $className ) {
+		$block_class .= ' ' . $className;
+	}
+
 	// 属性
-	$props = ' data-option="' . esc_attr( $optionData ) . '"';
+	$block_props = 'class="' . esc_attr( $block_class ) . '"';
+	if ( $anchor ) {
+		$block_props .= ' id="' . esc_attr( $anchor ) . '"';
+	}
+	$block_props .= ' data-option="' . esc_attr( $optionData ) . '"';
 	if ( $is_rich ) {
-		$props .= ' data-height="' . esc_attr( $height ) . '"';
+		$block_props .= ' data-height="' . esc_attr( $height ) . '"';
 	}
 	if ( 'full' === $align ) {
-		$props .= ' data-inner="' . esc_attr( $attrs['innerSize'] ) . '"';
+		$block_props .= ' data-inner="' . esc_attr( $attrs['innerSize'] ) . '"';
 	}
 
 	// style
@@ -50,22 +65,17 @@ function cb( $attrs, $content ) {
 	$style = \Arkhe_Blocks::convert_style_props( $style );
 
 	if ( $style ) {
-		$props .= ' style="' . esc_attr( $style ) . '"';
+		$block_props .= ' style="' . esc_attr( $style ) . '"';
 	}
 
 	// --swiper-navigation-size
 	// var(--swiper-pagination-color,var(--swiper-theme-color))
 	// --swiper-navigation-color: #fff;
 
-	$add_class = '-' . $variation;
-	if ( $align ) {
-		$add_class = 'align' . $align;
-	}
-
 	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 
 	?>
-	<div class="ark-block-slider <?=esc_attr( $add_class )?>"<?php echo $props; ?>">
+	<div <?=$block_props?>>
 		<div class="ark-block-slider__inner swiper-container">
 			<div class="swiper-wrapper">
 				<?=$content?>

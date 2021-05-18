@@ -109,8 +109,8 @@ function register_arkhe_dynamic_blocks() {
 
 	$dynamic_blocks = [
 		'section',
-		// 'slider',
-		// 'slider-item',
+		'slider',
+		'slider-item',
 	];
 
 	// Arkheでのみ利用可能なダイナミックブロック

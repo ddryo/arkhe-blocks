@@ -8,6 +8,7 @@
         "slider"
     ],
     "supports": {
+        "anchor": true,
         "className": false,
         "align": [
             "wide",
@@ -15,6 +16,14 @@
         ]
     },
     "attributes": {
+        "anchor": {
+            "type": "string",
+            "default": ""
+        },
+        "className": {
+            "type": "string",
+            "default": ""
+        },
         "variation": {
             "type": "string",
             "default": ""
@@ -39,8 +48,8 @@
             "type": "object",
             "default": {
                 "isAuto": true,
-                "isLoop": true,
-                "isCenter": true,
+                "isLoop": false,
+                "isCenter": false,
                 "effect": "slide",
                 "direction": "horizontal",
                 "speed": 1200,
