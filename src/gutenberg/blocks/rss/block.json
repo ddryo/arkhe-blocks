@@ -12,6 +12,10 @@
         "className": false
     },
     "attributes": {
+        "anchor": {
+            "type": "string",
+            "default": ""
+        },
         "className": {
             "type": "string",
             "default": ""

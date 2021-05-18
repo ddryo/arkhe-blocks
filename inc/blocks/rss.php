@@ -18,6 +18,8 @@ register_block_type_from_metadata(
 
 function cb( $attrs, $content ) {
 
+	$anchor        = $attrs['anchor'] ?? '';
+	$className     = $attrs['className'] ?? '';
 	$rss_url       = $attrs['rssUrl'];
 	$use_cache     = $attrs['useCache'];
 	$list_count_pc = $attrs['listCountPC'];
@@ -59,9 +61,7 @@ function cb( $attrs, $content ) {
 		'show_date'      => $attrs['showDate'],
 		'show_author'    => $attrs['showAuthor'],
 		'show_thumb'     => $attrs['showThumb'],
-
 		// 'show_modified'  => $attrs['showModified'],
-
 		'h_tag'          => $attrs['hTag'],
 		'list_count_pc'  => $list_count_pc,
 		'list_count_sp'  => $list_count_sp,
@@ -75,22 +75,27 @@ function cb( $attrs, $content ) {
 	// }
 
 	// リストを囲むクラス名
-	$list_wrapper_class = 'ark-block-rss';
-	if ( $attrs['className'] ) {
-		$list_wrapper_class .= ' ' . $attrs['className'];
+	$block_class = 'ark-block-rss';
+	if ( $className ) {
+		$block_class .= ' ' . $className;
 	}
 
-	ob_start();
-	echo '<div class="' . esc_attr( $list_wrapper_class ) . '">';
+	// 属性
+	$block_props = 'class="' . esc_attr( $block_class ) . '"';
+	if ( $anchor ) {
+		$block_props .= ' id="' . esc_attr( $anchor ) . '"';
+	}
 
-	// 投稿リスト
+	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
+	ob_start();
+	echo '<div ' . $block_props . '>';
 	\Arkhe_Blocks::get_part( 'rss', [
 		'rss_items' => $rss_data['items'],
 		'list_args' => $list_args,
 	] );
-
 	echo '</div>';
 	return ob_get_clean();
+	// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
 

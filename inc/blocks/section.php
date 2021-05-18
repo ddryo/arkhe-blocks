@@ -20,10 +20,6 @@ register_block_type_from_metadata(
 );
 
 function cb( $attrs, $content ) {
-	// echo '<pre style="margin-left: 100px;">';
-	// var_dump( $attrs );
-	// echo '</pre>';
-
 	if ( false !== strpos( $content, 'class="ark-block-section__inner' ) ) {
 		$content = migrate_content( $content );
 	}
@@ -35,7 +31,6 @@ function cb( $attrs, $content ) {
 
 // 出力内容
 function render_section( $attrs, $content ) {
-	// var_dump( $attrs )
 	$anchor          = $attrs['anchor'] ?? '';
 	$className       = $attrs['className'] ?? '';
 	$align           = $attrs['align'] ?? '';
@@ -62,8 +57,6 @@ function render_section( $attrs, $content ) {
 
 	// 属性
 	$block_props = 'class="' . esc_attr( $block_class ) . '"';
-
-	// アンカー
 	if ( $anchor ) {
 		$block_props .= ' id="' . esc_attr( $anchor ) . '"';
 	}

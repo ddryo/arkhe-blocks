@@ -142,9 +142,8 @@ function cb( $attrs, $content ) {
 		$block_class .= ' ' . $className;
 	}
 
+	// 属性
 	$block_props = 'class="' . esc_attr( $block_class ) . '"';
-
-	// アンカー
 	if ( $anchor ) {
 		$block_props .= ' id="' . esc_attr( $anchor ) . '"';
 	}

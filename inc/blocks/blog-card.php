@@ -61,6 +61,7 @@ function cb( $attrs, $content ) {
 	$card_data['rel']       = $rel;
 	$card_data['type']      = $is_external ? 'external' : 'internal';
 	$card_data['class']     = $attrs['className'];
+	$card_data['anchor']    = $attrs['anchor'];
 
 	// キャプションの設定があれば
 	if ( $caption ) {

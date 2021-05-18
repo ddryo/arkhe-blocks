@@ -20,9 +20,11 @@ function cb( $attrs, $content ) {
 
 	if ( ! class_exists( 'Arkhe' ) ) return;
 
-	$target  = $attrs['target'];
-	$orderby = $attrs['orderby'];
-	$order   = $attrs['order'];
+	$anchor    = $attrs['anchor'] ?? '';
+	$className = $attrs['className'] ?? '';
+	$target    = $attrs['target'];
+	$orderby   = $attrs['orderby'];
+	$order     = $attrs['order'];
 
 	$query_args = [
 		'post_type'      => 'page',
@@ -52,20 +54,26 @@ function cb( $attrs, $content ) {
 	}
 
 	// リストを囲むクラス名
-	$list_wrapper_class = 'ark-block-pageList';
-	if ( $attrs['className'] ) {
-		$list_wrapper_class .= ' ' . $attrs['className'];
+	$block_class = 'ark-block-pageList';
+	if ( $className ) {
+		$block_class .= ' ' . $className;
 	}
 
-	ob_start();
-	echo '<div class="' . esc_attr( $list_wrapper_class ) . '">';
+	// 属性
+	$block_props = 'class="' . esc_attr( $block_class ) . '"';
+	if ( $anchor ) {
+		$block_props .= ' id="' . esc_attr( $anchor ) . '"';
+	}
 
+	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
+	ob_start();
+	echo '<div ' . $block_props . '>';
 	\Arkhe_Blocks::get_part( 'page_list', [
 		'query_args' => $query_args,
 		'list_args'  => $list_args,
 	] );
-
 	echo '</div>';
+	// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
 
 	// リセット
 	\Arkhe::$excerpt_length = ARKHE_EXCERPT_LENGTH;
