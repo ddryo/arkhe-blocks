@@ -13,7 +13,7 @@ import {
 import { useState, useCallback } from '@wordpress/element';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { Button, ToolbarButton, ToolbarGroup } from '@wordpress/components';
-import { plus } from '@wordpress/icons';
+import { plus, chevronLeft, chevronRight } from '@wordpress/icons';
 
 /**
  * @Internal dependencies
@@ -106,6 +106,20 @@ export default ({ attributes, setAttributes, clientId }) => {
 		},
 		[clientId, childBlocks]
 	);
+
+	// 前のスライドを選択
+	const focusPrev = useCallback(() => {
+		const prevIndex = Math.max(0, actSlide - 1);
+		setActSlide(prevIndex);
+		selectBlock(childIDs[prevIndex]);
+	}, [actSlide, childIDs]);
+
+	// 次のスライドを選択
+	const focusNext = useCallback(() => {
+		const nextIndex = Math.min(childIDs.length - 1, actSlide + 1);
+		setActSlide(nextIndex);
+		selectBlock(childIDs[nextIndex]);
+	}, [actSlide, childIDs]);
 
 	// Contenxt 準備
 	const { SliderContext } = window.arkbContext;
@@ -207,6 +221,30 @@ export default ({ attributes, setAttributes, clientId }) => {
 					style={sliderStyle}
 					// data-is-center={options.isCenter}
 				>
+					<div
+						className={classnames('__prev', {
+							'-off': 0 === actSlide,
+						})}
+					>
+						<Button
+							icon={chevronLeft}
+							onClick={() => {
+								focusPrev();
+							}}
+						/>
+					</div>
+					<div
+						className={classnames('__next', {
+							'-off': childIDs.length - 1 === actSlide,
+						})}
+					>
+						<Button
+							icon={chevronRight}
+							onClick={() => {
+								focusNext();
+							}}
+						/>
+					</div>
 					<SliderContext.Provider value={contextData}>
 						<div {...innerBlocksProps} />
 					</SliderContext.Provider>

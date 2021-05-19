@@ -84,8 +84,12 @@ function cb( $attrs, $content ) {
 				<div class="swiper-pagination"></div>
 			<?php endif; ?>
 			<?php if ( $options['showNavigation'] ) : ?>
-				<div class="swiper-button-prev" tabIndex="0" role="button" aria-label="Previous slide"></div>
-				<div class="swiper-button-next" tabIndex="0" role="button" aria-label="Next slide"></div>
+				<div class="swiper-button-prev ark-block-slider__nav" tabIndex="0" role="button" aria-label="Previous slide">
+					<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false"><path d="M14.6 7l-1.2-1L8 12l5.4 6 1.2-1-4.6-5z"></path></svg>
+				</div>
+				<div class="swiper-button-next ark-block-slider__nav" tabIndex="0" role="button" aria-label="Next slide">
+					<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false"><path d="M10.6 6L9.4 7l4.6 5-4.6 5 1.2 1 5.4-6z"></path></svg>
+				</div>
 			<?php endif; ?>
 		</div>
 	</div>

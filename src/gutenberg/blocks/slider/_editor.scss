@@ -8,16 +8,9 @@
 	padding: 8px 8px;
 	border: dashed 1px $color_guide;
 
+
 	[data-type="arkhe-blocks/slider-item"] {
 		max-width: 100%;
-	}
-
-	.arkb-tabList {
-		margin-bottom: 8px !important;
-	}
-
-	.arkb-tabList__button {
-		padding: .5em 1em;
 	}
 
 	// .__body {
@@ -55,7 +48,6 @@
 		}
 
 	}
-
 
 	// &[data-is-center="true"] > .ark-block-slider__inner > .ark-block-slider__slide:first-child {
 	// 	margin-left: calc((100% - var(--arkb-slide-width, 100%)) / 2) !important;
@@ -129,6 +121,50 @@
 			}
 		}
 
+	}
+
+	.ark-block-slider {
+		position: relative;
+	}
+
+	.__prev,
+	.__next {
+		position: absolute;
+		top: 50%;
+		z-index: 10;
+		padding: 0;
+		transform: translateY(-50%);
+
+
+		.components-button {
+			width: auto;
+			min-width: 0;
+			height: auto;
+			min-height: 0;
+			padding: 4px;
+			color: var(--swiper-theme-color);
+			border-radius: 50%;
+		}
+
+		svg {
+			//親の.ark-block-sliderにcss変数は定義されている.
+			width: var(--swiper-navigation-size);
+			height: var(--swiper-navigation-size);
+			// transform: scale(1.25); // wordpressアイコンの矢印は少し小さいので拡大。
+		}
+
+		&.-off {
+			opacity: .3;
+			pointer-events: none;
+		}
+	}
+
+	.__prev {
+		left: 10px;
+	}
+
+	.__next {
+		right: 10px;
 	}
 
 }
