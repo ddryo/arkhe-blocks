@@ -12,6 +12,7 @@ import {
 	FlexBlock,
 	FlexItem,
 } from '@wordpress/components';
+import { PanelColorSettings } from '@wordpress/block-editor';
 // import { useState } from '@wordpress/element';
 // import { useDispatch } from '@wordpress/data';
 import { Icon, mobile, desktop } from '@wordpress/icons';
@@ -26,7 +27,7 @@ import { ArkDeviceTab } from '@components/ArkDeviceTab';
  * sidebar
  */
 export default ({ attributes, setAttributes }) => {
-	const { variation, height, heightPC, heightSP, options } = attributes;
+	const { variation, height, heightPC, heightSP, options, slideColor } = attributes;
 
 	const setOptions = (newOptions) => {
 		setAttributes({ options: { ...options, ...newOptions } });
@@ -101,109 +102,11 @@ export default ({ attributes, setAttributes }) => {
 					</div>
 				</PanelBody>
 			)}
-
-			<PanelBody title={__('Slider function', 'arkhe-blocks')} initialOpen={true}>
-				{/* <BaseControl className='arkb-toggles'> */}
-				<ToggleControl
-					label={__('Enable autoplay', 'arkhe-blocks')}
-					checked={options.isAuto}
-					onChange={(val) => {
-						setOptions({ isAuto: val });
-					}}
-					className='arkb-ctrl--mb--s'
-				/>
-				<ToggleControl
-					label={__('Enable loop', 'arkhe-blocks')}
-					checked={options.isLoop}
-					onChange={(val) => {
-						setOptions({ isLoop: val });
-					}}
-					className='arkb-ctrl--mb--s'
-				/>
-				<ToggleControl
-					label={__('Show arrow navigation', 'arkhe-blocks')}
-					checked={options.showNavigation}
-					onChange={(val) => {
-						setOptions({ showNavigation: val });
-					}}
-				/>
-
-				<SelectControl
-					label={__('Transition effect', 'arkhe-blocks')}
-					value={options.effect}
-					options={[
-						{
-							label: __('Slide', 'arkhe-blocks'),
-							value: 'slide',
-						},
-						{
-							label: __('Fade', 'arkhe-blocks'),
-							value: 'fade',
-						},
-					]}
-					onChange={(val) => {
-						setOptions({ effect: val });
-					}}
-				/>
-				<div data-ark-disabled={'content' === height || null}>
-					<SelectControl
-						label={__('Slider direction', 'arkhe-blocks')}
-						value={options.direction}
-						options={[
-							{
-								label: _x('Horizontal', 'slider', 'arkhe-blocks'),
-								value: 'horizontal',
-							},
-							{
-								label: _x('Vertical', 'slider', 'arkhe-blocks'),
-								value: 'vertical',
-							},
-						]}
-						onChange={(val) => {
-							setOptions({ direction: val });
-						}}
-					/>
-				</div>
-				<TextControl
-					label={__('Slide transition time', 'arkhe-blocks') + ' [ms]'}
-					type='number'
-					value={options.speed}
-					step='100'
-					min='0'
-					autocomplete='off'
-					onChange={(val) => {
-						setOptions({ speed: parseInt(val) });
-					}}
-				/>
-				<TextControl
-					label={__('Delay time between transitions', 'arkhe-blocks') + ' [ms]'}
-					type='number'
-					value={options.delay}
-					step='100'
-					min='0'
-					autocomplete='off'
-					onChange={(val) => {
-						setOptions({ delay: parseInt(val) });
-					}}
-				/>
-				<div
-					data-ark-disabled={
-						(options.slideNumPC === 1 && options.slideNumSP === 1) || null
-					}
-				></div>
-			</PanelBody>
 			<PanelBody
-				title={__('Slide display settings', 'arkhe-blocks')}
+				title={__('Settings for each device', 'arkhe-blocks')}
 				className='arkb-panel--slideHeight'
 				initialOpen={true}
 			>
-				<ToggleControl
-					label={__('Center the slide', 'arkhe-blocks')}
-					checked={options.isCenter}
-					onChange={(val) => {
-						setOptions({ isCenter: val });
-					}}
-				/>
 				<ArkDeviceTab
 					controlPC={
 						<>
@@ -259,6 +162,107 @@ export default ({ attributes, setAttributes }) => {
 					}
 				/>
 			</PanelBody>
+			<PanelBody title={__('Slider settings', 'arkhe-blocks')} initialOpen={true}>
+				{/* <BaseControl className='arkb-toggles'> */}
+				<ToggleControl
+					label={__('Enable autoplay', 'arkhe-blocks')}
+					checked={options.isAuto}
+					onChange={(val) => {
+						setOptions({ isAuto: val });
+					}}
+					className='arkb-ctrl--mb--s'
+				/>
+				<ToggleControl
+					label={__('Enable loop', 'arkhe-blocks')}
+					checked={options.isLoop}
+					onChange={(val) => {
+						setOptions({ isLoop: val });
+					}}
+					className='arkb-ctrl--mb--s'
+				/>
+				<ToggleControl
+					label={__('Show arrow navigation', 'arkhe-blocks')}
+					checked={options.showArrow}
+					onChange={(val) => {
+						setOptions({ showArrow: val });
+					}}
+					className='arkb-ctrl--mb--s'
+				/>
+				<div
+					data-ark-disabled={
+						(options.slideNumPC === 1 && options.slideNumSP === 1) || null
+					}
+				>
+					<ToggleControl
+						label={__('Center the slide', 'arkhe-blocks')}
+						checked={options.isCenter}
+						onChange={(val) => {
+							setOptions({ isCenter: val });
+						}}
+					/>
+				</div>
+				<SelectControl
+					label={__('Transition effect', 'arkhe-blocks')}
+					value={options.effect}
+					options={[
+						{
+							label: __('Slide', 'arkhe-blocks'),
+							value: 'slide',
+						},
+						{
+							label: __('Fade', 'arkhe-blocks'),
+							value: 'fade',
+						},
+					]}
+					onChange={(val) => {
+						setOptions({ effect: val });
+					}}
+				/>
+				<TextControl
+					label={__('Slide transition time', 'arkhe-blocks') + ' [ms]'}
+					type='number'
+					value={options.speed}
+					step='100'
+					min='0'
+					autocomplete='off'
+					onChange={(val) => {
+						setOptions({ speed: parseInt(val) });
+					}}
+				/>
+				<TextControl
+					label={__('Delay time between transitions', 'arkhe-blocks') + ' [ms]'}
+					type='number'
+					value={options.delay}
+					step='100'
+					min='0'
+					autocomplete='off'
+					onChange={(val) => {
+						setOptions({ delay: parseInt(val) });
+					}}
+				/>
+				{isRichSlider && (
+					<div data-ark-disabled={'content' === height || null}>
+						<SelectControl
+							label={__('Slider direction', 'arkhe-blocks')}
+							value={options.direction}
+							options={[
+								{
+									label: _x('Horizontal', 'slider', 'arkhe-blocks'),
+									value: 'horizontal',
+								},
+								{
+									label: _x('Vertical', 'slider', 'arkhe-blocks'),
+									value: 'vertical',
+								},
+							]}
+							onChange={(val) => {
+								setOptions({ direction: val });
+							}}
+						/>
+					</div>
+				)}
+			</PanelBody>
+
 			<PanelBody title={__('Pagination', 'arkhe-blocks')} initialOpen={true}>
 				<SelectControl
 					value={options.pagination}
@@ -307,6 +311,24 @@ export default ({ attributes, setAttributes }) => {
 					/>
 				</div>
 			</PanelBody>
+			<PanelColorSettings
+				title={__('Navigation Color', 'arkhe-blocks')}
+				initialOpen={true}
+				colorSettings={[
+					{
+						value: slideColor,
+						label: __('Color', 'arkhe-blocks'),
+						onChange: (value) => {
+							setAttributes({ slideColor: value });
+						},
+					},
+				]}
+				help={__('矢印ボタンやページネーションの色が変わります', 'arkhe-blocks')}
+			>
+				<div className='description'>
+					{__('矢印ボタンやページネーションの色が変わります', 'arkhe-blocks')}
+				</div>
+			</PanelColorSettings>
 		</>
 	);
 };

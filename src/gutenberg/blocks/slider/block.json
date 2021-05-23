@@ -61,8 +61,12 @@
                 "pagination": "bullets",
                 "isClickable": false,
                 "isDynamic": false,
-                "showNavigation": false
+                "showArrow": false
             }
+        },
+        "slideColor": {
+            "type": "string",
+            "default": "#000000"
         },
         "isExample": {
             "type": "boolean",

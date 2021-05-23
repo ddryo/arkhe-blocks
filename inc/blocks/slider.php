@@ -27,7 +27,9 @@ function cb( $attrs, $content ) {
 	$align      = $attrs['align'] ?? '';
 	$variation  = $attrs['variation'] ?? 'media';
 	$height     = $attrs['height'];
+	$slideColor = $attrs['slideColor'] ?? '#000000';
 	$options    = $attrs['options'];
+	$direction  = $options['direction'] ?? 'horizontal';
 	$optionData = wp_json_encode( $options, JSON_UNESCAPED_UNICODE );
 	$optionData = str_replace( '"', '', $optionData );
 	$optionData = str_replace( 'true', '1', $optionData );
@@ -48,19 +50,23 @@ function cb( $attrs, $content ) {
 	if ( $anchor ) {
 		$block_props .= ' id="' . esc_attr( $anchor ) . '"';
 	}
-	$block_props .= ' data-option="' . esc_attr( $optionData ) . '"';
 	if ( $is_rich ) {
 		$block_props .= ' data-height="' . esc_attr( $height ) . '"';
 	}
 	if ( 'full' === $align ) {
 		$block_props .= ' data-inner="' . esc_attr( $attrs['innerSize'] ) . '"';
 	}
+	$block_props .= ' data-direction="' . esc_attr( $direction ) . '"';
+	$block_props .= ' data-option="' . esc_attr( $optionData ) . '"';
 
 	// style
 	$style = [];
 	if ( $is_rich && 'custom' === $height ) {
 		$style['--arkb-slider-height']     = $attrs['heightPC'];
 		$style['--arkb-slider-height--sp'] = $attrs['heightSP'];
+	}
+	if ( '#000000' !== $slideColor ) {
+		$style['--swiper-theme-color'] = $slideColor;
 	}
 	$style = \Arkhe_Blocks::convert_style_props( $style );
 
@@ -83,16 +89,36 @@ function cb( $attrs, $content ) {
 			<?php if ( 'off' !== $options['pagination'] ) : ?>
 				<div class="swiper-pagination"></div>
 			<?php endif; ?>
-			<?php if ( $options['showNavigation'] ) : ?>
-				<div class="swiper-button-prev ark-block-slider__nav" tabIndex="0" role="button" aria-label="Previous slide">
-					<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false"><path d="M14.6 7l-1.2-1L8 12l5.4 6 1.2-1-4.6-5z"></path></svg>
+			<?php if ( $options['showArrow'] ) : ?>
+				<div class="swiper-button-prev ark-block-slider__nav -prev" tabIndex="0" role="button" aria-label="Previous slide">
+					<?php render_arrow_svg( 'left' ); ?>
 				</div>
-				<div class="swiper-button-next ark-block-slider__nav" tabIndex="0" role="button" aria-label="Next slide">
-					<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false"><path d="M10.6 6L9.4 7l4.6 5-4.6 5 1.2 1 5.4-6z"></path></svg>
+				<div class="swiper-button-next ark-block-slider__nav -next" tabIndex="0" role="button" aria-label="Next slide">
+					<?php render_arrow_svg( 'right' ); ?>
 				</div>
 			<?php endif; ?>
 		</div>
 	</div>
 <?php
 	return ob_get_clean();
+}
+
+
+/**
+ * arrow svg
+ */
+function render_arrow_svg( $position ) {
+	ob_start();
+	if ( 'left' === $position ) :
+	?>
+		<svg x="0px" y="0px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"  role="img" aria-hidden="true" focusable="false">
+			<path d="M16.4,2.6l-0.8-0.7c-0.2-0.2-0.5-0.2-0.7,0l-8.7,9.7c-0.2,0.2-0.2,0.5,0,0.7l8.7,9.7c0.2,0.2,0.5,0.2,0.7,0l0.8-0.7 c0.2-0.2,0.2-0.5,0-0.7l-7.7-8.3c-0.2-0.2-0.2-0.5,0-0.7l7.7-8.3C16.6,3.1,16.6,2.8,16.4,2.6z"/>
+		</svg>
+	<?php else : ?>
+		<svg x="0px" y="0px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"  role="img" aria-hidden="true" focusable="false">
+			<path d="M7.9,21.4l0.8,0.7c0.2,0.2,0.5,0.2,0.7,0l8.7-9.7c0.2-0.2,0.2-0.5,0-0.7L9.4,2c-0.2-0.2-0.5-0.2-0.7,0L7.9,2.6 c-0.2,0.2-0.2,0.5,0,0.7l7.7,8.3c0.2,0.2,0.2,0.5,0,0.7l-7.7,8.3C7.7,20.9,7.7,21.2,7.9,21.4z"/>
+		</svg>
+	<?php
+	endif;
+	echo apply_filters( 'arkb_sloder_arrow_svg', ob_get_clean(), $position );
 }

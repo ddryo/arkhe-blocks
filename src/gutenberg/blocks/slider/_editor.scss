@@ -17,38 +17,6 @@
 	// 	margin-left: calc(0 - var(--arkb-slide-space, 0px)) !important;
 	// }
 
-	.ark-block-slider__inner {
-		position: relative;
-		display: flex;
-		justify-content: flex-start;
-		overflow-x: scroll;
-		overflow-y: auto;
-		scroll-behavior: smooth;
-		// scroll-snap-type: x mandatory;
-
-		// & > .block-list-appender {
-		// 	display: none !important;
-		// }
-
-	}
-
-	// センター表示時の余白合わせ
-	&[data-is-center="true"] .ark-block-slider__inner {
-
-		&::before,
-		&::after {
-			display: block;
-			flex-grow: 0;
-			flex-shrink: 0;
-			align-self: stretch;
-			width: calc(var(--arkb-slide-width, 0px) / 2);
-			margin: 0 !important;
-			background-color: rgba(0, 0, 0, .1);
-			content: "";
-		}
-
-	}
-
 	// &[data-is-center="true"] > .ark-block-slider__inner > .ark-block-slider__slide:first-child {
 	// 	margin-left: calc((100% - var(--arkb-slide-width, 100%)) / 2) !important;
 	// }
@@ -56,14 +24,71 @@
 	.ark-block-slider__slide {
 		flex-grow: 0;
 		flex-shrink: 0;
-		width: calc(var(--arkb-slide-width, 100%) - var(--arkb-slide-space, 0px) / 2);
 		max-width: 100%;
-		margin: 0 var(--arkb-slide-space, 0px) 0 0 !important;
 
 		.wp-block {
 			max-width: 100%;
 		}
 	}
+
+
+	[data-direction="horizontal"] {
+
+		--arkb-slide-offset-width: calc(var(--arkb-slide-width, 0px) / 2);
+		--arkb-slide-offset-height: auto;
+
+		.ark-block-slider__inner {
+			position: relative;
+			display: flex;
+			justify-content: flex-start;
+			overflow-x: scroll;
+			scroll-behavior: smooth;
+			// scroll-snap-type: x mandatory;
+		}
+
+		.ark-block-slider__slide {
+			width: calc(var(--arkb-slide-width, 100%) - var(--arkb-slide-space, 0px) / 2);
+			margin: 0 var(--arkb-slide-space, 0px) 0 0 !important;
+		}
+	}
+
+	[data-direction="vertical"] {
+
+		--arkb-slide-offset-width: 100%;
+		--arkb-slide-offset-height: calc(var(--arkb-slide-width, 0px) / 2);
+
+		.ark-block-slider__inner {
+			position: relative;
+			overflow-y: scroll;
+			scroll-behavior: smooth;
+		}
+
+		.ark-block-slider__slide {
+			height: calc(var(--arkb-slide-width, 100%) - var(--arkb-slide-space, 0px) / 2);
+			margin: 0 0 var(--arkb-slide-space, 0px) 0 !important;
+		}
+	}
+
+
+	// センター表示時の余白合わせ
+	&[data-is-center="true"] {
+
+		.ark-block-slider__inner::before,
+		.ark-block-slider__inner::after {
+			display: block;
+			flex-grow: 0;
+			flex-shrink: 0;
+			align-self: stretch;
+			width: var(--arkb-slide-offset-width);
+			height: var(--arkb-slide-offset-height);
+			margin: 0 !important;
+			// background-color: rgba(0, 0, 0, .1);
+			background-image: linear-gradient(-45deg, rgba(#555, .1) 0%, rgba(#555, .1) 25%, transparent 25%, transparent 50%, rgba(#555, .1) 50%, rgba(#555, .1) 75%, transparent 75%, transparent 100%);
+			background-size: 6px 6px;
+			content: "";
+		}
+	}
+
 
 	&.has-child-selected,
 	&.is-selected {
@@ -74,20 +99,11 @@
 
 	}
 
-	.__navigation {
+	.__blockNavigations {
 		display: flex;
 		align-items: center;
-		// justify-content: center;
-
-		&.-top {
-			justify-content: flex-end;
-			margin-bottom: 8px;
-		}
-
-		&.-bottom {
-			justify-content: center;
-			margin-top: 8px;
-		}
+		justify-content: center;
+		margin-top: 8px;
 
 		.components-button {
 			display: block;
@@ -114,57 +130,166 @@
 				width: auto;
 				padding-right: 8px;
 
+				span {
+					font-size: .9em;
+				}
+
 				svg {
 					display: block;
 					margin-right: 2px;
 				}
 			}
 		}
-
 	}
+}
 
-	.ark-block-slider {
-		position: relative;
-	}
+.ark-block-slider {
+	position: relative;
 
-	.__prev,
-	.__next {
+	// 矢印ボタン
+	.__arrowBtns {
 		position: absolute;
-		top: 50%;
 		z-index: 10;
-		padding: 0;
-		transform: translateY(-50%);
+		display: flex;
+		justify-content: space-between;
 
-
-		.components-button {
-			width: auto;
-			min-width: 0;
-			height: auto;
-			min-height: 0;
-			padding: 4px;
-			color: var(--swiper-theme-color);
-			border-radius: 50%;
+		&[data-show="false"] {
+			opacity: .25;
 		}
 
-		svg {
-			//親の.ark-block-sliderにcss変数は定義されている.
+		.ark-block-slider__nav.components-button {
+			position: relative;
+			display: block;
 			width: var(--swiper-navigation-size);
+			min-width: 0;
 			height: var(--swiper-navigation-size);
-			// transform: scale(1.25); // wordpressアイコンの矢印は少し小さいので拡大。
-		}
+			min-height: 0;
+			padding: 0;
+			border-radius: 50%;
 
-		&.-off {
-			opacity: .3;
-			pointer-events: none;
+			svg {
+				display: block;
+				width: 100%;
+				height: 100%;
+				fill: var(--arkb-slide-color, #000);
+			}
+
+			&.-off {
+				opacity: .3;
+				pointer-events: none;
+			}
 		}
 	}
 
-	.__prev {
-		left: 10px;
+
+	// ページネーション
+	.__pagination {
+		position: absolute;
+		left: 0;
+		z-index: 10;
+		display: flex;
+		justify-content: center;
+		width: 100%;
+
+		&.-fraction {
+			bottom: 10px;
+		}
+
+		&.-progressbar {
+			background: rgba(0, 0, 0, .25);
+
+			span {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: var(--arkb-slide-color, #000);
+				transform: scale(0);
+				transform-origin: left top;
+				transition-duration: 1200ms;
+			}
+		}
+
+		&.-bullets {
+			bottom: 10px;
+
+			span {
+				width: 8px;
+				height: 8px;
+				margin: 4px;
+				background: #000;
+				border-radius: 50%;
+				opacity: .2;
+			}
+
+			[data-active="true"] {
+				background: var(--arkb-slide-color, #000);
+				opacity: 1;
+			}
+
+			&[data-dynamic="true"] [data-active="false"] {
+				transform: scale(.66);
+			}
+		}
 	}
 
-	.__next {
-		right: 10px;
+	// 向きによって変える
+	&[data-direction="horizontal"] {
+
+		.__arrowBtns {
+			top: 50%;
+			left: 0;
+			width: 100%;
+			transform: translateY(-50%);
+		}
+
+		.__pagination.-progressbar {
+			bottom: 0;
+			width: 100%;
+			height: 4px;
+
+			span {
+				transform: translate3d(0px, 0px, 0px) scaleX(var(--arkb-progressbar-scaleX)) scaleY(1);
+			}
+		}
+	}
+
+	&[data-direction="vertical"] {
+
+		.__arrowBtns {
+			top: 0;
+			left: 50%;
+			flex-direction: column;
+			height: 100%;
+			transform: translateX(-50%);
+		}
+
+		.__pagination.-bullets {
+			top: 0;
+			right: 10px;
+			left: auto;
+			flex-direction: column;
+			width: auto;
+			height: 100%;
+		}
+
+		.__pagination.-fraction {
+			justify-content: flex-end;
+			padding-right: 8px;
+		}
+
+		.__pagination.-progressbar {
+			top: 0;
+			right: auto;
+			left: 0;
+			width: 4px;
+			height: 100%;
+
+			span {
+				transform: translate3d(0px, 0px, 0px) scaleY(var(--arkb-progressbar-scaleX)) scaleX(1);
+			}
+		}
 	}
 
 }

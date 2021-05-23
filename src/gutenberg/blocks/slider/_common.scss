@@ -9,11 +9,6 @@
 		--swiper-navigation-size: 24px;
 	}
 
-	// dot: --swiper-theme-color
-	// arrow: --swiper-navigation-color
-
-	// width: calc(var(--swiper-navigation-size)/ 44 * 27);
-	// height: var(--swiper-navigation-size);
 
 	&[data-inner="article"] .ark-block-slider__body {
 		max-width: var(--ark-article_width, 1000px);
@@ -25,21 +20,71 @@
 	}
 
 	// 前後ナビ
+	// .ark-block-slider__nav.-prev {
+	// 	left: 4px;
+	// }
+
+	// .ark-block-slider__nav.-next {
+	// 	right: 4px;
+	// }
+	&[data-direction="horizontal"] {
+
+		.ark-block-slider__nav.-prev {
+			left: 4px;
+		}
+
+		.ark-block-slider__nav.-next {
+			right: 4px;
+		}
+
+		// .swiper-pagination-progressbar {
+		// 	top: auto;
+		// 	bottom: 0;
+		// }
+	}
+
+	&[data-direction="vertical"] {
+
+		.ark-block-slider__nav {
+			right: auto;
+			left: calc(50% - var(--swiper-navigation-size) / 2);
+			margin: 0 !important;
+			transform: rotate(90deg);
+		}
+
+		.ark-block-slider__nav.-prev {
+			top: 4px;
+			bottom: auto;
+		}
+
+		.ark-block-slider__nav.-next {
+			top: auto;
+			bottom: 4px;
+		}
+
+		.swiper-pagination-fraction {
+			padding-right: 8px;
+			text-align: right;
+		}
+
+		// .swiper-pagination-progressbar {
+		// 	right: 0;
+		// 	left: auto;
+		// }
+	}
 
 	.ark-block-slider__nav {
-
-		// width: var(--swiper-navigation-size);
-		width: auto;
-		height: auto;
+		width: var(--swiper-navigation-size);
+		height: var(--swiper-navigation-size);
 
 		&::after {
 			content: none;
 		}
 
 		svg {
-			width: var(--swiper-navigation-size);
-			height: var(--swiper-navigation-size);
-			// transform: scale(1.25); // wordpressアイコンの矢印は少し小さいので拡大。
+			width: 100%;
+			height: 100%;
+			// fill: var(--arkb-slide-color, #000);
 		}
 
 		// 丸
@@ -60,11 +105,9 @@
 		// 	}
 		// }
 
-
 		&.swiper-button-disabled {
 			opacity: .3;
 		}
-
 	}
 
 

@@ -13,13 +13,15 @@ import {
 import { useState, useCallback } from '@wordpress/element';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { Button, ToolbarButton, ToolbarGroup } from '@wordpress/components';
-import { plus, chevronLeft, chevronRight } from '@wordpress/icons';
+import { plus } from '@wordpress/icons';
 
 /**
  * @Internal dependencies
  */
 import { innserSizeIcon } from './_icon';
 import SliderSidebar from './_sidebar';
+import { ArrowBtns } from './components/ArrowBtns';
+import { PaginationPreview } from './components/PaginationPreview';
 import { ArkheMarginControl } from '@components/ArkheMarginControl';
 
 /**
@@ -44,9 +46,11 @@ export default ({ attributes, setAttributes, clientId }) => {
 		heightPC,
 		heightSP,
 		options,
+		slideColor,
 		//contentPosition,
 	} = attributes;
 
+	const slideDirection = options.direction;
 	const isAlignFull = 'full' === align;
 	const isRichSlider = 'rich' === variation;
 
@@ -128,6 +132,7 @@ export default ({ attributes, setAttributes, clientId }) => {
 		childIDs,
 		setActSlide,
 		removeSlide,
+		direction: slideDirection,
 		// moveUpSlide,
 		// moveDownSlide,
 	};
@@ -139,21 +144,31 @@ export default ({ attributes, setAttributes, clientId }) => {
 	}
 
 	// エディター上での表示用
+	let isCenter = false;
+	const isPC = 999 < window.innerWidth ? true : false;
 	const blockStyle = {};
-	const slideNumPC = options.slideNumPC;
-	if (1 < slideNumPC) {
-		const slideWidth = (100 / slideNumPC).toFixed(2);
+	if (isPC && 1 < options.slideNumPC) {
+		const slideWidth = (100 / options.slideNumPC).toFixed(2);
 		blockStyle['--arkb-slide-width'] = `${slideWidth}%`;
+		isCenter = options.isCenter;
+	} else if (!isPC && 1 < options.slideNumSP) {
+		const slideWidth = (100 / options.slideNumSP).toFixed(2);
+		blockStyle['--arkb-slide-width'] = `${slideWidth}%`;
+		isCenter = options.isCenter;
 	}
 	const spacePC = options.spacePC;
 	if (0 < spacePC) {
 		blockStyle['--arkb-slide-space'] = `${spacePC}px`;
 	}
 
+	if ('#000' !== slideColor) {
+		blockStyle['--arkb-slide-color'] = slideColor;
+	}
+
 	// ブロックprops
 	const blockProps = useBlockProps({
 		style: blockStyle,
-		'data-is-center': options.isCenter,
+		'data-is-center': isCenter,
 		// 'data-is-example': isExample ? '1' : null,
 	});
 
@@ -169,7 +184,7 @@ export default ({ attributes, setAttributes, clientId }) => {
 				[childBlockType, { variation }],
 				[childBlockType, { variation }],
 			],
-			orientation: 'horizontal',
+			orientation: slideDirection,
 			renderAppender: false,
 		}
 	);
@@ -201,7 +216,35 @@ export default ({ attributes, setAttributes, clientId }) => {
 				<SliderSidebar {...{ attributes, setAttributes, clientId }} />
 			</InspectorControls>
 			<div {...blockProps}>
-				<div className='__navigation -top'>
+				{/* Start: .ark-block-slider */}
+				<div
+					className={`${blockName} -${variation}`}
+					data-height={isRichSlider ? height : null}
+					data-inner={isAlignFull ? innerSize : null}
+					data-direction={slideDirection}
+					style={sliderStyle}
+					// data-is-center={options.isCenter}
+				>
+					<SliderContext.Provider value={contextData}>
+						<div {...innerBlocksProps} />
+					</SliderContext.Provider>
+					<div className='__arrowBtns' data-show={options.showArrow}>
+						<ArrowBtns
+							focusPrev={focusPrev}
+							focusNext={focusNext}
+							actSlide={actSlide}
+							maxNum={childIDs.length}
+						/>
+					</div>
+					<PaginationPreview
+						type={options.pagination}
+						isDynamic={options.isDynamic}
+						actNum={actSlide + 1}
+						maxNum={childIDs.length}
+					/>
+				</div>
+				{/* End: .ark-block-slider */}
+				{/* <div className='__navigation -top'>
 					<div className='__add'>
 						<Button
 							icon={plus}
@@ -213,43 +256,8 @@ export default ({ attributes, setAttributes, clientId }) => {
 							<span>{__('Add a slide', 'arkhe-blocks')}</span>
 						</Button>
 					</div>
-				</div>
-				<div
-					className={`${blockName} -${variation}`}
-					data-height={isRichSlider ? height : null}
-					data-inner={isAlignFull ? innerSize : null}
-					style={sliderStyle}
-					// data-is-center={options.isCenter}
-				>
-					<div
-						className={classnames('__prev', {
-							'-off': 0 === actSlide,
-						})}
-					>
-						<Button
-							icon={chevronLeft}
-							onClick={() => {
-								focusPrev();
-							}}
-						/>
-					</div>
-					<div
-						className={classnames('__next', {
-							'-off': childIDs.length - 1 === actSlide,
-						})}
-					>
-						<Button
-							icon={chevronRight}
-							onClick={() => {
-								focusNext();
-							}}
-						/>
-					</div>
-					<SliderContext.Provider value={contextData}>
-						<div {...innerBlocksProps} />
-					</SliderContext.Provider>
-				</div>
-				<div className='__navigation -bottom'>
+				</div> */}
+				<div className='__blockNavigations -bottom'>
 					{childIDs.map((_id, index) => {
 						const isActive = index === actSlide;
 						return (
@@ -270,6 +278,17 @@ export default ({ attributes, setAttributes, clientId }) => {
 							</div>
 						);
 					})}
+					<div className='__add'>
+						<Button
+							icon={plus}
+							isPrimary={true}
+							onClick={() => {
+								addSlide();
+							}}
+						>
+							<span>{__('Add a slide', 'arkhe-blocks')}</span>
+						</Button>
+					</div>
 				</div>
 			</div>
 			{/* {!isExample && (

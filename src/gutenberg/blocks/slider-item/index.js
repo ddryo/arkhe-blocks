@@ -38,7 +38,7 @@ const { apiVersion, name, category, supports, parent } = metadata;
 
 // https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/src/columns/variations.js
 
-const scrollToSelectedSlide = (clientId) => {
+const scrollToSelectedSlide = (clientId, direction) => {
 	const me = document.querySelector(`#block-${clientId}`);
 	if (null === me) return;
 
@@ -46,9 +46,14 @@ const scrollToSelectedSlide = (clientId) => {
 	if (null === parentNode) return;
 
 	const firstNode = parentNode.childNodes[0];
-	const offset = firstNode ? firstNode.offsetLeft : 0;
 
-	parentNode.scrollLeft = me.offsetLeft - offset;
+	if ('vertical' === direction) {
+		const offset = firstNode ? firstNode.offsetTop : 0;
+		parentNode.scrollTop = me.offsetTop - offset;
+	} else {
+		const offset = firstNode ? firstNode.offsetLeft : 0;
+		parentNode.scrollLeft = me.offsetLeft - offset;
+	}
 };
 
 /**
@@ -73,7 +78,7 @@ registerBlockType(name, {
 		const { SliderContext } = window.arkbContext;
 		const context = useContext(SliderContext);
 
-		const { parentID, childIDs, setActSlide, removeSlide } = context;
+		const { parentID, childIDs, setActSlide, removeSlide, direction } = context;
 
 		const { myIndex, isLast } = useSelect(
 			(select) => {
@@ -89,10 +94,10 @@ registerBlockType(name, {
 
 		useEffect(() => {
 			if (isSelected) {
-				scrollToSelectedSlide(clientId);
+				scrollToSelectedSlide(clientId, direction);
 				setActSlide(myIndex);
 			}
-		}, [clientId, isSelected, childIDs]);
+		}, [clientId, isSelected, childIDs, direction]);
 
 		return (
 			<>
