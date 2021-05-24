@@ -4,18 +4,18 @@ namespace Arkhe_Blocks\Block\Slider_Item;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * 固定ページリストブロック
+ * スライドブロック
  */
-$block_name = 'slider-item';
-
 register_block_type_from_metadata(
-	ARKHE_BLOCKS_PATH . 'src/gutenberg/blocks/' . $block_name,
+	ARKHE_BLOCKS_PATH . 'src/gutenberg/blocks/slider-item',
 	[
 		'render_callback'  => '\Arkhe_Blocks\Block\Slider_Item\cb',
 	]
 );
+
 // phpcs:disable WordPress.NamingConventions.ValidVariableName.InterpolatedVariableNotSnakeCase
 function cb( $attrs, $content ) {
+
 	ob_start();
 
 	if ( 'media' === $attrs['variation'] ) {
@@ -68,6 +68,7 @@ function render_rich_slider( $attrs, $content ) {
 	<div class="ark-block-slider__slide swiper-slide" style="<?=esc_attr( $block_style )?>">
 		<?php render_slide_media_layer( $attrs ); ?>
 		<div class="ark-block-slider__color arkb-absLayer" style="<?=esc_attr( $color_layer_style )?>"></div>
+		<!-- <div class="c-filterLayer -filter-dot"></div> -->
 		<div class="ark-block-slider__body"<?=$text_layer_props?>>
 			<div class="ark-block-slider__bodyInner ark-keep-mt--s">
 				<?=$content?>
@@ -110,6 +111,18 @@ function render_slide_media_layer( $attrs ) {
 
 	if ( ! $mediaUrl ) {
 		return '';
+	}
+	if ( is_array( \Arkhe_Blocks::$slide_images ) ) {
+		\Arkhe_Blocks::$slide_images[] = [
+			'pc' => [
+				'id'  => $mediaId,
+				'url' => $mediaUrl,
+			],
+			'sp' => [
+				'id'  => $mediaIdSP,
+				'url' => $mediaUrlSP,
+			],
+		];
 	}
 
 	$style = [];
@@ -154,7 +167,7 @@ function render_slide_media_layer( $attrs ) {
 		if ( $style ) $picture_props .= ' style="' . esc_attr( $style ) . '"';
 
 		// imgタグのクラス
-		$img_class = 'ark-block-slider__img';
+		$img_class = 'ark-block-slider__img arkb-obf-cover';
 		// if ( $media['id'] ) $img_class .= " wp-image-{$media['id']}"; // 必要？
 
 		// imgタグの属性
@@ -163,7 +176,7 @@ function render_slide_media_layer( $attrs ) {
 		if ( $mediaHeight ) $img_props .= ' height="' . esc_attr( $mediaHeight ) . '"';
 
 		// 出力内容
-		$media_html = '<picture class="ark-block-slider__picture arkb-obf-cover"' . $picture_props . '>';
+		$media_html = '<picture class="ark-block-slider__picture"' . $picture_props . '>';
 		if ( $mediaUrlSP ) {
 			$sp_props                        = 'srcset="' . esc_attr( $mediaUrlSP ) . '"';
 			if ( $mediaWidthSP ) $sp_props  .= ' width="' . esc_attr( $mediaWidthSP ) . '"';

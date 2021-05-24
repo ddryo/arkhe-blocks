@@ -45,11 +45,11 @@
         },
         "bgColor": {
             "type": "string",
-            "default": "#000000"
+            "default": ""
         },
         "bgGradient": {
             "type": "string",
-            "default": ""
+            "default": "linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%)"
         },
         "opacity": {
             "type": "number",

@@ -25,7 +25,7 @@ arkSlider.forEach((slider) => {
 	const dataOption = slider.getAttribute('data-option');
 	// console.log(dataOption);
 
-	const swiperContainer = slider.querySelector('.swiper-container');
+	const swiperContainer = slider.querySelector('.swiper-container.-main');
 
 	if (swiperContainer) {
 		const options = getParsedOptions(dataOption);
@@ -44,20 +44,10 @@ arkSlider.forEach((slider) => {
 			  }
 			: false;
 
-		// ページネーション
-		const pagination =
-			'off' === options.pagination
-				? false
-				: {
-						el: '.swiper-pagination',
-						type: options.pagination,
-						clickable: parseInt(options.isClickable),
-						dynamicBullets: parseInt(options.isDynamic),
-				  };
-
 		// オプション生成
 		const swiperOptions = {
 			effect: options.effect,
+			// freeMode: true,
 			loop: parseInt(options.isLoop),
 			speed: parseInt(options.speed) || 1200,
 			autoplay,
@@ -65,7 +55,6 @@ arkSlider.forEach((slider) => {
 			slidesPerView: parseFloat(slidesPerView) || 1,
 			centeredSlides: parseInt(options.isCenter),
 			direction: options.direction || 'horizontal', // vertical
-			pagination,
 			navigation: {
 				nextEl: '.swiper-button-next',
 				prevEl: '.swiper-button-prev',
@@ -75,7 +64,43 @@ arkSlider.forEach((slider) => {
 			// 	el: '.swiper-scrollbar',
 			// },
 		};
-		// console.log(swiperOptions);
+
+		// ページネーション
+		switch (options.pagination) {
+			case 'off':
+				swiperOptions.pagination = false;
+				break;
+			// case 'scrollbar':
+			// 	swiperOptions.scrollbar = {
+			// 		el: '.swiper-scrollbar',
+			// 		hide: false,
+			// 	};
+			// 	break;
+			default:
+				swiperOptions.pagination = {
+					el: '.swiper-pagination',
+					type: options.pagination,
+					clickable: parseInt(options.isClickable),
+					dynamicBullets: parseInt(options.isDynamic),
+				};
+				break;
+		}
+
+		if (parseInt(options.showThumb)) {
+			const thumbSwiperContainer = slider.querySelector('.swiper-container.-thumb');
+			const thumbSwiper = new Swiper(thumbSwiperContainer, {
+				spaceBetween: 0,
+				slidesPerView: 'auto',
+				freeMode: true,
+				watchSlidesVisibility: true,
+				watchSlidesProgress: true,
+			});
+			swiperOptions.thumbs = {
+				swiper: thumbSwiper,
+			};
+		}
+
+		// Set Swipwe !
 		new Swiper(swiperContainer, swiperOptions);
 	}
 });

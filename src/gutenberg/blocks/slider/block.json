@@ -48,20 +48,21 @@
             "type": "object",
             "default": {
                 "isAuto": true,
-                "isLoop": false,
-                "isCenter": false,
+                "isLoop": true,
+                "isCenter": true,
+                "showArrow": true,
+                "showThumb": false,
                 "effect": "slide",
                 "direction": "horizontal",
-                "speed": 1200,
-                "delay": 5000,
+                "speed": 1000,
+                "delay": 4000,
                 "slideNumPC": 1,
                 "slideNumSP": 1,
                 "spacePC": 0,
                 "spaceSP": 0,
                 "pagination": "bullets",
                 "isClickable": false,
-                "isDynamic": false,
-                "showArrow": false
+                "isDynamic": false
             }
         },
         "slideColor": {

@@ -20,6 +20,7 @@ import { Icon, mobile, desktop } from '@wordpress/icons';
 /**
  * @Inner dependencies
  */
+import { effectOptions } from './_options';
 import { UnitNumber } from '@components/UnitNumber';
 import { ArkDeviceTab } from '@components/ArkDeviceTab';
 
@@ -35,6 +36,9 @@ export default ({ attributes, setAttributes }) => {
 
 	// Richスライダーかどうか
 	const isRichSlider = 'rich' === variation;
+
+	// 複数スライドかどうか
+	const isMultiple = !(options.slideNumPC === 1 && options.slideNumSP === 1);
 
 	return (
 		<>
@@ -118,7 +122,8 @@ export default ({ attributes, setAttributes }) => {
 								min='1'
 								autocomplete='off'
 								onChange={(val) => {
-									setOptions({ slideNumPC: parseFloat(val) });
+									const floatVal = parseFloat(val);
+									setOptions({ slideNumPC: floatVal });
 								}}
 							/>
 							<TextControl
@@ -144,7 +149,8 @@ export default ({ attributes, setAttributes }) => {
 								min='1'
 								autocomplete='off'
 								onChange={(val) => {
-									setOptions({ slideNumSP: parseFloat(val) });
+									const floatVal = parseFloat(val);
+									setOptions({ slideNumSP: floatVal });
 								}}
 							/>
 							<TextControl
@@ -188,11 +194,7 @@ export default ({ attributes, setAttributes }) => {
 					}}
 					className='arkb-ctrl--mb--s'
 				/>
-				<div
-					data-ark-disabled={
-						(options.slideNumPC === 1 && options.slideNumSP === 1) || null
-					}
-				>
+				<div data-ark-disabled={!isMultiple || null}>
 					<ToggleControl
 						label={__('Center the slide', 'arkhe-blocks')}
 						checked={options.isCenter}
@@ -201,23 +203,6 @@ export default ({ attributes, setAttributes }) => {
 						}}
 					/>
 				</div>
-				<SelectControl
-					label={__('Transition effect', 'arkhe-blocks')}
-					value={options.effect}
-					options={[
-						{
-							label: __('Slide', 'arkhe-blocks'),
-							value: 'slide',
-						},
-						{
-							label: __('Fade', 'arkhe-blocks'),
-							value: 'fade',
-						},
-					]}
-					onChange={(val) => {
-						setOptions({ effect: val });
-					}}
-				/>
 				<TextControl
 					label={__('Slide transition time', 'arkhe-blocks') + ' [ms]'}
 					type='number'
@@ -230,6 +215,7 @@ export default ({ attributes, setAttributes }) => {
 					}}
 				/>
 				<TextControl
+					data-ark-disabled={!options.isAuto || null}
 					label={__('Delay time between transitions', 'arkhe-blocks') + ' [ms]'}
 					type='number'
 					value={options.delay}
@@ -240,11 +226,69 @@ export default ({ attributes, setAttributes }) => {
 						setOptions({ delay: parseInt(val) });
 					}}
 				/>
-				{isRichSlider && (
+				<SelectControl
+					label={_x('Transition effect', 'slider', 'arkhe-blocks')}
+					value={options.effect}
+					help={__(
+						'When you select Fade/Flip/Cube, the number of slides displayed will be set to 1.',
+						'arkhe-blocks'
+					)}
+					options={[
+						{
+							label: effectOptions.slide,
+							value: 'slide',
+						},
+						{
+							label: effectOptions.fade,
+							value: 'fade',
+						},
+						{
+							label: effectOptions.flip,
+							value: 'flip',
+						},
+						{
+							label: effectOptions.cube,
+							value: 'cube',
+						},
+						{
+							label: effectOptions.coverflow,
+							value: 'coverflow',
+						},
+					]}
+					onChange={(val) => {
+						const isSingleEffect = 'fade' === val || 'flip' === val || 'cube' === val;
+						setOptions({
+							effect: val,
+							...(isSingleEffect ? { slideNumPC: 1, slideNumSP: 1 } : {}),
+						});
+					}}
+				/>
+			</PanelBody>
+			{!isRichSlider && (
+				<PanelBody title={__('Media Slider settings', 'arkhe-blocks')} initialOpen={true}>
+					<ToggleControl
+						label={__('Show thumbnail slider', 'arkhe-blocks')}
+						checked={options.showThumb}
+						onChange={(val) => {
+							setOptions({ showThumb: val });
+						}}
+					/>
+				</PanelBody>
+			)}
+			{isRichSlider && (
+				<PanelBody title={__('Rich Slider settings', 'arkhe-blocks')} initialOpen={true}>
 					<div data-ark-disabled={'content' === height || null}>
 						<SelectControl
 							label={__('Slider direction', 'arkhe-blocks')}
 							value={options.direction}
+							help={
+								'content' === height
+									? __(
+											'This function is not available when the slider height setting is "Fit to Content".',
+											'arkhe-blocks'
+									  )
+									: null
+							}
 							options={[
 								{
 									label: _x('Horizontal', 'slider', 'arkhe-blocks'),
@@ -260,29 +304,32 @@ export default ({ attributes, setAttributes }) => {
 							}}
 						/>
 					</div>
-				)}
-			</PanelBody>
-
+				</PanelBody>
+			)}
 			<PanelBody title={__('Pagination', 'arkhe-blocks')} initialOpen={true}>
 				<SelectControl
 					value={options.pagination}
 					options={[
 						{
-							label: __('Off', 'arkhe-blocks'),
+							label: _x('Off', 'slider', 'arkhe-blocks'),
 							value: 'off',
 						},
 						{
-							label: __('Dots', 'arkhe-blocks'),
+							label: _x('Bullets', 'slider', 'arkhe-blocks'),
 							value: 'bullets',
 						},
 						{
-							label: __('Fraction', 'arkhe-blocks'),
-							value: 'fraction',
-						},
-						{
-							label: __('Progressbar', 'arkhe-blocks'),
+							label: _x('Progressbar', 'slider', 'arkhe-blocks'),
 							value: 'progressbar',
 						},
+						{
+							label: _x('Fraction', 'slider', 'arkhe-blocks'),
+							value: 'fraction',
+						},
+						// {
+						// 	label: _x('Scrollbar', 'slider', 'arkhe-blocks'),
+						// 	value: 'scrollbar',
+						// },
 					]}
 					onChange={(val) => {
 						const newOptions = { pagination: val };
@@ -295,7 +342,7 @@ export default ({ attributes, setAttributes }) => {
 				/>
 				<div data-ark-disabled={'bullets' !== options.pagination || null}>
 					<ToggleControl
-						label={__('Clickable', 'arkhe-blocks')}
+						label={_x('Clickable', 'slider', 'arkhe-blocks')}
 						checked={options.isClickable}
 						onChange={(value) => {
 							setOptions({ isClickable: value });
@@ -303,7 +350,7 @@ export default ({ attributes, setAttributes }) => {
 						className='arkb-ctrl--mb--s'
 					/>
 					<ToggleControl
-						label={__('DynamicBullets', 'arkhe-blocks')}
+						label={_x('DynamicBullets', 'slider', 'arkhe-blocks')}
 						checked={options.isDynamic}
 						onChange={(value) => {
 							setOptions({ isDynamic: value });
@@ -323,10 +370,12 @@ export default ({ attributes, setAttributes }) => {
 						},
 					},
 				]}
-				help={__('矢印ボタンやページネーションの色が変わります', 'arkhe-blocks')}
 			>
 				<div className='description'>
-					{__('矢印ボタンやページネーションの色が変わります', 'arkhe-blocks')}
+					{__(
+						'The color of the arrow buttons and pagination will change.',
+						'arkhe-blocks'
+					)}
 				</div>
 			</PanelColorSettings>
 		</>

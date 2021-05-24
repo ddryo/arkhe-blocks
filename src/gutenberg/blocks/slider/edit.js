@@ -1,7 +1,7 @@
 /**
  * @WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __, _x } from '@wordpress/i18n';
 import { createBlock } from '@wordpress/blocks';
 import {
 	// InnerBlocks,
@@ -10,15 +10,16 @@ import {
 	useBlockProps,
 	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
 } from '@wordpress/block-editor';
-import { useState, useCallback } from '@wordpress/element';
+import { useState, useCallback, useEffect } from '@wordpress/element';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { Button, ToolbarButton, ToolbarGroup } from '@wordpress/components';
-import { plus } from '@wordpress/icons';
+import { Icon, plus } from '@wordpress/icons';
 
 /**
  * @Internal dependencies
  */
-import { innserSizeIcon } from './_icon';
+import { blockIcon, innserSizeIcon } from './_icon';
+import { effectOptions } from './_options';
 import SliderSidebar from './_sidebar';
 import { ArrowBtns } from './components/ArrowBtns';
 import { PaginationPreview } from './components/PaginationPreview';
@@ -70,6 +71,11 @@ export default ({ attributes, setAttributes, clientId }) => {
 
 	// アクティブなスライド番号
 	const [actSlide, setActSlide] = useState(0);
+
+	// 方向が変わった時
+	useEffect(() => {
+		setActSlide(0);
+	}, [clientId, slideDirection]);
 
 	// スライドを前に移動
 	// const moveUpSlide = useCallback(
@@ -189,10 +195,54 @@ export default ({ attributes, setAttributes, clientId }) => {
 		}
 	);
 
+	//
+	const pagenation = options.showThumb ? (
+		<div className='__thumbSlider'>
+			{childBlocks.map((_block, index) => {
+				const media = _block.attributes.media;
+				return (
+					<button
+						key={`slider-thumb-${index}`}
+						className={classnames('__thumb', { 'is-active': index === actSlide })}
+						onClick={() => {
+							setActSlide(index);
+							selectBlock(childIDs[index]);
+						}}
+					>
+						{media.url && <img className='arkb-obf-cover' src={media.url} alt='' />}
+					</button>
+				);
+			})}
+		</div>
+	) : (
+		<>
+			{childIDs.map((_id, index) => {
+				const isActive = index === actSlide;
+				return (
+					<div
+						key={`slider-nav-${index}`}
+						className={classnames('__dot', { 'is-active': isActive })}
+					>
+						<Button
+							isPrimary={isActive}
+							isSecondary={!isActive}
+							onClick={() => {
+								setActSlide(index);
+								selectBlock(childIDs[index]);
+							}}
+						>
+							<span>{index + 1}</span>
+						</Button>
+					</div>
+				);
+			})}
+		</>
+	);
+
 	return (
 		<>
 			<BlockControls>
-				{isAlignFull && (
+				{isAlignFull && isRichSlider && (
 					<ToolbarGroup>
 						<ToolbarButton
 							className={classnames('components-toolbar__control', {
@@ -216,6 +266,10 @@ export default ({ attributes, setAttributes, clientId }) => {
 				<SliderSidebar {...{ attributes, setAttributes, clientId }} />
 			</InspectorControls>
 			<div {...blockProps}>
+				<div className='__effectHelper'>
+					<Icon icon={blockIcon} size={20} />
+					{effectOptions[options.effect]}
+				</div>
 				{/* Start: .ark-block-slider */}
 				<div
 					className={`${blockName} -${variation}`}
@@ -243,41 +297,10 @@ export default ({ attributes, setAttributes, clientId }) => {
 						maxNum={childIDs.length}
 					/>
 				</div>
+				{options.showThumb && pagenation}
 				{/* End: .ark-block-slider */}
-				{/* <div className='__navigation -top'>
-					<div className='__add'>
-						<Button
-							icon={plus}
-							isPrimary={true}
-							onClick={() => {
-								addSlide();
-							}}
-						>
-							<span>{__('Add a slide', 'arkhe-blocks')}</span>
-						</Button>
-					</div>
-				</div> */}
-				<div className='__blockNavigations -bottom'>
-					{childIDs.map((_id, index) => {
-						const isActive = index === actSlide;
-						return (
-							<div
-								key={`slider-nav-${index}`}
-								className={classnames('__dot', { 'is-active': isActive })}
-							>
-								<Button
-									isPrimary={isActive}
-									isSecondary={!isActive}
-									onClick={() => {
-										setActSlide(index);
-										selectBlock(childIDs[index]);
-									}}
-								>
-									<span>{index + 1}</span>
-								</Button>
-							</div>
-						);
-					})}
+				<div className='__blockNavigations'>
+					{!options.showThumb && pagenation}
 					<div className='__add'>
 						<Button
 							icon={plus}

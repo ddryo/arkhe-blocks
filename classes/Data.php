@@ -33,6 +33,9 @@ class Data {
 	// JSの読み込みを制御する変数
 	public static $use_swiper = false;
 
+	// スライダーのサムネイル生成に使用する
+	public static $slide_images = [];
+
 	// 外部からインスタンス化させない
 	private function __construct() {}
 

@@ -40,16 +40,7 @@ registerBlockType(name, {
 	supports,
 	variations,
 	// example,
-	attributes: {
-		...metadata.attributes,
-		num: {
-			type: 'number',
-			default: 0,
-		},
-		toDelete: {
-			type: 'number',
-		},
-	},
+	attributes: metadata.attributes,
 
 	edit: (props) => {
 		const { attributes, setAttributes, clientId, isSelected } = props;

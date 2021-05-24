@@ -167,14 +167,16 @@ export default ({ attributes, setAttributes }) => {
 
 	const setOverlayColor = useCallback(
 		(newColor) => {
-			setAttributes({ bgColor: newColor });
+			// console.log('newColor', newColor);
+			setAttributes({ bgColor: newColor || '' }); // undefinedの時、空文字にセット
 		},
 		[bgColor]
 	);
 
 	const setGradientColor = useCallback(
 		(newGradient) => {
-			setAttributes({ bgGradient: newGradient });
+			// console.log('newGradient', newGradient);
+			setAttributes({ bgGradient: newGradient || '' });
 		},
 		[bgGradient]
 	);
