@@ -11,6 +11,10 @@
 
 	[data-type="arkhe-blocks/slider-item"] {
 		max-width: 100%;
+
+		.block-editor-default-block-appender__content {
+			text-align: inherit;
+		}
 	}
 
 	// .__body {

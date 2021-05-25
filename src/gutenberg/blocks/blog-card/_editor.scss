@@ -8,16 +8,17 @@
 
 	// プレビューエリア
 	.ark-block-blogCard__preview {
-		margin: 0 0;
+		max-width: 1000px;
+		margin: 0 auto;
 
 		& > div {
 			pointer-events: none;
 		}
 
-		.ark-block-blogCard {
-			max-width: 1000px;
-			margin: 0 auto;
-		}
+		// .ark-block-blogCard {
+		// 	max-width: 1000px;
+		// 	margin: 0 auto;
+		// }
 
 		&.-none {
 			padding: 16px;

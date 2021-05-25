@@ -113,8 +113,9 @@ export const ImageTab = memo((props) => {
 					</Button>
 				)}
 			</div>
-			{0 !== media.id && (
+			{0 !== media.id && 'image' === media.type && (
 				<ImageSizeSelect
+					className='arkb-ctrl--mt--s'
 					imgId={media.id}
 					imgSize={media.size}
 					updateImageSize={updateImageSizePC}
@@ -180,8 +181,9 @@ export const ImageTab = memo((props) => {
 					</Button>
 				)}
 			</div>
-			{0 !== mediaSP.id && (
+			{0 !== mediaSP.id && 'image' === mediaSP.type && (
 				<ImageSizeSelect
+					className='arkb-ctrl--mt--s'
 					imgId={mediaSP.id}
 					imgSize={mediaSP.size}
 					updateImageSize={updateImageSizeSP}

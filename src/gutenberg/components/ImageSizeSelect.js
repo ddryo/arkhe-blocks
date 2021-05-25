@@ -30,7 +30,7 @@ const getResizedImages = (imageSizeSetting, mediaSizes) => {
 /**
  * export
  */
-export const ImageSizeSelect = ({ imgId, imgSize, updateImageSize }) => {
+export const ImageSizeSelect = ({ imgId, imgSize, updateImageSize, className = '' }) => {
 	// 設定可能なメディアサイズリストを取得
 	const imageSizeSetting = useSelect((select) => {
 		const { getSettings } = select('core/block-editor');
@@ -66,6 +66,7 @@ export const ImageSizeSelect = ({ imgId, imgSize, updateImageSize }) => {
 
 	return (
 		<SelectControl
+			className={className}
 			label={__('Image size')}
 			value={imgSize}
 			options={sizeOptions}
