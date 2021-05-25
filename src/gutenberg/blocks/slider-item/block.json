@@ -59,6 +59,10 @@
             "type": "string",
             "default": ""
         },
+        "filter": {
+            "type": "string",
+            "default": "off"
+        },
         "alt": {
             "type": "string",
             "default": ""

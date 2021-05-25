@@ -61,7 +61,16 @@ registerBlockType(name, {
 	example,
 	attributes: metadata.attributes,
 	edit: ({ attributes, setAttributes, isSelected, clientId }) => {
-		const { align, media, innerSize, height, svgTop, svgBottom, contentPosition } = attributes;
+		const {
+			align,
+			media,
+			innerSize,
+			height,
+			svgTop,
+			svgBottom,
+			contentPosition,
+			filter,
+		} = attributes;
 
 		const { updateBlockAttributes } = useDispatch('core/block-editor');
 		const getChildBlocks = useSelect((select) => select('core/block-editor').getBlocks, []);
@@ -182,6 +191,9 @@ registerBlockType(name, {
 				<div {...blockProps}>
 					{bgMedia}
 					<div className={`${blockName}__color arkb-absLayer`} style={colorStyle}></div>
+					{'off' !== filter && (
+						<div className={`c-filterLayer -filter-${filter} arkb-absLayer`}></div>
+					)}
 					<div
 						className={`${blockName}__body`}
 						data-content={contentPosition.replace(' ', '-')}

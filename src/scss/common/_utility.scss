@@ -2,6 +2,14 @@
 // 	height: calc(100vh - var(--ark-offset_y, 0px));
 // }
 
+.c-filterLayer.arkb-absLayer {
+	z-index: 1;
+
+	&::before {
+		content: none;
+	}
+}
+
 .arkb-absLayer {
 	position: absolute;
 	top: 0;

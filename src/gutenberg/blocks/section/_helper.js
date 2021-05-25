@@ -10,7 +10,7 @@ export const getBlockStyle = (attributes) => {
 		paddingPC,
 		paddingSP,
 		isRepeat,
-		mediaUrl,
+		media,
 		bgSize,
 		//
 	} = attributes;
@@ -43,8 +43,8 @@ export const getBlockStyle = (attributes) => {
 	}
 
 	// リピート背景画像
-	if (isRepeat && mediaUrl) {
-		style.backgroundImage = `url(${mediaUrl})`;
+	if (isRepeat && media.url) {
+		style.backgroundImage = `url(${media.url})`;
 		style.backgroundRepeat = 'repeat';
 
 		if (bgSize) {

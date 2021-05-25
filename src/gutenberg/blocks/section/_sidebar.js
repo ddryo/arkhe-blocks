@@ -67,6 +67,7 @@ export default ({ attributes, setAttributes, isSelected }) => {
 		bgColor,
 		bgGradient,
 		textColor,
+		filter,
 		height,
 		heightPC,
 		heightSP,
@@ -105,6 +106,43 @@ export default ({ attributes, setAttributes, isSelected }) => {
 	return (
 		<>
 			<PanelBody title={__('Background media setting', 'arkhe-blocks')}>
+				<ToggleControl
+					// フィルター設定。あとで数を増やせるように bool ではなく string で管理。
+					label={__('Apply a dot filter', 'arkhe-blocks')}
+					checked={'dot' === filter}
+					onChange={(val) => {
+						if (val) {
+							setAttributes({ filter: 'dot' });
+						} else {
+							setAttributes({ filter: 'off' });
+						}
+					}}
+					className='arkb-ctrl--mb--xs'
+				/>
+				<ToggleControl
+					label={__('Repeat the background image', 'arkhe-blocks')}
+					checked={isRepeat}
+					onChange={(val) => {
+						setAttributes({ isRepeat: val });
+						if (val) {
+							setAttributes({ focalPoint: undefined });
+						}
+					}}
+					className='arkb-ctrl--mb--xs'
+				/>
+				{isRepeat && (
+					<Flex style={{ margin: '0 0 16px' }}>
+						<FlexItem>{__('Background Size', 'arkhe-blocks')} : </FlexItem>
+						<FlexBlock>
+							<UnitNumber
+								value={bgSize}
+								onChange={(newVal) => {
+									setAttributes({ bgSize: newVal });
+								}}
+							/>
+						</FlexBlock>
+					</Flex>
+				)}
 				{isRepeat && mediaUrl && (
 					<div className='arkb-imgPreview'>
 						<img src={mediaUrl} alt='' />
@@ -118,35 +156,11 @@ export default ({ attributes, setAttributes, isSelected }) => {
 						focalPointSP,
 						isRepeat,
 						opacity,
+						bgSize,
 						setAttributes,
 					}}
 				/>
-				{'image' === mediaType && (
-					<>
-						<ToggleControl
-							label={__('Repeat the background image', 'arkhe-blocks')}
-							checked={isRepeat}
-							onChange={(val) => {
-								setAttributes({ isRepeat: val });
-								if (val) {
-									setAttributes({ focalPoint: undefined });
-								}
-							}}
-							className='arkb-ctrl--mb--s'
-						/>
-						<Flex data-ark-disabled={!isRepeat || null}>
-							<FlexItem>{__('Background Size', 'arkhe-blocks')} : </FlexItem>
-							<FlexBlock style={{ flex: '0 1 auto', marginLeft: 'auto' }}>
-								<UnitNumber
-									value={bgSize}
-									onChange={(newVal) => {
-										setAttributes({ bgSize: newVal });
-									}}
-								/>
-							</FlexBlock>
-						</Flex>
-					</>
-				)}
+				{/*  */}
 			</PanelBody>
 			<PanelBody title={__('Height settings', 'arkhe-blocks')}>
 				<SelectControl

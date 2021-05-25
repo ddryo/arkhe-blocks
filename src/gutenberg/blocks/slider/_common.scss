@@ -201,10 +201,6 @@
 .ark-block-slider__media {
 	z-index: 0;
 
-	&.c-filterLayer::after {
-		background-color: unset;
-	}
-
 	.ark-block-slider__picture {
 		display: block;
 		width: 100%;

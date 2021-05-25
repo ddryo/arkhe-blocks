@@ -9,6 +9,11 @@
 	margin-bottom: 16px !important;
 }
 
+.arkb-ctrl--mb--xs {
+	margin-bottom: 8px !important;
+}
+
+
 // トグルコントロールが集まったエリア
 .arkb-toggles {
 
@@ -26,7 +31,16 @@
 
 // メディアボタン & 削除ボタン
 .arkb-btns--media {
-	margin-bottom: 24px;
+	// margin-bottom: 24px;
+	display: flex;
+
+	.components-button {
+		text-align: center;
+	}
+
+	.is-primary {
+		flex-basis: 100%;
+	}
 
 	.__delete {
 		margin-left: 8px;

@@ -34,6 +34,7 @@ function render_section( $attrs, $content ) {
 	$anchor          = $attrs['anchor'] ?? '';
 	$className       = $attrs['className'] ?? '';
 	$align           = $attrs['align'] ?? '';
+	$filter          = $attrs['filter'];
 	$mediaUrl        = $attrs['media']['url'] ?? '';
 	$height          = $attrs['height'] ?? 'content';
 	$contentPosition = $attrs['contentPosition'] ?? 'center left';
@@ -93,6 +94,9 @@ function render_section( $attrs, $content ) {
 	<div <?=$block_props?>>
 		<?php render_media( $attrs ); ?>
 		<div class="ark-block-section__color arkb-absLayer" style="<?=esc_attr( $color_layer_style )?>"></div>
+		<?php if ( 'off' !== $filter ) : ?>
+			<div class="c-filterLayer -filter-<?=esc_attr( $filter )?> arkb-absLayer"></div>
+		<?php endif; ?>
 		<div class="ark-block-section__body" data-content="<?=esc_attr( $contentPosition )?>">
 			<div class="ark-block-section__bodyInner ark-keep-mt">
 				<?=$content?>

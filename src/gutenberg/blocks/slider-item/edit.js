@@ -105,6 +105,7 @@ export const RichEdit = ({ attributes, setAttributes }) => {
 		contentPosition,
 		paddingPC,
 		paddingSP,
+		filter,
 	} = attributes;
 
 	// BlockProps
@@ -146,6 +147,9 @@ export const RichEdit = ({ attributes, setAttributes }) => {
 			<div {...blockProps}>
 				<SlideMedia {...{ attributes }} />
 				<div className={`${blockName}__color arkb-absLayer`} style={colorLayerStyle}></div>
+				{'off' !== filter && (
+					<div className={`c-filterLayer -filter-${filter} arkb-absLayer`}></div>
+				)}
 				<div
 					className={`${blockName}__body`}
 					data-content={contentPosition.replace(' ', '-')}

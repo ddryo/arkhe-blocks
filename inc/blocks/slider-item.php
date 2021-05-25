@@ -33,6 +33,7 @@ function cb( $attrs, $content ) {
  */
 function render_rich_slider( $attrs, $content ) {
 
+	$filter          = $attrs['filter'];
 	$padPC           = $attrs['paddingPC'];
 	$padSP           = $attrs['paddingSP'];
 	$contentPosition = $attrs['contentPosition'];
@@ -68,7 +69,9 @@ function render_rich_slider( $attrs, $content ) {
 	<div class="ark-block-slider__slide swiper-slide" style="<?=esc_attr( $block_style )?>">
 		<?php render_slide_media_layer( $attrs ); ?>
 		<div class="ark-block-slider__color arkb-absLayer" style="<?=esc_attr( $color_layer_style )?>"></div>
-		<!-- <div class="c-filterLayer -filter-dot"></div> -->
+		<?php if ( 'off' !== $filter ) : ?>
+			<div class="c-filterLayer -filter-<?=esc_attr( $filter )?> arkb-absLayer"></div>
+		<?php endif; ?>
 		<div class="ark-block-slider__body"<?=$text_layer_props?>>
 			<div class="ark-block-slider__bodyInner ark-keep-mt--s">
 				<?=$content?>

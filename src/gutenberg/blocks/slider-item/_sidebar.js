@@ -10,7 +10,7 @@ import {
 } from '@wordpress/block-editor';
 import {
 	PanelBody,
-	// ToggleControl,
+	ToggleControl,
 	// TextControl,
 	// ColorPicker,
 	ColorPalette,
@@ -61,6 +61,7 @@ export default ({ attributes, setAttributes }) => {
 		textColor,
 		paddingPC,
 		paddingSP,
+		filter,
 	} = attributes;
 
 	const mediaUrl = media.url;
@@ -187,25 +188,6 @@ export default ({ attributes, setAttributes }) => {
 	if (isRichSlider) {
 		richControls = (
 			<>
-				<PanelBody title={__('Padding settings', 'arkhe-blocks')}>
-					<ArkDeviceTab
-						className='-padding'
-						controlPC={
-							<PaddingControl
-								name='paddingPC'
-								value={paddingPC}
-								setAttributes={setAttributes}
-							/>
-						}
-						controlSP={
-							<PaddingControl
-								name='paddingSP'
-								value={paddingSP}
-								setAttributes={setAttributes}
-							/>
-						}
-					/>
-				</PanelBody>
 				<PanelColorGradientSettings
 					title={__('Color settings', 'arkhe-blocks')}
 					initialOpen={true}
@@ -247,6 +229,25 @@ export default ({ attributes, setAttributes }) => {
 						/>
 					</BaseControl>
 				</PanelColorGradientSettings>
+				<PanelBody title={__('Padding settings', 'arkhe-blocks')}>
+					<ArkDeviceTab
+						className='-padding'
+						controlPC={
+							<PaddingControl
+								name='paddingPC'
+								value={paddingPC}
+								setAttributes={setAttributes}
+							/>
+						}
+						controlSP={
+							<PaddingControl
+								name='paddingSP'
+								value={paddingSP}
+								setAttributes={setAttributes}
+							/>
+						}
+					/>
+				</PanelBody>
 			</>
 		);
 	}
@@ -260,6 +261,21 @@ export default ({ attributes, setAttributes }) => {
 						: __('Media setting', 'arkhe-blocks')
 				}
 			>
+				{isRichSlider && (
+					<ToggleControl
+						// フィルター設定。あとで数を増やせるように bool ではなく string で管理。
+						label={__('Apply a dot filter', 'arkhe-blocks')}
+						checked={'dot' === filter}
+						onChange={(val) => {
+							if (val) {
+								setAttributes({ filter: 'dot' });
+							} else {
+								setAttributes({ filter: 'off' });
+							}
+						}}
+						className='arkb-ctrl--mb--xs'
+					/>
+				)}
 				{isRepeat && mediaUrl && (
 					<div className='arkb-imgPreview'>
 						<img src={mediaUrl} alt='' />
