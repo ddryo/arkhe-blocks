@@ -13,6 +13,10 @@
 	margin-bottom: 8px !important;
 }
 
+.arkb-ctrl--mt--s {
+	margin-top: 16px !important;
+}
+
 
 // トグルコントロールが集まったエリア
 .arkb-toggles {
@@ -39,6 +43,7 @@
 	}
 
 	.is-primary {
+		display: block;
 		flex-basis: 100%;
 	}
 
@@ -104,6 +109,10 @@
 
 // サイドバーのタブパネル
 .arkb-tabPanel {
+
+	.components-panel__body-title + & {
+		margin-top: -4px;
+	}
 
 	.components-tab-panel__tabs {
 		border-bottom: 1px solid #e0e0e0;

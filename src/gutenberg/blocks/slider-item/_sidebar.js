@@ -261,21 +261,6 @@ export default ({ attributes, setAttributes }) => {
 						: __('Media setting', 'arkhe-blocks')
 				}
 			>
-				{isRichSlider && (
-					<ToggleControl
-						// フィルター設定。あとで数を増やせるように bool ではなく string で管理。
-						label={__('Apply a dot filter', 'arkhe-blocks')}
-						checked={'dot' === filter}
-						onChange={(val) => {
-							if (val) {
-								setAttributes({ filter: 'dot' });
-							} else {
-								setAttributes({ filter: 'off' });
-							}
-						}}
-						className='arkb-ctrl--mb--xs'
-					/>
-				)}
 				{isRepeat && mediaUrl && (
 					<div className='arkb-imgPreview'>
 						<img src={mediaUrl} alt='' />
@@ -297,6 +282,21 @@ export default ({ attributes, setAttributes }) => {
 						setAttributes,
 					}}
 				/>
+				{isRichSlider && (
+					<ToggleControl
+						// フィルター設定。あとで数を増やせるように bool ではなく string で管理。
+						label={__('Apply a dot filter', 'arkhe-blocks')}
+						checked={'dot' === filter}
+						onChange={(val) => {
+							if (val) {
+								setAttributes({ filter: 'dot' });
+							} else {
+								setAttributes({ filter: 'off' });
+							}
+						}}
+						className='arkb-ctrl--mt--s arkb-ctrl--mb--xs'
+					/>
+				)}
 			</PanelBody>
 			{richControls}
 		</>

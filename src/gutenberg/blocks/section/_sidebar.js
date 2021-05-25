@@ -105,7 +105,24 @@ export default ({ attributes, setAttributes, isSelected }) => {
 
 	return (
 		<>
-			<PanelBody title={__('Background media setting', 'arkhe-blocks')}>
+			<PanelBody title={__('Background media setting', 'arkhe-blocks')} className='aaa'>
+				{isRepeat && mediaUrl && (
+					<div className='arkb-imgPreview'>
+						<img src={mediaUrl} alt='' />
+					</div>
+				)}
+				<ImageTab
+					{...{
+						media,
+						mediaSP,
+						focalPoint,
+						focalPointSP,
+						isRepeat,
+						opacity,
+						bgSize,
+						setAttributes,
+					}}
+				/>
 				<ToggleControl
 					// フィルター設定。あとで数を増やせるように bool ではなく string で管理。
 					label={__('Apply a dot filter', 'arkhe-blocks')}
@@ -117,7 +134,7 @@ export default ({ attributes, setAttributes, isSelected }) => {
 							setAttributes({ filter: 'off' });
 						}
 					}}
-					className='arkb-ctrl--mb--xs'
+					className='arkb-ctrl--mt--s arkb-ctrl--mb--xs'
 				/>
 				<ToggleControl
 					label={__('Repeat the background image', 'arkhe-blocks')}
@@ -143,24 +160,6 @@ export default ({ attributes, setAttributes, isSelected }) => {
 						</FlexBlock>
 					</Flex>
 				)}
-				{isRepeat && mediaUrl && (
-					<div className='arkb-imgPreview'>
-						<img src={mediaUrl} alt='' />
-					</div>
-				)}
-				<ImageTab
-					{...{
-						media,
-						mediaSP,
-						focalPoint,
-						focalPointSP,
-						isRepeat,
-						opacity,
-						bgSize,
-						setAttributes,
-					}}
-				/>
-				{/*  */}
 			</PanelBody>
 			<PanelBody title={__('Height settings', 'arkhe-blocks')}>
 				<SelectControl
