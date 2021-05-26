@@ -20,10 +20,12 @@ function hook_wp_enqueue_scripts() {
 }
 
 /**
- * フロントで読み込むファイル
+ * フロントで読み込むファイル (at footer)
  */
 add_action( 'wp_footer', '\Arkhe_Blocks\hook_enqueue_footer', 1 );
 function hook_enqueue_footer() {
+
+	// swiper
 	if ( \Arkhe_Blocks::$use_swiper ) {
 		wp_enqueue_style( 'arkhe-blocks-swiper', ARKHE_BLOCKS_URL . 'assets/css/swiper.min.css', [], \Arkhe_Blocks::$version );
 		wp_enqueue_script( 'arkhe-blocks-swiper', ARKHE_BLOCKS_URL . 'assets/js/swiper.min.js', [], \Arkhe_Blocks::$version, true );
@@ -52,6 +54,9 @@ function hook_enqueue_block_editor_assets( $hook_suffix ) {
 	// 基本スクリプト
 	$asset = include ARKHE_BLOCKS_PATH . 'dist/gutenberg/index.asset.php';
 	wp_enqueue_script( 'arkhe-blocks-editor', $dist_url . 'gutenberg/index.js', $asset['dependencies'], $asset['version'], true );
+	wp_localize_script( 'arkhe-blocks-editor', 'arkbVars', [
+		'isArkhe' => IS_ARKHE_THEME,
+	] );
 
 	// @FontAwesom
 	$asset = include ARKHE_BLOCKS_PATH . 'dist/gutenberg/fa.asset.php';
@@ -132,7 +137,6 @@ function hook_admin_head() {
 	$output_code = get_admin_head_code();
 	if ( ! $output_code ) return;
 
-	// エディター側の<html>に[data-sidebar]を付与( 投稿リストブロック用 )
 	echo PHP_EOL . '<!-- Arkhe Blocks -->' . PHP_EOL;
 	echo $output_code; // phpcs:ignore
 	echo '<!-- / Arkhe Blocks -->' . PHP_EOL;
@@ -176,6 +180,7 @@ function get_admin_head_code() {
 		$show_sidebar = \Arkhe::get_setting( $side_key ) ? 'on' : 'off';
 	}
 
+	// エディター側の<html>に[data-sidebar]を付与( 投稿リストブロック用 )
 	$output_code .= '<script>document.documentElement.setAttribute("data-sidebar", "' . $show_sidebar . '");</script>' . PHP_EOL;
 
 	return $output_code;

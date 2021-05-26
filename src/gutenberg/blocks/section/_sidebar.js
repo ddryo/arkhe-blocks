@@ -78,7 +78,6 @@ export default ({ attributes, setAttributes, isSelected }) => {
 	} = attributes;
 
 	const mediaUrl = media.url;
-	const mediaType = media.type;
 
 	const setOverlayColor = useCallback(
 		(newColor) => {
@@ -135,6 +134,11 @@ export default ({ attributes, setAttributes, isSelected }) => {
 						}
 					}}
 					className='arkb-ctrl--mt--s arkb-ctrl--mb--xs'
+					help={
+						!window.arkbVars.isArkhe
+							? __('This is only available when the theme is Arkhe.', 'arkhe-blocks')
+							: null
+					}
 				/>
 				<ToggleControl
 					label={__('Repeat the background image', 'arkhe-blocks')}

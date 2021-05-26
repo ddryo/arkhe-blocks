@@ -3,7 +3,7 @@
  * Plugin Name: Arkhe Blocks Pro
  * Plugin URI: https://arkhe-theme.com
  * Description: A plugin that extends Gutenberg, optimized for the "Arkhe" theme.
- * Version: 1.8.1
+ * Version: 1.8.2
  * Requires at least: 5.6
  * Requires PHP: 7.0
  * Author: LOOS,Inc.

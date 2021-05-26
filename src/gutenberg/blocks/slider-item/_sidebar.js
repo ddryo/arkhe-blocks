@@ -295,6 +295,14 @@ export default ({ attributes, setAttributes }) => {
 							}
 						}}
 						className='arkb-ctrl--mt--s arkb-ctrl--mb--xs'
+						help={
+							!window.arkbVars.isArkhe
+								? __(
+										'This is only available when the theme is Arkhe.',
+										'arkhe-blocks'
+								  )
+								: null
+						}
 					/>
 				)}
 			</PanelBody>

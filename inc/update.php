@@ -5,6 +5,7 @@
 defined( 'ABSPATH' ) || exit;
 
 add_action( 'after_setup_theme', function() {
+	if ( ! current_user_can( 'manage_options' ) ) return;
 	if ( ! class_exists( 'Arkhe' ) ) return;
 	if ( ! \Arkhe::$has_pro_licence || ! \Arkhe::$ex_update_path ) return;
 
