@@ -10,26 +10,18 @@ import { InnerBlocks } from '@wordpress/block-editor';
  */
 import metadata from './block.json';
 import { blockIcon } from './_icon';
-// import example from './_example';
 import variations from './_variations';
 import Placeholder from './_placeholder';
 import SliderEdit from './edit';
-// import SliderSidebar from './_sidebar';
 import { iconColor } from '@blocks/config';
-
-/**
- * ブロッククラス名
- */
-// const blockName = 'ark-block-slider';
-// const childBlockType = 'arkhe-blocks/slider-item';
-const { apiVersion, name, category, keywords, supports } = metadata;
 
 /**
  * registerBlockType
  */
+const { apiVersion, name, category, keywords, supports } = metadata;
 registerBlockType(name, {
 	apiVersion,
-	title: __('Slider', 'arkhe-blocks'),
+	title: __('Slider', 'arkhe-blocks') + '(β)',
 	description: __('Create slider content.', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
@@ -44,6 +36,7 @@ registerBlockType(name, {
 
 	edit: (props) => {
 		const { attributes, setAttributes, clientId, isSelected } = props;
+
 		// const blockInformation = useBlockDisplayInformation(clientId);
 		// console.log('blockInformation', blockInformation);
 

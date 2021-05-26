@@ -2,25 +2,21 @@
  * @WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-// import { useSelect } from '@wordpress/data';
 import {
-	// InspectorControls,
 	BlockControls,
 	useBlockProps,
 	MediaPlaceholder,
 	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
 	__experimentalBlockAlignmentMatrixToolbar as BlockAlignmentMatrixToolbar,
 } from '@wordpress/block-editor';
-// import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { Icon } from '@wordpress/icons';
 import { useCallback } from '@wordpress/element';
 
 /**
  * @Internal dependencies
  */
-// import SlideSidebar from './_sidebar';
-import { SlideMedia } from './components/SlideMedia';
 import { mediaIcon } from '../slider/_icon';
+import { SlideMedia } from './components/SlideMedia';
 
 /**
  * @Others dependencies
@@ -33,7 +29,7 @@ import { mediaIcon } from '../slider/_icon';
 const blockName = 'ark-block-slider';
 
 /**
- *
+ * Media Slider
  */
 export const MediaEdit = ({ attributes, setAttributes }) => {
 	const { media } = attributes;

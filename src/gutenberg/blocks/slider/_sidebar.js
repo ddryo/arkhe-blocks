@@ -347,7 +347,7 @@ export default ({ attributes, setAttributes }) => {
 						onChange={(value) => {
 							setOptions({ isClickable: value });
 						}}
-						className='arkb-ctrl--mb--s'
+						className='arkb-ctrl--mb--xs'
 					/>
 					<ToggleControl
 						label={_x('DynamicBullets', 'slider', 'arkhe-blocks')}

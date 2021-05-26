@@ -9,6 +9,17 @@
 	border: dashed 1px $color_guide;
 
 
+	.block-editor-block-variation-picker__variations > li {
+		width: 112px;
+
+		svg {
+			width: 56px;
+			height: 56px;
+		}
+
+	}
+
+
 	[data-type="arkhe-blocks/slider-item"] {
 		max-width: 100%;
 
@@ -198,7 +209,7 @@
 
 		&[data-show="false"] {
 
-			opacity: .2;
+			opacity: .4;
 
 			.ark-block-slider__nav {
 				border: dashed 1px var(--arkb-slide-color, #000);

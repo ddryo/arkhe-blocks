@@ -4,16 +4,8 @@
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 import { useSelect } from '@wordpress/data';
-import {
-	InnerBlocks,
-	InspectorControls,
-	BlockControls,
-	// useBlockProps,
-	// __experimentalUseInnerBlocksProps as useInnerBlocksProps,
-	// __experimentalBlockAlignmentMatrixToolbar as BlockAlignmentMatrixToolbar,
-} from '@wordpress/block-editor';
+import { InnerBlocks, InspectorControls, BlockControls } from '@wordpress/block-editor';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
-// import { Icon, fullscreen } from '@wordpress/icons';
 import { useEffect, useContext } from '@wordpress/element';
 import { closeSmall } from '@wordpress/icons';
 
@@ -32,12 +24,8 @@ import { MediaEdit, RichEdit } from './edit';
 // import classnames from 'classnames';
 
 /**
- * metadata
+ * フォーカスしたスライドへスクロール
  */
-const { apiVersion, name, category, supports, parent } = metadata;
-
-// https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/src/columns/variations.js
-
 const scrollToSelectedSlide = (clientId, direction) => {
 	const me = document.querySelector(`#block-${clientId}`);
 	if (null === me) return;
@@ -57,8 +45,9 @@ const scrollToSelectedSlide = (clientId, direction) => {
 };
 
 /**
- * スライド
+ * registerBlockType
  */
+const { apiVersion, name, category, supports, parent } = metadata;
 registerBlockType(name, {
 	apiVersion,
 	title: __('Slider content', 'arkhe-blocks'),

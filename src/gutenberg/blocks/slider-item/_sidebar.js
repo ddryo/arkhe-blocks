@@ -2,25 +2,15 @@
  * @WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import {
-	// ColorPalette as WpColorPalette,
-	// __experimentalUseGradient,
-	// __experimentalUnitControl as UnitControl,
-	__experimentalPanelColorGradientSettings as PanelColorGradientSettings,
-} from '@wordpress/block-editor';
+import { useCallback } from '@wordpress/element';
+import { __experimentalPanelColorGradientSettings as PanelColorGradientSettings } from '@wordpress/block-editor';
 import {
 	PanelBody,
 	ToggleControl,
-	// TextControl,
-	// ColorPicker,
 	ColorPalette,
 	BaseControl,
 	RangeControl,
-	// SelectControl,
-	// ButtonGroup,
-	// Button,
 } from '@wordpress/components';
-import { useCallback } from '@wordpress/element';
 // import { Icon, fullscreen, link, linkOff } from '@wordpress/icons';
 
 /**
@@ -29,13 +19,10 @@ import { useCallback } from '@wordpress/element';
 import { ImageTab } from './components/ImageTab';
 import { PaddingControl } from '@components/PaddingControl';
 import { ArkDeviceTab } from '@components/ArkDeviceTab';
-// import { UnitNumber } from '@components/UnitNumber';
 
 /**
  * 設定
  */
-// const units = ['px', 'rem', 'em', '%', 'vw', 'vh'];
-
 const textColorSet = [
 	{
 		name: __('White', 'arkhe-blocks'),
@@ -47,6 +34,9 @@ const textColorSet = [
 	},
 ];
 
+/**
+ * export
+ */
 export default ({ attributes, setAttributes }) => {
 	const {
 		variation,

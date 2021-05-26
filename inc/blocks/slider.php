@@ -3,15 +3,13 @@ namespace Arkhe_Blocks\Block\Slider;
 
 defined( 'ABSPATH' ) || exit;
 
-/**
- * スライダーブロック
- */
 register_block_type_from_metadata(
 	ARKHE_BLOCKS_PATH . 'src/gutenberg/blocks/slider',
 	[
 		'render_callback'  => '\Arkhe_Blocks\Block\Slider\cb',
 	]
 );
+
 // phpcs:disable WordPress.NamingConventions.ValidVariableName.InterpolatedVariableNotSnakeCase
 function cb( $attrs, $content ) {
 
@@ -71,12 +69,7 @@ function cb( $attrs, $content ) {
 		$block_props .= ' style="' . esc_attr( $style ) . '"';
 	}
 
-	// --swiper-navigation-size
-	// var(--swiper-pagination-color,var(--swiper-theme-color))
-	// --swiper-navigation-color: #fff;
-
 	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
-
 	ob_start();
 	?>
 	<div <?=$block_props?>>

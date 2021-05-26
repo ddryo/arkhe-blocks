@@ -10,5 +10,6 @@ add_action( 'init', function() {
 
 
 add_action( 'after_setup_theme', function() {
+	add_theme_support( 'custom-spacing' );
 	add_theme_support( 'custom-units', 'px', 'rem', 'em', '%', 'vw', 'vh' );
 }, 11 );

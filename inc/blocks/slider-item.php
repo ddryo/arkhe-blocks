@@ -3,9 +3,6 @@ namespace Arkhe_Blocks\Block\Slider_Item;
 
 defined( 'ABSPATH' ) || exit;
 
-/**
- * スライドブロック
- */
 register_block_type_from_metadata(
 	ARKHE_BLOCKS_PATH . 'src/gutenberg/blocks/slider-item',
 	[

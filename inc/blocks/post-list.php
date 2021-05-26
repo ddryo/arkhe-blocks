@@ -3,20 +3,15 @@ namespace Arkhe_Blocks\Block\Post_List;
 
 defined( 'ABSPATH' ) || exit;
 
-/**
- * 投稿リストブロック
- */
-$block_name = 'post-list';
-
 register_block_type_from_metadata(
-	ARKHE_BLOCKS_PATH . 'src/gutenberg/blocks/' . $block_name,
+	ARKHE_BLOCKS_PATH . 'src/gutenberg/blocks/post-list',
 	[
 		'render_callback'  => '\Arkhe_Blocks\Block\Post_List\cb',
 	]
 );
 
-
 function cb( $attrs, $content ) {
+
 	// ここでは defined('REST_REQUEST')  = true になる //サーバーサイドレンダー？
 
 	$anchor        = $attrs['anchor'] ?? '';

@@ -3,18 +3,12 @@ namespace Arkhe_Blocks\Block\Page_List;
 
 defined( 'ABSPATH' ) || exit;
 
-/**
- * 固定ページリストブロック
- */
-$block_name = 'page-list';
-
 register_block_type_from_metadata(
-	ARKHE_BLOCKS_PATH . 'src/gutenberg/blocks/' . $block_name,
+	ARKHE_BLOCKS_PATH . 'src/gutenberg/blocks/page-list',
 	[
 		'render_callback'  => '\Arkhe_Blocks\Block\Page_List\cb',
 	]
 );
-
 
 function cb( $attrs, $content ) {
 

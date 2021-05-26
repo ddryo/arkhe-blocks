@@ -3,18 +3,12 @@ namespace Arkhe_Blocks\Block\RSS;
 
 defined( 'ABSPATH' ) || exit;
 
-/**
- * 投稿リストブロック
- */
-$block_name = 'rss';
-
 register_block_type_from_metadata(
-	ARKHE_BLOCKS_PATH . 'src/gutenberg/blocks/' . $block_name,
+	ARKHE_BLOCKS_PATH . 'src/gutenberg/blocks/rss',
 	[
 		'render_callback'  => '\Arkhe_Blocks\Block\RSS\cb',
 	]
 );
-
 
 function cb( $attrs, $content ) {
 

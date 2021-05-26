@@ -6,14 +6,8 @@ defined( 'ABSPATH' ) || exit;
 require_once __DIR__ . '/section/migrate.php';
 require_once __DIR__ . '/section/helper.php';
 
-
-/**
- * 固定ページリストブロック
- */
-$block_name = 'section';
-
 register_block_type_from_metadata(
-	ARKHE_BLOCKS_PATH . 'src/gutenberg/blocks/' . $block_name,
+	ARKHE_BLOCKS_PATH . 'src/gutenberg/blocks/section',
 	[
 		'render_callback'  => '\Arkhe_Blocks\Block\Section\cb',
 	]
