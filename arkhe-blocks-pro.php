@@ -64,8 +64,10 @@ if ( ! class_exists( 'Arkhe_Blocks' ) ) {
 
 			if ( ! $is_wp56 ) return;
 
-			// プラグインのバージョン
-			self::$version = ( defined( 'WP_DEBUG' ) && WP_DEBUG ) ? date_i18n( 'mdGis' ) : get_file_data( __FILE__, [ 'Version' ] );
+			// プラグインのバージョン情報
+			$file_data      = get_file_data( __FILE__, [ 'version' => 'Version' ] );
+			self::$version  = $file_data['version'];
+			self::$file_ver = ( defined( 'WP_DEBUG' ) && WP_DEBUG ) ? wp_date( 'mdGis' ) : self::$version;
 
 			// テーマチェック : IS_ARKHE_THEME は Arkheプラグインで共通
 			if ( ! defined( 'IS_ARKHE_THEME' ) ) {

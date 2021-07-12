@@ -21,7 +21,8 @@ class Data {
 	const MENU_GROUP_PREFIX = 'arkb_menu_group_';
 
 	// version
-	public static $version = '';
+	public static $version  = '';
+	public static $file_ver = '';
 
 	// 設定データを保持する変数
 	protected static $data     = [];
