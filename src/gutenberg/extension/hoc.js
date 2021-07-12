@@ -50,7 +50,6 @@ addFilter(
 
 			// マージンコントロールを表示するかどうか
 			const isShowMarginBtn = isSelected ? getIsShowMarginBtn(name) : false;
-
 			return (
 				<>
 					<BlockEdit {...props} />

@@ -56,7 +56,7 @@ registerFormatType('arkhe-blocks/formats', {
 						/>
 						{/* {showShortcodeToolbtn && (
 							<ArkbDropdownMenu
-								fillName='swellShortcode'
+								fillName='arkbShortcode'
 								icon={formatIcon.shortcode}
 								label={__('Shortcodes', 'arkhe-blocks')}
 							/>

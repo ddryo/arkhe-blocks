@@ -90,9 +90,9 @@ export const ArkheMarginControl = memo(({ className, setAttributes }) => {
 	// console.log('ArkheMarginControl');
 
 	// テーマがArkheの時のみ有効
-	if (!window.arkheTheme) {
-		return null;
-	}
+	// if (!window.arkheTheme) {
+	// 	return null;
+	// }
 
 	const nowClass = className || '';
 
@@ -112,7 +112,7 @@ export const ArkheMarginControl = memo(({ className, setAttributes }) => {
 
 	return (
 		<ToolbarGroup
-			className='swell-toolbar'
+			className='arkb-toolbar'
 			isCollapsed={true}
 			icon={
 				activeBtn ? (

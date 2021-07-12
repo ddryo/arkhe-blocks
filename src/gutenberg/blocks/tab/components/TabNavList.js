@@ -35,9 +35,7 @@ export default memo((props) => {
 			{tabHeaders.map((item, index) => (
 				<li
 					key={index}
-					className={`swell-block-tab__navItem arkb-tabList__item ${
-						actTab === index ? 'is-active' : ''
-					}`}
+					className={`arkb-tabList__item ${actTab === index ? 'is-active' : ''}`}
 				>
 					<button
 						role='tab'

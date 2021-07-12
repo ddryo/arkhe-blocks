@@ -30,7 +30,7 @@ const shortcodeBtns = [
 ];
 
 shortcodeBtns.forEach((data) => {
-	const fillName = 'swellShortcode';
+	const fillName = 'arkbShortcode';
 	const formatName = `arkhe-blocks/shortcode-${data.name}`;
 	const formatTitle = data.label;
 	const btnIcon = data.icon;
