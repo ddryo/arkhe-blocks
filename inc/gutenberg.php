@@ -1,16 +1,18 @@
 <?php
-namespace Arkhe_Blocks;
+namespace Arkhe_Blocks\Gutenberg;
 
 defined( 'ABSPATH' ) || exit;
+
+// add_filter( 'should_load_separate_core_block_assets', '__return_true' );
 
 /**
  * ブロックの読み込み
  */
-add_action( 'init', '\Arkhe_Blocks\register_blocks' );
+add_action( 'init', __NAMESPACE__ . '\register_blocks' );
 function register_blocks() {
 
 	// 翻訳登録用の空ファイル
-	wp_enqueue_script( 'arkhe-blocks-lang', ARKHE_BLOCKS_URL . 'assets/js/translations.js', [], \Arkhe_Blocks::$version, false );
+	wp_enqueue_script( 'arkhe-blocks-lang', ARKHE_BLOCKS_URL . 'assets/js/translations.js', [], \Arkhe_Blocks::$file_ver, false );
 
 	// JS用翻訳ファイルの読み込み
 	if ( function_exists( 'wp_set_script_translations' ) ) {
@@ -79,15 +81,14 @@ function register_arkhe_blocks() {
 			'section-heading',
 			'step',
 			'step-item',
+			'tab',
+			'tab-body',
 			'timeline',
 			'timeline-item',
 		];
 
 		// Arkheでのみ利用可能なProブロック
-		if ( IS_ARKHE_THEME ) {
-			$arkhe_blocks_pro[] = 'tab'; // タブ開閉のjsはArkhe側にある
-			$arkhe_blocks_pro[] = 'tab-body';
-		}
+		// if ( IS_ARKHE_THEME ) {}
 
 		$arkhe_blocks = array_merge( $arkhe_blocks, $arkhe_blocks_pro );
 	}
@@ -131,7 +132,8 @@ function register_arkhe_dynamic_blocks() {
 /**
  * ブロックカテゴリー追加
  */
-add_filter( 'block_categories', '\Arkhe_Blocks\add_block_categories', 5 );
+$hookname = \Arkhe_Blocks::wpver_is_above( '5.8' ) ? 'block_categories_all' : 'block_categories';
+add_filter( $hookname, __NAMESPACE__ . '\add_block_categories', 5 );
 function add_block_categories( $categories ) {
 	$my_category = [
 		[

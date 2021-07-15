@@ -1,5 +1,5 @@
 <?php
-namespace Arkhe_Blocks;
+namespace Arkhe_Blocks\Notice;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -16,7 +16,7 @@ add_action( 'admin_notices', function() {
 	// 	'</p></div>';
 	// }
 	if ( \Arkhe_Blocks::IS_PRO ) {
-		\Arkhe_Blocks\both_check();
+		arkb_both_check();
 	}
 
 	// \Arkhe_Blocks\theme_check();
@@ -26,7 +26,7 @@ add_action( 'admin_notices', function() {
 /**
  * 無料版とPRO版の両方が稼働していないかをチェック
  */
-function both_check() {
+function arkb_both_check() {
 	if ( ! function_exists( 'get_plugins' ) ) {
 		include_once ABSPATH . 'wp-admin/includes/plugin.php';
 	}

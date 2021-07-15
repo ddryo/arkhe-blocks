@@ -17,19 +17,27 @@ function hook_wp_enqueue_scripts() {
 	if ( $custom_format_css ) {
 		wp_add_inline_style( 'arkhe-blocks-front', $custom_format_css );
 	}
+
 }
+
 
 /**
  * フロントで読み込むファイル (at footer)
+ * memo:
  */
 add_action( 'wp_footer', '\Arkhe_Blocks\hook_enqueue_footer', 1 );
 function hook_enqueue_footer() {
 
 	// swiper
-	if ( \Arkhe_Blocks::$use_swiper ) {
+	if ( \Arkhe_Blocks::is_use( 'swiper' ) ) {
 		wp_enqueue_style( 'arkhe-blocks-swiper', ARKHE_BLOCKS_URL . 'assets/css/swiper.min.css', [], \Arkhe_Blocks::$file_ver );
 		wp_enqueue_script( 'arkhe-blocks-swiper', ARKHE_BLOCKS_URL . 'assets/js/swiper.min.js', [], \Arkhe_Blocks::$file_ver, true );
 		wp_enqueue_script( 'arkhe-blocks-slider', ARKHE_BLOCKS_URL . 'dist/gutenberg/swiper.js', ['arkhe-blocks-swiper' ], \Arkhe_Blocks::$file_ver, true );
+	}
+
+	// memo: ハンドル名はblock.jsonでの自動読み込み時と同じにしてる
+	if ( \Arkhe_Blocks::is_use( 'tab' ) ) {
+		wp_enqueue_script( 'arkhe-blocks-tab-script', ARKHE_BLOCKS_URL . 'dist/gutenberg/blocks/tab/script.js', [], \Arkhe_Blocks::$file_ver, true );
 	}
 }
 

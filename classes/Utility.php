@@ -5,6 +5,26 @@ trait Utility {
 
 
 	/**
+	 * WodPressのバージョンチェック
+	 */
+	public static function wpver_is_above( $version ) {
+		global $wp_version;
+		return ( version_compare( $wp_version, $version . '-beta' ) >= 0 );
+	}
+
+
+	/**
+	 * $use の値を取得
+	 */
+	public static function is_use( $key ) {
+		if ( ! isset( self::$use[ $key ] ) ) {
+			return false;
+		}
+		return self::$use[ $key ];
+	}
+
+
+	/**
 	 * style属性用のテキストに変換
 	 */
 	public static function convert_style_props( $styles ) {

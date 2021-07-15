@@ -32,7 +32,7 @@ class Data {
 	public static $menu_tabs = [];
 
 	// JSの読み込みを制御する変数
-	public static $use_swiper = false;
+	public static $use = [];
 
 	// スライダーのサムネイル生成に使用する
 	public static $slide_images = [];

@@ -12,35 +12,20 @@ import {
 /**
  * @Internal dependencies
  */
-import { iconColor } from '@blocks/config';
-import blockIcon from './_icon';
 import metadata from './block.json';
+import blockIcon from './_icon';
+import { iconColor } from '@blocks/config';
 
 /**
- * @Others dependencies
+ * タブ項目
  */
-// import classnames from 'classnames';
-
-/**
- * metadata
- */
-const { apiVersion, name, category, supports, parent } = metadata;
-
-/**
- * ステップ項目
- */
-registerBlockType(name, {
-	apiVersion,
+registerBlockType(metadata.name, {
 	title: __('Tab content', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
 		src: blockIcon,
 	},
-	category,
-	parent,
-	supports,
 	attributes: metadata.attributes,
-
 	edit: () => {
 		const blockProps = useBlockProps({
 			className: 'arkb-tabBody__content ark-keep-mt--s',
@@ -56,7 +41,6 @@ registerBlockType(name, {
 
 	save: ({ attributes }) => {
 		const { tabId, bodyId, activeTab } = attributes;
-
 		const blockProps = useBlockProps.save({
 			className: 'arkb-tabBody__content ark-keep-mt--s',
 			id: `tab-${tabId}-${bodyId}`,

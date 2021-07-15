@@ -9,7 +9,7 @@ import { useDispatch } from '@wordpress/data';
  * sidebar
  */
 export default ({ attributes, setAttributes, clientId }) => {
-	const { tabId, activeTab, tabHeaders, tabWidth, isScrollPC, isScrollSP } = attributes;
+	const { activeTab, tabHeaders, tabWidth, isScrollPC, isScrollSP } = attributes;
 
 	const { getBlockOrder } = wp.data.select('core/block-editor');
 	const { updateBlockAttributes } = useDispatch('core/block-editor');
@@ -17,7 +17,7 @@ export default ({ attributes, setAttributes, clientId }) => {
 	return (
 		<>
 			<PanelBody title={__('Tab settings', 'arkhe-blocks')} initialOpen={true}>
-				<TextControl
+				{/* <TextControl
 					label={__('Tab block ID', 'arkhe-blocks')}
 					help={__(
 						'Do not duplicate it with other tab blocks on the same page.',
@@ -33,7 +33,7 @@ export default ({ attributes, setAttributes, clientId }) => {
 							});
 						}
 					}}
-				/>
+				/> */}
 				<TextControl
 					label={__('Number of tabs to open first', 'arkhe-blocks')}
 					type='number'
@@ -46,11 +46,11 @@ export default ({ attributes, setAttributes, clientId }) => {
 						setAttributes({ activeTab: newActiveNum });
 
 						const tabBodyIDs = getBlockOrder(clientId);
-						for (let i = 0; i < tabBodyIDs.length; i++) {
-							updateBlockAttributes(tabBodyIDs[i], {
+						tabBodyIDs.forEach((_tabBodyID) => {
+							updateBlockAttributes(_tabBodyID, {
 								activeTab: newActiveNum,
 							});
-						}
+						});
 					}}
 				/>
 			</PanelBody>

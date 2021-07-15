@@ -19,13 +19,14 @@ import {
 /**
  * @Internal dependencies
  */
-import { iconColor } from '@blocks/config';
+import metadata from './block.json';
 import blockIcon from './_icon';
 import example from './_example';
-import metadata from './block.json';
-import { ArkheMarginControl } from '@components/ArkheMarginControl';
+import deprecated from './deprecated';
 import TabSidebar from './_sidebar';
 import TabNavList from './components/TabNavList';
+import { iconColor } from '@blocks/config';
+import { ArkheMarginControl } from '@components/ArkheMarginControl';
 
 /**
  * @others dependencies
@@ -37,7 +38,6 @@ import classnames from 'classnames';
  */
 const blockName = 'ark-block-tab';
 const childBlockType = 'arkhe-blocks/tab-body';
-const { apiVersion, name, category, keywords, supports } = metadata;
 
 /**
  * 配列の要素を移動させる
@@ -63,17 +63,13 @@ function moveAt(array, index, at) {
 /**
  * registerBlockType
  */
-registerBlockType(name, {
-	apiVersion,
+registerBlockType(metadata.name, {
 	title: __('Tab', 'arkhe-blocks'),
 	description: __('Create tab content.', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
 		src: blockIcon,
 	},
-	category,
-	keywords,
-	supports,
 	example,
 	styles: [
 		{
@@ -96,7 +92,7 @@ registerBlockType(name, {
 		},
 	},
 
-	edit: ({ attributes, setAttributes, clientId, isSelected }) => {
+	edit: ({ attributes, setAttributes, clientId }) => {
 		const {
 			isExample,
 			tabId,
@@ -109,9 +105,6 @@ registerBlockType(name, {
 
 		// エディタ上での開閉状態を管理
 		const [actTab, setActTab] = useState(activeTab);
-
-		// IDの二重登録監視用
-		const [isDoubleRegisterdId, setIsDoubleRegisterdId] = useState(false);
 
 		const theTabId = useMemo(() => {
 			if (tabId) {
@@ -127,22 +120,23 @@ registerBlockType(name, {
 			}
 		}, [tabId, theTabId]);
 
-		// IDの二重登録チェック : isSelected の切り替え時に再発火する必要あり。
+		// getBlockOrderメソッドの準備 memo: useSelectで取得すると更新のタイミングが遅くなる
+		const { getBlockOrder } = wp.data.select('core/block-editor');
+
+		// IDの二重登録チェック
 		useEffect(() => {
-			if (isExample) return;
+			const sameIdBlocks = document.querySelectorAll(`[data-tabid="${tabId}"]`);
+			if (sameIdBlocks.length > 1) {
+				const newID = clientId.split('-');
+				setAttributes({ tabId: newID[0] || '' });
 
-			setTimeout(() => {
-				const tabs = document.querySelectorAll(
-					`.block-editor-writing-flow [data-tabid="${tabId}"]`
-				);
-
-				if (1 < tabs.length) {
-					setIsDoubleRegisterdId(true);
-				} else {
-					setIsDoubleRegisterdId(false);
-				}
-			}, 10);
-		}, [isExample, tabId, clientId, isDoubleRegisterdId, isSelected]);
+				// タブボディ側
+				const tabBodyIDs = getBlockOrder(clientId);
+				tabBodyIDs.forEach((_tabBodyID) => {
+					updateBlockAttributes(_tabBodyID, { tabId: newID[0] });
+				});
+			}
+		}, [clientId]);
 
 		const {
 			removeBlocks,
@@ -156,9 +150,6 @@ registerBlockType(name, {
 		//     (select) => wp.select('core/block-editor').getBlocks(clientId)[0],
 		//     [clientId, tabHeaders, actCt]
 		// );
-
-		// useSelectで取得すると更新のタイミングが遅くなる
-		const { getBlockOrder } = wp.data.select('core/block-editor');
 
 		// 順序( bodyId )を再セット
 		const resetOrder = useCallback(() => {
@@ -236,6 +227,7 @@ registerBlockType(name, {
 		const addTab = useCallback(() => {
 			const tabContentBlock = createBlock(childBlockType, {
 				tabId,
+				activeTab,
 			});
 
 			insertBlocks(tabContentBlock, tabHeaders.length, clientId);
@@ -246,7 +238,7 @@ registerBlockType(name, {
 
 			// 新しく追加されたタブにフォーカス
 			setActTab(tabHeaders.length);
-		}, [clientId, tabId, tabHeaders, resetOrder]);
+		}, [clientId, tabId, activeTab, tabHeaders, resetOrder]);
 
 		// タブ削除
 		const removeTab = useCallback(
@@ -304,14 +296,6 @@ registerBlockType(name, {
 					<TabSidebar {...{ attributes, setAttributes, clientId }} />
 				</InspectorControls>
 				<div {...blockProps}>
-					{isSelected && isDoubleRegisterdId && (
-						<div className='arkb-alert--doubleId'>
-							{__(
-								'The ID is duplicated with other tab blocks. Please specify a different ID.',
-								'arkhe-blocks'
-							)}
-						</div>
-					)}
 					<ul role='tablist' className='arkb-tabList' data-tab-width={tabWidth}>
 						<TabNavList
 							{...{
@@ -359,7 +343,6 @@ registerBlockType(name, {
 								role='tab'
 								aria-selected={activeTab === index ? 'true' : 'false'}
 								aria-controls={`tab-${tabId}-${index}`}
-								data-onclick='tabControl'
 							>
 								<RawHTML>{header}</RawHTML>
 							</button>
@@ -372,4 +355,5 @@ registerBlockType(name, {
 			</div>
 		);
 	},
+	deprecated,
 });

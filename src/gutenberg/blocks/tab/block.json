@@ -8,6 +8,7 @@
         "tab"
     ],
     "supports": {
+        "anchor": true,
         "className": false
     },
     "attributes": {

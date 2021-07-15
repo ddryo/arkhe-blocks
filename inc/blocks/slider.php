@@ -14,7 +14,7 @@ register_block_type_from_metadata(
 function cb( $attrs, $content ) {
 
 	// Slider使われたことを変数にセット
-	\Arkhe_Blocks::$use_swiper = true;
+	\Arkhe_Blocks::$use['swiper'] = true;
 
 	$anchor     = $attrs['anchor'] ?? '';
 	$className  = $attrs['className'] ?? '';

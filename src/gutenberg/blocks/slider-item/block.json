@@ -10,7 +10,7 @@
         "html": false
     },
     "parent": [
-        "arkhe-blocks/tab"
+        "arkhe-blocks/slider"
     ],
     "attributes": {
         "variation": {
