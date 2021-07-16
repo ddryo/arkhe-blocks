@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 add_action( 'wp_enqueue_scripts', '\Arkhe_Blocks\hook_wp_enqueue_scripts' );
 function hook_wp_enqueue_scripts() {
 	wp_enqueue_style( 'arkhe-blocks-front', ARKHE_BLOCKS_URL . 'dist/css/front.css', [], \Arkhe_Blocks::$file_ver );
-	wp_enqueue_script( 'arkhe-blocks-front', ARKHE_BLOCKS_URL . 'dist/js/front.js', [], \Arkhe_Blocks::$file_ver, true );
+	// wp_enqueue_script( 'arkhe-blocks-front', ARKHE_BLOCKS_URL . 'dist/js/front.js', [], \Arkhe_Blocks::$file_ver, true );
 
 	// カスタムフォーマット用CSS
 	$custom_format_css = \Arkhe_Blocks::get_data( 'format', 'custom_format_css' );
@@ -23,16 +23,19 @@ function hook_wp_enqueue_scripts() {
 
 /**
  * フロントで読み込むファイル (at footer)
- * memo:
  */
 add_action( 'wp_footer', '\Arkhe_Blocks\hook_enqueue_footer', 1 );
 function hook_enqueue_footer() {
+
+	if ( \Arkhe_Blocks::is_use( 'ol_start' ) ) {
+		wp_enqueue_script( 'arkhe-blocks-ol-start', ARKHE_BLOCKS_URL . 'dist/js/ol_start.js', [], \Arkhe_Blocks::$file_ver, true );
+	}
 
 	// swiper
 	if ( \Arkhe_Blocks::is_use( 'swiper' ) ) {
 		wp_enqueue_style( 'arkhe-blocks-swiper', ARKHE_BLOCKS_URL . 'assets/css/swiper.min.css', [], \Arkhe_Blocks::$file_ver );
 		wp_enqueue_script( 'arkhe-blocks-swiper', ARKHE_BLOCKS_URL . 'assets/js/swiper.min.js', [], \Arkhe_Blocks::$file_ver, true );
-		wp_enqueue_script( 'arkhe-blocks-slider', ARKHE_BLOCKS_URL . 'dist/gutenberg/swiper.js', ['arkhe-blocks-swiper' ], \Arkhe_Blocks::$file_ver, true );
+		wp_enqueue_script( 'arkhe-blocks-slider-swiper', ARKHE_BLOCKS_URL . 'dist/gutenberg/blocks/slider/script.js', ['arkhe-blocks-swiper' ], \Arkhe_Blocks::$file_ver, true );
 	}
 
 	// memo: ハンドル名はblock.jsonでの自動読み込み時と同じにしてる
