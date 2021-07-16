@@ -28,5 +28,6 @@
         }
     },
     "editorScript": "file:../../../../dist/gutenberg/blocks/notice/index.js",
+    "style": "arkhe-blocks-notice-style",
     "textdomain": "arkhe-blocks"
 }

@@ -28,10 +28,16 @@ function register_blocks() {
 	// style切り分けてるブロック
 	$blocks = [
 		'accordion',
+		'notice',
 	];
 	foreach ( $blocks as $name ) {
 		// if ( \Arkhe_Blocks::is_use( $name ) ) {}
-		wp_register_style( "arkhe-blocks-{$name}-style", ARKHE_BLOCKS_URL . "dist/gutenberg/blocks/{$name}/index.css", [], \Arkhe_Blocks::$file_ver );
+		wp_register_style(
+			"arkhe-blocks-{$name}-style",
+			ARKHE_BLOCKS_URL . "dist/gutenberg/blocks/{$name}/index.css",
+			[ 'arkhe-blocks-front' ],
+			\Arkhe_Blocks::$file_ver
+		);
 	}
 }
 

@@ -17,25 +17,20 @@ import { PanelBody, ButtonGroup, Button } from '@wordpress/components';
 /**
  * @Internal dependencies
  */
-import { iconColor } from '@blocks/config';
 import metadata from './block.json';
+import deprecated from './deprecated';
 import blockIcon from './_icon';
 import example from './_example';
-import { ArkheIcon } from '@components/ArkheIcon';
 import ArkheIconPicker from '@components/ArkheIconPicker';
+import { iconColor } from '@blocks/config';
+import { ArkheIcon } from '@components/ArkheIcon';
 import { ArkheSVG } from '@components/ArkheSVG';
 import { ArkheMarginControl } from '@components/ArkheMarginControl';
 
 /**
- * @others dependencies
+ * style
  */
-import classnames from 'classnames';
-
-/**
- * metadata
- */
-const blockName = 'ark-block-notice';
-const { apiVersion, name, category, keywords, supports } = metadata;
+import './scss/index.scss';
 
 /**
  * 設定
@@ -66,17 +61,14 @@ const types = [
 /**
  * 通知ブロック
  */
-registerBlockType(name, {
-	apiVersion,
+const blockName = 'ark-block-notice';
+registerBlockType(metadata.name, {
 	title: __('Notice', 'arkhe-blocks'),
 	description: __('Create content that is prominently emphasized.', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
 		src: blockIcon,
 	},
-	category,
-	keywords,
-	supports,
 	styles: [
 		{ name: 'default', label: __('Default', 'arkhe-blocks'), isDefault: true },
 		{ name: 'stronger', label: __('Stronger', 'arkhe-blocks') },
@@ -94,7 +86,7 @@ registerBlockType(name, {
 					const innerP = createBlock('core/paragraph', {
 						content: attributes.content,
 					});
-					return createBlock(name, { className: 'is-style-simple' }, [innerP]);
+					return createBlock(metadata.name, { className: 'is-style-simple' }, [innerP]);
 				},
 			},
 		],
@@ -105,7 +97,7 @@ registerBlockType(name, {
 
 		let blockClass = blockName;
 		if (type) {
-			blockClass = classnames(blockClass, `-${type}`);
+			blockClass = `${blockClass} -${type}`;
 		}
 
 		// アイコン選択時の処理
@@ -149,7 +141,7 @@ registerBlockType(name, {
 											});
 										}}
 									>
-										<ArkheSVG icon={data.icon} />
+										<ArkheSVG icon={data.icon} size='20' />
 									</Button>
 								);
 							})}
@@ -161,7 +153,7 @@ registerBlockType(name, {
 				</InspectorControls>
 				<div {...blockProps}>
 					<div className={`${blockName}__head`}>
-						<ArkheIcon icon={icon} className={`${blockName}__icon`} />
+						<ArkheIcon icon={icon} className={`${blockName}__icon`} size='20' />
 						<RichText
 							tagName='span'
 							className={`${blockName}__title`}
@@ -181,7 +173,7 @@ registerBlockType(name, {
 
 		let blockClass = blockName;
 		if (type) {
-			blockClass = classnames(blockClass, `-${type}`);
+			blockClass = `${blockClass} -${type}`;
 		}
 
 		const blockProps = useBlockProps.save({
@@ -194,7 +186,7 @@ registerBlockType(name, {
 		return (
 			<div {...blockProps}>
 				<div className={`${blockName}__head`}>
-					<ArkheIcon icon={icon} className={`${blockName}__icon`} />
+					<ArkheIcon icon={icon} className={`${blockName}__icon`} size='20' />
 					{!isSimpleStyle && (
 						<RichText.Content
 							tagName='span'
@@ -209,4 +201,5 @@ registerBlockType(name, {
 			</div>
 		);
 	},
+	deprecated,
 });
