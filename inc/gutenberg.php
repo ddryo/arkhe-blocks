@@ -30,12 +30,13 @@ function register_blocks() {
 		'accordion',
 		'notice',
 	];
+	$deps   = is_admin() ? 'arkhe-blocks-editor' : 'arkhe-blocks-front';
 	foreach ( $blocks as $name ) {
 		// if ( \Arkhe_Blocks::is_use( $name ) ) {}
 		wp_register_style(
 			"arkhe-blocks-{$name}-style",
 			ARKHE_BLOCKS_URL . "dist/gutenberg/blocks/{$name}/index.css",
-			[ 'arkhe-blocks-front' ],
+			[ $deps ],
 			\Arkhe_Blocks::$file_ver
 		);
 	}
