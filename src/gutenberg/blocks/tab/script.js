@@ -3,7 +3,6 @@
 /* eslint @wordpress/no-global-event-listener: 0 */
 document.addEventListener('DOMContentLoaded', function () {
 	const tabButtons = document.querySelectorAll('.arkb-tabList__button');
-	console.log(tabButtons);
 	tabButtons.forEach((tabBtn) => {
 		tabBtn.addEventListener('click', function (e) {
 			tabControl(e);

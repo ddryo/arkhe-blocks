@@ -153,10 +153,10 @@ registerBlockType(metadata.name, {
 						data-opened={isDefultOpen ? 'true' : 'false'}
 					>
 						<span className='__closed'>
-							<ArkheSVG icon={iconClosed} size='24px' />
+							<ArkheSVG icon={iconClosed} size='24' />
 						</span>
 						<span className='__opened'>
-							<ArkheSVG icon={iconOpened} size='24px' />
+							<ArkheSVG icon={iconOpened} size='24' />
 						</span>
 					</span>
 				</div>
