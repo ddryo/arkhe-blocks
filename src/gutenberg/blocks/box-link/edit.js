@@ -9,7 +9,7 @@ import {
 	useState,
 	useEffect,
 } from '@wordpress/element';
-
+// import { useSelect } from '@wordpress/data';
 import {
 	RichText,
 	BlockControls,
@@ -217,6 +217,8 @@ export default (props) => {
 		}
 	);
 
+	// const allFormatTypes = useSelect((select) => select('core/rich-text').getFormatTypes(), []);
+	// console.log(allFormatTypes);
 	return (
 		<>
 			<BlockControls>
@@ -253,6 +255,7 @@ export default (props) => {
 							className={`arkb-boxLink__title is-empty-${RichText.isEmpty(title)}`}
 							placeholder={__('Enter text', 'arkhe-blocks') + '...'}
 							value={title}
+							// allowedFormats={['core/bold', 'core/italic']}
 							onChange={(newTitle) => setAttributes({ title: newTitle })}
 						/>
 						<div {...innerBlocksProps} />

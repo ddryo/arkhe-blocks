@@ -9,7 +9,7 @@ import {
 	__experimentalLinkControl as LinkControl,
 } from '@wordpress/block-editor';
 import { ToolbarButton, ToolbarGroup, Popover } from '@wordpress/components';
-import { Icon, alignCenter, link, closeSmall } from '@wordpress/icons';
+import { Icon, alignCenter, link, linkOff, closeSmall } from '@wordpress/icons';
 
 /**
  * @Internal dependencies
@@ -72,10 +72,26 @@ export default (props) => {
 					name='link'
 					icon={<Icon icon={link} />}
 					title={__('Link')}
+					// isPressed={!!href}
 					onClick={() => {
 						setIsURLPickerOpen(true);
 					}}
 				/>
+				{!!href && (
+					<ToolbarButton
+						className='components-toolbar__control'
+						label={__('Delete link', 'arkhe-blocks')}
+						icon={linkOff}
+						isPressed
+						onClick={() => {
+							setAttributes({
+								href: undefined,
+								isNewTab: false,
+								rel: undefined,
+							});
+						}}
+					/>
+				)}
 			</ToolbarGroup>
 			{/* リンク設定用のポップオーバー */}
 			{isURLPickerOpen && (
@@ -94,7 +110,9 @@ export default (props) => {
 								rel: newRel,
 							});
 						}}
-					/>
+					>
+						<div>aaa</div>
+					</LinkControl>
 				</Popover>
 			)}
 			{/* {!imgUrl && (
@@ -118,15 +136,15 @@ export default (props) => {
 			)} */}
 			{!!imgUrl && (
 				<>
-					<MediaReplaceFlow
-						mediaId={imgId}
-						mediaURL={imgUrl}
-						allowedTypes={['image']}
-						accept='image/*'
-						onSelect={onSelectImage}
-						onSelectURL={onSelectURL}
-					/>
 					<ToolbarGroup>
+						<MediaReplaceFlow
+							mediaId={imgId}
+							mediaURL={imgUrl}
+							allowedTypes={['image']}
+							accept='image/*'
+							onSelect={onSelectImage}
+							onSelectURL={onSelectURL}
+						/>
 						<ToolbarButton
 							className='components-toolbar__control'
 							label={__('Delete image', 'arkhe-blocks')}

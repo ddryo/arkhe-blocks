@@ -118,15 +118,17 @@ export default function ({ attributes }) {
 	const blockProps = useBlockProps.save({
 		className: blockClass,
 	});
-	const InnerTag = !!href ? 'a' : 'div';
+
+	const isLink = !!href;
+	const InnerTag = isLink ? 'a' : 'div';
 
 	return (
 		<div {...blockProps}>
 			<InnerTag
 				href={href}
 				className='arkb-boxLink__inner'
-				rel={rel}
-				target={isNewTab ? '_blank' : null}
+				rel={isLink && rel ? rel : null}
+				target={isLink && isNewTab ? '_blank' : null}
 			>
 				{figureContent}
 				<div className='arkb-boxLink__body'>

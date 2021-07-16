@@ -7,30 +7,23 @@ import { registerBlockType } from '@wordpress/blocks';
 /**
  * @Internal dependencies
  */
-import { iconColor } from '@blocks/config';
+import metadata from './block.json';
 import edit from './edit';
 import save from './save';
 import deprecated from './deprecated';
-import metadata from './block.json';
 import blockIcon from './_icon';
 import example from './_example';
+import { iconColor } from '@blocks/config';
 
 /**
  * registerBlockType
  */
-const { apiVersion, name, category, keywords, supports, parent } = metadata;
-
-registerBlockType(name, {
-	apiVersion,
+registerBlockType(metadata.name, {
 	title: __('Box link', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
 		src: blockIcon.vertical,
 	},
-	category,
-	keywords,
-	supports,
-	parent,
 	example,
 	attributes: metadata.attributes,
 	styles: [

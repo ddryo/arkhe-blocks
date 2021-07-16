@@ -41,18 +41,12 @@ import classnames from 'classnames';
  * registerBlockType
  */
 const blockName = 'ark-block-boxLinks';
-const { apiVersion, name, category, keywords, supports } = metadata;
-
-registerBlockType(name, {
-	apiVersion,
+registerBlockType(metadata.name, {
 	title: __('Box links', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
 		src: blockIcon,
 	},
-	category,
-	keywords,
-	supports,
 	attributes: metadata.attributes,
 	example,
 	edit: (props) => {
