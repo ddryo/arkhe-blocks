@@ -24,6 +24,15 @@ function register_blocks() {
 
 	register_arkhe_blocks();
 	register_arkhe_dynamic_blocks();
+
+	// style切り分けてるブロック
+	$blocks = [
+		'accordion',
+	];
+	foreach ( $blocks as $name ) {
+		// if ( \Arkhe_Blocks::is_use( $name ) ) {}
+		wp_register_style( "arkhe-blocks-{$name}-style", ARKHE_BLOCKS_URL . "dist/gutenberg/blocks/{$name}/index.css", [], \Arkhe_Blocks::$file_ver );
+	}
 }
 
 
@@ -94,9 +103,7 @@ function register_arkhe_blocks() {
 	}
 
 	foreach ( $arkhe_blocks as $block_name ) {
-		register_block_type_from_metadata(
-			ARKHE_BLOCKS_PATH . 'src/gutenberg/blocks/' . $block_name
-		);
+		register_block_type_from_metadata( ARKHE_BLOCKS_PATH . 'src/gutenberg/blocks/' . $block_name );
 	}
 }
 

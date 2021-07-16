@@ -10,26 +10,16 @@ import {
 	useBlockProps,
 	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
 } from '@wordpress/block-editor';
-import { PanelBody, BaseControl, ButtonGroup, Button } from '@wordpress/components';
+import { PanelBody, BaseControl, ButtonGroup, Button, ToggleControl } from '@wordpress/components';
 
 /**
  * @Internal dependencies
  */
-import { ArkheSVG } from '@components/ArkheSVG';
-import { iconColor } from '@blocks/config';
 import metadata from './block.json';
+import deprecated from './deprecated';
 import blockIcon from './_icon';
-
-/**
- * @Others dependencies
- */
-// import classnames from 'classnames';
-
-/**
- * metadata
- */
-const blockName = 'ark-block-accordion';
-const { apiVersion, name, category, supports, parent } = metadata;
+import { iconColor } from '@blocks/config';
+import { ArkheSVG } from '@components/ArkheSVG';
 
 /**
  * 設定
@@ -48,23 +38,19 @@ const iconSets = [
 /**
  * アコーディオン項目ブロック
  */
-registerBlockType(name, {
-	apiVersion,
+const blockName = 'ark-block-accordion';
+registerBlockType(metadata.name, {
 	title: __('Accordion item', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
 		src: blockIcon,
 	},
-	category,
-	parent,
-	supports,
-	// usesContext: ['arkhe-block/accordion/iconOpened', 'arkhe-block/accordion/iconClosed'],
 	attributes: metadata.attributes,
+	// usesContext: ['arkhe-block/accordion/iconOpened', 'arkhe-block/accordion/iconClosed'],
 	edit: ({ attributes, setAttributes }) => {
 		// const iconOpened = context['arkhe-block/accordion/iconOpened'];
 		// const iconClosed = context['arkhe-block/accordion/iconClosed'];
-
-		const { iconOpened, iconClosed } = attributes;
+		const { iconOpened, iconClosed, isDefultOpen } = attributes;
 
 		const blockProps = useBlockProps({
 			className: `${blockName}__item`,
@@ -110,6 +96,13 @@ registerBlockType(name, {
 								})}
 							</ButtonGroup>
 						</BaseControl>
+						<ToggleControl
+							label={__('デフォルトで開いた状態にする', 'arkhe-blocks')}
+							checked={isDefultOpen}
+							onChange={(value) => {
+								setAttributes({ isDefultOpen: value });
+							}}
+						/>
 					</PanelBody>
 				</InspectorControls>
 				<div {...blockProps}>
@@ -141,11 +134,11 @@ registerBlockType(name, {
 		);
 	},
 	save: ({ attributes }) => {
-		const { title, iconOpened, iconClosed } = attributes;
+		const { title, iconOpened, iconClosed, isDefultOpen } = attributes;
 
 		const blockProps = useBlockProps.save({
 			className: `${blockName}__item`,
-			'aria-expanded': 'false',
+			'aria-expanded': isDefultOpen ? 'true' : 'false',
 		});
 
 		return (
@@ -154,20 +147,28 @@ registerBlockType(name, {
 					<span className={`${blockName}__label`}>
 						<RichText.Content value={title} />
 					</span>
-					<span className={`${blockName}__icon`} aria-hidden='true' data-opened='false'>
+					<span
+						className={`${blockName}__icon`}
+						aria-hidden='true'
+						data-opened={isDefultOpen ? 'true' : 'false'}
+					>
 						<span className='__closed'>
-							<ArkheSVG icon={iconClosed} />
+							<ArkheSVG icon={iconClosed} size='24px' />
 						</span>
 						<span className='__opened'>
-							<ArkheSVG icon={iconOpened} />
+							<ArkheSVG icon={iconOpened} size='24px' />
 						</span>
 					</span>
 				</div>
 
-				<div className={`${blockName}__body ark-keep-mt--s`} aria-hidden='true'>
+				<div
+					className={`${blockName}__body ark-keep-mt--s`}
+					aria-hidden={isDefultOpen ? 'false' : 'true'}
+				>
 					<InnerBlocks.Content />
 				</div>
 			</div>
 		);
 	},
+	deprecated,
 });

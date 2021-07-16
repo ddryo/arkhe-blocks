@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 
-export const ArkheSVG = ({ icon, className }) => {
+export const ArkheSVG = ({ icon, className, size = null }) => {
 	let path;
 	switch (icon) {
 		case 'arkb-svg-check':
@@ -175,6 +175,8 @@ export const ArkheSVG = ({ icon, className }) => {
 			role='img'
 			focusable='false'
 			xmlns='http://www.w3.org/2000/svg'
+			width={size || null}
+			height={size || null}
 		>
 			{path}
 		</svg>

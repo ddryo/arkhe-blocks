@@ -13,5 +13,6 @@
     },
     "attributes": {},
     "editorScript": "file:../../../../dist/gutenberg/blocks/accordion/index.js",
+    "style": "arkhe-blocks-accordion-style",
     "textdomain": "arkhe-blocks"
 }

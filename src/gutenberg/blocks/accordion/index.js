@@ -14,37 +14,28 @@ import {
 /**
  * @Internal dependencies
  */
-import { iconColor } from '@blocks/config';
 import metadata from './block.json';
-import blockIcon from './_icon';
 import example from './_example';
+import blockIcon from './_icon';
+import { iconColor } from '@blocks/config';
 import { ArkheMarginControl } from '@components/ArkheMarginControl';
 
 /**
- * @Others dependencies
+ * style
  */
-// import classnames from 'classnames';
-
-/**
- * metadata
- */
-const blockName = 'ark-block-accordion';
-const { apiVersion, name, category, keywords, supports } = metadata;
+import './scss/index.scss';
 
 /**
  * アコーディオン
  */
-registerBlockType(name, {
-	apiVersion,
+const blockName = 'ark-block-accordion';
+registerBlockType(metadata.name, {
 	title: __('Accordion', 'arkhe-blocks'),
 	description: __('Create content that can be expanded with a click.', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
 		src: blockIcon,
 	},
-	category,
-	keywords,
-	supports,
 	// providesContext :{
 	//     "arkhe-block/accordion/iconOpened": "iconOpened",
 	//     "arkhe-block/accordion/iconClosed": "iconClosed"

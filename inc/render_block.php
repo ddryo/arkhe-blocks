@@ -11,3 +11,9 @@ function render_tab( $block_content ) {
 	$block_content = str_replace( ' data-onclick="tabControl"', '', $block_content );
 	return $block_content;
 }
+
+add_filter( 'render_block_arkhe-blocks/accordion', __NAMESPACE__ . '\render_accordion' );
+function render_accordion( $block_content ) {
+	\Arkhe_Blocks::$use['accordion'] = true;
+	return $block_content;
+}

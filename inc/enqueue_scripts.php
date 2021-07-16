@@ -39,6 +39,9 @@ function hook_enqueue_footer() {
 	if ( \Arkhe_Blocks::is_use( 'tab' ) ) {
 		wp_enqueue_script( 'arkhe-blocks-tab-script', ARKHE_BLOCKS_URL . 'dist/gutenberg/blocks/tab/script.js', [], \Arkhe_Blocks::$file_ver, true );
 	}
+	if ( \Arkhe_Blocks::is_use( 'accordion' ) ) {
+		wp_enqueue_script( 'arkhe-blocks-accordion-script', ARKHE_BLOCKS_URL . 'dist/gutenberg/blocks/accordion/script.js', [], \Arkhe_Blocks::$file_ver, true );
+	}
 }
 
 

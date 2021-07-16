@@ -25,6 +25,10 @@
         "iconClosed": {
             "type": "string",
             "default": "arkb-svg-plus"
+        },
+        "isDefultOpen": {
+            "type": "boolean",
+            "default": false
         }
     },
     "editorScript": "file:../../../../dist/gutenberg/blocks/accordion-item/index.js",
