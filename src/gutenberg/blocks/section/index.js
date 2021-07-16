@@ -11,26 +11,27 @@ import {
 	InnerBlocks,
 	useBlockProps,
 	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
-	__experimentalBlockAlignmentMatrixToolbar as BlockAlignmentMatrixToolbar,
+	__experimentalBlockAlignmentMatrixToolbar,
+	__experimentalBlockAlignmentMatrixControl,
 } from '@wordpress/block-editor';
 
-import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
+import { ToolbarButton } from '@wordpress/components';
 // import { Icon, fullscreen } from '@wordpress/icons';
 
 /**
  * @Internal dependencies
  */
-import { iconColor } from '@blocks/config';
 import metadata from './block.json';
 import deprecated from './deprecated';
 import blockIcon from './_icon';
 import example from './_example';
 import TheSidebar from './_sidebar';
+import { iconColor } from '@blocks/config';
 import { SectionSVG } from './components/SectionSVG';
 import { BgMedia } from './components/BgMedia';
 import { ArkheMarginControl } from '@components/ArkheMarginControl';
-// import { getPositionClassName } from '@helper/getPositionClassName';
 import { getBlockStyle, getColorStyle, getSvgData } from './_helper';
+// import { getPositionClassName } from '@helper/getPositionClassName';
 
 /**
  * @others dependencies
@@ -39,25 +40,16 @@ import classnames from 'classnames';
 // import hexToRgba from 'hex-to-rgba';
 
 /**
- * metadata
+ * registerBlockType
  */
 const blockName = 'ark-block-section';
-const { apiVersion, name, category, keywords, supports } = metadata;
-
-/**
- * カスタムブロックの登録
- */
-registerBlockType(name, {
-	apiVersion,
+registerBlockType(metadata.name, {
 	title: __('Section', 'arkhe-blocks'),
 	description: __('Create a content area to use as a section.', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
 		src: blockIcon.block,
 	},
-	category,
-	keywords,
-	supports,
 	example,
 	attributes: metadata.attributes,
 	edit: ({ attributes, setAttributes, isSelected, clientId }) => {
@@ -151,34 +143,37 @@ registerBlockType(name, {
 			[contentPosition]
 		);
 
+		const BlockAlignmentMatrixControl =
+			__experimentalBlockAlignmentMatrixControl || __experimentalBlockAlignmentMatrixToolbar;
+
 		return (
 			<>
-				<BlockControls>
+				<BlockControls group='block'>
 					{'full' === align && (
 						<>
-							<ToolbarGroup>
-								<ToolbarButton
-									className={classnames('components-toolbar__control', {
-										'is-pressed': 'full' === innerSize,
-									})}
-									label={__('To full-width content', 'arkhe-blocks')}
-									icon={blockIcon.fullInner}
-									onClick={() => {
-										if ('full' !== innerSize) {
-											setAttributes({ innerSize: 'full' });
-										} else {
-											setAttributes({ innerSize: '' });
-										}
-									}}
-								/>
-							</ToolbarGroup>
+							<ToolbarButton
+								className={classnames('components-toolbar__control', {
+									'is-pressed': 'full' === innerSize,
+								})}
+								label={__('To full-width content', 'arkhe-blocks')}
+								icon={blockIcon.fullInner}
+								onClick={() => {
+									if ('full' !== innerSize) {
+										setAttributes({ innerSize: 'full' });
+									} else {
+										setAttributes({ innerSize: '' });
+									}
+								}}
+							/>
+							<BlockAlignmentMatrixControl
+								label={__('Change content position')}
+								value={contentPosition}
+								onChange={setPosition}
+							/>
 						</>
 					)}
-					<BlockAlignmentMatrixToolbar
-						label={__('Change content position')}
-						value={contentPosition}
-						onChange={setPosition}
-					/>
+				</BlockControls>
+				<BlockControls>
 					<ArkheMarginControl {...{ className: attributes.className, setAttributes }} />
 				</BlockControls>
 				<InspectorControls>

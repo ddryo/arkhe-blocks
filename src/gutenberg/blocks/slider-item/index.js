@@ -47,17 +47,12 @@ const scrollToSelectedSlide = (clientId, direction) => {
 /**
  * registerBlockType
  */
-const { apiVersion, name, category, supports, parent } = metadata;
-registerBlockType(name, {
-	apiVersion,
+registerBlockType(metadata.name, {
 	title: __('Slider content', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
 		src: blockIcon,
 	},
-	category,
-	parent,
-	supports,
 	attributes: metadata.attributes,
 
 	edit: (props) => {

@@ -7,7 +7,8 @@ import {
 	useBlockProps,
 	MediaPlaceholder,
 	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
-	__experimentalBlockAlignmentMatrixToolbar as BlockAlignmentMatrixToolbar,
+	__experimentalBlockAlignmentMatrixToolbar,
+	__experimentalBlockAlignmentMatrixControl,
 } from '@wordpress/block-editor';
 import { Icon } from '@wordpress/icons';
 import { useCallback } from '@wordpress/element';
@@ -129,10 +130,13 @@ export const RichEdit = ({ attributes, setAttributes }) => {
 		}
 	);
 
+	const BlockAlignmentMatrixControl =
+		__experimentalBlockAlignmentMatrixControl || __experimentalBlockAlignmentMatrixToolbar;
+
 	return (
 		<>
-			<BlockControls>
-				<BlockAlignmentMatrixToolbar
+			<BlockControls group='block'>
+				<BlockAlignmentMatrixControl
 					label={__('Change content position')}
 					value={contentPosition}
 					onChange={(nextPosition) => {
