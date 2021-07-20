@@ -3,8 +3,8 @@ Contributors: looswebstudio
 Donate link: https://arkhe-theme.com/
 Tags: blocks, editor, Guternberg, arkhe
 Requires at least: 5.6
-Tested up to: 5.7
-Stable tag: 1.3.0
+Tested up to: 5.8
+Stable tag: 1.4.0
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -18,9 +18,11 @@ A plugin that extends Gutenberg, optimized for the "Arkhe" theme.
 The following blocks will be available.
 
 - Accordion
-- Description list ("dl" tag)
+- Description List ("dl" tag)
 - Q&A
 - Notice
+- Section
+- Section Heading
 
 The added blocks has a simple design.
 Please customize it to your favorite design using CSS.
@@ -43,6 +45,10 @@ This plugin can be installed directly from your site.
 
 
 == Changelog ==
+
+= 1.4.0 =
+- Support for WordPress 5.8.
+- Added "Section" block.
 
 = 1.3.0 =
 - Support for WordPress 5.7.

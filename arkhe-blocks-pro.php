@@ -20,10 +20,14 @@ defined( 'ABSPATH' ) || exit;
 
 
 /**
- * 定数定義
+ * 定数定義 ( PRO版と2つ有効になった時にエラーにならないようにdefined )
  */
-define( 'ARKHE_BLOCKS_URL', plugins_url( '/', __FILE__ ) );
-define( 'ARKHE_BLOCKS_PATH', plugin_dir_path( __FILE__ ) );
+if ( ! defined( 'ARKHE_BLOCKS_URL' ) ) {
+	define( 'ARKHE_BLOCKS_URL', plugins_url( '/', __FILE__ ) );
+}
+if ( ! defined( 'ARKHE_BLOCKS_PATH' ) ) {
+	define( 'ARKHE_BLOCKS_PATH', plugin_dir_path( __FILE__ ) );
+}
 
 
 /**

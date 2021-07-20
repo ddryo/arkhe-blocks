@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) || exit;
 
 class Data {
 
-	// is pro
+	// zip化で自動書き換え
 	const IS_PRO = true;
 
 	// DB名

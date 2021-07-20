@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#使い方 : $ bash ./bin/zip_free.sh 1-2-0
+#使い方 : $ bash ./bin/zip_free.sh 1-4-0
 
 #引数 : プラグインのバージョン
 version=$1
@@ -24,7 +24,6 @@ zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/*/blocks/blog-card*"
 zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/*/blocks/column*"
 zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/*/blocks/page-list*"
 zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/*/blocks/post-list*"
-zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/*/blocks/section*"
 zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/*/blocks/step*"
 zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/*/blocks/tab*"
 zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/*/blocks/timeline*"
@@ -33,6 +32,8 @@ zip --delete arkhe-blocks.zip  "arkhe-blocks-pro/*/blocks/rss*"
 #zipファイルを移動
 mv arkhe-blocks.zip ./arkhe-blocks-free/arkhe-blocks.zip
 cd ./arkhe-blocks-free
+
+# 前回展開したファイルを削除
 rm -rf arkhe-blocks
 
 # 一度解答
