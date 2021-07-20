@@ -47,10 +47,8 @@ sed -i '' -e "s/Arkhe Blocks Pro/Arkhe Blocks/g" arkhe-blocks/arkhe-blocks.php
 #IS_PROのセットミスを防止する
 sed -i '' -e "s/IS_PRO = true/IS_PRO = false/g" arkhe-blocks/classes/Data.php
 
-# style.css のバージョン書き換え
+# バージョン書き換え
 sed -i '' -e "s/Version: .*/Version: ${version}/g" arkhe-blocks/arkhe-blocks.php
-sed -i '' -e "s/date_i18n( 'mdGis' ) : .*/date_i18n( 'mdGis' ) : '${version}' );/g" arkhe-blocks/arkhe-blocks.php
-
 
 # readme.txt のバージョン書き換え
 sed -i '' -e "s/Stable tag: .*/Stable tag: ${version}/g" arkhe-blocks/readme.txt;
