@@ -23,22 +23,21 @@ $feed_link   = $feed_data['link'] ?? '';
 $feed_date   = $feed_data['date'] ?? '';
 $feed_author = $feed_data['author'] ?? '';
 
-$meta_args = [
-	'show_site'   => $show_site,
-	'show_date'   => $show_date,
-	'show_author' => $show_author,
-	'site_title'  => $site_title,
-	'favicon'     => $favicon,
-	'feed_date'   => $feed_date,
-	'feed_author' => $feed_author,
-];
-
 ?>
 <li class="<?php echo esc_attr( $list_class ); ?>">
 	<a href="<?php echo esc_url( $feed_link ); ?>" class="p-postList__link">
 		<div class="p-postList__body">
-			<?php \Arkhe_Blocks::get_part( 'rss/item/meta', $meta_args ); ?>
 			<?php
+				\Arkhe_Blocks::get_part( 'rss/item/meta', [
+					'show_site'   => $show_site,
+					'show_date'   => $show_date,
+					'show_author' => $show_author,
+					'site_title'  => $site_title,
+					'favicon'     => $favicon,
+					'feed_date'   => $feed_date,
+					'feed_author' => $feed_author,
+				] );
+
 				echo '<' . esc_attr( $h_tag ) . ' class="p-postList__title">';
 				echo esc_html( $feed_title );
 				echo '</' . esc_attr( $h_tag ) . '>';

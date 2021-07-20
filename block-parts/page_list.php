@@ -24,16 +24,12 @@ if ( $the_query->have_posts() ) :
 		?>
 			<li class="p-postList__item">
 				<a href="<?php the_permalink( $the_id ); ?>" class="p-postList__link">
-				<?php
-					\Arkhe::get_part(
-						'post_list/item/thumb',
-						[
+					<?php
+						\Arkhe::get_part( 'post_list/item/thumb', [
 							'post_id'     => $the_id,
-							'list_type'   => 'card',
-							'thumb_class' => 'p-postList__thumb',
-						]
-					);
-				?>
+							'sizes'   => '(min-width: 600px) 400px, 100vw',
+						] );
+					?>
 					<div class="p-postList__body">
 						<?php
 							echo '<' . esc_attr( $h_tag ) . ' class="p-postList__title">';

@@ -18,7 +18,6 @@
 
 defined( 'ABSPATH' ) || exit;
 
-
 // 5.0以下のエラー回避
 if ( ! function_exists( 'register_block_type' ) ) return;
 

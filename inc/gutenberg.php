@@ -156,6 +156,15 @@ function add_block_categories( $categories ) {
 			'icon'  => null,
 		],
 	];
-	array_splice( $categories, 3, 0, $my_category );
+
+	// ウィジェットの前にカテゴリーを追加する
+	foreach ( $categories as $index => $data ) {
+		$slug = $data['slug'] ?? '';
+		if ( 'widgets' === $slug ) {
+			array_splice( $categories, $index, 0, $my_category );
+			break;
+		}
+	}
+
 	return $categories;
 }
