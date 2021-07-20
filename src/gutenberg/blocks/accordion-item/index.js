@@ -97,7 +97,7 @@ registerBlockType(metadata.name, {
 							</ButtonGroup>
 						</BaseControl>
 						<ToggleControl
-							label={__('デフォルトで開いた状態にする', 'arkhe-blocks')}
+							label={__('Make it open by default', 'arkhe-blocks')}
 							checked={isDefultOpen}
 							onChange={(value) => {
 								setAttributes({ isDefultOpen: value });
