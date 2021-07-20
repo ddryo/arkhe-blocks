@@ -3,8 +3,6 @@ namespace Arkhe_Blocks\Gutenberg;
 
 defined( 'ABSPATH' ) || exit;
 
-// add_filter( 'should_load_separate_core_block_assets', '__return_true' );
-
 /**
  * ブロックの読み込み
  */
@@ -32,7 +30,6 @@ function register_blocks() {
 	];
 	$deps   = is_admin() ? 'arkhe-blocks-editor' : 'arkhe-blocks-front';
 	foreach ( $blocks as $name ) {
-		// if ( \Arkhe_Blocks::is_use( $name ) ) {}
 		wp_register_style(
 			"arkhe-blocks-{$name}-style",
 			ARKHE_BLOCKS_URL . "dist/gutenberg/blocks/{$name}/index.css",
@@ -140,7 +137,6 @@ function register_arkhe_dynamic_blocks() {
 		require_once __DIR__ . '/blocks/' . $block_name . '.php';
 	}
 }
-
 
 
 /**

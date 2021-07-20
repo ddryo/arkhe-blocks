@@ -18,10 +18,10 @@
 
 defined( 'ABSPATH' ) || exit;
 
-// 5.0以下のエラー回避
-if ( ! function_exists( 'register_block_type' ) ) return;
 
-// 定数定義
+/**
+ * 定数定義
+ */
 define( 'ARKHE_BLOCKS_URL', plugins_url( '/', __FILE__ ) );
 define( 'ARKHE_BLOCKS_PATH', plugin_dir_path( __FILE__ ) );
 
@@ -52,7 +52,7 @@ if ( ! class_exists( 'Arkhe_Blocks' ) ) {
 	class Arkhe_Blocks extends \Arkhe_Blocks\Data {
 
 		use \Arkhe_Blocks\Admin_Menu;
-		use \Arkhe_Blocks\Template_Parts;
+		use \Arkhe_Blocks\Parts;
 		use \Arkhe_Blocks\Utility;
 
 		public function __construct() {

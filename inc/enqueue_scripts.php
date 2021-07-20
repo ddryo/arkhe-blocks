@@ -10,7 +10,6 @@ defined( 'ABSPATH' ) || exit;
 add_action( 'wp_enqueue_scripts', '\Arkhe_Blocks\hook_wp_enqueue_scripts' );
 function hook_wp_enqueue_scripts() {
 	wp_enqueue_style( 'arkhe-blocks-front', ARKHE_BLOCKS_URL . 'dist/css/front.css', [], \Arkhe_Blocks::$file_ver );
-	// wp_enqueue_script( 'arkhe-blocks-front', ARKHE_BLOCKS_URL . 'dist/js/front.js', [], \Arkhe_Blocks::$file_ver, true );
 
 	// カスタムフォーマット用CSS
 	$custom_format_css = \Arkhe_Blocks::get_data( 'format', 'custom_format_css' );

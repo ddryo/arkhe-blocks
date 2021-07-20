@@ -1,7 +1,7 @@
 <?php
 namespace Arkhe_Blocks;
 
-trait Template_Parts {
+trait Parts {
 
 	/**
 	 * テンプレート読み込み
