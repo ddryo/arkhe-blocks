@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Arkhe Blocks\n"
-"POT-Creation-Date: 2021-07-20 15:30+0900\n"
-"PO-Revision-Date: 2021-07-20 15:31+0900\n"
+"POT-Creation-Date: 2021-07-20 16:09+0900\n"
+"PO-Revision-Date: 2021-07-20 16:10+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -1340,7 +1340,7 @@ msgid ""
 "The CSS written here is loaded on both the front side and the editor side."
 msgstr "ここに書いたCSSは、フロント側とエディター側の両方で読み込まれます。"
 
-#: inc/admin_menu/tab/general.php:11
+#: inc/admin_menu/tab/general.php:12
 msgid "Disable editor extensions"
 msgstr "エディター拡張機能の無効化"
 
@@ -1355,6 +1355,22 @@ msgstr "フォーマット拡張機能を無効化する"
 #: inc/admin_menu/tab/general.php:23
 msgid "Hide the link to the page placed on the header toolbar"
 msgstr "ヘッダーツールバーに設置しているページへのリンクを非表示にする"
+
+#: inc/admin_menu/tab/general.php:36
+msgid "Core Functions"
+msgstr "コア機能"
+
+#: inc/admin_menu/tab/general.php:44
+msgid "Enable the \"Custom Space\" feature."
+msgstr "「カスタムスペース」機能を有効化する"
+
+#: inc/admin_menu/tab/general.php:45
+msgid "Enable the \"Blocks for FSE\""
+msgstr "「FSE用のブロック」を有効化する"
+
+#: inc/admin_menu/tab/general.php:46
+msgid "Enable \"Core Block Patterns\""
+msgstr "「コアのブロックパターン」を有効化する"
 
 #: inc/admin_menu/tab/shortcode.php:12 inc/admin_menu/tab/shortcode.php:25
 msgid "Custom shortcode"
@@ -1423,9 +1439,6 @@ msgstr "https://loos.co.jp/"
 #~ msgid ""
 #~ "The ID is duplicated with other tab blocks. Please specify a different ID."
 #~ msgstr "他のタブブロックとIDが重複しています。別のIDを指定してください。"
-
-#~ msgid "Slider function"
-#~ msgstr "スライダーの機能"
 
 #~ msgid "Slide display settings"
 #~ msgstr "スライドの表示設定"
