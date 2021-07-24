@@ -38,6 +38,11 @@ import getColumnBasis from '@helper/getColumnBasis';
 import classnames from 'classnames';
 
 /**
+ * style
+ */
+import './scss/index.scss';
+
+/**
  * registerBlockType
  */
 const blockName = 'ark-block-boxLinks';

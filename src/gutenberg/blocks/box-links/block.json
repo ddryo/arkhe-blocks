@@ -29,5 +29,6 @@
         }
     },
     "editorScript": "file:../../../../dist/gutenberg/blocks/box-links/index.js",
+    "style": "arkhe-blocks-box-links-style",
     "textdomain": "arkhe-blocks"
 }

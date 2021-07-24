@@ -20,30 +20,21 @@ import getNewLinkRel from '@helper/getNewLinkRel';
 import { ArkheMarginControl } from '@components/ArkheMarginControl';
 
 /**
- * @Others dependencies
+ * style
  */
-// import classnames from 'classnames';
+import './scss/index.scss';
 
 /**
- * metadata
+ * registerBlockType
  */
 const blockName = 'ark-block-blogCard';
-const { apiVersion, name, category, keywords, supports } = metadata;
-
-/**
- * 関連記事ブロック
- */
-registerBlockType(name, {
-	apiVersion,
+registerBlockType(metadata.name, {
 	title: __('Blog card', 'arkhe-blocks'),
 	description: __('Create a card-type link for related articles.', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
 		src: blockIcon,
 	},
-	category,
-	keywords,
-	supports,
 	example,
 	attributes: metadata.attributes,
 	edit: (props) => {
@@ -147,7 +138,7 @@ registerBlockType(name, {
 		) : null;
 
 		const blockProps = useBlockProps({
-			className: blockName,
+			// className: blockName,
 		});
 
 		return (
@@ -227,7 +218,7 @@ registerBlockType(name, {
 				<div {...blockProps}>
 					{postId || externalUrl ? (
 						<ServerSideRender
-							block={name}
+							block={metadata.name}
 							attributes={attributes}
 							className={`${blockName}__preview`}
 						/>

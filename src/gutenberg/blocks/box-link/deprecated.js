@@ -21,7 +21,7 @@ export default [
 		supports: {
 			anchor: true,
 			className: false,
-			align: ['wide', 'full'],
+			reusable: false,
 		},
 		attributes: {
 			textAlign: {
@@ -181,7 +181,7 @@ export default [
 						{imgUrl && (
 							<figure className='arkb-boxLink__bg'>
 								<img
-									className={`arkb-boxLink__img u-obf-cover wp-image-${imgId}`}
+									className={`arkb-boxLink__img arkb-obf-cover wp-image-${imgId}`}
 									src={imgUrl}
 									alt={imgAlt}
 									width={imgW || null}
@@ -237,9 +237,9 @@ export default [
 					>
 						<img
 							className={classnames(`arkb-boxLink__img wp-image-${imgId}`, {
-								// 'u-obf-cover': fixRatio || !isVertical,
-								'u-obf-cover': (fixRatio || !isVertical) && !isContain,
-								'u-obf-contain': (fixRatio || !isVertical) && isContain,
+								// 'arkb-obf-cover': fixRatio || !isVertical,
+								'arkb-obf-cover': (fixRatio || !isVertical) && !isContain,
+								'arkb-obf-contain': (fixRatio || !isVertical) && isContain,
 							})}
 							src={imgUrl}
 							alt={imgAlt}
@@ -253,15 +253,17 @@ export default [
 			const blockProps = useBlockProps.save({
 				className: blockClass,
 			});
-			const InnerTag = !!href ? 'a' : 'div';
+
+			const isLink = !!href;
+			const InnerTag = isLink ? 'a' : 'div';
 
 			return (
 				<div {...blockProps}>
 					<InnerTag
 						href={href}
 						className='arkb-boxLink__inner'
-						rel={rel}
-						target={isNewTab ? '_blank' : null}
+						rel={isLink && rel ? rel : null}
+						target={isLink && isNewTab ? '_blank' : null}
 					>
 						{figureContent}
 						<div className='arkb-boxLink__body'>

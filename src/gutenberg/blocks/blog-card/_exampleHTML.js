@@ -16,7 +16,7 @@ const html = (
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit....
 				</div>
 				<div className='arkb-boxLink__more'>
-					<span className='arkb-boxLink__caption'>Site Name</span>
+					<span className='arkb-boxLink__more__text'>Site Name</span>
 				</div>
 			</div>
 		</div>

@@ -2,6 +2,13 @@
 	margin-top: -8px !important;
 }
 
+[data-type="arkhe-blocks/box-link"][data-has-icon="false"] {
+
+	.arkb-boxLink__more {
+		opacity: .2;
+	}
+}
+
 .arkb-btns--boxLayout {
 	display: flex;
 

@@ -48,10 +48,16 @@
             "default": 0
         },
         "imgUrl": {
-            "type": "string"
+            "type": "string",
+            "source": "attribute",
+            "selector": "img.arkb-boxLink__img",
+            "attribute": "src"
         },
         "imgAlt": {
-            "type": "string"
+            "type": "string",
+            "source": "attribute",
+            "selector": "img.arkb-boxLink__img",
+            "attribute": "alt"
         },
         "imgSize": {
             "type": "string",

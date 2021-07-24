@@ -23,7 +23,7 @@ $url    = $args['url'];
 $target = ( $args['is_newtab'] ) ? ' target="_blank"' : '';
 $rel    = $args['rel'] ? ' rel="' . $args['rel'] . '"' : '';
 
-$img_class = 'c-postThumb__img';
+$img_class = 'arkb-boxLink__img arkb-obf-cover';
 if ( $args['thumb_id'] ) {
 	$img_class .= ' wp-image-' . $args['thumb_id'];
 }
@@ -48,11 +48,9 @@ if ( $args['anchor'] ) {
 <div <?=$block_props?>>
 	<a href="<?=esc_url( $url )?>" class="arkb-boxLink__inner" data-type="<?=$args['type']?>"<?=$target . $rel?>>
 		<?php if ( $args['show_image'] && $args['thumb_url'] ) : ?>
-			<div class="arkb-boxLink__figure c-postThumb">
-				<figure class="c-postThumb__figure">
-					<img src="<?=esc_url( $args['thumb_url'] )?>" alt="" class="<?=esc_attr( $img_class )?>">
-				</figure>
-			</div>
+			<figure class="arkb-boxLink__figure is-fixed-ratio">
+				<img src="<?=esc_url( $args['thumb_url'] )?>" alt="" class="<?=esc_attr( $img_class )?>">
+			</figure>
 		<?php endif; ?>
 		<div class="arkb-boxLink__body">
 			<div class="arkb-boxLink__title"><?=esc_html( $args['title'] )?></div>
@@ -64,9 +62,9 @@ if ( $args['anchor'] ) {
 			<?php if ( $args['caption'] ) : ?>
 				<div class="arkb-boxLink__more">
 					<?php if ( $favicon ) : ?>
-						<img class="arkb-boxLink__favicon" src="<?=$favicon?>" alt="" aria-hidden="true">
+						<img class="arkb-boxLink__more__favicon" src="<?=$favicon?>" alt="" aria-hidden="true">
 					<?php endif; ?>
-					<span class="arkb-boxLink__caption"><?=esc_html( $args['caption'] )?></span>
+					<span class="arkb-boxLink__more__text"><?=esc_html( $args['caption'] )?></span>
 				</div>
 			<?php endif; ?>
 		</div>

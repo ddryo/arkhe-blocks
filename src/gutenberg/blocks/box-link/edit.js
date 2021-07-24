@@ -21,10 +21,11 @@ import {
 /**
  * @Internal dependencies
  */
-import { Figure } from './components/Figure';
-import { IconContent } from './components/IconContent';
+import blockIcon from './_icon';
 import TheSidebar from './_sidebar';
 import TheToolbar from './_toolbar';
+import { Figure } from './components/Figure';
+import { IconContent } from './components/IconContent';
 
 /**
  * @Others dependencies
@@ -40,6 +41,7 @@ export default (props) => {
 	const { attributes, setAttributes } = props;
 	const {
 		textAlign,
+		href,
 		useIcon,
 		icon,
 		iconSize,
@@ -183,6 +185,7 @@ export default (props) => {
 		const figureStyle = {};
 		if (isVertical && ratio) {
 			figureStyle.paddingTop = `${ratio}%`;
+			figureStyle['--ark-thumb_ratio'] = `${ratio}%`;
 		} else if (!isVertical && ratio) {
 			figureStyle.flexBasis = `${ratio}%`;
 		}
@@ -206,6 +209,7 @@ export default (props) => {
 
 	const blockProps = useBlockProps({
 		className: blockClass,
+		'data-has-icon': !!href,
 	});
 
 	const innerBlocksProps = useInnerBlocksProps(
@@ -260,20 +264,17 @@ export default (props) => {
 						/>
 						<div {...innerBlocksProps} />
 						{more && (
-							<div className='arkb-boxLink__more'>
-								<span className={`arkb-boxLink__more__text`}>{more}</span>
-								{showMoreArrow && (
-									<svg
-										className='arkb-boxLink__more__svg'
-										width='16'
-										height='16'
-										viewBox='0 0 32 32'
-										role='img'
-										focusable='false'
-									>
-										<path d='M30.4 16.664l-4.528-4.528-1.128 1.136 3.392 3.392h-26.536v1.6h28.8v-1.6z'></path>
-									</svg>
-								)}
+							<div
+								className='arkb-boxLink__more'
+								role='button'
+								tabIndex='0'
+								onKeyDown={() => {}}
+								onClick={() => {
+									setIsURLPickerOpen(true);
+								}}
+							>
+								<span className='arkb-boxLink__more__text'>{more}</span>
+								{showMoreArrow && blockIcon.moreArrow}
 							</div>
 						)}
 					</div>

@@ -68,5 +68,6 @@
         }
     },
     "editorScript": "file:../../../../dist/gutenberg/blocks/blog-card/index.js",
+    "style": "arkhe-blocks-blog-card-style",
     "textdomain": "arkhe-blocks"
 }

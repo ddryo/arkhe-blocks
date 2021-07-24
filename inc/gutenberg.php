@@ -26,6 +26,8 @@ function register_blocks() {
 	// style切り分けてるブロック
 	$blocks = [
 		'accordion',
+		'blog-card',
+		'box-links',
 		'notice',
 	];
 	$deps   = is_admin() ? 'arkhe-blocks-editor' : 'arkhe-blocks-front';
@@ -88,7 +90,7 @@ function register_arkhe_blocks() {
 	// Proブロック
 	if ( \Arkhe_Blocks::IS_PRO ) {
 		$arkhe_blocks_pro = [
-			'box-link',
+			// 'box-link',
 			'box-links',
 			'column',
 			'columns',
@@ -123,6 +125,7 @@ function register_arkhe_dynamic_blocks() {
 
 	if ( \Arkhe_Blocks::IS_PRO ) {
 		$dynamic_blocks_pro = [
+			'box-link',
 			'slider',
 			'slider-item',
 		];

@@ -11,4 +11,16 @@ export default {
 			<path d='M4,16.5v23C4,39.8,4.2,40,4.5,40h47c0.3,0,0.5-0.2,0.5-0.5v-23c0-0.3-0.2-0.5-0.5-0.5h-47C4.2,16,4,16.2,4,16.5z M50,38H26 V18h24V38z' />
 		</svg>
 	),
+	moreArrow: (
+		<svg
+			className='arkb-boxLink__more__svg'
+			width='16'
+			height='16'
+			viewBox='0 0 32 32'
+			role='img'
+			focusable='false'
+		>
+			<path d='M30.4 16.664l-4.528-4.528-1.128 1.136 3.392 3.392h-26.536v1.6h28.8v-1.6z'></path>
+		</svg>
+	),
 };

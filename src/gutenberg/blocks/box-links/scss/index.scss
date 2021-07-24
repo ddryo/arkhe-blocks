@@ -1,0 +1,141 @@
+.ark-block-boxLink {
+	box-shadow: var(--arkb-shadow);
+
+	// htagでも変わらないように。
+	.arkb-boxLink__title {
+		font-size: 1rem;
+	}
+}
+
+
+.arkb-boxLink__figure.-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 2rem 2rem 0;
+
+	svg {
+		display: block;
+		width: var(--arkb-boxlink_icon_size, 80px);
+		height: var(--arkb-boxlink_icon_size, 80px);
+		fill: currentColor;
+
+		path {
+			fill: inherit;
+		}
+	}
+
+	path {
+		fill: inherit;
+	}
+
+	i {
+		display: block;
+		font-size: var(--arkb-boxlink_icon_size, 80px);
+	}
+}
+
+.ark-block-boxLink.-horizontal {
+
+	.arkb-boxLink__inner {
+		flex-direction: row;
+		align-items: stretch;
+		// align-items: center;
+	}
+
+	.arkb-boxLink__figure {
+		flex: 1 0 40%;
+		// height: 100%;
+
+		&.-icon {
+			flex-basis: auto;
+			padding: 0 0 0 1.5rem;
+		}
+	}
+
+	.arkb-boxLink__body {
+		flex: 1 1 100%;
+	}
+}
+
+
+.arkb-boxLink.is-style-banner {
+	color: #fff;
+
+	.arkb-boxLink__inner {
+		position: relative;
+	}
+
+	.arkb-boxLink__figure {
+		z-index: 1;
+	}
+
+	.arkb-boxLink__body {
+		position: relative;
+		z-index: 1;
+		padding: 2rem 1.5rem;
+	}
+
+}
+
+.arkb-boxLink__bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 0;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+
+	// 未選択時
+	&.components-placeholder {
+		position: absolute;
+		z-index: 10;
+	}
+}
+
+.arkb-boxLink__layer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	display: block;
+	width: 100%;
+	height: 100%;
+	background-color: #000;
+	opacity: .5;
+}
+
+
+// more arrow
+.arkb-boxLink__more__svg {
+	margin: -2px 0 -2px .5em;
+	transition: transform .25s;
+	fill: currentColor;
+}
+
+// センター寄せ
+.arkb-boxLink.has-text-align-center {
+
+	.arkb-boxLink__more {
+		justify-content: center;
+	}
+
+	.arkb-boxLink__more__svg {
+		margin-right: -1em;
+	}
+}
+
+
+// 丸くする
+// .arkb-boxLink__figure.is-circle {
+// 	padding: 2rem 0 1rem;
+
+// 	img {
+// 		width: 140px;
+// 		height: 140px;
+// 		margin: 0 auto;
+// 		object-fit: cover;
+// 		border-radius: 50%;
+// 	}
+// }
