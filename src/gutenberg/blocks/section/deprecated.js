@@ -24,13 +24,138 @@ import classnames from 'classnames';
  * metadata
  */
 const blockName = 'ark-block-section';
+const oldSupports = {
+	anchor: true,
+	className: false,
+	align: ['wide', 'full'],
+};
 export default [
 	{
-		supports: {
-			anchor: true,
-			className: false,
-			align: ['wide', 'full'],
+		supports: oldSupports,
+		attributes: {
+			className: {
+				type: 'string',
+				default: '',
+			},
+			anchor: {
+				type: 'string',
+				default: '',
+			},
+			align: {
+				type: 'string',
+				default: 'full',
+			},
+			bgColor: {
+				type: 'string',
+			},
+			bgGradient: {
+				type: 'string',
+			},
+			opacity: {
+				type: 'number',
+				default: 100,
+			},
+			textColor: {
+				type: 'string',
+				default: '',
+			},
+			filter: {
+				type: 'string',
+				default: 'off',
+			},
+			media: {
+				type: 'object',
+				default: {
+					id: 0,
+					url: '',
+					type: '',
+					size: 'full',
+				},
+			},
+			mediaSP: {
+				type: 'object',
+				default: {
+					id: 0,
+					url: '',
+					type: '',
+					size: 'full',
+				},
+			},
+			focalPoint: {
+				type: 'object',
+			},
+			focalPointSP: {
+				type: 'object',
+			},
+			contentPosition: {
+				type: 'string',
+				default: 'center left',
+			},
+			innerSize: {
+				type: 'string',
+				default: '',
+			},
+			height: {
+				type: 'string',
+				default: 'content',
+			},
+			heightPC: {
+				type: 'string',
+				default: '400px',
+			},
+			heightSP: {
+				type: 'string',
+				default: '50vh',
+			},
+			paddingPC: {
+				type: 'object',
+				default: {
+					top: '4rem',
+					left: '2rem',
+					right: '2rem',
+					bottom: '4rem',
+				},
+			},
+			paddingSP: {
+				type: 'object',
+				default: {
+					top: '4rem',
+					left: '4vw',
+					right: '4vw',
+					bottom: '4rem',
+				},
+			},
+			isRepeat: {
+				type: 'boolean',
+				default: false,
+			},
+			bgSize: {
+				type: 'string',
+				default: '',
+			},
+			svgTop: {
+				type: 'object',
+				default: {
+					type: 'line',
+					level: 0,
+					color: '',
+				},
+			},
+			svgBottom: {
+				type: 'object',
+				default: {
+					type: 'line',
+					level: 0,
+					color: '',
+				},
+			},
 		},
+		save: () => {
+			return <InnerBlocks.Content />;
+		},
+	},
+	{
+		supports: oldSupports,
 		attributes: {
 			align: {
 				type: 'string',

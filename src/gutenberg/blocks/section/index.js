@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { useMemo, useCallback } from '@wordpress/element';
+import { useMemo, useCallback, RawHTML } from '@wordpress/element';
 import {
 	BlockControls,
 	InspectorControls,
@@ -31,7 +31,6 @@ import { SectionSVG } from './components/SectionSVG';
 import { BgMedia } from './components/BgMedia';
 import { ArkheMarginControl } from '@components/ArkheMarginControl';
 import { getBlockStyle, getColorStyle, getSvgData } from './_helper';
-// import { getPositionClassName } from '@helper/getPositionClassName';
 
 /**
  * @others dependencies
@@ -202,8 +201,65 @@ registerBlockType(metadata.name, {
 		);
 	},
 	// save: deprecated[0].save,
-	save: () => {
-		return <InnerBlocks.Content />;
+	save: ({ attributes }) => {
+		const {
+			media,
+			innerSize,
+			height,
+			svgTop,
+			svgBottom,
+			contentPosition,
+			filter,
+			isRepeat,
+		} = attributes;
+
+		// styleデータ
+		const style = getBlockStyle(attributes);
+
+		// svgデータ
+		const svgDataTop = getSvgData(svgTop);
+		const svgDataBottom = getSvgData(svgBottom);
+
+		// SVG分のpadding
+		if (0 !== svgDataTop.height) {
+			style['--arkb-svg-height--top'] = `${svgDataTop.height}vw`;
+		}
+		if (0 !== svgDataBottom.height) {
+			style['--arkb-svg-height--bottom'] = `${svgDataBottom.height}vw`;
+		}
+
+		// カラーレイヤーのスタイル
+		const colorStyle = getColorStyle(attributes);
+
+		// ブロックProps
+		const blockProps = useBlockProps.save({
+			className: classnames(blockName, {
+				'has-bg-img': !!media.url,
+			}),
+			style: style || null,
+			'data-height': height || null,
+			'data-inner': innerSize || null,
+		});
+
+		return (
+			<div {...blockProps}>
+				{media.url && !isRepeat && <RawHTML>{'<!-- media -->'}</RawHTML>}
+				<div className={`${blockName}__color arkb-absLayer`} style={colorStyle}></div>
+				{'off' !== filter && (
+					<div className={`c-filterLayer -filter-${filter} arkb-absLayer`}></div>
+				)}
+				<div
+					className={`${blockName}__body`}
+					data-content={contentPosition.replace(' ', '-')}
+				>
+					<div className={`${blockName}__bodyInner ark-keep-mt`}>
+						<InnerBlocks.Content />
+					</div>
+				</div>
+				<SectionSVG position='top' svgData={svgDataTop} />
+				<SectionSVG position='bottom' svgData={svgDataBottom} />
+			</div>
+		);
 	},
 	deprecated,
 });
