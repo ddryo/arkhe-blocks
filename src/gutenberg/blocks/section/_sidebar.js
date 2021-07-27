@@ -73,6 +73,7 @@ export default ({ attributes, setAttributes, isSelected }) => {
 		heightSP,
 		paddingPC,
 		paddingSP,
+		tag,
 		svgTop,
 		svgBottom,
 	} = attributes;
@@ -104,7 +105,25 @@ export default ({ attributes, setAttributes, isSelected }) => {
 
 	return (
 		<>
-			<PanelBody title={__('Background media setting', 'arkhe-blocks')} className='aaa'>
+			<PanelBody title={__('Tag setting', 'arkhe-blocks')}>
+				<SelectControl
+					value={tag}
+					options={[
+						{
+							label: '<div>',
+							value: 'div',
+						},
+						{
+							label: '<section>',
+							value: 'section',
+						},
+					]}
+					onChange={(val) => {
+						setAttributes({ tag: val });
+					}}
+				/>
+			</PanelBody>
+			<PanelBody title={__('Background media setting', 'arkhe-blocks')}>
 				{isRepeat && mediaUrl && (
 					<div className='arkb-imgPreview'>
 						<img src={mediaUrl} alt='' />

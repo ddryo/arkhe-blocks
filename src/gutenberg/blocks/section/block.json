@@ -108,6 +108,10 @@
             "type": "string",
             "default": ""
         },
+        "tag": {
+            "type": "string",
+            "default": "div"
+        },
         "svgTop": {
             "type": "object",
             "default": {
