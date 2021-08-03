@@ -103,16 +103,22 @@
 // ----------------------------------------
 [class*="is-style-ark-list-"] {
 	padding-left: 0 !important;
+	list-style: none !important;
 
-	> li {
-		position: relative;
+	ul,
+	ol {
+		padding-left: 0 !important;
 		list-style: none !important;
+	}
+
+	li {
+		position: relative;
 	}
 }
 
 [class*="is-style-ark-list-icon"] {
 
-	> li {
+	li {
 		padding-left: 1.75em;
 
 		&::before {
@@ -128,13 +134,17 @@
 			-moz-osx-font-smoothing: grayscale;
 		}
 
+		// 子リストは薄く表示
+		li::before {
+			opacity: .8;
+		}
 	}
 }
 
 .is-style-ark-list-icon--check {
 	--arkb-list_color_icon: #7dd872;
 
-	> li::before {
+	li::before {
 		content: "\e900";
 	}
 }
@@ -142,7 +152,7 @@
 .is-style-ark-list-icon--good {
 	--arkb-list_color_icon: #7dd872;
 
-	> li::before {
+	li::before {
 		content: "\e902";
 	}
 }
@@ -150,7 +160,7 @@
 .is-style-ark-list-icon--bad {
 	--arkb-list_color_icon: #ef6b6b;
 
-	> li::before {
+	li::before {
 		content: "\e901";
 	}
 }
@@ -162,7 +172,7 @@
 		opacity: .8;
 	}
 
-	> li {
+	li {
 		padding-left: 1em;
 
 		&::before {
@@ -194,10 +204,8 @@ ol.is-style-ark-list-note {
 	counter-reset: arkb-ct;
 
 	li {
-		position: relative;
 		padding-left: 2em;
-		line-height: 1.8 !important;
-		list-style: none !important;
+		line-height: 1.8;
 
 		&::before {
 			position: absolute;
@@ -209,7 +217,7 @@ ol.is-style-ark-list-note {
 			height: 1.8em;
 			padding: 0;
 			color: #fff;
-			line-height: inherit;
+			line-height: 1.8;
 			text-align: center;
 			background-color: var(--arkb-list_color_num);
 			border-radius: 50%;
@@ -232,7 +240,6 @@ ol.is-style-ark-list-note {
 
 
 	ol {
-		padding-left: 0 !important;
 		counter-reset: arkb-ct2;
 
 		// 子要素は塗り潰しではなくボーダー
@@ -258,7 +265,6 @@ ol.is-style-ark-list-note {
 	}
 
 	ul {
-		padding-left: 0 !important;
 
 		li {
 			padding-left: 1.25em;
