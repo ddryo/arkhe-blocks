@@ -15,8 +15,8 @@ zip -r arkhe-blocks-pro.zip arkhe-blocks-pro -x "*/.*" "*/__*" "*bin*" "*node_mo
 zip --delete arkhe-blocks-pro.zip  "arkhe-blocks-pro/composer*" "arkhe-blocks-pro/webpack*" "arkhe-blocks-pro/package*"
 
 #zipファイルを移動
-mv arkhe-blocks-pro.zip ./_version/arkhe-blocks-pro/arkhe-blocks-pro.zip
-cd ./_version/arkhe-blocks-pro
+mv arkhe-blocks-pro.zip ./arkhe-cdn/arkhe-blocks-pro.zip
+cd ./arkhe-cdn
 
 # 一度解答
 unzip arkhe-blocks-pro.zip
