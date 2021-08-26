@@ -106,12 +106,7 @@ registerBlockType(metadata.name, {
 		// エディタ上での開閉状態を管理
 		const [actTab, setActTab] = useState(activeTab);
 
-		const theTabId = useMemo(() => {
-			if (tabId) {
-				return tabId;
-			}
-			return clientId.substring(0, clientId.indexOf('-'));
-		}, [tabId, clientId]);
+		const theTabId = tabId || clientId.substring(0, clientId.indexOf('-'));
 
 		// 初回のみ タブIDをセット
 		useEffect(() => {
@@ -125,15 +120,16 @@ registerBlockType(metadata.name, {
 
 		// IDの二重登録チェック
 		useEffect(() => {
-			const sameIdBlocks = document.querySelectorAll(`[data-tabid="${tabId}"]`);
+			if (isExample) return;
+			const sameIdBlocks = document.querySelectorAll(`.ark-block-tab[data-tabid="${tabId}"]`);
 			if (sameIdBlocks.length > 1) {
-				const newID = clientId.split('-');
-				setAttributes({ tabId: newID[0] || '' });
+				const newID = clientId.substring(0, clientId.indexOf('-'));
+				setAttributes({ tabId: newID || '' });
 
 				// タブボディ側
 				const tabBodyIDs = getBlockOrder(clientId);
 				tabBodyIDs.forEach((_tabBodyID) => {
-					updateBlockAttributes(_tabBodyID, { tabId: newID[0] });
+					updateBlockAttributes(_tabBodyID, { tabId: newID });
 				});
 			}
 		}, [clientId]);
