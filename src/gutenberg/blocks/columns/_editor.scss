@@ -2,9 +2,6 @@
 
 .ark-block-columns {
 
-
-	// .ark-block-column {}
-
 	&.is-style-shadow > div > .ark-block-column {
 		// padding: 1rem;
 		background-color: #fff;
@@ -19,4 +16,9 @@
 	// .components-resizable-box__container {
 	// 	display: block !important;
 	// }
+}
+
+// 横幅設定の動きがわかりやすいように、 is-selected 時は青線見せる
+[data-type="arkhe-blocks/column"].is-selected::after {
+	box-shadow: 0 0 0 var(--wp-admin-border-width-focus) var(--wp-admin-theme-color);
 }

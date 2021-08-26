@@ -39,13 +39,11 @@
 	// flex-grow: 0;
 
 	@include tab {
-		--arkb-fb: var(--arkb-fb_tab);
-		// width: calc(var(--arkb-fb_tab) - var(--arkb-clmn-mrgn--x) * 2);
+		width: calc(var(--arkb-fb_tab) - var(--arkb-clmn-mrgn--x) * 2);
 	}
 
 	@include pc {
-		--arkb-fb: var(--arkb-fb_pc);
-		// width: calc(var(--arkb-fb_pc) - var(--arkb-clmn-mrgn--x) * 2);
+		width: calc(var(--arkb-fb_pc) - var(--arkb-clmn-mrgn--x) * 2);
 	}
 
 	&[data-valign="top"] {
