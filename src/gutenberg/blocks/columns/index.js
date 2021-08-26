@@ -2,7 +2,7 @@
  * @WordPress dependencies
  */
 import { __, _x } from '@wordpress/i18n';
-import { registerBlockType } from '@wordpress/blocks';
+import { createBlock, registerBlockType } from '@wordpress/blocks';
 import {
 	BlockControls,
 	InspectorControls,
@@ -39,30 +39,38 @@ import getColumnBasis from '@helper/getColumnBasis';
 import classnames from 'classnames';
 
 /**
- * metadata
- */
-const blockName = 'ark-block-columns';
-const { apiVersion, name, category, keywords, supports } = metadata;
-
-/**
  * リッチカラム
  */
-registerBlockType(name, {
-	apiVersion,
+const blockName = 'ark-block-columns';
+registerBlockType(metadata.name, {
 	title: __('Rich columns', 'arkhe-blocks'),
 	icon: {
 		foreground: iconColor,
 		src: blockIcon,
 	},
-	category,
-	keywords,
-	supports,
 	styles: [
 		{ name: 'default', label: __('Default', 'arkhe-blocks'), isDefault: true },
 		{ name: 'shadow', label: _x('Shadow', 'style', 'arkhe-blocks') },
 	],
 	example,
-	attributes: metadata.attributes,
+	transforms: {
+		from: [
+			//どのブロックタイプから変更できるようにするか
+			{
+				type: 'block',
+				blocks: ['core/columns'],
+				transform: (attributes, content) => {
+					const newInnerBlocks = [];
+					content.forEach((columnBlock) => {
+						newInnerBlocks.push(
+							createBlock('arkhe-blocks/column', {}, columnBlock.innerBlocks)
+						);
+					});
+					return createBlock(metadata.name, {}, newInnerBlocks);
+				},
+			},
+		],
+	},
 	edit: (props) => {
 		const { attributes, setAttributes } = props;
 		const { vAlign, colPC, colTab, colMobile, margin } = attributes;
