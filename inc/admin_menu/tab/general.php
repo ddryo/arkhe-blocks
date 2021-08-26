@@ -41,7 +41,7 @@ function cb_general( $args ) {
 ] );
 function cb_core_settings( $args ) {
 	$settings = [
-		'use_custom_space'  => __( 'Enable the "Custom Space" feature.', 'arkhe-blocks' ),
+		'use_custom_space'  => __( 'Enable the "Custom Space" feature', 'arkhe-blocks' ),
 		'use_fse_blocks'    => __( 'Enable the "Blocks for FSE"', 'arkhe-blocks' ),
 		'use_core_patterns' => __( 'Enable "Core Block Patterns"', 'arkhe-blocks' ),
 	];
