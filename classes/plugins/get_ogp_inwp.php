@@ -57,7 +57,7 @@ class Get_OGP_InWP {
 		$targets    = $targets ?: self::$default_targets;
 
 		$response = self::fetch( $url, $fetch_args );
-		if ( false === $response ) return [];
+		if ( ! $response ) return [];
 
 		return self::parse( $response, $targets );
 	}
