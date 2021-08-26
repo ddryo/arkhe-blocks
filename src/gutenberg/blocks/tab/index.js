@@ -10,7 +10,7 @@ import {
 	useBlockProps,
 	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
 } from '@wordpress/block-editor';
-import { RawHTML, useMemo, useEffect, useState, useCallback } from '@wordpress/element';
+import { RawHTML, useEffect, useState, useCallback } from '@wordpress/element';
 import {
 	useDispatch,
 	//useSelect,
